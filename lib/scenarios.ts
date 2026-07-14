@@ -3,30 +3,49 @@ import path from 'path';
 import { Scenario, HydratedCallSession, hydrateScenario } from './hydration';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
-const SCENARIOS_FILE = path.join(DATA_DIR, 'scenarios.json');
+const SCENARIOS_DIR = path.join(DATA_DIR, 'scenarios');
 const SEED_FILE = path.join(DATA_DIR, 'seed_scenarios.json');
 
 /**
  * Loads all scenarios from the local dataset.
- * Falls back to seed scenarios if the main file is empty or missing.
+ * Falls back to seed scenarios if the scenarios directory is empty or missing.
  */
 export function loadAllScenarios(): Scenario[] {
-  let filePath = SCENARIOS_FILE;
-  if (!fs.existsSync(filePath)) {
-    filePath = SEED_FILE;
+  if (fs.existsSync(SCENARIOS_DIR)) {
+    try {
+      const files = fs.readdirSync(SCENARIOS_DIR);
+      const scenarios: Scenario[] = [];
+      for (const file of files) {
+        if (file.endsWith('.json')) {
+          const filePath = path.join(SCENARIOS_DIR, file);
+          const rawData = fs.readFileSync(filePath, 'utf8');
+          const parsed = JSON.parse(rawData);
+          if (Array.isArray(parsed)) {
+            scenarios.push(...parsed);
+          } else {
+            scenarios.push(parsed);
+          }
+        }
+      }
+      if (scenarios.length > 0) {
+        return scenarios;
+      }
+    } catch (error) {
+      console.error('Error loading scenarios from scenarios directory:', error);
+    }
   }
 
-  if (!fs.existsSync(filePath)) {
-    return [];
+  // Fallback to seed file
+  if (fs.existsSync(SEED_FILE)) {
+    try {
+      const rawData = fs.readFileSync(SEED_FILE, 'utf8');
+      return JSON.parse(rawData) as Scenario[];
+    } catch (error) {
+      console.error('Error loading seed scenarios:', error);
+    }
   }
 
-  try {
-    const rawData = fs.readFileSync(filePath, 'utf8');
-    return JSON.parse(rawData) as Scenario[];
-  } catch (error) {
-    console.error('Error loading scenarios from disk:', error);
-    return [];
-  }
+  return [];
 }
 
 /**

@@ -5,6 +5,7 @@ const path = require('path');
 // Target directory and files
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const SCENARIOS_FILE = path.join(DATA_DIR, 'scenarios.json');
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const SEED_FILE = path.join(DATA_DIR, 'seed_scenarios.json');
 
 // Archetypes definition (11 archetypes, 20 scenarios each = 220 total)
@@ -27,8 +28,8 @@ const BATCH_SIZE = 5; // Generate 5 scenarios at a time to stay within limits an
 
 // Retrieve API Key
 function getApiKey() {
-  if (process.env.GEMINI_API_KEY) {
-    return process.env.GEMINI_API_KEY;
+  if (process.env.DEEPSEEK_API_KEY) {
+    return process.env.DEEPSEEK_API_KEY;
   }
 
   // Try reading .env or .env.local
@@ -37,7 +38,7 @@ function getApiKey() {
   for (const envPath of envPaths) {
     if (fs.existsSync(envPath)) {
       const content = fs.readFileSync(envPath, 'utf8');
-      const match = content.match(/GEMINI_API_KEY\s*=\s*(.*)/);
+      const match = content.match(/DEEPSEEK_API_KEY\s*=\s*(.*)/);
       if (match && match[1]) {
         return match[1].trim().replace(/['"]/g, '');
       }
@@ -50,7 +51,8 @@ function getApiKey() {
 // Helper to delay execution
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// OpenAPI schema definition for Gemini 2.0 response
+// OpenAPI schema definition for Gemini 2.0 / DeepSeek response
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const responseSchema = {
   type: 'ARRAY',
   description: 'A list of console-911 dispatcher game scenarios',
@@ -74,7 +76,7 @@ const responseSchema = {
         type: 'ARRAY',
         items: { type: 'STRING' },
         description:
-          "Exactly 3 distinct phrasing variations for the caller's initial message. Must contain slot variables in curly braces like {caller_name}, {victim_relation}, {address_location}, {ambient_audio}, or {specific_details}."
+          "Exactly 3 distinct phrasing variations for the caller's initial message (while in the 'initial' state). Must contain slot variables in curly braces."
       },
       slots: {
         type: 'OBJECT',
@@ -95,86 +97,103 @@ const responseSchema = {
           'specific_details'
         ]
       },
+      states: {
+        type: 'OBJECT',
+        description:
+          'Key-value map of valid states for this scenario. Must define "initial" (the starting state) and at least 2-3 other logical states (e.g. "hiding", "evacuated", "confronting", "secured", etc.) based on the narrative flow.',
+        additionalProperties: { type: 'STRING' }
+      },
       intents: {
         type: 'OBJECT',
         description:
-          'Mapped responses for matching intents. Specify only the intents that make sense for this call. Choose at least 3-4 intents from: ASK_LOCATION, ASK_DETAILS, ASK_CALLER_NAME, ASK_BREATHING, ASK_WEAPONS, TELL_CALM_DOWN, TELL_EVACUATE, TELL_STAY_PUT, TELL_FIRST_AID. All variation texts should support slots where relevant.',
+          'State-aware responses and transitions. Choose at least 3-4 intents from: ASK_LOCATION, ASK_DETAILS, ASK_CALLER_NAME, ASK_BREATHING, ASK_WEAPONS, TELL_CALM_DOWN, TELL_EVACUATE, TELL_STAY_PUT, TELL_FIRST_AID.',
         properties: {
           ASK_LOCATION: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: {
-                type: 'INTEGER',
-                description:
-                  'Score change (usually +10 to +30 for asking location in emergencies, or 0 to -10 for pranks)'
+              score_delta: { type: 'INTEGER' },
+              transitions: {
+                type: 'OBJECT',
+                description: 'Optional map of state transitions, e.g., {"initial": "evacuated"}'
+              },
+              responses: {
+                type: 'OBJECT',
+                description: 'Map of state keys to an array of hydrated dialogue strings.'
               }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           ASK_DETAILS: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           ASK_CALLER_NAME: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           ASK_BREATHING: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           ASK_WEAPONS: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           TELL_CALM_DOWN: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           TELL_EVACUATE: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           TELL_STAY_PUT: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           },
           TELL_FIRST_AID: {
             type: 'OBJECT',
             properties: {
-              variations: { type: 'ARRAY', items: { type: 'STRING' } },
-              score_delta: { type: 'INTEGER' }
+              score_delta: { type: 'INTEGER' },
+              transitions: { type: 'OBJECT' },
+              responses: { type: 'OBJECT' }
             },
-            required: ['variations', 'score_delta']
+            required: ['score_delta', 'responses']
           }
         }
       },
@@ -245,6 +264,7 @@ const responseSchema = {
       'difficulty',
       'initial_variations',
       'slots',
+      'states',
       'intents',
       'dispatch_outcomes'
     ]
@@ -253,22 +273,25 @@ const responseSchema = {
 
 // Generate a batch of scenarios for a specific archetype
 async function generateBatch(apiKey, archetype, count, existingTitles = []) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+  const url = `https://api.deepseek.com/chat/completions`;
 
   const prompt = `You are a creative writer and game design expert. Generate exactly ${count} distinct, highly creative, immersive, and text-based 911 dispatch game scenarios for the archetype: "${archetype}".
 Each scenario must be unique, with realistic dialogues and outcomes.
 Do NOT generate any of the following already existing titles for this archetype: ${JSON.stringify(existingTitles)}.
 
+You must return a JSON object with a single key "scenarios" containing the array of generated scenarios. Each scenario in the array must follow the specified structure.
+
 Make sure:
-1. "initial_variations" contains exactly 3-4 phrasings representing different emotional states of the caller (e.g. frantic, calm, speaking in code, panicking).
-2. The initial variations and intents MUST contain slot variables enclosed in curly braces like {caller_name}, {victim_relation}, {address_location}, {ambient_audio}, {specific_details}.
-3. Define 3-5 distinct slots (e.g. caller_name, victim_relation, address_location, ambient_audio, specific_details) with 3-5 options each.
-4. Create suitable "intents" mappings (with 3 phrasings each) for player queries. At least 3 intents must be mapped for each scenario.
-5. In "dispatch_outcomes", define realistic statuses ("SUCCESS", "MINOR_ERROR", "CRITICAL_FAILURE"), score deltas, and descriptive feedback messages for ALL 5 dispatch types: SEND_POLICE, SEND_FIRE, SEND_MEDICAL, ANIMAL_CONTROL, DISMISS. Adjust the points properly:
+1. Define a "states" map for each scenario containing at least 3-4 logical states: "initial" (the starting state) and others appropriate for the scenario (e.g. "hiding", "evacuated", "confronting", "secured").
+2. "initial_variations" contains exactly 3-4 phrasings representing different emotional states of the caller in the "initial" state.
+3. The initial variations and intents MUST contain slot variables enclosed in curly braces like {caller_name}, {victim_relation}, {address_location}, {ambient_audio}, {specific_details}.
+4. Define 3-5 distinct slots (e.g. caller_name, victim_relation, address_location, ambient_audio, specific_details) with 3-5 options each.
+5. In "intents", define state-aware mapped responses for player queries (ASK_LOCATION, ASK_DETAILS, etc.). For each intent, specify the "score_delta", any state "transitions" (e.g. {"initial": "hiding"} if the instruction changes the caller's action/posture), and the "responses" mapped for each valid state name (e.g. {"initial": ["variations..."], "hiding": ["variations..."]}). Ensure every state defined in "states" has corresponding response variations.
+6. In "dispatch_outcomes", define realistic statuses ("SUCCESS", "MINOR_ERROR", "CRITICAL_FAILURE"), score deltas, and descriptive feedback messages for ALL 5 dispatch types: SEND_POLICE, SEND_FIRE, SEND_MEDICAL, ANIMAL_CONTROL, DISMISS. Adjust the points properly:
    - Correct choice: +100 to +300 points
    - Minor errors: -50 to -150 points
    - Critical failures: -300 to -500 points
-6. Match the archetype closely:
+7. Match the archetype closely:
    - Life-Threatening Emergency: Real urgent life-and-death cases. SEND_MEDICAL, SEND_POLICE, or SEND_FIRE is SUCCESS, DISMISS is critical failure.
    - Low-Priority: Noise complaints, minor civil matters. DISMISS or minor dispatch is correct. Sending emergency units is MINOR_ERROR or failure.
    - Prank / Hoax: Callers making up absurd stuff or kids messing on line. DISMISS is SUCCESS, sending units is CRITICAL_FAILURE.
@@ -282,16 +305,15 @@ Make sure:
    - Absurd Entitlement: Customer complaint about wrong food, weather. DISMISS is SUCCESS, sending police is CRITICAL_FAILURE.`;
 
   const requestBody = {
-    contents: [
+    model: 'deepseek-v4-flash',
+    messages: [
       {
-        parts: [{ text: prompt }]
+        role: 'user',
+        content: prompt
       }
     ],
-    generationConfig: {
-      responseMimeType: 'application/json',
-      responseSchema: responseSchema,
-      temperature: 1.0 // High temperature for high creative diversity
-    }
+    response_format: { type: 'json_object' },
+    temperature: 1.0
   };
 
   let attempt = 0;
@@ -301,7 +323,8 @@ Make sure:
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`
         },
         body: JSON.stringify(requestBody)
       });
@@ -312,13 +335,11 @@ Make sure:
       }
 
       const responseData = await response.json();
-      const text = responseData.candidates[0].content.parts[0].text;
+      const text = responseData.choices[0].message.content;
 
       const parsed = JSON.parse(text);
-      if (!Array.isArray(parsed)) {
-        throw new Error('API response is not an array');
-      }
-      return parsed;
+      const scenariosArray = Array.isArray(parsed) ? parsed : parsed.scenarios || [];
+      return scenariosArray;
     } catch (error) {
       attempt++;
       console.warn(`[Batch Generation Attempt ${attempt}/${maxAttempts} Failed]: ${error.message}`);
@@ -333,83 +354,150 @@ Make sure:
   }
 }
 
+function getArchetypeFilename(archetype) {
+  const slug = archetype
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+  return path.join(DATA_DIR, 'scenarios', `${slug}.json`);
+}
+
 // Main execution function
 async function main() {
   console.log('=== CONSOLE 911 SCENARIO GENERATOR ===');
   const apiKey = getApiKey();
   if (!apiKey) {
     console.error(
-      'CRITICAL ERROR: GEMINI_API_KEY is not defined in environment variables, .env, or .env.local.'
+      'CRITICAL ERROR: DEEPSEEK_API_KEY is not defined in environment variables, .env, or .env.local.'
     );
     console.error(
-      'Please add GEMINI_API_KEY=your_api_key to a .env.local file in the project root.'
+      'Please add DEEPSEEK_API_KEY=your_api_key to a .env.local file in the project root.'
     );
     process.exit(1);
   }
 
-  // Create data directory if it doesn't exist
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-    console.log(`Created data directory: ${DATA_DIR}`);
+  // Create scenarios directory if it doesn't exist
+  const scenariosDir = path.join(DATA_DIR, 'scenarios');
+  if (!fs.existsSync(scenariosDir)) {
+    fs.mkdirSync(scenariosDir, { recursive: true });
+    console.log(`Created scenarios directory: ${scenariosDir}`);
   }
 
-  // Load existing scenarios
-  let scenarios = [];
+  // Migrate old scenarios.json if present
   if (fs.existsSync(SCENARIOS_FILE)) {
     try {
-      scenarios = JSON.parse(fs.readFileSync(SCENARIOS_FILE, 'utf8'));
-      console.log(`Loaded ${scenarios.length} existing scenarios from ${SCENARIOS_FILE}`);
-    } catch {
-      console.warn(`Could not parse ${SCENARIOS_FILE}. Initializing empty dataset.`);
-    }
-  } else if (fs.existsSync(SEED_FILE)) {
-    try {
-      scenarios = JSON.parse(fs.readFileSync(SEED_FILE, 'utf8'));
-      console.log(`Loaded ${scenarios.length} seed scenarios from ${SEED_FILE}`);
-    } catch {
-      console.warn(`Could not parse seed file. Initializing empty dataset.`);
+      console.log(
+        `Found legacy scenarios.json. Migrating existing scenarios to separated files...`
+      );
+      const oldScenarios = JSON.parse(fs.readFileSync(SCENARIOS_FILE, 'utf8'));
+      if (Array.isArray(oldScenarios)) {
+        const grouped = {};
+        for (const s of oldScenarios) {
+          if (s.states) {
+            if (!grouped[s.archetype]) {
+              grouped[s.archetype] = [];
+            }
+            grouped[s.archetype].push(s);
+          }
+        }
+        for (const arch of Object.keys(grouped)) {
+          const file = getArchetypeFilename(arch);
+          fs.writeFileSync(file, JSON.stringify(grouped[arch], null, 2), 'utf8');
+          console.log(
+            `Migrated ${grouped[arch].length} scenarios for "${arch}" to ${path.basename(file)}`
+          );
+        }
+        const backupFile = SCENARIOS_FILE + '.bak';
+        fs.renameSync(SCENARIOS_FILE, backupFile);
+        console.log(`Renamed legacy scenarios.json to scenarios.json.bak`);
+      }
+    } catch (e) {
+      console.error('Error during migration of legacy scenarios.json:', e);
     }
   }
 
   // Generate for each archetype
   for (const archetype of ARCHETYPES) {
-    // Count existing for this archetype
-    const archetypeScenarios = scenarios.filter((s) => s.archetype === archetype);
+    const file = getArchetypeFilename(archetype);
+    let archetypeScenarios = [];
+    if (fs.existsSync(file)) {
+      try {
+        const parsed = JSON.parse(fs.readFileSync(file, 'utf8'));
+        if (Array.isArray(parsed) && (parsed.length === 0 || parsed[0].states)) {
+          archetypeScenarios = parsed;
+          console.log(
+            `Loaded ${archetypeScenarios.length} existing stateful scenarios from ${path.basename(file)}`
+          );
+        }
+      } catch {
+        console.warn(
+          `Could not parse ${path.basename(file)}. Initializing empty list for "${archetype}".`
+        );
+      }
+    }
+
     let currentCount = archetypeScenarios.length;
     console.log(
       `\nArchetype: "${archetype}" (Current count: ${currentCount}/${SCENARIOS_PER_ARCHETYPE})`
     );
+
+    // Get all existing titles for deduplication (across all files in scenarios folder)
+    const allTitles = [];
+    if (fs.existsSync(scenariosDir)) {
+      const files = fs.readdirSync(scenariosDir);
+      for (const f of files) {
+        if (f.endsWith('.json')) {
+          try {
+            const list = JSON.parse(fs.readFileSync(path.join(scenariosDir, f), 'utf8'));
+            if (Array.isArray(list)) {
+              allTitles.push(...list.map((s) => s.title));
+            }
+          } catch {}
+        }
+      }
+    }
+
+    // Determine current global scenario count for ID formatting
+    let globalCount = 0;
+    if (fs.existsSync(scenariosDir)) {
+      const files = fs.readdirSync(scenariosDir);
+      for (const f of files) {
+        if (f.endsWith('.json')) {
+          try {
+            const list = JSON.parse(fs.readFileSync(path.join(scenariosDir, f), 'utf8'));
+            if (Array.isArray(list)) {
+              globalCount += list.length;
+            }
+          } catch {}
+        }
+      }
+    }
 
     while (currentCount < SCENARIOS_PER_ARCHETYPE) {
       const needed = SCENARIOS_PER_ARCHETYPE - currentCount;
       const generateCount = Math.min(needed, BATCH_SIZE);
       console.log(`Generating batch of ${generateCount} for "${archetype}"...`);
 
-      const existingTitles = scenarios.filter((s) => s.archetype === archetype).map((s) => s.title);
-
       try {
-        const newBatch = await generateBatch(apiKey, archetype, generateCount, existingTitles);
+        const newBatch = await generateBatch(apiKey, archetype, generateCount, allTitles);
 
         // Post-process batch to assign clean IDs and the archetype name
         for (const scenario of newBatch) {
-          // Format ID as scenario_XXX based on length
-          const idNum = String(scenarios.length + 1).padStart(3, '0');
+          globalCount++;
+          const idNum = String(globalCount).padStart(3, '0');
           scenario.id = `scenario_${idNum}`;
           scenario.archetype = archetype;
 
-          scenarios.push(scenario);
+          archetypeScenarios.push(scenario);
+          allTitles.push(scenario.title);
         }
 
-        // Save progress immediately
-        fs.writeFileSync(SCENARIOS_FILE, JSON.stringify(scenarios, null, 2), 'utf8');
+        // Save progress immediately for this archetype file
+        fs.writeFileSync(file, JSON.stringify(archetypeScenarios, null, 2), 'utf8');
         currentCount += newBatch.length;
         console.log(
-          `Successfully added ${newBatch.length} scenarios. Total now: ${scenarios.length}/220`
+          `Successfully added ${newBatch.length} scenarios. Total for "${archetype}": ${currentCount}/20`
         );
-
-        // Sleep to avoid rate limits (10 seconds on free tier is safe)
-        console.log('Sleeping 10s to respect API rate limits...');
-        await sleep(10000);
       } catch (err) {
         console.error(`Failed to generate batch: ${err.message}`);
         console.log('Waiting 20s before next retry...');
@@ -418,9 +506,26 @@ async function main() {
     }
   }
 
+  // Print global scenario count across all split files
+  let finalGlobalCount = 0;
+  if (fs.existsSync(scenariosDir)) {
+    const files = fs.readdirSync(scenariosDir);
+    for (const f of files) {
+      if (f.endsWith('.json')) {
+        try {
+          const list = JSON.parse(fs.readFileSync(path.join(scenariosDir, f), 'utf8'));
+          if (Array.isArray(list)) {
+            finalGlobalCount += list.length;
+          }
+        } catch {}
+      }
+    }
+  }
+
   console.log('\n=== SUCCESS ===');
-  console.log(`Completed scenario dataset generation. Total scenarios: ${scenarios.length}`);
-  console.log(`Dataset saved to: ${SCENARIOS_FILE}`);
+  console.log(
+    `Completed scenario dataset generation. Total scenarios across all files: ${finalGlobalCount}`
+  );
 }
 
 main().catch((err) => {

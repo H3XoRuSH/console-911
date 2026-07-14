@@ -1,0 +1,2978 @@
+[
+  {
+    "id": "scenario_003",
+    "title": "Neighbor's Loud Music After Hours",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A caller reports that their neighbor is playing loud music after 11 PM, preventing them from sleeping. The caller is frustrated but not in immediate danger.",
+    "states": {
+      "initial": "The caller is annoyed and seeking resolution.",
+      "assessing": "The caller is waiting for a response or considering options.",
+      "escalating": "The caller is becoming more agitated and considering taking matters into their own hands.",
+      "resolved": "The situation is de-escalated or handled."
+    },
+    "initial_variations": [
+      "Hi, my neighbor at {address_location} is blasting music, it's really loud! I can't sleep. My name is {caller_name}.",
+      "Yeah, I'm calling about the noise next door. It's almost midnight and they're going crazy. This is {caller_name} from {address_location}.",
+      "Look, I've had it with {victim_relation} neighbor. Their party is out of control, music shaking my walls. {ambient_audio} is going on here. I'm {caller_name}.",
+      "Please send someone! I need peace and quiet. The address is {address_location}, my name is {caller_name}. They have {specific_details} going on."
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Jamie", "Morgan", "Taylor", "Sam"],
+      "victim_relation": ["my upstairs", "the man next door", "the family across", "someone in"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Road",
+        "321 Birch Lane",
+        "654 Elm Drive"
+      ],
+      "ambient_audio": [
+        "loud bass thumping",
+        "screaming and shouting",
+        "crowd cheering",
+        "music and laughter"
+      ],
+      "specific_details": ["a keg stand", "karaoke", "a dance-off", "a BBQ party"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}.",
+            "I already gave you the address: {address_location}.",
+            "The noise is coming from {address_location}."
+          ],
+          "assessing": [
+            "Still at {address_location}.",
+            "They haven't moved. Address: {address_location}."
+          ],
+          "escalating": [
+            "Same place! {address_location}. Hurry!",
+            "It's still {address_location} and getting worse!"
+          ],
+          "resolved": [
+            "They already quieted down at {address_location}.",
+            "No need, it's over at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's really loud, {specific_details}. I can't concentrate.",
+            "{specific_details} is happening, and {ambient_audio}."
+          ],
+          "assessing": ["Just waiting. They're still at {specific_details}."],
+          "escalating": [
+            "They're doing {specific_details} and ignoring my knocks! I'm going to call the landlord.",
+            "{ambient_audio} is getting louder!"
+          ],
+          "resolved": ["It's over now. They apologized."]
+        }
+      },
+      "ASK_EMOTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "assessing",
+          "assessing": "escalating"
+        },
+        "responses": {
+          "initial": ["I'm frustrated but calm.", "Just annoyed, nothing serious."],
+          "assessing": ["I'm starting to lose patience.", "Getting angrier by the minute."],
+          "escalating": [
+            "I'm furious! If no one comes, I'll go over there myself!",
+            "I'm about to call the cops myself!"
+          ],
+          "resolved": ["I'm relieved it's over.", "I feel better now."]
+        }
+      },
+      "ASK_ACTION": {
+        "score_delta": 10,
+        "transitions": {
+          "assessing": "escalating",
+          "escalating": "resolved"
+        },
+        "responses": {
+          "initial": ["I just want them to turn it down.", "Can you send someone to talk to them?"],
+          "assessing": ["I'm thinking of going over there.", "Maybe I'll just put in earplugs."],
+          "escalating": ["I'm going to confront them!", "I'm calling the landlord too."],
+          "resolved": [
+            "I talked to them, they're turning it down.",
+            "All good, they agreed to stop."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police arrive and ask the neighbors to lower the music. The caller is satisfied but it was an overuse of resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire trucks arrive with sirens, startling everyone. The music stops, but it's a massive waste of emergency resources and causes embarrassment."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "An ambulance arrives. The neighbors think someone is hurt. The caller feels guilty for wasting medical services."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Animal control shows up confused. They talk to the neighbors, but it's not their jurisdiction. The noise stops briefly."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "You advise the caller to try talking to the neighbor first or use earplugs. The caller calms down and handles it themselves. Excellent judgment."
+      }
+    }
+  },
+  {
+    "id": "scenario_004",
+    "title": "Dog Left in Hot Car",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A caller reports seeing a dog locked in a car in a parking lot on a warm day. The dog appears distressed but the car is not running and it's not an extreme temperature.",
+    "states": {
+      "initial": "The caller is concerned and wants help.",
+      "watching": "The caller is monitoring the situation.",
+      "confronting": "The caller is considering breaking the window or finding the owner.",
+      "resolved": "The owner returns or the dog is safe."
+    },
+    "initial_variations": [
+      "Hello? There's a dog in a car at {address_location}. It looks hot and is panting. My name is {caller_name}.",
+      "I'm at {address_location} and I see {specific_details} in a car. The windows are cracked but it's warm. Should I do something? I'm {caller_name}.",
+      "Hi, this is urgent-ish. A dog might be overheating in a car near {address_location}. {ambient_audio} can be heard. I'm {caller_name}.",
+      "Yeah, I'm worried about a dog left in a car. It's {specific_details} and it looks {ambient_audio}. The address is {address_location}. {caller_name} here."
+    ],
+    "slots": {
+      "caller_name": ["Casey", "Jordan", "Riley", "Avery", "Quinn"],
+      "victim_relation": ["a brown lab", "a small terrier", "a golden retriever", "a poodle"],
+      "address_location": [
+        "555 Market Street Parking Lot",
+        "777 Mall Drive",
+        "123 Main Street Garage",
+        "456 Center Plaza",
+        "789 Broadway Lot"
+      ],
+      "ambient_audio": [
+        "frantic barking",
+        "whimpering sounds",
+        "heavy panting",
+        "scratching at the window"
+      ],
+      "specific_details": ["a black sedan", "a red pickup truck", "a blue minivan", "a white SUV"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}.",
+            "Already said: {address_location}.",
+            "The car is parked at {address_location}."
+          ],
+          "watching": ["Still at {address_location}.", "Same spot, {address_location}."],
+          "confronting": [
+            "Still {address_location}, but I'm about to act!",
+            "Location hasn't changed: {address_location}."
+          ],
+          "resolved": ["The owner came back at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details} with a {victim_relation} inside.",
+            "I see {specific_details} and {ambient_audio}."
+          ],
+          "watching": [
+            "The dog is still there, {ambient_audio}.",
+            "No change, {specific_details} with {ambient_audio}."
+          ],
+          "confronting": [
+            "The dog seems worse. {ambient_audio} is louder.",
+            "I'm going to find the owner! {specific_details} is the car."
+          ],
+          "resolved": ["All good, the dog is out."]
+        }
+      },
+      "ASK_EMOTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "watching",
+          "watching": "confronting"
+        },
+        "responses": {
+          "initial": ["I'm concerned, it's been a while.", "A bit worried for the dog."],
+          "watching": ["Getting more anxious as time passes.", "I think the dog is in trouble."],
+          "confronting": [
+            "I'm really upset now! I'm about to break the window!",
+            "Frustrated! Someone needs to act!"
+          ],
+          "resolved": ["Relieved the dog is safe.", "Happy it ended well."]
+        }
+      },
+      "ASK_ACTION": {
+        "score_delta": 10,
+        "transitions": {
+          "watching": "confronting",
+          "confronting": "resolved"
+        },
+        "responses": {
+          "initial": ["I'm watching the car.", "Not sure what to do."],
+          "watching": [
+            "I'm waiting for the owner.",
+            "Maybe I'll go into the store and page the owner."
+          ],
+          "confronting": [
+            "I'm going to call the police if you don't help!",
+            "I'm trying to find the owner myself."
+          ],
+          "resolved": [
+            "The owner came out, dog is fine.",
+            "I broke the window and got the dog out."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police arrive and locate the owner who returns quickly. Dog is fine but it was a low priority call that tied up resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire trucks arrive with sirens, causing a scene. The owner returns embarrassed. It was a huge overreaction."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Paramedics check the dog, find it healthy. The owner is upset by the fuss. Waste of medical resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Animal control arrives, assesses the dog, and waits for the owner. A minor citation is issued. Proper use of resources."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "You advise the caller to check if the owner is nearby or to wait a few minutes. The owner returns and the dog is fine. Good judgment."
+      }
+    }
+  },
+  {
+    "title": "Neighbor's Dog Barking Continuously",
+    "description": "A resident complains that a neighbor's dog has been barking incessantly for hours, preventing sleep.",
+    "archetype": "Low-Priority / Non-Emergency",
+    "states": {
+      "initial": "Caller is reporting a nuisance noise complaint.",
+      "listening": "Caller is listening to the dog bark.",
+      "advised": "Caller has received advice to contact animal control or landlord."
+    },
+    "initial_variations": [
+      "My neighbor's dog has been barking non-stop for three hours! I can't get any sleep, {caller_name} here at {address_location}.",
+      "This is ridiculous! The dog next door won't stop barking. It's {ambient_audio} loud! I need help, this is {caller_name}.",
+      "Hi, I'm sorry to bother you, but the dog at {address_location} has been barking all evening. It's driving me crazy. This is {caller_name}.",
+      "I've had enough! The dog across the street has been barking since {specific_details}. Please send someone to quiet it down."
+    ],
+    "slots": {
+      "caller_name": ["John", "Maria", "Mr. Smith", "Jane Doe", "Anonymous"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Road",
+        "321 Elm Lane",
+        "654 Birch Court"
+      ],
+      "ambient_audio": ["extremely", "very", "incredibly", "annoyingly"],
+      "specific_details": ["sunrise", "dinner time", "midnight", "early morning"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, the house with the broken fence.",
+            "The address is {address_location}.",
+            "I already told you, {address_location}!"
+          ],
+          "listening": ["Still at {address_location}.", "Yes, same place."],
+          "advised": ["I've already given the address: {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The dog sounds like it's in pain or scared.",
+            "It's a large brown dog, maybe a lab.",
+            "I think it's been barking for {specific_details}."
+          ],
+          "listening": ["It's still barking, same dog.", "No change."],
+          "advised": ["I already told you, it's a large brown dog."]
+        }
+      },
+      "ADVISE_RESOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "advised"
+        },
+        "responses": {
+          "initial": [
+            "You could try talking to the owner first.",
+            "Maybe call animal control during business hours.",
+            "I suggest you check local noise ordinances."
+          ],
+          "listening": [
+            "I appreciate the advice. I'll try that.",
+            "I already tried talking to them."
+          ],
+          "advised": ["Yes, I'll do that. Thanks.", "I already contacted the landlord."]
+        }
+      },
+      "ESCALATE": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "listening",
+          "advised": "listening"
+        },
+        "responses": {
+          "initial": ["Can't you send someone now?", "This is an emergency for me!"],
+          "listening": ["Please hurry, it's still barking.", "I'm losing my mind here."],
+          "advised": ["I don't think that will help. I need action now!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Police respond but deem it a non-emergency. They advise the caller to contact animal control."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Fire department arrives confused. Resources wasted on a barking dog."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Medical team sent unnecessarily. Paramedics are frustrated."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Animal control arrives and finds the dog is just lonely. They notify the owner."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Caller feels ignored and may call again. Better to provide advice."
+      }
+    },
+    "id": "scenario_041"
+  },
+  {
+    "title": "Lost Cat in Tree",
+    "description": "A child's cat is stuck in a tall tree and cannot get down. The caller is worried but it's not life-threatening.",
+    "archetype": "Low-Priority / Non-Emergency",
+    "states": {
+      "initial": "Caller reports a cat stuck in a tree.",
+      "reassured": "Caller is calmed down waiting for animal control.",
+      "rescued": "Cat got down on its own or with help."
+    },
+    "initial_variations": [
+      "My cat Whiskers is stuck in the big oak tree at {address_location}! Please help! This is {caller_name}.",
+      "There's a cat up in a tree on {address_location} and it won't come down. I'm {caller_name}.",
+      "Please send someone! My daughter's cat is trapped in a tree and we can't reach it. {caller_name} here.",
+      "A cat has been meowing from the tree at {address_location} for hours. I think it's stuck. This is {caller_name}."
+    ],
+    "slots": {
+      "caller_name": ["Emily", "Tom", "Mrs. Johnson", "Liam", "Sarah"],
+      "address_location": [
+        "15 Cedar Lane",
+        "22 Willow Drive",
+        "88 Birch Street",
+        "97 Poplar Avenue",
+        "33 Ash Road"
+      ],
+      "ambient_audio": ["meowing loudly", "crying", "yowling", "silent but scared"],
+      "specific_details": ["since yesterday", "after the storm", "for two hours", "this morning"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, the tree right in front.",
+            "You know, the big tree at {address_location}."
+          ],
+          "reassured": ["Still at {address_location}.", "Yes, same tree."],
+          "rescued": ["The cat is no longer there, it came down."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a gray tabby, about 2 years old.",
+            "White cat with blue eyes.",
+            "It's a small black cat."
+          ],
+          "reassured": ["Same cat, still up there.", "It's still meowing."],
+          "rescued": ["The cat is safe now."]
+        }
+      },
+      "REASSURE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "reassured"
+        },
+        "responses": {
+          "initial": [
+            "Cats often come down on their own, don't worry.",
+            "Animal control will be dispatched to help."
+          ],
+          "reassured": ["Thank you, I feel better.", "I hope they come soon."],
+          "rescued": ["It came down! Thanks for the advice."]
+        }
+      },
+      "CHECK_STATUS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["It's still up there.", "It just climbed higher."],
+          "reassured": ["Still stuck.", "It's meowing less."],
+          "rescued": ["It's on the ground now!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrive but have no equipment. They advise calling animal control."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -120,
+        "feedback": "Firefighters help get the cat down, but this is not an emergency use of resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Ambulance arrives for a cat. Severe misuse of emergency services."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control brings a ladder and safely rescues the cat."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": -60,
+        "feedback": "Cat eventually comes down, but caller is upset with lack of response."
+      }
+    },
+    "id": "scenario_042"
+  },
+  {
+    "title": "Illegal Parking Blocking Driveway",
+    "description": "A caller reports a vehicle parked across their driveway, preventing them from leaving.",
+    "archetype": "Low-Priority / Non-Emergency",
+    "states": {
+      "initial": "Caller reports blockage.",
+      "waiting": "Caller is waiting for resolution.",
+      "resolved": "Vehicle moved or towed."
+    },
+    "initial_variations": [
+      "There's a car blocking my driveway at {address_location}! I can't get out! This is {caller_name}.",
+      "Someone parked right in front of my garage at {address_location}. I need to leave for work. {caller_name} here.",
+      "A white van is blocking the entrance to my home on {address_location}. Please help! {caller_name}.",
+      "I'm trapped in my own driveway! A truck is parked across the gate at {address_location}. {caller_name} reporting."
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Patricia", "Mr. Brown", "Taylor", "Jordan"],
+      "address_location": [
+        "100 Main Street",
+        "250 Broadway",
+        "19 Park Avenue",
+        "77 Lake Drive",
+        "6 Hill Road"
+      ],
+      "ambient_audio": ["honking", "engine running", "quiet"],
+      "specific_details": ["a red sedan", "a black SUV", "a blue pickup truck", "a yellow taxi"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, right across the driveway.",
+            "Address is {address_location}.",
+            "You already have it, {address_location}!"
+          ],
+          "waiting": ["Still at {address_location}.", "No change."],
+          "resolved": ["The car is gone now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details} with license plate ABC123.",
+            "It's a {specific_details}, no plate visible.",
+            "Looks like a rental {specific_details}."
+          ],
+          "waiting": ["Same vehicle.", "It hasn't moved."],
+          "resolved": ["It's gone."]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "waiting"
+        },
+        "responses": {
+          "initial": [
+            "We'll contact the owner if possible. Try to stay patient.",
+            "You can call a towing company if it's on private property."
+          ],
+          "waiting": ["Okay, I'll wait a bit longer.", "I can't be late!"],
+          "resolved": ["It's fine now, thanks."]
+        }
+      },
+      "TOW_REQUEST": {
+        "score_delta": 0,
+        "transitions": {
+          "waiting": "resolved"
+        },
+        "responses": {
+          "initial": ["I want it towed!", "Is there a tow truck coming?"],
+          "waiting": ["Yes, please send a tow truck.", "I've already called a tow."],
+          "resolved": ["It's been towed."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Police arrive, issue a ticket and contact the owner to move the vehicle."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire truck arrives, unable to help, blocks traffic further."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance dispatched unnecessarily. Severe resource misuse."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control cannot handle parking issues."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Caller resolves it themselves but is dissatisfied with dispatch."
+      }
+    },
+    "id": "scenario_043"
+  },
+  {
+    "title": "Overflowing Garbage Bin Creating Smell",
+    "description": "A resident complains about a neighbor's overflowing trash bin that is attracting pests and creating a foul odor.",
+    "archetype": "Low-Priority / Non-Emergency",
+    "states": {
+      "initial": "Caller reports sanitation issue.",
+      "escalated": "Caller is frustrated and demands action.",
+      "referred": "Caller is given referral to sanitation department."
+    },
+    "initial_variations": [
+      "The garbage bin next door at {address_location} is overflowing and stinks! This is {caller_name}.",
+      "I can't stand the smell coming from the trash at {address_location}. Please do something. {caller_name}.",
+      "There are rats and flies around the overflowing dumpster at {address_location}. {caller_name} here.",
+      "The bin at {address_location} hasn't been picked up in weeks. It's a health hazard! {caller_name}."
+    ],
+    "slots": {
+      "caller_name": ["Carlos", "Linda", "Mr. Green", "Susan", "Kevin"],
+      "address_location": [
+        "7th Street & 2nd Ave",
+        "500 Broadway",
+        "12 Maple Lane",
+        "34 Cherry Drive",
+        "9 Walnut Road"
+      ],
+      "ambient_audio": ["buzzing flies", "smell", "scurrying rats"],
+      "specific_details": [
+        "since last Tuesday",
+        "for a month",
+        "after the party",
+        "since the holiday"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, the green bin.",
+            "Address is {address_location}.",
+            "The bin behind the house at {address_location}."
+          ],
+          "escalated": ["Still at {address_location}! Are you deaf?"],
+          "referred": ["I already told you, {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's overfull with bags piled up.",
+            "There's food waste spilling out.",
+            "It's attracting raccoons."
+          ],
+          "escalated": ["It's worse now!", "The smell is unbearable."],
+          "referred": ["It's still there."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "referred"
+        },
+        "responses": {
+          "initial": [
+            "You should contact the city sanitation department.",
+            "Try calling 311 for trash issues.",
+            "I can give you the number for waste management."
+          ],
+          "escalated": ["I don't want a number, I want action!", "You're not helping."],
+          "referred": ["Thanks, I'll call them.", "I already tried that."]
+        }
+      },
+      "ESCALATE": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "escalated",
+          "referred": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "This is urgent! The smell is making me sick!",
+            "I'm calling your supervisor!"
+          ],
+          "escalated": ["I demand someone come now!", "This is ridiculous!"],
+          "referred": ["You're useless!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Police respond but cannot do anything about trash. They advise caller to call sanitation."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Fire department arrives expecting a fire. Misuse of resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Medical team dispatched for a smell. Severe error."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control comes for rats but cannot handle trash issue."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "feedback": "Caller is directed to proper sanitation services. Issue resolved."
+      }
+    },
+    "id": "scenario_044"
+  },
+  {
+    "title": "Children Playing Loudly in the Street",
+    "description": "A caller complains that children are playing noisily in the street, causing a disturbance.",
+    "archetype": "Low-Priority / Non-Emergency",
+    "states": {
+      "initial": "Caller reports noise disturbance.",
+      "observed": "Caller is watching the children play.",
+      "resolved": "Children have gone inside or stopped."
+    },
+    "initial_variations": [
+      "The kids on {address_location} are screaming and playing in the street. I can't concentrate! This is {caller_name}.",
+      "There's a group of children running around on {address_location} making lots of noise. Please do something. {caller_name}.",
+      "It's 9 PM and kids are still playing loudly outside my house at {address_location}. {caller_name} here.",
+      "These kids are kicking a ball against my fence at {address_location}. It's very annoying. {caller_name}."
+    ],
+    "slots": {
+      "caller_name": ["Mike", "Alice", "Mr. White", "Sam", "Olivia"],
+      "address_location": [
+        "123 Sunshine Street",
+        "456 Rainbow Drive",
+        "789 Happy Lane",
+        "321 Pleasant Road",
+        "654 Serenity Court"
+      ],
+      "ambient_audio": ["screaming", "laughing", "ball bouncing", "shouting"],
+      "specific_details": ["after school", "since noon", "all afternoon", "during dinner time"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Right on {address_location}, near the park.",
+            "It's {address_location}, in front of the blue house."
+          ],
+          "observed": ["Still there, same place.", "They moved to the corner."],
+          "resolved": ["They've left."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "About 5 kids, ages 6-10.",
+            "They're playing soccer.",
+            "There's a birthday party."
+          ],
+          "observed": ["Still playing.", "They got louder."],
+          "resolved": ["They're gone."]
+        }
+      },
+      "ADVISE_NON_EMERGENCY": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "It's normal for kids to play. Maybe talk to their parents?",
+            "This is not an emergency."
+          ],
+          "observed": ["I guess you're right.", "But it's still annoying."],
+          "resolved": ["They've quieted down."]
+        }
+      },
+      "ESCALATE": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "observed",
+          "resolved": "observed"
+        },
+        "responses": {
+          "initial": ["I don't care, send someone!", "This is harassment!"],
+          "observed": ["They're still at it!", "Please hurry!"],
+          "resolved": ["They're back now!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -120,
+        "feedback": "Police arrive and tell kids to be quieter, but this wastes patrol time."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire engine responds to a noise complaint. Severe misuse."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance arrives for playing children. Appalling."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control has no jurisdiction over children."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 120,
+        "feedback": "Caller is advised that children playing is not an emergency. They accept the explanation."
+      }
+    },
+    "id": "scenario_045"
+  },
+  {
+    "title": "Early Morning Leaf Blower Noise",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A resident complains about a neighbor using a leaf blower at 6 AM, disturbing their sleep.",
+    "states": {
+      "initial": "Caller is reporting the noise complaint.",
+      "waiting": "Caller is waiting for the noise to stop or for instructions.",
+      "reassured": "Caller has been calmed and accepts the situation."
+    },
+    "initial_variations": [
+      "There's a {neighbor_name} using a leaf blower at {time_of_day} and it's so loud I can't sleep! This is ridiculous, I need someone to come make them stop!",
+      "I'm calling to report excessive noise from a leaf blower at {address_location}. It's been going on for {duration} and it's still dark outside!",
+      "This is {caller_name}. My neighbor is running a leaf blower at an ungodly hour. Can you send someone to tell them to stop? It's harassment!",
+      "I've had enough. The {ambient_audio} is unbearable. My baby is crying and I can't get any rest. Please send police!"
+    ],
+    "slots": {
+      "caller_name": ["Mrs. Johnson", "Tom", "Linda from 123 Maple", "Ravi"],
+      "neighbor_name": ["the new guy", "Mr. Peterson", "the landscaper", "someone"],
+      "address_location": ["123 Oak Street", "456 Elm Avenue", "789 Pine Road", "321 Birch Lane"],
+      "time_of_day": ["5:45 AM", "6:00 AM", "6:15 AM", "dawn"],
+      "duration": ["15 minutes", "half an hour", "almost an hour", "too long"],
+      "ambient_audio": [
+        "loud leaf blower engine",
+        "whining and sputtering",
+        "constant drone of the blower",
+        "noise echoing through the street"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "It's at {address_location}. Can't you hear it?",
+            "I already said, {address_location}! Please hurry!",
+            "The noise is coming from {address_location}."
+          ],
+          "waiting": [
+            "Still at {address_location}. Nothing has changed.",
+            "Same location, {address_location}. It's still going."
+          ],
+          "reassured": [
+            "At {address_location}, but I guess it's handled.",
+            "It was at {address_location}, but I'm okay now."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "It's been going on for {duration} and it's way too early! I need sleep!",
+            "My neighbor {neighbor_name} is deliberately doing this, I think.",
+            "It's a gas-powered leaf blower, very loud."
+          ],
+          "waiting": ["Still going, it's been {duration} now.", "Nothing new, just more noise."],
+          "reassured": [
+            "It stopped a few minutes ago, thank you.",
+            "They finally stopped after I talked to them."
+          ]
+        }
+      },
+      "ASK_EMOTIONAL_STATE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "waiting"
+        },
+        "responses": {
+          "initial": [
+            "I'm furious! This is unacceptable!",
+            "I'm exhausted and frustrated. Just want it to stop.",
+            "I'm at my wit's end, please help."
+          ],
+          "waiting": [
+            "Still angry, but waiting for something to happen.",
+            "Calmer now, just want it to end."
+          ],
+          "reassured": ["I feel much better, thanks.", "I'm okay now, no need to escalate."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": -20,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "No weapons, just a noisy machine!",
+            "I don't have any weapons, but I might throw something if it doesn't stop!",
+            "Of course not, I'm a peaceful person."
+          ],
+          "waiting": ["Still no weapons.", "No firearms, just my patience wearing thin."],
+          "reassured": ["No weapons, all good."]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "I'm safe, just annoyed.",
+            "My family is safe, but this noise is driving us crazy.",
+            "I'm not in danger, but my sleep is being ruined."
+          ],
+          "waiting": ["Still safe, just waiting.", "No danger."],
+          "reassured": ["Safe and sound."]
+        }
+      }
+    },
+    "predefined_actions": {
+      "CALM_CALLER": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "reassured",
+          "waiting": "reassured"
+        },
+        "response": "I understand your frustration. Noise complaints are typically handled by local ordinances. I'll note your report and you can also contact your HOA or local noise authority during business hours. Meanwhile, try earplugs or closing windows."
+      },
+      "DISPATCH_OFFICER": {
+        "score_delta": -100,
+        "transitions": {
+          "initial": "reassured",
+          "waiting": "reassured"
+        },
+        "response": "Dispatching a patrol unit. However, please be aware that this is a non-emergency noise complaint and response may be delayed."
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "response": "Police responded to the noise complaint. They spoke with the neighbor who agreed to stop. However, this tied up resources for more urgent calls. Better to handle via non-emergency channels."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "response": "Fire department scrambled to a noise complaint. Waste of resources and delayed response to a real emergency."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "response": "Medical unit dispatched to a noise complaint. This is not a medical emergency. Critical misallocation of resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "response": "Animal control was called. No animals involved. Inappropriate dispatch."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "response": "Correctly identified as a non-emergency noise complaint. Provided advice on local noise ordinances and encouraged caller to handle directly or file a complaint during business hours."
+      }
+    },
+    "id": "scenario_046"
+  },
+  {
+    "title": "Stray Cat Stealing Newspaper",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A resident reports a stray cat that has been taking their newspaper every morning. They want it removed.",
+    "states": {
+      "initial": "Caller is reporting the cat problem.",
+      "observing": "Caller is watching the cat.",
+      "resolved": "Caller has accepted the situation or cat is gone."
+    },
+    "initial_variations": [
+      "There's a stray cat that keeps stealing my newspaper from the driveway every morning. I want it removed! It's at {address_location}.",
+      "I'm {caller_name} and I need animal control. A cat has been taking my paper and now it's starting to scratch my car. I want it gone!",
+      "This cat is a nuisance. It's at {address_location} right now, carrying my newspaper away. Can someone come get it?",
+      "The {ambient_audio} of this cat is driving me crazy. It's been coming for {duration} days. I want it trapped and removed."
+    ],
+    "slots": {
+      "caller_name": ["Mr. Henderson", "Susan", "Bob the retired", "Maria"],
+      "address_location": [
+        "14 Rose Avenue",
+        "22 Daisy Court",
+        "33 Tulip Lane",
+        "7 Sunflower Drive"
+      ],
+      "duration": ["three days", "a week", "two weeks", "almost a month"],
+      "ambient_audio": [
+        "mewling and scratching",
+        "rustling paper",
+        "cat hissing",
+        "pitter-patter of paws"
+      ],
+      "specific_details": ["orange tabby", "black cat", "tuxedo cat", "calico"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "It's at {address_location}. Please send someone!",
+            "The cat is in my driveway at {address_location}."
+          ],
+          "observing": [
+            "It's still at {address_location}, just sitting there.",
+            "Same place, {address_location}."
+          ],
+          "resolved": [
+            "It's no longer at {address_location}. It ran off.",
+            "The cat left {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "observing"
+        },
+        "responses": {
+          "initial": [
+            "It's a {specific_details}. It comes every morning and takes the paper.",
+            "It's been {duration} now. I've had enough.",
+            "The cat doesn't seem afraid of me."
+          ],
+          "observing": [
+            "It's a {specific_details}. It's now eyeing my car.",
+            "It's just sitting there, cleaning itself."
+          ],
+          "resolved": ["It was a {specific_details}. I haven't seen it since I called."]
+        }
+      },
+      "ASK_EMOTIONAL_STATE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "observing"
+        },
+        "responses": {
+          "initial": [
+            "I'm annoyed! This is trespassing!",
+            "I'm frustrated. I pay for that paper.",
+            "I'm worried it might be rabid or something."
+          ],
+          "observing": ["I'm watching it now. Still annoyed.", "Less angry, just want it gone."],
+          "resolved": ["Relieved it's gone.", "I feel better."]
+        }
+      },
+      "ASK_ANIMAL_BEHAVIOR": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "observing"
+        },
+        "responses": {
+          "initial": [
+            "It just takes the paper and runs off.",
+            "It hisses if I approach.",
+            "It seems healthy, just a thief."
+          ],
+          "observing": ["It's now rubbing against my leg. Weird.", "It's meowing loudly."],
+          "resolved": ["It didn't show any aggressive behavior."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": ["No weapons, just a broom.", "I have a water hose.", "I'm not armed."],
+          "observing": ["Still no weapons.", "I have a spray bottle."],
+          "resolved": ["No weapons used."]
+        }
+      }
+    },
+    "predefined_actions": {
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "resolved",
+          "observing": "resolved"
+        },
+        "response": "Stray animals are usually handled by animal control or local shelters. You can try deterring the cat with citrus scents or motion-activated sprinklers. I'll file a report for animal control to check during their regular rounds."
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": 150,
+        "transitions": {
+          "initial": "resolved",
+          "observing": "resolved"
+        },
+        "response": "Animal control has been dispatched to your location. Please do not approach the cat."
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "response": "Police responded to a cat complaint. They advised the caller to contact animal control. Unnecessary use of police resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "response": "Fire department responded to a cat stealing newspapers. Inappropriate dispatch."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "response": "Medical unit dispatched. No medical issue. Critical error."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "response": "Animal control was dispatched and picked up the stray cat. It was taken to a shelter. Problem resolved."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": 100,
+        "response": "Dismissed the call as non-emergency and advised caller to contact animal control on their own. While this saves resources, the caller was unhappy. A minor error."
+      }
+    },
+    "id": "scenario_047"
+  },
+  {
+    "title": "Child Locked in Bathroom",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A mother calmly reports that her toddler accidentally locked himself in the bathroom. She is not panicked and has a key but can't find it. She just needs advice or a locksmith.",
+    "states": {
+      "initial": "Caller reports the locked child.",
+      "attempting": "Caller is trying to unlock the door or calm the child.",
+      "resolved": "Child is free or caller has solution."
+    },
+    "initial_variations": [
+      "Hi, my toddler just locked himself in the bathroom and I can't find the key. He's not hurt, just scared. I need help getting him out. My address is {address_location}.",
+      "This is {caller_name}. My {victim_relation} is stuck in the bathroom. I've tried everything. Can you send someone to unlock the door? It's not an emergency, but I'd appreciate assistance.",
+      "I can hear {ambient_audio} from inside the bathroom. My {victim_relation} is crying, but he's fine. Just locked in. We're at {address_location}.",
+      "I need advice. My child locked himself in the bathroom. I have a key but I can't find it. He's {age} years old and scared. Should I break the door? I'm at {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Aisha", "David"],
+      "victim_relation": ["my son", "my daughter", "my toddler", "my little boy"],
+      "address_location": ["55 Cedar Lane", "88 Maple Drive", "12 Oak Street", "99 Pine Court"],
+      "age": ["2", "3", "4", "1.5"],
+      "ambient_audio": ["crying and banging", "whimpering", "rattling the doorknob", "silence"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}. Please hurry if you're sending someone.",
+            "We're at {address_location}, the bathroom on the first floor."
+          ],
+          "attempting": [
+            "Still at {address_location}. I'm trying a credit card.",
+            "Same place, {address_location}."
+          ],
+          "resolved": ["We're at {address_location}, but he's out now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "attempting"
+        },
+        "responses": {
+          "initial": [
+            "He's {age} years old. Locked himself in while I was on the phone.",
+            "The door is old and the lock is finicky. I've been trying {duration}."
+          ],
+          "attempting": [
+            "He's still inside. I've tried a butter knife, but it didn't work.",
+            "I'm talking to him through the door. He's calming down."
+          ],
+          "resolved": ["I found the key in my pocket! He's out and safe."]
+        }
+      },
+      "ASK_EMOTIONAL_STATE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "attempting"
+        },
+        "responses": {
+          "initial": [
+            "I'm a bit flustered but calm. He's not hurt.",
+            "I'm worried he might panic, but I'm keeping my cool."
+          ],
+          "attempting": [
+            "I'm frustrated but staying calm.",
+            "I'm getting more anxious as time passes."
+          ],
+          "resolved": ["Relieved and happy."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons.",
+            "I have a hammer but I don't want to use it.",
+            "Just a credit card."
+          ],
+          "attempting": ["Still no weapons.", "I'm thinking of using a screwdriver."],
+          "resolved": ["No weapons needed."]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's safe, just locked in. No water or sharp objects.",
+            "The bathroom is baby-proofed. He's fine."
+          ],
+          "attempting": [
+            "Still safe, I can hear him crying but it's okay.",
+            "He's starting to play with the faucet."
+          ],
+          "resolved": ["He's safe and sound now."]
+        }
+      }
+    },
+    "predefined_actions": {
+      "CALM_CALLER": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "attempting"
+        },
+        "response": "Stay calm. Try to guide your child to unlock the door from inside. Many bathroom locks can be turned with a coin or a flathead screwdriver. If you don't have a key, you can try a paperclip. I can also provide instructions to disassemble the doorknob."
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -200,
+        "transitions": {
+          "initial": "resolved"
+        },
+        "response": "Fire department dispatched to a child locked in bathroom. They arrived and easily popped the lock. However, this was a non-emergency and could have been resolved at home. Minor resource waste."
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "response": "Police responded to a locked bathroom. They helped open the door with a simple tool. The child was fine, but police resources were misallocated."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "response": "Fire department responded and pried open the door. Child safe. However, this is a non-emergency and could have been handled by a locksmith or DIY."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "response": "Medical unit dispatched to a locked bathroom with no medical issue. Inappropriate and wasteful."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "response": "Animal control dispatched. Not relevant. Critical failure."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "response": "Correctly identified as non-emergency. Provided caller with DIY unlock instructions. Caller successfully opened the door. Child safe. No dispatch needed."
+      }
+    },
+    "id": "scenario_048"
+  },
+  {
+    "title": "Missing Package Dispute",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A elderly man is convinced his neighbor stole a package from his porch. He has no evidence but wants police to question the neighbor.",
+    "states": {
+      "initial": "Caller reports suspected theft.",
+      "confronting": "Caller is considering or has confronted neighbor.",
+      "resolved": "Caller has accepted the situation or package found."
+    },
+    "initial_variations": [
+      "I'm calling because my neighbor {neighbor_name} stole my package! It was delivered yesterday and now it's gone. I need police to come search his house. My address is {address_location}.",
+      "This is {caller_name}. I'm at {address_location}. My package worth {value} is missing and I know {neighbor_name} took it. I want him arrested!",
+      "I can hear {ambient_audio} from his house, probably opening my package. I'm going over there to confront him if you don't come!",
+      "Please send someone. I'm an old man and I can't afford to lose this. It was medicine. I need it urgently. Address is {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Mr. Henderson", "George", "Frank", "Elderly Bob"],
+      "neighbor_name": [
+        "the young guy in 3B",
+        "the woman next door",
+        "that new family",
+        "the teenager"
+      ],
+      "address_location": [
+        "1010 Main Street",
+        "2020 Elm Street",
+        "3030 Oak Avenue",
+        "4040 Pine Drive"
+      ],
+      "value": ["$50", "$100", "my blood pressure medication", "a gift from my daughter"],
+      "ambient_audio": [
+        "muffled sounds from next door",
+        "a dog barking",
+        "nothing unusual",
+        "a car starting"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}. The package was on my porch.",
+            "I'm at {address_location}, the neighbor is at {address_location} too (next door)."
+          ],
+          "confronting": [
+            "I'm at {address_location}, but I'm about to walk over to {neighbor_name}'s house.",
+            "I'm at the neighbor's door at {address_location}."
+          ],
+          "resolved": ["Still at {address_location}. But I found the package under the bush."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "It was delivered yesterday afternoon. I saw the delivery truck. Then an hour later it was gone.",
+            "I have no proof but it's obvious. He's always been shady.",
+            "The package was a {value}. I need it."
+          ],
+          "confronting": [
+            "I just talked to him and he denied it. But I saw him looking at my porch.",
+            "He slammed the door on me. I'm sure he's hiding something."
+          ],
+          "resolved": ["I found it behind some bushes. My mistake. Sorry."]
+        }
+      },
+      "ASK_EMOTIONAL_STATE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "I'm angry and frustrated. This is theft!",
+            "I feel violated. I want justice.",
+            "I'm anxious because it contained medication."
+          ],
+          "confronting": ["I'm furious! He's lying!", "I'm shaking with anger."],
+          "resolved": ["Embarrassed but relieved."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": -20,
+        "transitions": {
+          "initial": "initial"
+        },
+        "responses": {
+          "initial": [
+            "No, I don't have weapons.",
+            "I have a cane but that's not a weapon.",
+            "I have my fists, but I'm old."
+          ],
+          "confronting": [
+            "I don't have a weapon, but I'm prepared to defend myself.",
+            "I have a baseball bat just in case."
+          ],
+          "resolved": ["No weapons."]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm safe, just angry.", "I'm at home, safe."],
+          "confronting": [
+            "I'm at his doorstep. It's a bit tense but I'm okay.",
+            "He's yelling at me."
+          ],
+          "resolved": ["I'm fine."]
+        }
+      }
+    },
+    "predefined_actions": {
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "resolved",
+          "confronting": "resolved"
+        },
+        "response": "I understand your frustration. Package theft is a crime, but we need evidence. You should check with your neighbors or the delivery company for proof. In the meantime, do not confront your neighbor. I'll file a report, but a police response for a missing package without evidence is unlikely."
+      },
+      "DISPATCH_OFFICER": {
+        "score_delta": -100,
+        "transitions": {
+          "confronting": "resolved"
+        },
+        "response": "Dispatching an officer to mediate the dispute. However, please note this is a civil matter and the officer can only advise."
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "response": "Police responded to a missing package complaint. After speaking with both parties, they advised the caller to check with delivery service. The package was later found delivered to the wrong address. Police time wasted."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "response": "Fire department dispatched to a missing package. Completely inappropriate."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "response": "Medical unit dispatched. No medical issue. Critical failure."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "response": "Animal control dispatched. No animals involved."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "response": "Correctly handled as non-emergency. Advised caller to contact delivery service and file a police report online. No dispatch needed. Caller later found package misdelivered."
+      }
+    },
+    "id": "scenario_049"
+  },
+  {
+    "title": "Suspicious Vehicle in Neighborhood",
+    "archetype": "Low-Priority / Non-Emergency",
+    "description": "A woman reports a van that has been parked on her street for two days. She fears it might be a burglar casing houses, but it's actually just a broken-down car owned by a resident's guest.",
+    "states": {
+      "initial": "Caller reports suspicious vehicle.",
+      "monitoring": "Caller is watching the vehicle.",
+      "resolved": "Caller learns the vehicle belongs to a neighbor's guest."
+    },
+    "initial_variations": [
+      "There's a suspicious van parked on {street_name} for {duration}. No one has come near it. I think it's a burglar's car. Can you check it out? My address is {address_location}.",
+      "Hi, I'm {caller_name}. There's a dark-colored van with out-of-state plates at {address_location}. It's been here {duration} and I'm worried. Please send police to investigate.",
+      "I saw {ambient_audio} from the van earlier. It might have someone inside. I'm scared to walk my dog. Please send someone.",
+      "This van has been here for {duration}. It's not a neighbor's car. I think they are watching houses. I need police to come remove it. It's at {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Mrs. Davis", "Jennifer", "Carl", "Patricia"],
+      "street_name": ["Oak Street", "Maple Ave", "Birch Lane", "Cedar Court"],
+      "address_location": ["500 Oak Street", "1500 Maple Ave", "200 Birch Lane", "350 Cedar Court"],
+      "duration": ["two days", "almost three days", "since Monday", "over 48 hours"],
+      "ambient_audio": [
+        "a muffled cough",
+        "a radio playing softly",
+        "engine sounds occasionally",
+        "silence"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's parked on {street_name} near {address_location}.",
+            "Right in front of {address_location}."
+          ],
+          "monitoring": [
+            "Still at {address_location}. I see it from my window.",
+            "Same spot, {address_location}."
+          ],
+          "resolved": [
+            "It's been towed from {address_location}.",
+            "It moved, it was at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "monitoring"
+        },
+        "responses": {
+          "initial": [
+            "It's a white van with no markings. License plate {license_plate} (simulated).",
+            "I saw a person inside yesterday, but not today.",
+            "It has out-of-state plates."
+          ],
+          "monitoring": [
+            "I just saw the door open but no one got out.",
+            "It's still there, hasn't moved."
+          ],
+          "resolved": ["Turns out it belongs to the new neighbor's guest. Car broke down."]
+        }
+      },
+      "ASK_EMOTIONAL_STATE": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "monitoring"
+        },
+        "responses": {
+          "initial": [
+            "I'm worried and suspicious.",
+            "I'm scared it might be a child predator.",
+            "I'm annoyed that it's blocking my view."
+          ],
+          "monitoring": [
+            "I'm on edge, checking every few minutes.",
+            "I'm calmer now that I've called."
+          ],
+          "resolved": ["I feel silly but relieved."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I don't own weapons.",
+            "I have a baseball bat inside.",
+            "I have pepper spray."
+          ],
+          "monitoring": ["Still no weapons.", "I have my phone ready to record."],
+          "resolved": ["No weapons needed."]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I feel safe inside my home.", "I'm not directly threatened."],
+          "monitoring": ["I'm still safe, just cautious.", "I'm staying away from the van."],
+          "resolved": ["I'm safe."]
+        }
+      }
+    },
+    "predefined_actions": {
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "resolved",
+          "monitoring": "resolved"
+        },
+        "response": "Thank you for being vigilant. However, a parked car alone is not a crime. It could be a resident's guest. I'll run the plates (if provided) but this is not an emergency. I suggest asking your neighbors if anyone knows about the van."
+      },
+      "DISPATCH_OFFICER": {
+        "score_delta": -50,
+        "transitions": {
+          "monitoring": "resolved"
+        },
+        "response": "Dispatching a patrol to check the vehicle. Please stay indoors. An officer will investigate."
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "response": "Police responded to a suspicious vehicle. It turned out to be a broken-down van owned by a visitor. No crime. Minor resource use but justifiable due to community concern."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "response": "Fire department dispatched to a parked van. Inappropriate and wasteful."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "response": "Medical unit sent. No medical issue. Critical error."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "response": "Animal control dispatched. No animals. Misallocation."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "response": "Correctly identified as non-emergency. Advised caller to check with neighbors. Later discovered the van belonged to a guest with a broken car. No police needed."
+      }
+    },
+    "id": "scenario_050"
+  },
+  {
+    "title": "The Mysterious Hum",
+    "description": "An elderly woman is disturbed by a low-frequency hum every night. She has contacted utility companies but nothing found. She calls 911 out of frustration and concern that it might be dangerous.",
+    "states": {
+      "initial": "Caller starts the call expressing worry about the humming sound.",
+      "describing": "Caller provides details about the hum after being asked.",
+      "frustrated": "Caller becomes frustrated as the dispatcher probes for more information.",
+      "reassured": "Caller calms down after the dispatcher provides reassurance or advice."
+    },
+    "initial_variations": [
+      "Hello? I'm {caller_name} at {address_location}. There's this hum... it's been going on for nights. It sounds like {hum_sound}. It's keeping me awake. I'm worried it could be something dangerous.",
+      "911? I need to report a strange noise. It's a low hum, like {hum_sound}, coming from outside. It happens {hum_time} and lasts about {hum_duration}. Please send someone to check!",
+      "Yes, this is {caller_name} from {address_location}. I keep hearing a humming sound every night at {hum_time} for {hum_duration}. My neighbor can't hear it, but I'm concerned. What should I do?"
+    ],
+    "slots": {
+      "caller_name": ["Eleanor Vance", "Walter White", "Martha Stewart", "John Doe", "Jane Smith"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "hum_sound": [
+        "a low engine drone",
+        "a buzzing transformer",
+        "a pulsing vibration",
+        "a deep hum like a generator",
+        "a rhythmic thrum"
+      ],
+      "hum_time": [
+        "around 3 AM",
+        "at dawn",
+        "during the night",
+        "right after midnight",
+        "before sunrise"
+      ],
+      "hum_duration": [
+        "about two hours",
+        "from 3 to 5 AM",
+        "an hour or so",
+        "all night intermittently",
+        "20 minutes at a time"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you confirm the address? I have it as {address_location}.",
+            "I need your location. Is it {address_location}?"
+          ],
+          "describing": [
+            "So you're at {address_location}, correct?",
+            "Let me verify: you're calling from {address_location}?"
+          ],
+          "frustrated": [
+            "I have your address as {address_location}. Is that still correct?",
+            "Please bear with me, the address is {address_location}, right?"
+          ],
+          "reassured": [
+            "Alright, I have you at {address_location}.",
+            "Thank you, {address_location} is noted."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "describing"
+        },
+        "responses": {
+          "initial": [
+            "Can you tell me more about the hum? What does it sound like?",
+            "When did you first notice it?",
+            "How long does it last?"
+          ],
+          "describing": [
+            "I see. So it's a {hum_sound} and it happens {hum_time} for {hum_duration}?",
+            "Thank you for the details. Anything else unusual?"
+          ],
+          "frustrated": [
+            "I understand your frustration. Let's focus on the facts: the sound is {hum_sound} and occurs {hum_time}?",
+            "I know it's annoying, but please help me with the specifics."
+          ],
+          "reassured": [
+            "I have the details: {hum_sound} at {hum_time} for {hum_duration}.",
+            "Thanks, that's clear."
+          ]
+        }
+      },
+      "ASK_CALLER_EMOTION": {
+        "score_delta": 5,
+        "transitions": {
+          "describing": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Are you feeling anxious or just annoyed?",
+            "How are you holding up with this noise?"
+          ],
+          "describing": [
+            "It sounds like it's really affecting you. Are you getting enough sleep?",
+            "You seem concerned. Is it affecting your daily life?"
+          ],
+          "frustrated": [
+            "I can hear the frustration in your voice. Let's see what we can do.",
+            "I understand this is stressful. Take a deep breath."
+          ],
+          "reassured": [
+            "You're doing well. Let's find a solution.",
+            "I'm glad you're calmer now. We'll handle this."
+          ]
+        }
+      },
+      "ASK_OBSERVATIONS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Have you noticed any other sounds or smells?",
+            "Do you have any idea where the hum might be coming from?"
+          ],
+          "describing": [
+            "You mentioned it seems to come from the north side. Any electrical appliances there?",
+            "Have you checked your own fuse box or HVAC system?"
+          ],
+          "frustrated": [
+            "We've noted the direction. Have you tried turning off breakers to isolate the source?",
+            "Maybe we can rule out your own equipment."
+          ],
+          "reassured": [
+            "Good observation. We can suggest steps to identify the source.",
+            "That's helpful information."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Call resolved; advised caller to contact utility company or wait for natural cause."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched to check noise complaint; found no immediate threat, but caller appreciated the visit."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire department dispatched; no fire found, unnecessary use of resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Medical team dispatched; no injuries or medical issue, wasted resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched; no animals involved."
+      }
+    },
+    "id": "scenario_051",
+    "archetype": "Low-Priority / Non-Emergency"
+  },
+  {
+    "title": "Mailbox Vandalism",
+    "description": "A homeowner discovers his mailbox has been knocked over overnight. He wants to file a police report for insurance purposes, but it's a minor property issue.",
+    "states": {
+      "initial": "Caller reports the vandalism.",
+      "reporting": "Caller provides details about the incident.",
+      "frustrated": "Caller becomes irritated if the dispatcher suggests it's not an emergency.",
+      "accepting": "Caller accepts advice to file a non-emergency report."
+    },
+    "initial_variations": [
+      "This is {caller_name} at {address_location}. My mailbox was vandalized! It's just lying on the ground. I need to report it.",
+      "Hello, I'm calling about my mailbox at {address_location}. Sometime {time_of_incident}, someone knocked it over. It's not a big emergency, but I want it on record.",
+      "Hi, my name is {caller_name} from {address_location}. My mailbox has been {damage_description}. I think it was kids or maybe a car. Can you send someone to take a report?"
+    ],
+    "slots": {
+      "caller_name": ["Tom Hanks", "Bruce Wayne", "Clark Kent", "Peter Parker", "Tony Stark"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "time_of_incident": [
+        "last night",
+        "early this morning",
+        "yesterday afternoon",
+        "sometime on Sunday",
+        "during the storm"
+      ],
+      "damage_description": [
+        "completely knocked over",
+        "smashed and bent",
+        "pushed off its post",
+        "cracked in half",
+        "missing entirely"
+      ],
+      "suspect_info": [
+        "no idea",
+        "saw a red truck speeding away",
+        "heard loud noise around midnight",
+        "neighbor's security camera might have caught it",
+        "kids from the next street"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you confirm the address? I have {address_location}.",
+            "I need your location. Is it {address_location}?"
+          ],
+          "reporting": [
+            "So you're at {address_location}, correct?",
+            "Let me verify: {address_location}?"
+          ],
+          "frustrated": [
+            "I have your address as {address_location}.",
+            "Please, the address is {address_location}?"
+          ],
+          "accepting": ["Alright, {address_location} is noted."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "reporting"
+        },
+        "responses": {
+          "initial": ["When did this happen?", "What exactly happened to the mailbox?"],
+          "reporting": [
+            "So it happened {time_of_incident} and it's {damage_description}?",
+            "Do you have any suspect info? {suspect_info}?"
+          ],
+          "frustrated": [
+            "I understand it's frustrating. We need the details: {time_of_incident} and the damage is {damage_description}.",
+            "I know, but please, any info on who might have done it?"
+          ],
+          "accepting": [
+            "Thanks for the details: {time_of_incident}, {damage_description}, {suspect_info}.",
+            "That's all recorded."
+          ]
+        }
+      },
+      "ASK_SUSPECT": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Do you have any idea who might have done this?",
+            "Did you see or hear anything?"
+          ],
+          "reporting": [
+            "You mentioned {suspect_info}. Anything else?",
+            "Any leads on the suspect?"
+          ],
+          "frustrated": [
+            "I understand you're upset. Do you have any more details on the suspect?",
+            "Please, any additional info on {suspect_info} could help."
+          ],
+          "accepting": ["Thanks for the suspect info: {suspect_info}.", "Noted."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 5,
+        "transitions": {
+          "reporting": "accepting"
+        },
+        "responses": {
+          "initial": ["Have you contacted your insurance?", "What have you done so far?"],
+          "reporting": [
+            "Have you called your insurance company?",
+            "Any steps taken to secure the mailbox?"
+          ],
+          "frustrated": [
+            "I know you want police, but have you tried filing a claim?",
+            "Maybe we can resolve this without a patrol unit."
+          ],
+          "accepting": [
+            "Good, you can file a report online or at the precinct.",
+            "That's a good plan. Insurance can handle it."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Call resolved; advised to file a non-emergency police report online or at the station."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched to take report; minimal impact but not a priority use of resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire department dispatched; no fire hazard, wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Medical team dispatched; no injuries, wasted resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched; no animals involved."
+      }
+    },
+    "id": "scenario_052",
+    "archetype": "Low-Priority / Non-Emergency"
+  },
+  {
+    "title": "Lost Drone Dispute",
+    "description": "A teenager's drone landed in a neighbor's yard and the neighbor refuses to return it. The teen calls 911 hoping police will force the neighbor to give it back.",
+    "states": {
+      "initial": "Caller explains the situation.",
+      "pleading": "Caller begs for help to retrieve the drone.",
+      "angry": "Caller gets angry if the dispatcher suggests it's a civil matter.",
+      "resigned": "Caller accepts the advice to resolve it civilly."
+    },
+    "initial_variations": [
+      "Hi, my name's {caller_name} from {address_location}. My drone landed in {specific_location} and the person there won't give it back. Can you help?",
+      "Hello, I'm {caller_name}. I lost my drone in my neighbor's yard at {address_location}. They're refusing to return it. That's stealing, right?",
+      "Yes, this is {caller_name}. My drone crashed into {specific_location} next door at {address_location}. I asked nicely but they said 'finders keepers'. I think they should give it back."
+    ],
+    "slots": {
+      "caller_name": ["Chris", "Alex", "Jordan", "Taylor", "Sam"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "neighbor_response": [
+        "refuses to answer the door",
+        "yelled at me",
+        "claimed it's on their property so it's theirs",
+        "said they'll keep it",
+        "called the cops on me"
+      ],
+      "drone_value": ["$200", "$500", "my Christmas present", "a high-end model", "custom built"],
+      "specific_location": [
+        "the neighbor's backyard",
+        "the tall tree next door",
+        "the neighbor's roof",
+        "the shared fence",
+        "the driveway"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can I get your location? Is it {address_location}?",
+            "Where are you calling from? {address_location}?"
+          ],
+          "pleading": [
+            "So you're at {address_location}, correct?",
+            "I need your address: {address_location}?"
+          ],
+          "angry": [
+            "I have your address as {address_location}.",
+            "Please, the address is {address_location}?"
+          ],
+          "resigned": ["Alright, {address_location} is noted."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "pleading"
+        },
+        "responses": {
+          "initial": ["What happened exactly?", "Where did the drone land?"],
+          "pleading": [
+            "So it landed in {specific_location} and the neighbor said {neighbor_response}?",
+            "And the drone is worth {drone_value}?"
+          ],
+          "angry": [
+            "I understand you're angry, but we need the facts: it landed in {specific_location} and neighbor said {neighbor_response}.",
+            "The value is {drone_value}?"
+          ],
+          "resigned": [
+            "Thanks for the details: {specific_location}, {neighbor_response}, {drone_value}."
+          ]
+        }
+      },
+      "ASK_NEIGHBOR": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Have you talked to the neighbor?", "What did they say?"],
+          "pleading": [
+            "You said they {neighbor_response}. Have you tried talking again?",
+            "Maybe they'll return it if you offer a reward?"
+          ],
+          "angry": [
+            "I know it's frustrating. Did they give a reason?",
+            "Maybe we can mediate from here?"
+          ],
+          "resigned": [
+            "It sounds like a civil matter. You may need to take them to small claims court.",
+            "I'm sorry, but police can't force them to return it."
+          ]
+        }
+      },
+      "ASK_VALUE": {
+        "score_delta": 5,
+        "transitions": {
+          "pleading": "angry"
+        },
+        "responses": {
+          "initial": ["How much is the drone worth?", "Is it valuable?"],
+          "pleading": [
+            "It's worth {drone_value}. That's a lot to lose.",
+            "I understand it's important to you."
+          ],
+          "angry": [
+            "I get it, it's {drone_value}. But police involvement might not help.",
+            "Even though it's valuable, this is a property dispute."
+          ],
+          "resigned": ["I know it's {drone_value}. I hope you can resolve it."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Call resolved; advised to handle as a civil matter or contact attorney."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched to mediate; no crime found, but caller appreciated the attempt."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire department dispatched; no emergency, wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Medical team dispatched; no injuries, wasted resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched; no animals involved."
+      }
+    },
+    "id": "scenario_053",
+    "archetype": "Low-Priority / Non-Emergency"
+  },
+  {
+    "title": "Shopping Cart Invasion",
+    "description": "A homeowner calls to report multiple shopping carts dumped in the street, blocking driveways. It's a nuisance but not an emergency.",
+    "states": {
+      "initial": "Caller complains about the carts.",
+      "explaining": "Caller provides details about the situation.",
+      "annoyed": "Caller becomes annoyed if dispatched suggests it's not a priority.",
+      "accepting": "Caller accepts advice to contact store or public works."
+    },
+    "initial_variations": [
+      "This is {caller_name} at {address_location}. There's a pile of shopping carts in the street, blocking my driveway. Can you send someone to pick them up?",
+      "Yes, I'm calling about shopping carts dumped in the street near {address_location}. They're creating a hazard. I almost hit one this morning.",
+      "Hi, my name is {caller_name} from {address_location}. Somebody left about {number_of_carts} shopping carts from {store_name} in the middle of the road. It's not an emergency but it's really inconvenient."
+    ],
+    "slots": {
+      "caller_name": ["Karen", "Bob", "Alice", "Frank", "Debbie"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "number_of_carts": ["five", "ten", "a dozen", "over twenty", "three"],
+      "store_name": ["Walmart", "Target", "Kroger", "Costco", "local grocery"],
+      "location_detail": [
+        "in the middle of the cul-de-sac",
+        "blocking my driveway",
+        "scattered on the sidewalk",
+        "piled up at the intersection",
+        "lining the street"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can I get your location? Is it {address_location}?",
+            "Where are you calling from? {address_location}?"
+          ],
+          "explaining": [
+            "So you're at {address_location}, correct?",
+            "The carts are near {address_location}?"
+          ],
+          "annoyed": [
+            "I have your address as {address_location}.",
+            "Please, the address is {address_location}?"
+          ],
+          "accepting": ["Alright, {address_location} is noted."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "explaining"
+        },
+        "responses": {
+          "initial": ["How many carts are there?", "Where exactly are they?"],
+          "explaining": [
+            "So there are {number_of_carts} carts from {store_name} at {location_detail}?",
+            "Are they blocking traffic?"
+          ],
+          "annoyed": [
+            "I know it's annoying, but please confirm: {number_of_carts} carts, {store_name}, {location_detail}.",
+            "Any store markings on them?"
+          ],
+          "accepting": [
+            "Thanks for the details: {number_of_carts}, {store_name}, {location_detail}."
+          ]
+        }
+      },
+      "ASK_STORE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Do you know which store they belong to?", "Can you see any logos?"],
+          "explaining": ["You said {store_name}. Do you have their number?"],
+          "annoyed": [
+            "The store is {store_name}. I can provide their non-emergency contact.",
+            "Maybe call the store directly?"
+          ],
+          "accepting": ["Good, you know the store. They can retrieve the carts."]
+        }
+      },
+      "ASK_ACTION": {
+        "score_delta": 5,
+        "transitions": {
+          "explaining": "annoyed"
+        },
+        "responses": {
+          "initial": ["Have you tried contacting the store?", "What would you like us to do?"],
+          "explaining": [
+            "You can call the store at their customer service number.",
+            "We can note the problem for public works."
+          ],
+          "annoyed": [
+            "I understand it's frustrating, but this is a non-emergency. Please contact {store_name} or city services.",
+            "I'm sorry, but we can't dispatch a unit for shopping carts."
+          ],
+          "accepting": [
+            "Great, please call the store. If they don't respond, contact city code enforcement.",
+            "Thank you for understanding."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Call resolved; advised to contact store or public works."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched to document; no immediate action taken."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Fire department dispatched; no hazard, wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Medical team dispatched; no injuries, wasted resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched; no animals involved."
+      }
+    },
+    "id": "scenario_054",
+    "archetype": "Low-Priority / Non-Emergency"
+  },
+  {
+    "title": "Midday BBQ Panic",
+    "description": "A new resident sees smoke and flames from a neighbor's backyard and calls 911, fearing a fire. It's actually a barbecue grill, but the caller is panicked.",
+    "states": {
+      "initial": "Caller reports a fire in panic.",
+      "panicked": "Caller remains panicky as dispatcher asks for details.",
+      "reassured": "Caller calms down after realizing it's just a BBQ.",
+      "embarrassed": "Caller feels embarrassed for overreacting."
+    },
+    "initial_variations": [
+      "There's a fire! I'm at {address_location} and I smell smoke and see flames in the backyard next door! Please hurry!",
+      "Hello? I think my neighbor's house is on fire! I'm {caller_name} at {address_location}. There's a lot of smoke coming from behind their house!",
+      "This is an emergency! I see smoke and a bright flame from the house next to {address_location}. I'm {caller_name}. Please send the fire department!"
+    ],
+    "slots": {
+      "caller_name": ["Jane", "Mike", "Sarah", "Dave", "Emily"],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "smoke_color": ["white", "gray", "black", "bluish", "thin"],
+      "flame_visibility": [
+        "visible flames",
+        "just smoke",
+        "no flames yet",
+        "orange glow",
+        "sparks"
+      ],
+      "neighbor_activity": [
+        "I see them grilling",
+        "no one outside",
+        "I hear music",
+        "they seem to be having a party",
+        "I don't see anyone"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you confirm the address? I have {address_location}.",
+            "Is the fire at {address_location}?"
+          ],
+          "panicked": [
+            "Stay calm. The address is {address_location}?",
+            "I need your location: {address_location}?"
+          ],
+          "reassured": [
+            "You're at {address_location}. Good.",
+            "Alright, {address_location} is noted."
+          ],
+          "embarrassed": ["No worries, we have {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "panicked"
+        },
+        "responses": {
+          "initial": ["Can you describe the smoke? What color is it?", "Do you see flames?"],
+          "panicked": [
+            "What color is the smoke? {smoke_color}?",
+            "Are there visible flames? {flame_visibility}?"
+          ],
+          "reassured": [
+            "So the smoke is {smoke_color} and you see {flame_visibility}.",
+            "Is anyone outside? {neighbor_activity}?"
+          ],
+          "embarrassed": [
+            "It's okay. The smoke is {smoke_color} and it's from a grill, not a fire."
+          ]
+        }
+      },
+      "ASK_FLAME_SIZE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["How big are the flames?", "Is it spreading?"],
+          "panicked": ["Are the flames large or small?", "Is it just in one spot?"],
+          "reassured": [
+            "I think I know what it is. Look closer: is it a grill?",
+            "The flames seem controlled."
+          ],
+          "embarrassed": ["No harm done. It's probably just a barbecue."]
+        }
+      },
+      "ASK_NEIGHBOR_PRESENT": {
+        "score_delta": 5,
+        "transitions": {
+          "panicked": "reassured"
+        },
+        "responses": {
+          "initial": ["Do you see anyone in the backyard?", "Are there people around?"],
+          "panicked": [
+            "Can you see if anyone is grilling? {neighbor_activity}?",
+            "Is there a barbecue or fire pit?"
+          ],
+          "reassured": [
+            "I see. It sounds like a barbecue. Is that possible?",
+            "They might be having a cookout."
+          ],
+          "embarrassed": ["Don't worry, it happens. Just a BBQ."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Call resolved; confirmed it was a barbecue, no further action needed."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched; found a BBQ, no issue, but minor resource waste."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "message": "Fire department dispatched; false alarm, unnecessary response."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Medical team dispatched; no injuries, wasted resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched; no animals involved."
+      }
+    },
+    "id": "scenario_055",
+    "archetype": "Low-Priority / Non-Emergency"
+  },
+  {
+    "title": "The Great Pumpkin Predicament",
+    "archetype": "Low-Priority / Non-Emergency",
+    "summary": "A neighbor's oversized, animated Halloween decoration is scaring children and causing a commotion on a quiet residential street. The caller is frustrated and demands immediate removal.",
+    "states": ["initial", "waiting", "confronting", "resolved"],
+    "initial_variations": [
+      "There's a giant screaming pumpkin in my neighbor's yard and it's terrifying my kids! I need it removed right now!",
+      "I can't take another night of that horrible Halloween decoration. It's keeping the whole block awake with its loud noises.",
+      "My children are crying because of that grotesque pumpkin display. This has to stop before Halloween even starts.",
+      "This is ridiculous. That animatronic pumpkin is a public nuisance. I want an officer sent immediately."
+    ],
+    "slots": {
+      "caller_name": ["Mrs. Jenkins", "Tom", "Sarah", "Mr. Peterson"],
+      "address_location": ["1423 Oak Street", "485 Maple Avenue", "789 Pine Road", "325 Elm Drive"],
+      "specific_details": [
+        "giant pumpkin with flashing eyes",
+        "screaming sound every 30 seconds",
+        "fog machine and strobe lights",
+        "life-sized witch cackling"
+      ],
+      "ambient_audio": [
+        "children crying in background",
+        "loud Halloween music playing",
+        "dogs barking",
+        "neighbors shouting"
+      ],
+      "neighbor_name": [
+        "Mr. Johnson",
+        "the Smiths",
+        "the new family",
+        "that rental property tenant"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, right across from me.",
+            "The address is {address_location}, you can't miss it.",
+            "I'm at {address_location}, the pumpkin is next door.",
+            "At {address_location}, please hurry."
+          ],
+          "waiting": [
+            "Still at {address_location}. The pumpkin is still going.",
+            "Same location, {address_location}. Nothing changed.",
+            "Yes, I'm still at {address_location}."
+          ],
+          "confronting": [
+            "I'm at {address_location}, confronting the owner now.",
+            "At {address_location}, the neighbor is here.",
+            "I'm outside {address_location}, arguing with the neighbor."
+          ],
+          "resolved": [
+            "The pumpkin is off, at {address_location}.",
+            "All quiet at {address_location} now."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details} decoration. It's been going for hours!",
+            "My kids are scared of the {specific_details}. It's too realistic.",
+            "The {specific_details} is making a scene. Everyone is annoyed.",
+            "It's a {specific_details} and it's set off car alarms."
+          ],
+          "waiting": [
+            "Still the same {specific_details}. No change.",
+            "The {specific_details} is still blaring.",
+            "The {specific_details} just keeps going."
+          ],
+          "confronting": [
+            "The neighbor says it's for Halloween, but the {specific_details} is too much.",
+            "I told them the {specific_details} is scaring everyone."
+          ],
+          "resolved": [
+            "The {specific_details} has been turned off.",
+            "They agreed to unplug the {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}, I live next door.",
+            "I'm {caller_name}, the one calling.",
+            "This is {caller_name}.",
+            "Yeah, I'm {caller_name}."
+          ],
+          "waiting": [
+            "Still {caller_name}, waiting for help.",
+            "This is {caller_name} again.",
+            "{caller_name} here, still waiting."
+          ],
+          "confronting": [
+            "It's {caller_name}, and I'm talking to the neighbor.",
+            "{caller_name}, at the neighbor's house."
+          ],
+          "resolved": [
+            "{caller_name} here. All sorted.",
+            "This is {caller_name}. Thanks for your help."
+          ]
+        }
+      },
+      "ASK_NATURE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a Halloween decoration complaint. It's too loud and scary.",
+            "Non-emergency, but it's causing a disturbance.",
+            "A nuisance call about a decoration.",
+            "This is a noise complaint about a decoration."
+          ],
+          "waiting": [
+            "Still a decoration issue.",
+            "Same problem, just waiting.",
+            "It's still about the Halloween thing."
+          ],
+          "confronting": [
+            "Now it's a dispute with the neighbor over the decoration.",
+            "The problem is the decoration, now confronting the owner."
+          ],
+          "resolved": ["Resolved. Decoration is off.", "No issue now, decoration handled."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons involved, just a loud decoration.",
+            "No, nothing like that. Just a pumpkin.",
+            "No weapons. It's a decoration.",
+            "None."
+          ],
+          "waiting": ["No weapons.", "Still no weapons.", "Nothing like that."],
+          "confronting": ["No weapons. Just arguing.", "No, we're just talking."],
+          "resolved": ["No."]
+        }
+      },
+      "INSTRUCT_REMAIN_CALM": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "waiting",
+          "confronting": "waiting"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll try to stay calm. But please do something.",
+            "I'll calm down, but this is frustrating.",
+            "Alright, I'll wait calmly.",
+            "Fine, but hurry."
+          ],
+          "waiting": ["I'm calm, just waiting.", "Okay, I'm waiting.", "I'm staying calm."],
+          "confronting": [
+            "Okay, I'll back off and wait.",
+            "I'll stop arguing and wait.",
+            "Alright, I'll step back."
+          ],
+          "resolved": ["I'm calm now that it's resolved.", "All good."]
+        }
+      },
+      "INSTRUCT_STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Sure, I'll stay on.", "I'm not going anywhere.", "I'll stay.", "Okay."],
+          "waiting": ["Still here.", "I'm on the line.", "Not hanging up."],
+          "confronting": [
+            "I'm here, but I'm talking to the neighbor too.",
+            "I'm on the line, but the neighbor is here."
+          ],
+          "resolved": ["I'm here. Thanks."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Sending police to a Halloween decoration complaint is a waste of resources. They mediated but the caller was unhappy with the response time."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Sending fire trucks for a decoration is a major error. The crew was annoyed and the caller was embarrassed."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Medical dispatch for a decoration scare is absurd. The paramedics arrived to find no injury, only a loud pumpkin."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control is not appropriate for a decoration. They had a laugh but the caller was confused."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Correctly dismissed as a non-emergency. The caller was advised to talk to the neighbor or wait until Halloween passed."
+      }
+    },
+    "id": "scenario_056"
+  },
+  {
+    "title": "Goat on the Loose",
+    "archetype": "Low-Priority / Non-Emergency",
+    "summary": "A stray goat is wandering through a suburban neighborhood, eating flowers and gardens. The caller is worried but it's not an emergency.",
+    "states": ["initial", "tracking", "contained", "owner_found"],
+    "initial_variations": [
+      "There's a goat in my yard eating my tulips! What should I do?",
+      "A goat is running down the street and scaring my dog. Can you send someone?",
+      "Somebody's goat is in my garden. I need it removed before it destroys everything.",
+      "I think there's a lost goat wandering around the block. It's not dangerous, but it's causing trouble."
+    ],
+    "slots": {
+      "caller_name": ["Linda", "Bob", "Angela", "Mike"],
+      "address_location": [
+        "456 Cherry Lane",
+        "123 Walnut Street",
+        "789 Birch Court",
+        "321 Spruce Avenue"
+      ],
+      "specific_details": [
+        "white goat with a bell",
+        "brown goat with floppy ears",
+        "small black goat",
+        "goat with a collar"
+      ],
+      "ambient_audio": [
+        "goat bleating in background",
+        "neighbors shouting",
+        "dogs barking",
+        "garden sprinklers"
+      ],
+      "direction_seen": [
+        "heading towards the park",
+        "in the backyard on the patio",
+        "near the school playground",
+        "crossing Main Street"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, in my front yard.",
+            "The goat is at {address_location}, eating flowers.",
+            "At {address_location}, the goat is in the garden.",
+            "I'm at {address_location} and the goat is here."
+          ],
+          "tracking": [
+            "The goat ran off towards {direction_seen}.",
+            "It went {direction_seen}.",
+            "I saw it going {direction_seen}.",
+            "It's now {direction_seen}."
+          ],
+          "contained": [
+            "We've got the goat in a pen at {address_location}.",
+            "The goat is contained in my garage at {address_location}.",
+            "It's in the backyard, fenced in at {address_location}."
+          ],
+          "owner_found": [
+            "The owner came and got it from {address_location}.",
+            "All resolved at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}. It just showed up.",
+            "The goat is {specific_details}. Seems friendly but eating everything.",
+            "A {specific_details} goat is destroying my garden.",
+            "It looks like a {specific_details} goat."
+          ],
+          "tracking": [
+            "The {specific_details} goat is on the move.",
+            "Same {specific_details} goat, now heading away.",
+            "The {specific_details} goat is running around."
+          ],
+          "contained": [
+            "The {specific_details} goat is safely contained.",
+            "Got the {specific_details} goat locked up."
+          ],
+          "owner_found": ["The {specific_details} goat is back with its owner."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}, I'm the homeowner.",
+            "{caller_name} calling about the goat.",
+            "This is {caller_name}.",
+            "I'm {caller_name}."
+          ],
+          "tracking": [
+            "{caller_name} still tracking the goat.",
+            "It's {caller_name} again.",
+            "{caller_name} here, the goat is moving."
+          ],
+          "contained": [
+            "{caller_name}, we have the goat.",
+            "This is {caller_name}, goat is contained."
+          ],
+          "owner_found": ["{caller_name} here, owner found.", "This is {caller_name}. All done."]
+        }
+      },
+      "ASK_NATURE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a stray animal complaint. A goat.",
+            "Non-emergency, just a lost goat.",
+            "A goat issue, not dangerous.",
+            "Animal problem: a goat wandering."
+          ],
+          "tracking": [
+            "Still the same goat problem.",
+            "Tracking the loose goat.",
+            "It's still about the goat."
+          ],
+          "contained": ["Goat is now contained.", "The goat problem is under control."],
+          "owner_found": ["Goat returned to owner.", "Resolved."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons. It's a goat.",
+            "None.",
+            "No, it's just a goat.",
+            "No weapons involved."
+          ],
+          "tracking": ["No.", "Still no weapons.", "No weapons."],
+          "contained": ["None.", "No."],
+          "owner_found": ["No."]
+        }
+      },
+      "INSTRUCT_REMAIN_CALM": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "tracking",
+          "tracking": "tracking"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll stay calm. But my garden!",
+            "Fine, I'm calm. What should I do?",
+            "Alright, I'll stay calm and keep an eye on it.",
+            "I'll try to stay calm."
+          ],
+          "tracking": [
+            "I'm calm, just following at a distance.",
+            "Okay, I'm staying back.",
+            "I'm calm, not chasing it."
+          ],
+          "contained": ["I'm calm now that it's contained.", "All calm here."],
+          "owner_found": ["Calm and relieved."]
+        }
+      },
+      "INSTRUCT_STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Sure, I'll stay on.", "Okay.", "I'm not hanging up.", "I'll stay."],
+          "tracking": [
+            "Still on the line.",
+            "Yes, I'm here.",
+            "I'm following the goat and on the line."
+          ],
+          "contained": ["I'm here.", "Yes, still on."],
+          "owner_found": ["I'm here, thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police responded but it was a waste of their time. They helped contain the goat but could have been used elsewhere."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire department arrived to find a small goat. They were not amused and the caller was embarrassed."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Medical dispatch for a goat is completely inappropriate. Paramedics found no injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Animal control handled the goat swiftly. They found the owner within an hour."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Dismissing the call left the goat to cause more damage. The caller was frustrated."
+      }
+    },
+    "id": "scenario_057"
+  },
+  {
+    "title": "The Midnight Cook",
+    "archetype": "Low-Priority / Non-Emergency",
+    "summary": "A neighbor's late-night cooking produces strong odors that are wafting into the caller's apartment. The caller complains about the smell and noise from the kitchen.",
+    "states": ["initial", "negotiating", "compromised", "resolved"],
+    "initial_variations": [
+      "My neighbor is cooking something so strong it's making me sick! It's 2 AM and the smell is everywhere!",
+      "I can't sleep because of the cooking smell and loud sounds from next door. Please make it stop.",
+      "This is ridiculous. I'm reporting a noise and odor nuisance from my neighbor's kitchen. It's past midnight.",
+      "I've asked them nicely but the cooking continues. The smell is unbreathable. Send someone to talk to them."
+    ],
+    "slots": {
+      "caller_name": ["Emily", "Carlos", "Linda", "James"],
+      "address_location": [
+        "Apartment 3B, 555 Main Street",
+        "Suite 12, 234 Oak Avenue",
+        "Flat 7, 876 Pine Lane",
+        "Unit 5, 432 Elm Road"
+      ],
+      "specific_details": [
+        "fried fish and garlic",
+        "burning curry",
+        "strong cheese and onions",
+        "smoke and spices"
+      ],
+      "ambient_audio": [
+        "loud exhaust fan",
+        "banging pots and pans",
+        "TV playing loudly",
+        "neighbor talking loudly"
+      ],
+      "neighbor_unit": ["Apartment 3C", "Suite 11", "Flat 6", "Unit 4"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The smell is coming from {neighbor_unit}.",
+            "{address_location} is my home. Neighbor in {neighbor_unit} is the source.",
+            "This is {address_location}. The cooking is from {neighbor_unit}.",
+            "I'm in {address_location}, neighbor in {neighbor_unit}."
+          ],
+          "negotiating": [
+            "Still at {address_location}. I tried talking to them.",
+            "Same place, {address_location}. The smell continues from {neighbor_unit}.",
+            "{address_location}. I'm about to knock again."
+          ],
+          "compromised": [
+            "We agreed on a compromise. I'm at {address_location}.",
+            "I'm in {address_location}. They turned down the heat a bit."
+          ],
+          "resolved": [
+            "All good at {address_location}. The cooking stopped.",
+            "Resolved. I'm at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It smells like {specific_details}. It's overwhelming.",
+            "They are cooking {specific_details}. It's a strong odor.",
+            "The smell is {specific_details}. I can't breathe.",
+            "I can identify {specific_details}. It's nauseating."
+          ],
+          "negotiating": [
+            "The {specific_details} smell persists.",
+            "Still {specific_details} smell, but less intense after I complained.",
+            "The {specific_details} is still there."
+          ],
+          "compromised": [
+            "The {specific_details} smell is reduced.",
+            "They switched to something milder than {specific_details}."
+          ],
+          "resolved": ["No more {specific_details}. Just quiet."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}.",
+            "I'm {caller_name}.",
+            "{caller_name} here.",
+            "This is {caller_name}."
+          ],
+          "negotiating": ["It's {caller_name} again.", "{caller_name} still dealing with this."],
+          "compromised": ["{caller_name}, we reached a compromise.", "This is {caller_name}."],
+          "resolved": ["{caller_name}. All done."]
+        }
+      },
+      "ASK_NATURE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a noise and odor complaint.",
+            "Non-emergency, just a cooking nuisance.",
+            "A domestic disturbance of smells.",
+            "This is a quality of life issue."
+          ],
+          "negotiating": [
+            "Still the cooking complaint.",
+            "Same issue, trying to resolve.",
+            "The cooking nuisance continues."
+          ],
+          "compromised": ["We have a temporary solution.", "The issue is partly resolved."],
+          "resolved": ["Resolved."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No weapons. Just cooking.", "None.", "No.", "Nothing like that."],
+          "negotiating": ["No weapons.", "Still no.", "No weapons involved."],
+          "compromised": ["None.", "No."],
+          "resolved": ["No."]
+        }
+      },
+      "INSTRUCT_REMAIN_CALM": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "negotiating",
+          "negotiating": "negotiating"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll try to calm down. But it's really strong.",
+            "I'll calm down, but please help.",
+            "Alright, I'm calm.",
+            "I'll stay calm."
+          ],
+          "negotiating": [
+            "I'm staying calm, but I'm frustrated.",
+            "Okay, I'm calm. I'll try talking again.",
+            "Calm, but not happy."
+          ],
+          "compromised": ["I'm calm now that we talked.", "Fine, I'm calm."],
+          "resolved": ["Definitely calm now."]
+        }
+      },
+      "INSTRUCT_STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Sure, I'll stay on.", "I'm not going anywhere.", "I'll stay.", "Okay."],
+          "negotiating": ["Still on the line.", "I'm here.", "Yes, still on."],
+          "compromised": ["I'm here.", "Still on."],
+          "resolved": ["I'm here, thanks."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police responded to a cooking smell complaint. They had a word with the neighbor, but the caller felt it was overkill."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire engine arrived for a cooking odor. The firefighters were annoyed and the situation was unnecessary."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Medical dispatch for a cooking smell is absurd. The paramedics found no medical issue."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control is irrelevant for a cooking complaint. They had no authority."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Correctly dismissed. The caller was advised to speak to the neighbor or building management. The issue was resolved without emergency services."
+      }
+    },
+    "id": "scenario_058"
+  }
+]

@@ -21,6 +21,7 @@ export default function Console911Game() {
   const [currentCallIndex, setCurrentCallIndex] = useState(0);
   const [turnCount, setTurnCount] = useState(1);
   const [totalScore, setTotalScore] = useState(0);
+  const [currentState, setCurrentState] = useState('initial');
 
   // Current active call states
   const [callScore, setCallScore] = useState(0);
@@ -124,6 +125,7 @@ export default function Console911Game() {
     setTurnCount(1);
     setCallScore(0);
     setFeedbackInfo(null);
+    setCurrentState('initial'); // Reset state
     setGameState('playing');
 
     // Set initial transcript with the caller's randomized first statement
@@ -201,7 +203,8 @@ export default function Console911Game() {
           scenarioId: activeCall.scenarioId,
           dispatcherMessage: messageText,
           history,
-          selectedSlots: activeCall.selectedSlots
+          selectedSlots: activeCall.selectedSlots,
+          currentState
         })
       });
 
@@ -215,6 +218,7 @@ export default function Console911Game() {
       setTimeout(() => {
         setIsCallerTyping(false);
         setCallScore((prev) => prev + (data.scoreDelta || 0));
+        setCurrentState(data.newState || currentState);
         setTranscript((prev) => [
           ...prev,
           {

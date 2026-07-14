@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import { loadAllScenarios } from '@/lib/scenarios';
 import { normalizeIntent } from '@/lib/intent';
 import { redis } from '@/lib/redis';
-
-// Gemini API Fallback configuration
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+import { removeStopwords } from 'stopword';
 
 interface ChatHistoryItem {
   role: 'dispatcher' | 'caller';
@@ -16,6 +14,7 @@ interface ChatRequestBody {
   dispatcherMessage: string;
   history: ChatHistoryItem[];
   selectedSlots: Record<string, string>;
+  currentState?: string;
 }
 
 /**
@@ -49,17 +48,197 @@ function hydrateText(text: string, slots: Record<string, string>): string {
   });
 }
 
+async function classifyIntentWithLLM(
+  message: string,
+  deepseekKey?: string,
+  geminiKey?: string
+): Promise<string> {
+  const prompt = `Classify the following 911 dispatcher message into one of these canonical intents if it fits:
+- ASK_LOCATION (asking where they are, address, landmarks)
+- ASK_BREATHING (asking if they are breathing, conscious, pulse)
+- ASK_WEAPONS (asking about guns, knives, armed suspects)
+- ASK_CALLER_NAME (asking for their name or identity)
+- ASK_DETAILS (asking what happened, what is going on, describe the situation)
+- TELL_CALM_DOWN (telling them to relax, calm down, take a deep breath)
+- TELL_EVACUATE (telling them to leave, get out, run, escape)
+- TELL_STAY_PUT (telling them to stay put, hide, lock doors, stay inside)
+- TELL_FIRST_AID (giving CPR directions, applying pressure to wounds)
+
+If it does not fit any of the above (for example, stating this is 911, asking about an animal, or a custom scenario question), return a short, generalized, uppercase keyword of 2-3 words separated by underscores representing the core action/topic (e.g. "TELL_IS_911", "ASK_ANIMAL_TYPE", "ASK_INTRUDER_LOCATION").
+
+Dispatcher message: "${message}"
+
+You must return a JSON object with this exact structure:
+{
+  "intent": "THE_INTENT_KEY"
+}`;
+
+  if (deepseekKey) {
+    try {
+      const dsRes = await fetch('https://api.deepseek.com/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${deepseekKey}`
+        },
+        body: JSON.stringify({
+          model: 'deepseek-v4-flash',
+          messages: [{ role: 'user', content: prompt }],
+          response_format: { type: 'json_object' }
+        })
+      });
+      if (dsRes.ok) {
+        const data = await dsRes.json();
+        const parsed = JSON.parse(data.choices[0].message.content);
+        return parsed.intent;
+      }
+    } catch (e) {
+      console.error('DeepSeek intent classification failed:', e);
+    }
+  }
+
+  if (geminiKey) {
+    try {
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`;
+      const geminiRes = await fetch(geminiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            responseSchema: {
+              type: 'OBJECT',
+              properties: {
+                intent: { type: 'STRING' }
+              },
+              required: ['intent']
+            }
+          }
+        })
+      });
+      if (geminiRes.ok) {
+        const data = await geminiRes.json();
+        const text = data.candidates[0].content.parts[0].text;
+        const parsed = JSON.parse(text);
+        return parsed.intent;
+      }
+    } catch (e) {
+      console.error('Gemini intent classification failed:', e);
+    }
+  }
+
+  return '';
+}
+
+function simplifyMessage(input: string): string {
+  const words = input
+    .toLowerCase()
+    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, '') // Strip punctuation
+    .split(/\s+/);
+
+  const cleanWords = removeStopwords(words);
+
+  // Custom game-specific filters (like 'bro', 'kidding', 'its', 'really')
+  const gameSpecificFillers = new Set([
+    'bro',
+    'kidding',
+    'hello',
+    'hi',
+    'hey',
+    'please',
+    'just',
+    'its',
+    "it's",
+    'really',
+    'indeed'
+  ]);
+  const finalWords = cleanWords.filter(
+    (word: string) => !gameSpecificFillers.has(word) && word.length > 0
+  );
+
+  return finalWords.join('_').substring(0, 40);
+}
+
 export async function POST(req: Request) {
   try {
     const body: ChatRequestBody = await req.json();
-    const { scenarioId, dispatcherMessage, history, selectedSlots } = body;
+    const {
+      scenarioId,
+      dispatcherMessage,
+      history,
+      selectedSlots,
+      currentState = 'initial'
+    } = body;
 
     if (!scenarioId || !dispatcherMessage || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
     }
 
     // 1. Normalize the dispatcher's message
-    const normalizedIntent = normalizeIntent(dispatcherMessage);
+    let normalizedIntent = normalizeIntent(dispatcherMessage);
+
+    const canonicalIntents = [
+      'ASK_LOCATION',
+      'ASK_BREATHING',
+      'ASK_WEAPONS',
+      'ASK_CALLER_NAME',
+      'ASK_DETAILS',
+      'TELL_CALM_DOWN',
+      'TELL_EVACUATE',
+      'TELL_STAY_PUT',
+      'TELL_FIRST_AID'
+    ];
+
+    // If local rules result in a non-canonical fallback, resolve semantically via LLM classifier
+    if (!canonicalIntents.includes(normalizedIntent)) {
+      const messageSlug = simplifyMessage(dispatcherMessage);
+      const mapKey = `intent-map:${messageSlug}`;
+      let resolvedIntent = null;
+
+      if (redis) {
+        try {
+          resolvedIntent = await redis.get<string>(mapKey);
+        } catch (e) {
+          console.error('Redis intent-map lookup failed:', e);
+        }
+      }
+
+      if (resolvedIntent) {
+        normalizedIntent = resolvedIntent;
+        console.log(
+          `Resolved semantic intent from Redis map: ${dispatcherMessage} -> ${normalizedIntent}`
+        );
+      } else {
+        const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+        const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+        if (DEEPSEEK_API_KEY || GEMINI_API_KEY) {
+          try {
+            const classified = await classifyIntentWithLLM(
+              dispatcherMessage,
+              DEEPSEEK_API_KEY,
+              GEMINI_API_KEY
+            );
+            if (classified) {
+              normalizedIntent = classified;
+              if (redis) {
+                try {
+                  await redis.set(mapKey, normalizedIntent);
+                  console.log(
+                    `Saved semantic intent mapping in Redis: ${mapKey} -> ${normalizedIntent}`
+                  );
+                } catch (e) {
+                  console.error('Redis intent-map save failed:', e);
+                }
+              }
+            }
+          } catch (e) {
+            console.error('Semantic intent classification failed:', e);
+          }
+        }
+      }
+    }
 
     // Load the raw scenario to search predefined intents
     const allScenarios = loadAllScenarios();
@@ -71,38 +250,45 @@ export async function POST(req: Request) {
 
     // === TIER 1: Pre-scripted Decision Tree Match ===
     const preScriptedIntent = scenario.intents[normalizedIntent];
-    if (
-      preScriptedIntent &&
-      preScriptedIntent.variations &&
-      preScriptedIntent.variations.length > 0
-    ) {
-      // Pick a random variation
-      const randomIndex = Math.floor(Math.random() * preScriptedIntent.variations.length);
-      const template = preScriptedIntent.variations[randomIndex];
-      const hydratedResponse = hydrateText(template, selectedSlots);
+    if (preScriptedIntent && preScriptedIntent.responses) {
+      const stateResponses =
+        preScriptedIntent.responses[currentState] || preScriptedIntent.responses['initial'] || [];
+      if (stateResponses.length > 0) {
+        // Pick a random variation
+        const randomIndex = Math.floor(Math.random() * stateResponses.length);
+        const template = stateResponses[randomIndex];
+        const hydratedResponse = hydrateText(template, selectedSlots);
 
-      return NextResponse.json({
-        response: hydratedResponse,
-        scoreDelta: preScriptedIntent.score_delta || 0,
-        tier: 1,
-        normalizedIntent
-      });
+        // Determine new state
+        const newState =
+          (preScriptedIntent.transitions && preScriptedIntent.transitions[currentState]) ||
+          currentState;
+
+        return NextResponse.json({
+          response: hydratedResponse,
+          scoreDelta: preScriptedIntent.score_delta || 0,
+          newState,
+          tier: 1,
+          normalizedIntent
+        });
+      }
     }
 
     // === TIER 2: Global Upstash Redis Cache Match ===
-    const cacheKey = `cache:${scenarioId}:${normalizedIntent}`;
+    const cacheKey = `cache:${scenarioId}:${currentState}:${normalizedIntent}`;
     if (redis) {
       try {
         const cached = await redis.get<string>(cacheKey);
         if (cached) {
           // The cached item is stored in generalized template format. Hydrate it before returning.
-          // Format expected: { responseTemplate: string, scoreDelta: number }
+          // Format expected: { responseTemplate: string, scoreDelta: number, newState: string }
           const parsedCache = typeof cached === 'string' ? JSON.parse(cached) : cached;
           const hydratedResponse = hydrateText(parsedCache.responseTemplate, selectedSlots);
 
           return NextResponse.json({
             response: hydratedResponse,
             scoreDelta: parsedCache.scoreDelta || 0,
+            newState: parsedCache.newState || currentState,
             tier: 2,
             normalizedIntent
           });
@@ -112,8 +298,11 @@ export async function POST(req: Request) {
       }
     }
 
-    // === TIER 3: LLM Fallback (Gemini API) ===
-    if (!GEMINI_API_KEY) {
+    // === TIER 3: LLM Fallback ===
+    const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+    if (!DEEPSEEK_API_KEY && !GEMINI_API_KEY) {
       // No API key configured. Return generic, safe fallback response to prevent app crash.
       return NextResponse.json({
         response: hydrateText(
@@ -121,13 +310,18 @@ export async function POST(req: Request) {
           selectedSlots
         ),
         scoreDelta: -10,
+        newState: currentState,
         tier: 3,
         fallbackMode: true,
         normalizedIntent
       });
     }
 
-    // Construct chat prompt for Gemini
+    const statesList = Object.entries(scenario.states || {})
+      .map(([k, desc]) => `- "${k}": ${desc}`)
+      .join('\n');
+
+    // Construct chat prompt with state machine context
     const systemPrompt = `You are playing the role of a caller in a 911 emergency dispatch simulation.
 Scenario Archetype: ${scenario.archetype}
 Scenario Title: ${scenario.title}
@@ -139,6 +333,12 @@ The caller's details for this session are:
 - Address Location: ${selectedSlots.address_location || 'Unknown'}
 - Ambient Audio in Background: ${selectedSlots.ambient_audio || 'Silence'}
 - Specific Details: ${selectedSlots.specific_details || 'None'}
+
+Caller States:
+The caller must be in one of the following states:
+${statesList}
+
+Current Caller State: "${currentState}" (${scenario.states[currentState] || ''})
 
 You MUST stay in character as this caller. Respond to the dispatcher's message.
 Since this is an emergency, keep your responses relatively short, realistic, and emotional (match the archetype panic level).
@@ -153,52 +353,80 @@ Generate your next response as the caller. Also, assess the quality of the dispa
 - If they asked something redundant, silly, or delayed dispatch unnecessarily, set "score_delta" to a negative integer (-10 to -30).
 - Otherwise, set "score_delta" to 0.
 
+Also, determine if the dispatcher's message causes you to change your state (e.g. if they tell you to hide, transition to "hiding", if they tell you to run/leave, transition to "evacuated" or the closest matching state from the list of valid states). If no action/posture change occurs, keep the state as "${currentState}".
+
 You must return a JSON object with this exact structure:
 {
   "response": "Your spoken dialogue response in character.",
-  "score_delta": -25
+  "score_delta": -25,
+  "new_state": "the selected state key"
 }`;
 
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
-    const geminiRes = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: systemPrompt }]
-          }
-        ],
-        generationConfig: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              response: { type: 'STRING' },
-              score_delta: { type: 'INTEGER' }
-            },
-            required: ['response', 'score_delta']
-          }
-        }
-      })
-    });
+    let responseText = '';
 
-    if (!geminiRes.ok) {
-      throw new Error(`Gemini API returned status ${geminiRes.status}`);
+    if (DEEPSEEK_API_KEY) {
+      const dsUrl = 'https://api.deepseek.com/chat/completions';
+      const dsRes = await fetch(dsUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${DEEPSEEK_API_KEY}`
+        },
+        body: JSON.stringify({
+          model: 'deepseek-v4-flash',
+          messages: [{ role: 'user', content: systemPrompt }],
+          response_format: { type: 'json_object' }
+        })
+      });
+
+      if (!dsRes.ok) {
+        throw new Error(`DeepSeek API returned status ${dsRes.status}`);
+      }
+
+      const dsData = await dsRes.json();
+      responseText = dsData.choices[0].message.content;
+    } else {
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+      const geminiRes = await fetch(geminiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: systemPrompt }]
+            }
+          ],
+          generationConfig: {
+            responseMimeType: 'application/json',
+            responseSchema: {
+              type: 'OBJECT',
+              properties: {
+                response: { type: 'STRING' },
+                score_delta: { type: 'INTEGER' },
+                new_state: { type: 'STRING' }
+              },
+              required: ['response', 'score_delta', 'new_state']
+            }
+          }
+        })
+      });
+
+      if (!geminiRes.ok) {
+        throw new Error(`Gemini API returned status ${geminiRes.status}`);
+      }
+
+      const geminiData = await geminiRes.json();
+      responseText = geminiData.candidates[0].content.parts[0].text;
     }
 
-    const geminiData = await geminiRes.json();
-    const resultText = geminiData.candidates[0].content.parts[0].text;
-    const parsedLLM = JSON.parse(resultText);
-
-    // Re-verify keys
+    const parsedLLM = JSON.parse(responseText);
     const generatedResponse = parsedLLM.response;
     const scoreDelta = Number(parsedLLM.score_delta) || 0;
+    const newState = parsedLLM.new_state || currentState;
 
     // === WRITE BACK TO CACHE ===
-    // Generalize the response before caching to make it reusable
     const generalizedTemplate = generalizeText(generatedResponse, selectedSlots);
 
     if (redis) {
@@ -207,7 +435,8 @@ You must return a JSON object with this exact structure:
           cacheKey,
           JSON.stringify({
             responseTemplate: generalizedTemplate,
-            scoreDelta
+            scoreDelta,
+            newState
           })
         );
         console.log(`Cached response for: ${cacheKey}`);
@@ -217,8 +446,9 @@ You must return a JSON object with this exact structure:
     }
 
     return NextResponse.json({
-      response: generatedResponse, // Return the fully hydrated response generated by LLM
+      response: generatedResponse,
       scoreDelta,
+      newState,
       tier: 3,
       normalizedIntent
     });

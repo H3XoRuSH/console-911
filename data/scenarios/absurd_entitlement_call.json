@@ -1,0 +1,3490 @@
+[
+  {
+    "scenario_title": "The Missing Avocado Toast",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A customer at a trendy café is irate because their avocado toast has too much chili flakes and not enough lime. They demand police arrest the chef for culinary malpractice.",
+    "states": ["initial", "complaining", "demanding", "escalated"],
+    "initial_variations": [
+      "I need the police immediately! My avocado toast is ruined with {specific_details} at {address_location}!",
+      "Hello, this is an emergency! The chef at {restaurant_name} put {specific_details} on my toast. I demand justice!",
+      "This is {caller_name}. I'm at {address_location} and I'm being served inedible food! Send someone now!",
+      "I can't believe this! {specific_details} on my avocado toast? This is a crime against brunch!"
+    ],
+    "slots": {
+      "caller_name": [
+        "Karen Miller",
+        "Chad Thompson",
+        "Brittany Hayes",
+        "Derek Smith",
+        "Jessica Wu"
+      ],
+      "restaurant_name": [
+        "The Hipster Bean",
+        "Brunch Heaven",
+        "Avocado Alley",
+        "Green Plate Cafe",
+        "Toast & Co."
+      ],
+      "address_location": [
+        "1234 Main Street",
+        "5678 Oak Avenue",
+        "910 Maple Drive",
+        "111 Pine Lane",
+        "222 Birch Road"
+      ],
+      "ambient_audio": [
+        "background chatter and clinking cups",
+        "sizzling grill and soft jazz",
+        "loud blender and laughter",
+        "people talking and cash register",
+        "muffled conversations and espresso machine"
+      ],
+      "specific_details": [
+        "too many chili flakes",
+        "not enough lime",
+        "burnt bread",
+        "cold eggs",
+        "soggy kale"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, it's that café with the ugly neon sign.",
+            "I told you, {address_location}! How many times do I have to repeat myself?"
+          ],
+          "complaining": [
+            "Still at {address_location}, and now my toast is getting cold!",
+            "Same place, {address_location}. Are you coming or not?"
+          ],
+          "demanding": [
+            "I'm outside {address_location} now, waiting for an officer. This is ridiculous.",
+            "I'm at {address_location}. If you don't send someone, I'm calling my lawyer."
+          ],
+          "escalated": [
+            "I've moved to the sidewalk at {address_location}. This is a public safety issue!",
+            "I'm at {address_location} and I've taken photos. This will go viral."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's about my avocado toast! {specific_details}. It's completely unacceptable.",
+            "The chef put {specific_details} on my order. I specifically asked for no chili flakes."
+          ],
+          "complaining": [
+            "I've already said: {specific_details}. Are you not listening?",
+            "The problem is {specific_details}. I demand a refund and an apology."
+          ],
+          "demanding": [
+            "I want the chef arrested for assault with a deadly spice.",
+            "This is about {specific_details}. It's a matter of principle."
+          ],
+          "escalated": [
+            "The manager refused to comp my meal. Now it's about {specific_details} and the principle of customer service."
+          ]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapon, just culinary incompetence!",
+            "The only weapon is their terrible taste buds."
+          ],
+          "complaining": [
+            "The weapon is the chili flakes! They're a weapon of mass destruction for my mouth.",
+            "No weapon, but the hurt is real."
+          ],
+          "demanding": [
+            "I don't have a weapon, but I'll use my phone to film this injustice.",
+            "No weapon. Yet."
+          ],
+          "escalated": ["I'm not armed, but I'm armed with the truth!"]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm the victim! My taste buds are traumatized.",
+            "I am the victim here. My brunch experience is ruined."
+          ],
+          "complaining": [
+            "I'm the victim, and so is my stomach.",
+            "The victim is me, {caller_name}. And my avocado toast."
+          ],
+          "demanding": [
+            "I'm the victim. The chef is the perpetrator.",
+            "I'm the victim of a culinary crime."
+          ],
+          "escalated": ["I'm the victim. And now the manager is also a victim of my wrath."]
+        }
+      },
+      "ASK_SUSPECT": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The chef! I don't know his name, but he wears a stupid hat.",
+            "The suspect is the chef at {restaurant_name}."
+          ],
+          "complaining": [
+            "The chef, definitely. Also the cashier for defending him.",
+            "The suspect is the line cook who spat in my food?"
+          ],
+          "demanding": [
+            "The chef, the manager, and anyone who thinks this toast is acceptable.",
+            "The entire kitchen staff."
+          ],
+          "escalated": ["I've identified the chef. He's bald and has a tattoo of a whisk."]
+        }
+      },
+      "TELL_INSTRUCTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "demanding",
+          "complaining": "escalated",
+          "demanding": "escalated",
+          "escalated": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Fine, I'll wait but I want a written apology.",
+            "Okay, I'll stay put. But this is unacceptable."
+          ],
+          "complaining": [
+            "If you're not sending police, I'm posting this on Yelp.",
+            "I'll wait for a manager, but this isn't over."
+          ],
+          "demanding": [
+            "I'll wait for the officer, but they better not be late.",
+            "I'm waiting, but I'm also recording this call."
+          ],
+          "escalated": [
+            "Too late, I've already called the news station.",
+            "I'll wait, but only because I want to see the officer's face."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police responded to a trivial food complaint, wasting resources and public trust. The caller was not satisfied and posted a viral video mocking the department."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Firefighters arrived to find a cold avocado toast. They were not amused and the department faced ridicule."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Paramedics checked the caller for allergic reactions but found none. The caller was embarrassed but grateful for the attention."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Animal control arrived and the caller demanded they take the chef away. They left after realizing there were no animals involved."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Correctly determined the call was non-emergency. Caller was redirected to the restaurant's complaint line. Resources saved."
+      }
+    },
+    "id": "scenario_021"
+  },
+  {
+    "scenario_title": "The Wrong Cloud",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A person is furious because a cloud in the sky is shaped like a duck instead of a rabbit, ruining their day. They demand police arrest the weather or change it.",
+    "states": ["initial", "observing", "arguing", "resolved"],
+    "initial_variations": [
+      "911? I need help! The cloud at {address_location} is shaped like {specific_details} and it's offensive!",
+      "This is {caller_name}. I'm looking at the sky above {address_location} and there's a cloud that looks like {specific_details} instead of a rabbit!",
+      "I demand you send someone to fix the cloud! It's supposed to be a rabbit, but it's {specific_details}!",
+      "Emergency! The weather is mocking me at {address_location}. That cloud is definitely {specific_details}!"
+    ],
+    "slots": {
+      "caller_name": ["Oliver Twist", "Mona Lisa", "Captain Obvious", "Sunny Day", "Rain Man"],
+      "location": [
+        "the park downtown",
+        "my backyard",
+        "the roof of my building",
+        "the beach",
+        "the parking lot of Walmart"
+      ],
+      "ambient_audio": [
+        "wind and distant traffic",
+        "birds chirping",
+        "children playing",
+        "waves crashing",
+        "someone mowing a lawn"
+      ],
+      "weather_detail": ["a duck", "an elephant", "a shoe", "a dragon", "a hamburger"],
+      "witness_name": [
+        "my friend Alex",
+        "my neighbor Steve",
+        "my dog Buster",
+        "no one, I'm alone",
+        "a random jogger"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {location} near {address_location}. Look up!",
+            "It's {location}, the cloud is right above me."
+          ],
+          "observing": [
+            "Still at {location}. The cloud hasn't moved. It's still {specific_details}.",
+            "I'm at {location}. Can you see it from there?"
+          ],
+          "arguing": [
+            "I told you, {location}! Are you blind or just incompetent?",
+            "At {location}. The cloud is taunting me."
+          ],
+          "resolved": ["I'm at {location}. But since you won't help, I'm leaving."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The cloud is shaped like {specific_details}! It should be a rabbit!",
+            "I wanted to see a rabbit but it's {specific_details}. This is a mockery."
+          ],
+          "observing": [
+            "It's clearly {specific_details}. I'm not imagining it. {witness_name} agrees.",
+            "The cloud is {specific_details}. It has been for 10 minutes."
+          ],
+          "arguing": [
+            "How many times? It's {specific_details}! This is abuse of a sky enthusiast!",
+            "If you looked up, you'd see {specific_details}. It's obvious."
+          ],
+          "resolved": ["It was {specific_details}. Now it's a blob. My day is ruined."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapon, just my disappointment.",
+            "The cloud is armed with bad shape design."
+          ],
+          "observing": [
+            "No weapon, but I have a camera to document this.",
+            "I have a laser pointer, but it's for my cat."
+          ],
+          "arguing": [
+            "I don't need a weapon. The cloud is the aggressor.",
+            "I have a slingshot, but I'm not using it yet."
+          ],
+          "resolved": ["No weapons. Just a broken spirit."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm the victim! My visual experience is violated.",
+            "The victim is me and anyone who loves cloud watching."
+          ],
+          "observing": [
+            "I'm the victim. And {witness_name} is also disturbed.",
+            "The cloud is victimizing my expectations."
+          ],
+          "arguing": [
+            "I am the primary victim. The cloud is the perpetrator.",
+            "We're all victims of this cloud's poor shape choices."
+          ],
+          "resolved": ["I'm the victim. But I'll survive... barely."]
+        }
+      },
+      "ASK_SUSPECT": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The suspect is the weather! Or maybe a government experiment.",
+            "The cloud itself is the suspect."
+          ],
+          "observing": [
+            "The suspect is the cloud. It knows what it did.",
+            "Maybe it's a drone shaped like a duck? That's suspicious."
+          ],
+          "arguing": [
+            "The suspect is Mother Nature. She's mocking me.",
+            "It's definitely the Illuminati controlling the clouds."
+          ],
+          "resolved": ["No suspect. It was just a cloud. But a mean one."]
+        }
+      },
+      "TELL_INSTRUCTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "observing",
+          "observing": "arguing",
+          "arguing": "resolved",
+          "resolved": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "Fine, I'll watch it and call back if it changes.",
+            "Okay, I'll stay and observe. But I'm not happy."
+          ],
+          "observing": [
+            "I'm watching it. It's still {specific_details}. Are you sending someone?",
+            "I'll note its trajectory. But this is not over."
+          ],
+          "arguing": [
+            "I will not just accept this! I demand action!",
+            "If you don't help, I'll contact the local news."
+          ],
+          "resolved": ["Fine, I'll let it go. But I'm writing a complaint to the weather bureau."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Police arrived to find a person pointing at the sky. They were ridiculed by bystanders. The caller insisted on filing a report."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Firefighters showed up with a ladder, unsure how to fix a cloud. The public laughed."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -120,
+        "feedback": "Medics assessed the caller for heat stroke or hallucinations. They were fine, but the caller was annoyed by the suggestion."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control came with a net. The caller demanded they catch the duck cloud. They left shaking their heads."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Correctly determined the call was frivolous. The caller was advised to contact a meteorologist. Resources preserved."
+      }
+    },
+    "id": "scenario_022"
+  },
+  {
+    "title": "The Overdue Library Book Complaint",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A caller demands immediate police intervention to retrieve an overdue library book, claiming it's a 'crisis' because they need it for important research and the library is closed.",
+    "states": {
+      "initial": "Caller is agitated and demanding police action.",
+      "explaining": "Caller elaborates on the severity of the overdue book situation.",
+      "escalating": "Caller threatens to report the dispatcher for not taking the issue seriously.",
+      "resolved": "Caller hangs up in frustration after being dismissed."
+    },
+    "initial_variations": [
+      "I need the police right now! Someone at the library refused to extend my book and now it's overdue! This is a crisis!",
+      "Hello? Is this 911? I have a serious crime happening. My library book is overdue and the library won't let me renew it online!",
+      "This is an emergency! My research is ruined because a book I checked out is due today and I can't get to the library! I need an officer to go get it for me!",
+      "Listen, I'm a taxpayer and my rights are being violated. The library system is incompetent. I demand police assistance to retrieve my property!"
+    ],
+    "slots": {
+      "caller_name": {
+        "type": "string",
+        "options": ["Sarah", "Mark", "Linda", "Tom"]
+      },
+      "address_location": {
+        "type": "string",
+        "options": ["123 Elm Street", "456 Oak Avenue", "789 Maple Lane", "101 Pine Drive"]
+      },
+      "library_name": {
+        "type": "string",
+        "options": [
+          "Downtown Public Library",
+          "Riverside Branch Library",
+          "Westside Community Library",
+          "Eastwood Memorial Library"
+        ]
+      },
+      "book_title": {
+        "type": "string",
+        "options": [
+          "The Great Gatsby",
+          "A Brief History of Time",
+          "The Catcher in the Rye",
+          "To Kill a Mockingbird"
+        ]
+      },
+      "due_date": {
+        "type": "string",
+        "options": ["yesterday", "two days ago", "today", "last week"]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The book is at {library_name}!",
+            "My home is {address_location}, but the book is at the library on {library_name}."
+          ],
+          "explaining": ["I already told you, {address_location}. Are you sending someone or not?"],
+          "escalating": [
+            "I'm not answering any more questions! Just send the police to {address_location} or the library!"
+          ],
+          "resolved": ["Finally, you ask. It's {address_location}. But it's too late now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "The book is {book_title} and it was due {due_date}. This is outrageous!",
+            "I borrowed {book_title} from {library_name}. It was due {due_date} and now I'm fined!"
+          ],
+          "explaining": [
+            "I need it for my research project. The library won't let me renew because someone else placed a hold. This is a crime!"
+          ],
+          "escalating": ["I have a right to that book! I pay taxes! This is theft by the library!"],
+          "resolved": ["Never mind. I'll handle it myself."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": ["My name is {caller_name}. I'm a respected member of this community!"],
+          "explaining": ["I'm {caller_name}. I've already told you that!"],
+          "escalating": ["I'm {caller_name} and I want your badge number!"],
+          "resolved": ["I'm {caller_name}. But it doesn't matter anymore."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "The book is {book_title}, due {due_date}. The library is {library_name}. What more do you need?"
+          ],
+          "explaining": [
+            "I already gave you all the details. The book is overdue because of system error!"
+          ],
+          "escalating": [
+            "You're not listening! The book is {book_title}! Fine, I'll solve this myself!"
+          ],
+          "resolved": ["I've wasted enough time. Goodbye."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrive at the library only to find a quiet building and a confused staff. The caller is cited for misuse of emergency services. PR and resources wasted."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Fire department responds to a 'crisis' involving a library book. They find no hazard. Community outraged at frivolous call. Disciplinary action for dispatcher."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance dispatched to a non-medical emergency. Real emergency delayed. Caller gets a lecture from paramedics. Public complaint filed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control sent to retrieve a book? They politely explain that is not their job. Caller becomes irate. Minor resource waste."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Dispatcher professionally explains that a library overdue book is not an emergency. Caller is redirected to library services. Call resolved without incident."
+      }
+    },
+    "id": "scenario_203"
+  },
+  {
+    "title": "The Cold Coffee at a Drive-Thru",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A driver calls 911 in fury after receiving lukewarm coffee from a fast-food drive-thru, demanding an immediate police response to force the restaurant to make a fresh cup.",
+    "states": {
+      "initial": "Caller is irate and demanding emergency dispatch.",
+      "arguing": "Caller debates with dispatcher about the seriousness of the issue.",
+      "threatening": "Caller threatens to take legal action or drive recklessly.",
+      "disconnected": "Caller hangs up after realizing the futility."
+    },
+    "initial_variations": [
+      "I just went through the drive-thru at Burger King and they gave me cold coffee! This is theft! I want the police here NOW!",
+      "911? I'm being served lukewarm coffee! This is a health hazard! Send the police to the McDonald's on Main Street!",
+      "My coffee is ice cold! I demand immediate police assistance to arrest the cashier! I'm not leaving until I get a hot cup!",
+      "This is an emergency! The coffee at Starbucks is not hot enough! I'm stuck in the drive-thru line and they refuse to fix it!"
+    ],
+    "slots": {
+      "caller_name": {
+        "type": "string",
+        "options": ["Mike", "Jessica", "Dave", "Emily"]
+      },
+      "address_location": {
+        "type": "string",
+        "options": [
+          "The Burger King on 1st Avenue",
+          "McDonald's at the corner of 5th and Main",
+          "Starbucks near the mall",
+          "Dunkin' on Route 9"
+        ]
+      },
+      "beverage_type": {
+        "type": "string",
+        "options": ["black coffee", "cappuccino", "latte", "hot chocolate"]
+      },
+      "temperature_complaint": {
+        "type": "string",
+        "options": ["lukewarm", "barely warm", "ice cold", "room temperature"]
+      },
+      "order_number": {
+        "type": "string",
+        "options": ["Order 42", "Order 15", "Order 7", "Order 99"]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. I'm trapped in the drive-thru!",
+            "I'm at the {address_location} drive-thru. Send help!"
+          ],
+          "arguing": ["I told you, {address_location}! Are you deaf?"],
+          "threatening": ["I'll drive to {address_location} and cause a scene if you don't act!"],
+          "disconnected": ["Forget it. I'm leaving {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "It's my {beverage_type}. It's {temperature_complaint}! This is unacceptable!",
+            "I ordered {beverage_type} but it's {temperature_complaint}. I demand a new one!"
+          ],
+          "arguing": [
+            "I already told you, my {beverage_type} is {temperature_complaint}. This is fraud!"
+          ],
+          "threatening": [
+            "If you don't send police, I'll throw this {beverage_type} at the manager!"
+          ],
+          "disconnected": ["I don't have time for this. I'm dumping it."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. I want the manager arrested!",
+            "I'm {caller_name}, a loyal customer. This is a betrayal!"
+          ],
+          "arguing": ["I'm {caller_name}. What kind of service is this?"],
+          "threatening": ["{caller_name} will have your job for this!"],
+          "disconnected": ["Never mind my name. I'm done."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I have {order_number}. The {beverage_type} is {temperature_complaint}. What else do you need?"
+          ],
+          "arguing": ["I already gave the details! {order_number} at {address_location}!"],
+          "threatening": ["You'll regret ignoring {order_number}!"],
+          "disconnected": ["I'm hanging up. I'll fix this myself."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police respond to a drive-thru for a coffee complaint. The caller is cited for misuse of 911. The restaurant is annoyed. Negative media coverage."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Firefighters arrive expecting a fire, find a cold coffee. Their time is wasted. Fire chief files a complaint."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance dispatched for lukewarm coffee. No medical need. Paramedics are furious. Real emergency possibly delayed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control sent to a drive-thru. They find no animals. Caller is confused. Minor resources used."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Dispatcher explains that cold coffee is not an emergency. Caller is advised to speak to the manager. Call resolved."
+      }
+    },
+    "id": "scenario_204"
+  },
+  {
+    "title": "The Wrongly Colored Paint",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A homeowner calls 911 because the paint color in their living room is wrong, demanding an emergency repaint by the fire department or police.",
+    "states": {
+      "initial": "Caller is hysterical about the paint color.",
+      "explaining": "Caller details the paint color discrepancy.",
+      "demanding": "Caller makes absurd demands for emergency action.",
+      "resigned": "Caller gives up after being dismissed."
+    },
+    "initial_variations": [
+      "I just painted my living room and it's the wrong color! This is a disaster! I need the fire department here to repaint it immediately!",
+      "911? My living room is supposed to be 'Gentle Sky' but it looks like 'Stormy Gray'! This is a crime! Send someone now!",
+      "I can't live in a room with this color! It's making me sick! I need an emergency painter or police to arrest the paint store!",
+      "The paint is completely off! This is false advertising! I want a SWAT team to force the store to fix it!"
+    ],
+    "slots": {
+      "caller_name": {
+        "type": "string",
+        "options": ["Karen", "Brad", "Cindy", "Greg"]
+      },
+      "address_location": {
+        "type": "string",
+        "options": ["123 Rose Lane", "456 Tulip Drive", "789 Daisy Court", "101 Orchid Street"]
+      },
+      "expected_color": {
+        "type": "string",
+        "options": ["Gentle Sky", "Warm Beige", "Mellow Yellow", "Soft Lavender"]
+      },
+      "actual_color": {
+        "type": "string",
+        "options": ["Stormy Gray", "Dull Tan", "Bold Orange", "Pale Pink"]
+      },
+      "room": {
+        "type": "string",
+        "options": ["living room", "bedroom", "kitchen", "dining room"]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My house at {address_location}! The {room} is ruined!",
+            "I'm at {address_location}. The {room} is a disaster!"
+          ],
+          "explaining": ["I told you, {address_location}! The {room} is the wrong color!"],
+          "demanding": ["Send the fire truck to {address_location} with paint! Now!"],
+          "resigned": ["Whatever. The address is {address_location}, but I guess you don't care."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I wanted {expected_color} but I got {actual_color}! In my {room}! This is a huge deal!",
+            "The {room} was supposed to be {expected_color} but it's {actual_color}. My whole decor is ruined!"
+          ],
+          "explaining": [
+            "It's {actual_color} instead of {expected_color}. Do you not understand color?"
+          ],
+          "demanding": [
+            "I need you to send people to repaint the {room} to {expected_color}. Now!"
+          ],
+          "resigned": ["It's {actual_color}. I'll have to fix it myself."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. I'm a homeowner, and this is unacceptable!",
+            "I'm {caller_name}. I demand action!"
+          ],
+          "explaining": ["{caller_name} here. I already gave my name."],
+          "demanding": ["This is {caller_name} and I'm not backing down!"],
+          "resigned": ["I'm {caller_name}. It doesn't matter."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I painted the {room} myself. I bought paint that was supposed to be {expected_color}. It's {actual_color}. False advertising!"
+          ],
+          "explaining": [
+            "The can said {expected_color} but it dried as {actual_color}. I have the receipt."
+          ],
+          "demanding": ["I told you everything! Just send someone to repaint it!"],
+          "resigned": ["I'm done. I'll call a lawyer."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrive to find a distressed homeowner over paint color. They explain it's not a crime. Caller tries to file a report. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Fire department arrives with hoses, expecting a fire. They are asked to repaint. Firefighters are bemused. Department reprimanded."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance arrives for a 'medical emergency' that is just paint dissatisfaction. Paramedics leave frustrated. Legal issues."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control officer shows up, confused. Caller yells about paint. Officer leaves. Minor time waste."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Dispatcher calms caller, explains that paint color is not an emergency. Suggests contacting the store. Call resolved."
+      }
+    },
+    "id": "scenario_205"
+  },
+  {
+    "title": "The Missing Sock from Laundry",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A caller reports a missing sock as a burglary, insisting the police investigate their neighbor who they believe stole it from the laundry room.",
+    "states": {
+      "initial": "Caller is accusing the neighbor of sock theft.",
+      "suspicious": "Caller provides 'evidence' of the crime.",
+      "insistent": "Caller demands police action despite logic.",
+      "defeated": "Caller reluctantly accepts dismissal."
+    },
+    "initial_variations": [
+      "I need the police! My neighbor stole one of my socks from the laundry room! I know it was him!",
+      "This is an emergency! A sock of mine has gone missing and I suspect the guy next door. I want him arrested!",
+      "911? There's a thief in my building! He took my lucky sock from the dryer! Send cops now!",
+      "I'm reporting a theft! My favorite sock is gone, and that weirdo in 2B must have taken it!"
+    ],
+    "slots": {
+      "caller_name": {
+        "type": "string",
+        "options": ["Steve", "Patricia", "Alex", "Rebecca"]
+      },
+      "address_location": {
+        "type": "string",
+        "options": [
+          "Apartment 3A, 100 Elm Street",
+          "Unit 5, 200 Oak Avenue",
+          "Flat 7, 400 Maple Drive",
+          "House 9, 500 Pine Lane"
+        ]
+      },
+      "sock_description": {
+        "type": "string",
+        "options": [
+          "a red and white striped sock",
+          "a blue argyle sock",
+          "a green polka dot sock",
+          "a black ankle sock with a hole"
+        ]
+      },
+      "neighbor_name": {
+        "type": "string",
+        "options": ["Mr. Jenkins", "Mrs. Patterson", "Jim", "Karen"]
+      },
+      "evidence": {
+        "type": "string",
+        "options": [
+          "I heard him laughing",
+          "he was looking at my laundry",
+          "I saw him with a sock in his hand",
+          "he always steals things"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The laundry room is in the basement.",
+            "I live in {address_location}. The crime scene is the laundry room!"
+          ],
+          "suspicious": ["{address_location}! I told you! Hurry!"],
+          "insistent": ["Send them to {address_location} now!"],
+          "defeated": ["It's {address_location}. Not that it matters."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "It's {sock_description}. It's been missing since yesterday. My neighbor {neighbor_name} is the culprit!",
+            "My {sock_description} is gone. I suspect {neighbor_name}."
+          ],
+          "suspicious": ["The evidence is {evidence}. That's proof!"],
+          "insistent": [
+            "I already told you, {sock_description} taken by {neighbor_name}. Just arrest him!"
+          ],
+          "defeated": ["It's {sock_description}. I'll never see it again."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. I'm a victim of sock theft!",
+            "I'm {caller_name}. This is a serious crime!"
+          ],
+          "suspicious": ["{caller_name}. I want my sock back."],
+          "insistent": ["I'm {caller_name}. I demand action!"],
+          "defeated": ["{caller_name}. Never mind."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "The sock is {sock_description}. I left it in the dryer and {neighbor_name} was nearby. {evidence}.",
+            "I have {evidence}. That should be enough for a warrant!"
+          ],
+          "suspicious": ["I have {evidence}. What more do you need?"],
+          "insistent": ["I've told you everything! The sock, the neighbor, the evidence!"],
+          "defeated": ["I've got nothing to lose."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrive and interview the neighbor about a missing sock. Neighbor is annoyed. Caller is cited for false report. Media picks up the story."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Firefighters show up to a 'sock emergency'. They are embarrassed. Department gets ridiculed."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance dispatched for a sock theft? Paramedics file a complaint. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control officer asks about animals. Caller insists it's a sock. Officer leaves after explaining jurisdiction."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Dispatcher explains missing socks are not a police matter. Caller is advised to check their laundry or buy new socks. Call handled."
+      }
+    },
+    "id": "scenario_206"
+  },
+  {
+    "title": "The Wi-Fi Slowdown",
+    "archetype": "Absurd Entitlement Call",
+    "description": "A telecommuter calls 911 because their internet is lagging during an important online game, demanding immediate emergency technical support.",
+    "states": {
+      "initial": "Caller is panicked about lag.",
+      "frustrated": "Caller expresses anger at the inconvenience.",
+      "pleading": "Caller begs for help despite explanation.",
+      "giving_up": "Caller hangs up in disgust."
+    },
+    "initial_variations": [
+      "My internet is so slow! I'm about to lose a ranked match! This is a crisis! I need someone to fix it now!",
+      "911? My Wi-Fi is completely lagging! I can't even play my game! Send technical support immediately!",
+      "This is an emergency! My latency is over 200 ms! I need a police officer to come troubleshoot my router!",
+      "I'm a professional gamer and my stream is buffering! This is costing me money! I demand emergency action!"
+    ],
+    "slots": {
+      "caller_name": {
+        "type": "string",
+        "options": ["GamerGuy99", "PixelQueen", "NoobSlayer123", "StreamMaster"]
+      },
+      "address_location": {
+        "type": "string",
+        "options": [
+          "1234 Cyber Lane",
+          "5678 Data Drive",
+          "9012 Server Street",
+          "3456 Latency Avenue"
+        ]
+      },
+      "isp": {
+        "type": "string",
+        "options": ["Comcast", "Verizon Fios", "AT&T", "Spectrum"]
+      },
+      "game_name": {
+        "type": "string",
+        "options": ["Fortnite", "Call of Duty", "League of Legends", "Among Us"]
+      },
+      "lag_measurement": {
+        "type": "string",
+        "options": [
+          "200 ms ping",
+          "packet loss of 10%",
+          "download speed 1 Mbps",
+          "constant disconnects"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Hurry, my game is on the line!",
+            "My place is {address_location}. Send a tech!"
+          ],
+          "frustrated": ["I already said {address_location}! Are you even listening?"],
+          "pleading": ["Please, just send someone to {address_location}!"],
+          "giving_up": ["It's {address_location}. But you guys are useless."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "I'm playing {game_name} and I have {lag_measurement}. My ISP is {isp}. Fix it!",
+            "My internet is {lag_measurement} while playing {game_name}. This is ruining my gaming experience!"
+          ],
+          "frustrated": ["I told you, {lag_measurement} in {game_name}! It's unplayable!"],
+          "pleading": ["Just help me with the {lag_measurement} issue! I'm begging you!"],
+          "giving_up": ["Forget the details. You can't help."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. I'm a top player!",
+            "I'm {caller_name}. This is hurting my rank!"
+          ],
+          "frustrated": ["{caller_name}. And I'm losing because of you!"],
+          "pleading": ["I'm {caller_name}. Please help!"],
+          "giving_up": ["I'm {caller_name}. Never mind."]
+        }
+      },
+      "PROVIDE_INFO": {
+        "score_delta": 0,
+        "state_transitions": {},
+        "responses": {
+          "initial": [
+            "My ISP is {isp}. I have {lag_measurement}. The game is {game_name}. Do something!",
+            "I'm on {isp}. They won't help. That's why I called 911!"
+          ],
+          "frustrated": ["I've given you all the info! {isp}, {lag_measurement}, {game_name}!"],
+          "pleading": ["I told you everything. {isp} said to call 911 for emergencies!"],
+          "giving_up": ["All that info wasted."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrive to find a gamer stressed about lag. They explain it's not a police matter. Caller is upset. Negative PR."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Firefighters try to diagnose network issues. They are not IT. Time wasted. Department gets mocked online."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Ambulance dispatched for 'lag' emergency. Paramedics find no medical issue. Waste of life-saving resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control officer has no animals to handle. Leaves confused. Caller yells about Wi-Fi."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Dispatcher tells caller to restart router and contact ISP. Caller reluctantly agrees. No resources wasted."
+      }
+    },
+    "id": "scenario_207"
+  },
+  {
+    "title": "The Too-Cold Pizza Delivery",
+    "description": "A customer is irate because their pizza arrived cold and demands police arrest the delivery driver.",
+    "archetype": "Absurd Entitlement Call",
+    "states": {
+      "initial": "Caller is angry and demanding immediate police action.",
+      "escalating": "Caller becomes more agitated as the operator questions the urgency.",
+      "frustrated": "Caller is exasperated that their complaint is not being treated as a crime."
+    },
+    "initial_variations": [
+      "I just received a pizza from {pizza_place} and it's ice cold! Send the police to arrest the driver!",
+      "This is outrageous! My {food_item} is cold. I need an officer here NOW for this criminal negligence.",
+      "Hello? I want to report a crime. My {order} is cold. The driver should be arrested."
+    ],
+    "slots": {
+      "caller_name": ["Mr. Smith", "Mrs. Johnson", "Karen", "Dave"],
+      "food_item": ["pizza", "burger", "sushi", "tacos"],
+      "pizza_place": ["Domino's", "Papa John's", "local pizzeria", "Little Caesars"],
+      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Ln", "321 Elm St"],
+      "ambient_audio": ["dog barking", "TV in background", "children playing", "silence"],
+      "specific_details": [
+        "the cheese is hard",
+        "the box is cold",
+        "I waited 2 hours",
+        "driver was rude"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you provide your current location?",
+            "Where did this delivery occur?",
+            "I need the exact address, please."
+          ],
+          "escalating": [
+            "Sir, I still need your address to send help.",
+            "Please calm down and tell me where you are.",
+            "Location, please. I can't assist without it."
+          ],
+          "frustrated": [
+            "I understand you're upset, but I need your address.",
+            "If you want action, give me your location.",
+            "Without an address, I can't dispatch anyone."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What exactly happened with your order?",
+            "Can you describe the issue in more detail?",
+            "Tell me more about the delivery."
+          ],
+          "escalating": [
+            "I understand, but I need specifics. How cold is it?",
+            "Details, please. I'm trying to help.",
+            "What was the driver's behavior like?"
+          ],
+          "frustrated": [
+            "You already said it's cold. Is there anything else?",
+            "I've noted the cold pizza. Any other concerns?",
+            "Just the temperature issue? Anything else?"
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "escalating",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Please stay calm. This is not a police matter.",
+            "I understand your frustration, but let's reason.",
+            "Take a deep breath. We can resolve this without police."
+          ],
+          "escalating": [
+            "I hear you, but yelling won't help.",
+            "Please lower your voice so I can assist.",
+            "Calm yourself. I'm here to help."
+          ],
+          "frustrated": [
+            "You need to calm down or I'll have to end this call.",
+            "Your attitude is not productive. Please relax.",
+            "If you continue, I will disconnect."
+          ]
+        }
+      },
+      "DISPATCH_POLICE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "I'm sending police to your location.",
+            "Officers are on their way.",
+            "Police will be there shortly."
+          ],
+          "escalating": [
+            "Fine, I'll dispatch officers.",
+            "I'll send someone, but this is inappropriate.",
+            "Police are being sent."
+          ],
+          "frustrated": [
+            "Police are coming. Stay where you are.",
+            "Sending police now.",
+            "They'll be there soon."
+          ]
+        }
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "I'm sending the fire department.",
+            "Firefighters are on their way.",
+            "Fire trucks are coming."
+          ],
+          "escalating": [
+            "Fire department dispatched.",
+            "They're on their way.",
+            "Fire will be there."
+          ],
+          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+        }
+      },
+      "DISPATCH_MEDICAL": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "I'm sending an ambulance.",
+            "Paramedics are on their way.",
+            "Medical help is coming."
+          ],
+          "escalating": [
+            "Ambulance dispatched.",
+            "They're on their way.",
+            "Medical will be there."
+          ],
+          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+        }
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": -50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'll send animal control.",
+            "Animal control is on the way.",
+            "They'll handle it."
+          ],
+          "escalating": [
+            "Animal control dispatched.",
+            "They're on their way.",
+            "Animal control will be there."
+          ],
+          "frustrated": ["Animal control coming.", "Sending them now.", "They'll deal with it."]
+        }
+      },
+      "DISMISS": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "This is not an emergency. Please contact the restaurant.",
+            "I cannot dispatch for a cold pizza. Call the store.",
+            "This complaint is not a police matter. Goodbye."
+          ],
+          "escalating": [
+            "I understand your frustration, but I cannot help.",
+            "You need to take this up with the business.",
+            "I'm ending this call now. Contact the store."
+          ],
+          "frustrated": [
+            "I've already explained. Call the restaurant.",
+            "This conversation is over.",
+            "Goodbye. Contact the merchant."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrived to find a cold pizza. Wasted resources; call was absurd."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Firefighters responded to a cold pizza. They were confused."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics showed up for a cold pizza. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control arrived for a cold pizza. Inappropriate dispatch."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly dismissed the trivial complaint. Resources saved."
+      }
+    },
+    "id": "scenario_208"
+  },
+  {
+    "title": "The Wrong Haircut Complaint",
+    "description": "A customer is furious about a bad haircut and demands police arrest the barber.",
+    "archetype": "Absurd Entitlement Call",
+    "states": {
+      "initial": "Caller is angry and demanding immediate police action.",
+      "escalating": "Caller becomes more agitated as the operator questions the urgency.",
+      "frustrated": "Caller is exasperated that their complaint is not being treated as a crime."
+    },
+    "initial_variations": [
+      "My haircut is a disaster! The barber ruined me! Send the police to arrest him!",
+      "I just got a haircut at {barbershop} and it's awful. I need cops here now!",
+      "This is criminal! My {hairstyle} is completely wrong. Arrest the barber!",
+      "I demand you send officers immediately. This haircut is a crime!"
+    ],
+    "slots": {
+      "caller_name": ["Linda", "Tom", "Sarah", "Mike"],
+      "hairstyle": ["buzz cut", "mullet", "fade", "perm"],
+      "barbershop": ["Great Clips", "Supercuts", "local barber", "Salon"],
+      "address_location": ["123 Elm St", "456 Oak Dr", "789 Pine Rd", "321 Maple Ave"],
+      "ambient_audio": ["car horns", "music playing", "people talking", "silence"],
+      "specific_details": ["they cut too much", "uneven sides", "wrong color", "razor burn"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you tell me where you are?",
+            "What is your location?",
+            "I need the address, please."
+          ],
+          "escalating": [
+            "Sir, I need your address to send help.",
+            "Please calm down and give me your location.",
+            "Location, please."
+          ],
+          "frustrated": [
+            "I need your address if you want help.",
+            "Without an address, I can't send anyone.",
+            "Location is required."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What's wrong with the haircut?",
+            "Can you describe the issue?",
+            "Tell me more."
+          ],
+          "escalating": [
+            "I understand it's bad, but specifics?",
+            "What exactly did they do?",
+            "Details, please."
+          ],
+          "frustrated": [
+            "You said it's bad. Anything else?",
+            "I've noted the bad haircut.",
+            "Is that all?"
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "escalating",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Please calm down. This isn't an emergency.",
+            "Take a breath. We can sort this out.",
+            "I understand you're upset, but stay calm."
+          ],
+          "escalating": [
+            "Yelling won't help. Please calm down.",
+            "I'm trying to help, but you need to relax.",
+            "Lower your voice."
+          ],
+          "frustrated": [
+            "If you don't calm down, I'll end the call.",
+            "Your tone is not acceptable.",
+            "Please compose yourself."
+          ]
+        }
+      },
+      "DISPATCH_POLICE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": ["I'm sending police.", "Officers are on the way.", "Police will be there."],
+          "escalating": [
+            "Fine, I'll dispatch officers.",
+            "Police are coming.",
+            "Sending police now."
+          ],
+          "frustrated": ["Police are on the way.", "They'll be there soon.", "Officers dispatched."]
+        }
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "Sending fire department.",
+            "Firefighters are coming.",
+            "Fire trucks on the way."
+          ],
+          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
+          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+        }
+      },
+      "DISPATCH_MEDICAL": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "Sending an ambulance.",
+            "Paramedics are coming.",
+            "Medical help is on the way."
+          ],
+          "escalating": [
+            "Ambulance dispatched.",
+            "They're on their way.",
+            "Medical will be there."
+          ],
+          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+        }
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": -50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sending animal control.",
+            "They're on the way.",
+            "Animal control dispatched."
+          ],
+          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
+          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+        }
+      },
+      "DISMISS": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "This is not a police matter. Contact the barbershop.",
+            "I cannot dispatch for a bad haircut. Goodbye.",
+            "Please call the business directly."
+          ],
+          "escalating": [
+            "I understand, but this is not an emergency.",
+            "You need to take this up with the barber.",
+            "I'm ending the call. Contact the shop."
+          ],
+          "frustrated": ["I've explained. Call the barbershop.", "Goodbye.", "Ending call now."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police responded to a bad haircut. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Firefighters arrived for a haircut complaint. Confusion."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics arrived for a bad haircut. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control responded to a haircut complaint. Inappropriate."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly dismissed. Resources saved."
+      }
+    },
+    "id": "scenario_209"
+  },
+  {
+    "title": "The Missing Toilet Paper in Public Restroom",
+    "description": "A caller is locked in a public restroom stall with no toilet paper and demands rescue.",
+    "archetype": "Absurd Entitlement Call",
+    "states": {
+      "initial": "Caller is panicked and demanding immediate assistance.",
+      "escalating": "Caller becomes more frantic as the operator questions the urgency.",
+      "frustrated": "Caller is angry that help isn't coming instantly."
+    },
+    "initial_variations": [
+      "I'm stuck in a restroom at {location} with no toilet paper! Send someone now!",
+      "This is an emergency! I'm in a stall and there's no TP. I need police to bring some!",
+      "Help! I can't leave the stall without toilet paper. Send help immediately!",
+      "Hello? I'm trapped in a bathroom. No toilet paper. I demand rescue!"
+    ],
+    "slots": {
+      "caller_name": ["Emily", "John", "Alice", "Bob"],
+      "location": ["McDonald's", "gas station", "park restroom", "mall"],
+      "address_location": ["123 Main St", "456 Broadway", "789 Central Ave", "321 Market St"],
+      "ambient_audio": ["running water", "footsteps", "music", "silence"],
+      "specific_details": [
+        "stall door is stuck",
+        "no paper dispenser",
+        "I've been here 10 minutes",
+        "I have a meeting"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["Where are you exactly?", "What is the address?", "I need your location."],
+          "escalating": [
+            "I need the address to send help.",
+            "Please tell me where you are.",
+            "Location, please."
+          ],
+          "frustrated": [
+            "Give me your address or I can't help.",
+            "I need your location now.",
+            "Address required."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Are you in any danger besides no TP?",
+            "Is the door stuck?",
+            "Tell me more about the situation."
+          ],
+          "escalating": [
+            "I understand, but is there a medical issue?",
+            "Anything else I should know?",
+            "Details, please."
+          ],
+          "frustrated": [
+            "You said no TP. Anything else?",
+            "I've noted the no TP situation.",
+            "Is that all?"
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "escalating",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Please stay calm. This is not a life-threatening emergency.",
+            "Take a breath. We'll figure something out.",
+            "Calm down. You're safe."
+          ],
+          "escalating": [
+            "Panicking won't help. Please relax.",
+            "I'm here to help. But you need to calm down.",
+            "Lower your voice."
+          ],
+          "frustrated": [
+            "If you don't calm down, I'll have to end this call.",
+            "Your attitude is not productive.",
+            "Please compose yourself."
+          ]
+        }
+      },
+      "DISPATCH_POLICE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "escalating": [
+            "Fine, I'll dispatch police.",
+            "Police are coming.",
+            "Sending police now."
+          ],
+          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+        }
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "Sending fire department.",
+            "Firefighters coming.",
+            "Fire trucks on the way."
+          ],
+          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
+          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+        }
+      },
+      "DISPATCH_MEDICAL": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "escalating": [
+            "Ambulance dispatched.",
+            "They're on their way.",
+            "Medical will be there."
+          ],
+          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+        }
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": -50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sending animal control.",
+            "They're on the way.",
+            "Animal control dispatched."
+          ],
+          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
+          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+        }
+      },
+      "DISMISS": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "This is not an emergency. Use your sock or call a friend.",
+            "I cannot dispatch for no toilet paper. Goodbye.",
+            "Please find an alternative. This is not a police matter."
+          ],
+          "escalating": [
+            "I understand it's uncomfortable, but not an emergency.",
+            "You need to solve this yourself. Goodbye.",
+            "I'm ending the call. Use your phone to call someone."
+          ],
+          "frustrated": [
+            "I've explained. Goodbye.",
+            "Ending call now.",
+            "Contact the restroom attendant."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police dispatched for no toilet paper. Wasted resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Firefighters responded to a TP emergency. Confusion."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics arrived for no TP. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control responded to a bathroom stall. Inappropriate."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly dismissed. Resources saved."
+      }
+    },
+    "id": "scenario_210"
+  },
+  {
+    "title": "The Neighbor's Leaf Blower at 10 AM",
+    "description": "A caller is disturbed by a neighbor using a leaf blower at 10 AM and demands police intervention.",
+    "archetype": "Absurd Entitlement Call",
+    "states": {
+      "initial": "Caller is annoyed and demanding police action.",
+      "escalating": "Caller becomes more agitated as the operator downplays the issue.",
+      "frustrated": "Caller is angry that their complaint is not taken seriously."
+    },
+    "initial_variations": [
+      "My neighbor is using a leaf blower at 10 AM! It's disturbing my peace. Send the police!",
+      "I can't believe this noise! I need officers to come and stop this immediately.",
+      "Hello? I want to report a noise violation. Neighbor using leaf blower. Send cops!",
+      "This is harassment! I'm trying to meditate and the leaf blower is ruining it. Arrest them!"
+    ],
+    "slots": {
+      "caller_name": ["Mr. Thompson", "Ms. Garcia", "Steve", "Angela"],
+      "neighbor_name": ["Mr. Jones", "Mrs. Lee", "Bob", "Sarah"],
+      "address_location": ["123 Oak St", "456 Pine Ave", "789 Cedar Ln", "321 Birch Dr"],
+      "ambient_audio": ["leaf blower noise", "birds chirping", "traffic", "silence"],
+      "specific_details": [
+        "it's been going on for 10 minutes",
+        "I have a headache",
+        "I work night shifts",
+        "it's every Saturday"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["Where is this happening?", "What is your address?", "I need the location."],
+          "escalating": [
+            "I need your address to help.",
+            "Please give me your location.",
+            "Location, please."
+          ],
+          "frustrated": [
+            "Address required if you want action.",
+            "Give me your location now.",
+            "I need your address."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What time did the noise start?",
+            "How long has it been going?",
+            "Tell me more."
+          ],
+          "escalating": [
+            "I understand, but 10 AM is not a quiet time.",
+            "Details on the noise level?",
+            "Anything else?"
+          ],
+          "frustrated": [
+            "You said leaf blower. Any other issues?",
+            "I've noted the noise.",
+            "Is that all?"
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "escalating",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Please calm down. Leaf blowers are allowed during daytime.",
+            "I understand it's annoying, but it's not an emergency.",
+            "Take a breath. It's a minor issue."
+          ],
+          "escalating": [
+            "Yelling won't help. Please calm down.",
+            "I'm trying to help, but this is a civil matter.",
+            "Lower your voice."
+          ],
+          "frustrated": [
+            "If you don't calm down, I'll end the call.",
+            "Your attitude is not productive.",
+            "Please compose yourself."
+          ]
+        }
+      },
+      "DISPATCH_POLICE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "escalating": [
+            "Fine, I'll dispatch officers.",
+            "Police are coming.",
+            "Sending police now."
+          ],
+          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+        }
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "Sending fire department.",
+            "Firefighters coming.",
+            "Fire trucks on the way."
+          ],
+          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
+          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+        }
+      },
+      "DISPATCH_MEDICAL": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "escalating": [
+            "Ambulance dispatched.",
+            "They're on their way.",
+            "Medical will be there."
+          ],
+          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+        }
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": -50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sending animal control.",
+            "They're on the way.",
+            "Animal control dispatched."
+          ],
+          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
+          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+        }
+      },
+      "DISMISS": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "This is not a police matter. Noise ordinances allow daytime leaf blowers.",
+            "I cannot dispatch for a leaf blower. Contact the city.",
+            "Goodbye. This is a civil issue."
+          ],
+          "escalating": [
+            "I understand, but it's legal. Please handle it yourself.",
+            "You need to talk to your neighbor. Goodbye.",
+            "I'm ending the call. Contact local bylaw."
+          ],
+          "frustrated": [
+            "I've explained. Goodbye.",
+            "Ending call now.",
+            "Contact the city noise office."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police responded to a leaf blower at 10 AM. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Firefighters arrived for a noise complaint. Confusion."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics responded to a leaf blower. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control responded to a leaf blower. Inappropriate."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly dismissed. Resources saved."
+      }
+    },
+    "id": "scenario_211"
+  },
+  {
+    "title": "The Incorrect Order at Drive-Thru",
+    "description": "A customer is outraged that their drive-thru order was wrong and demands police make the restaurant fix it.",
+    "archetype": "Absurd Entitlement Call",
+    "states": {
+      "initial": "Caller is angry and demanding immediate police action.",
+      "escalating": "Caller becomes more agitated as the operator questions the urgency.",
+      "frustrated": "Caller is exasperated that their complaint is not being treated as a crime."
+    },
+    "initial_variations": [
+      "I just went through the drive-thru at {fast_food} and they gave me the wrong order! Send the police to make them fix it!",
+      "This is unacceptable! I ordered a {food_item} and got something else. I need cops here now!",
+      "Hello? I want to report a theft. They took my money and gave me wrong food. Arrest them!",
+      "I demand police assistance! My order is wrong and they refuse to correct it. Send officers!"
+    ],
+    "slots": {
+      "caller_name": ["Chris", "Pat", "Taylor", "Jordan"],
+      "food_item": ["burger", "fries", "shake", "chicken nuggets"],
+      "fast_food": ["McDonald's", "Burger King", "Wendy's", "Taco Bell"],
+      "address_location": ["1001 Main St", "2002 Oak Ave", "3003 Pine Rd", "4004 Elm Ln"],
+      "ambient_audio": ["traffic noise", "car engine", "radio", "silence"],
+      "specific_details": [
+        "they gave me a cold drink",
+        "missing fries",
+        "wrong burger patty",
+        "I paid with card"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["Where is the restaurant?", "What is your location?", "I need the address."],
+          "escalating": [
+            "I need the address to send help.",
+            "Please give me your location.",
+            "Location, please."
+          ],
+          "frustrated": [
+            "Address required for dispatch.",
+            "Give me your location now.",
+            "I need your address."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What exactly did they give you?",
+            "Can you describe the mistake?",
+            "Tell me more."
+          ],
+          "escalating": [
+            "I understand it's wrong. What items?",
+            "Details on the order?",
+            "Anything else?"
+          ],
+          "frustrated": [
+            "You said wrong order. Anything else?",
+            "I've noted the mistake.",
+            "Is that all?"
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "escalating",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "Please calm down. This is a customer service issue.",
+            "I understand frustration, but not an emergency.",
+            "Take a breath. You can go back inside."
+          ],
+          "escalating": [
+            "Yelling won't help. Please calm down.",
+            "I'm trying to help, but it's a civil matter.",
+            "Lower your voice."
+          ],
+          "frustrated": [
+            "If you don't calm down, I'll end the call.",
+            "Your attitude is not productive.",
+            "Please compose yourself."
+          ]
+        }
+      },
+      "DISPATCH_POLICE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "escalating": [
+            "Fine, I'll dispatch officers.",
+            "Police are coming.",
+            "Sending police now."
+          ],
+          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+        }
+      },
+      "DISPATCH_FIRE": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "Sending fire department.",
+            "Firefighters coming.",
+            "Fire trucks on the way."
+          ],
+          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
+          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+        }
+      },
+      "DISPATCH_MEDICAL": {
+        "score_delta": -50,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "escalating": [
+            "Ambulance dispatched.",
+            "They're on their way.",
+            "Medical will be there."
+          ],
+          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+        }
+      },
+      "DISPATCH_ANIMAL_CONTROL": {
+        "score_delta": -50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sending animal control.",
+            "They're on the way.",
+            "Animal control dispatched."
+          ],
+          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
+          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+        }
+      },
+      "DISMISS": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "frustrated",
+          "escalating": "frustrated"
+        },
+        "responses": {
+          "initial": [
+            "This is not a police matter. Go back to the restaurant.",
+            "I cannot dispatch for a wrong order. Goodbye.",
+            "Please contact the manager directly."
+          ],
+          "escalating": [
+            "I understand, but it's not an emergency.",
+            "You need to resolve this with the restaurant. Goodbye.",
+            "I'm ending the call. Call the store."
+          ],
+          "frustrated": ["I've explained. Goodbye.", "Ending call now.", "Contact the restaurant."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police responded to a wrong drive-thru order. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Firefighters arrived for a wrong order. Confusion."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics responded to a wrong order. No medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control responded to a wrong order. Inappropriate."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly dismissed. Resources saved."
+      }
+    },
+    "id": "scenario_212"
+  },
+  {
+    "id": "scenario_213",
+    "title": "The Wrong Coffee Temperature",
+    "description": "A customer calls 911 furious that their latte is too cold, demanding police arrest the barista.",
+    "states": {
+      "initial": "Caller is angry about cold coffee.",
+      "arguing": "Caller argues that this is a crime.",
+      "escalated": "Caller threatens to come to station if not helped.",
+      "resolved": "Caller calms down or hangs up."
+    },
+    "initial_variations": [
+      "I need the police right now! My latte is ice cold! This is an emergency!",
+      "911? This is {caller_name}. I just bought a latte at {address_location} and it's practically frozen! I demand immediate action!",
+      "Hi, um, this is urgent. My coffee is cold. Like, not even warm. I need someone to arrest the person who made this!",
+      "{caller_name} here. I'm at {address_location} and I've been served a cold latte. This is unacceptable! Send the cops!"
+    ],
+    "slots": {
+      "caller_name": ["Karen", "Chad", "Mildred", "Brad"],
+      "address_location": [
+        "the Starbucks on Main St",
+        "the coffee shop at 5th and Oak",
+        "the drive-thru on Highway 9",
+        "the café in the mall"
+      ],
+      "barista_name": ["Steve", "Jessica", "Mike", "Amy"],
+      "coffee_type": ["latte", "cappuccino", "mocha", "espresso"],
+      "ambient_audio": [
+        "sound of arguing in background",
+        "coffee shop chatter",
+        "car engine running",
+        "silence"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I already told you, it's {address_location}! Can't you send someone?",
+            "Why do you need my location again? I said {address_location}!",
+            "At {address_location}! Get over here now!",
+            "It's {address_location}, but focus on the cold coffee!"
+          ],
+          "arguing": [
+            "I said {address_location}! Are you even listening?",
+            "Don't waste time with that, just send police to {address_location}!",
+            "{address_location}! But what about the barista?",
+            "I'm at {address_location}, and I'm not moving till I get justice."
+          ],
+          "escalated": [
+            "I'll give you the address: {address_location}. But if no one comes, I'm driving to the station!",
+            "Fine, {address_location}. But this isn't over.",
+            "You have my location, now do something! It's {address_location}.",
+            "I'm at {address_location}, and I want a supervisor!"
+          ],
+          "resolved": [
+            "You know where I am. {address_location}. Thanks for nothing.",
+            "Never mind, I'm leaving {address_location}.",
+            "I already left {address_location}. Too late now.",
+            "I'm home. Forget it."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "arguing"
+        },
+        "responses": {
+          "initial": [
+            "It's a {coffee_type} and it's cold! What more do you want?",
+            "The barista {barista_name} made it wrong! I want them arrested!",
+            "I ordered a hot {coffee_type} and got cold! This is theft!",
+            "Details? I paid $5 for this {coffee_type} and it's ruined my morning!"
+          ],
+          "arguing": [
+            "I told you, it's a {coffee_type} made by {barista_name}. Are you deaf?",
+            "How many times? {coffee_type}, cold, from {barista_name}. Now send police!",
+            "The {coffee_type} is cold, and {barista_name} is laughing at me! I want justice!",
+            "Details? It's a {coffee_type} from {address_location}. That's all you need."
+          ],
+          "escalated": [
+            "I'm done explaining. It's a {coffee_type} and I've been wronged!",
+            "You have all the details. {coffee_type}, cold, {barista_name}. Now act!",
+            "I'm not playing this game. I said {coffee_type} and cold. Do your job!",
+            "Forget the details! Just send someone to {address_location}!"
+          ],
+          "resolved": [
+            "It doesn't matter now. I'm just going home.",
+            "I threw it away. Can't you move on?",
+            "I'm over it. But you guys are useless.",
+            "I got a refund. But still, you should have helped."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "escalated",
+          "arguing": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Calm down? My morning is ruined! This is a crime!",
+            "Don't tell me to calm down! I'm a taxpayer!",
+            "I won't calm down until someone is arrested!",
+            "Calm? I'm furious! Do something!"
+          ],
+          "arguing": [
+            "How dare you tell me to calm down? This is serious!",
+            "I'll calm down when the barista is in handcuffs!",
+            "You're not taking me seriously! I demand to speak to a supervisor!",
+            "Calm down? My coffee is cold! That's an emergency!"
+          ],
+          "escalated": [
+            "You're making it worse! I'm calling my lawyer!",
+            "I'm not calming down! I'll drive to the precinct!",
+            "This is ridiculous! I'm going to the news!",
+            "I'm so upset! You'll regret this!"
+          ],
+          "resolved": [
+            "I'm calm now. But you didn't help.",
+            "Whatever. I'm done.",
+            "Fine. I'll just drink it cold. Happy?",
+            "I'm calm, but you're still wrong."
+          ]
+        }
+      },
+      "OFFER_SOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved",
+          "arguing": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "I don't want a free drink! I want justice!",
+            "Send the police! That's the only solution!",
+            "A refund? No! Arrest that barista!",
+            "I want the barista fired and charged!"
+          ],
+          "arguing": [
+            "No solution short of arrest! I'm not interested in your suggestions!",
+            "Why would I want a refund? This is about principle!",
+            "You want me to go back? They'll laugh at me!",
+            "A discount? No! I want criminal charges!"
+          ],
+          "escalated": [
+            "Too late for solutions! I'll take this to the top!",
+            "I don't want your solution! I want action now!",
+            "You had your chance! I'm calling the news!",
+            "I'm not accepting anything less than an arrest!"
+          ],
+          "resolved": [
+            "Fine, I'll take a refund. But you guys are useless.",
+            "I guess a free drink is okay. But still.",
+            "I'll accept the apology. But don't think this is over.",
+            "I'm moving on. But you need better training."
+          ]
+        }
+      },
+      "TRANSFER": {
+        "score_delta": -20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Transfer? No! Just send someone!",
+            "I don't want to be transferred! Help me now!",
+            "Don't transfer me! I want the police!",
+            "Are you serious? Transfer? No!"
+          ],
+          "arguing": [
+            "I'm not being transferred! This is a police matter!",
+            "Stop wasting time! Transfer? I want action!",
+            "I don't want to talk to anyone else! Just send cops!",
+            "Transfer me and I'll report you too!"
+          ],
+          "escalated": [
+            "Fine, transfer me! But I'll complain about you!",
+            "I'll accept a transfer, but only to a supervisor!",
+            "Go ahead, transfer me. This is a joke.",
+            "I guess I have no choice. Transfer me."
+          ],
+          "resolved": [
+            "I don't need a transfer. I'm done.",
+            "Too late for transfers. I'll handle it myself.",
+            "No need. I'm leaving.",
+            "I've already resolved it. Forget it."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police arrive at the coffee shop, wasting resources on a cold coffee complaint. The barista is confused, and the caller is uncooperative. Public funds wasted."
+      },
+      "SEND_FIRE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Firefighters arrive with lights and sirens, only to find a cold beverage. The caller is irate, and the crew is embarrassed. Misallocation of emergency services."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "An ambulance rushes to the scene, expecting a medical emergency. The caller yells about cold coffee. Paramedics leave frustrated, and the caller is fined for misuse."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Animal control arrives, but there are no animals. They explain this isn't their jurisdiction. The caller is confused. Mild inconvenience."
+      },
+      "DISMISS": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "Dispatcher calms caller and suggests contacting the store directly or seeking a refund. Caller eventually agrees or hangs up. No emergency resources used."
+      }
+    },
+    "archetype": "Absurd Entitlement Call"
+  },
+  {
+    "id": "scenario_214",
+    "title": "The Misaligned TV Wall Mount",
+    "description": "A homeowner calls 911 because a handyman installed a TV wall mount slightly crooked, insisting the fire department come fix it.",
+    "states": {
+      "initial": "Caller is upset about crooked mount.",
+      "arguing": "Caller argues it's a fire hazard.",
+      "escalated": "Caller threatens to call news.",
+      "resolved": "Caller accepts alternative."
+    },
+    "initial_variations": [
+      "Is this the fire department? My TV is about to fall off the wall because the mount is crooked! Come fix it now!",
+      "Hi, my name is {caller_name}. I hired a handyman at {address_location} and he installed my TV mount crooked. I need you to send someone to fix it before it falls!",
+      "911? This is an emergency! My TV mount is misaligned and it's a fire hazard! I demand the fire department come immediately!",
+      "{caller_name} at {address_location}. The TV mount is off by half an inch! That's unacceptable! Send the fire department!"
+    ],
+    "slots": {
+      "caller_name": ["Dave", "Sandra", "Todd", "Nancy"],
+      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Road", "321 Elm Drive"],
+      "handyman_name": ["Bob", "Joe", "Chris", "Pat"],
+      "tv_size": ["55-inch", "65-inch", "75-inch", "85-inch"],
+      "ambient_audio": [
+        "TV playing in background",
+        "drilling sounds",
+        "silence",
+        "children playing"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}! Hurry up!",
+            "I said {address_location}! Can't you remember?",
+            "It's {address_location}. Get here fast!",
+            "At {address_location}. The TV could fall any second!"
+          ],
+          "arguing": [
+            "I already gave you {address_location}! Are you incompetent?",
+            "{address_location}! And I want the fire chief!",
+            "It's {address_location}. But don't send a rookie!",
+            "You have the address! {address_location}! Now send someone!"
+          ],
+          "escalated": [
+            "{address_location}! If no one comes, I'll call the mayor!",
+            "I'm at {address_location}. This is your last chance!",
+            "Fine, {address_location}. But you'll hear from my lawyer!",
+            "{address_location}. I'm not moving till I see a fire truck."
+          ],
+          "resolved": [
+            "Never mind, {address_location}. I'll fix it myself.",
+            "I left {address_location}. You're too late.",
+            "Forget it. I'm not at {address_location} anymore.",
+            "I have a contractor coming. No thanks to you."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "arguing"
+        },
+        "responses": {
+          "initial": [
+            "The {tv_size} TV mount is off by half an inch! That's a disaster!",
+            "The handyman {handyman_name} did a shoddy job! I want him reported!",
+            "The mount is crooked! It's a safety risk! It could fall on my child!",
+            "I bought a premium {tv_size} TV and the mount is uneven! This is fraud!"
+          ],
+          "arguing": [
+            "I told you! {handyman_name} installed it crooked! The {tv_size} TV will fall!",
+            "Details? The mount is misaligned! That's a fire hazard! Don't you understand?",
+            "It's a {tv_size} TV, and the mount is crooked! Are you an idiot?",
+            "How many times? Crooked mount! {handyman_name}! {tv_size} TV! Now act!"
+          ],
+          "escalated": [
+            "I'm done repeating myself! Crooked mount! {handyman_name}! Just send the fire department!",
+            "You know the details! Stop wasting time! {tv_size} TV, crooked!",
+            "I'm not playing games. Crooked mount. Now!",
+            "Forget details! Just come!"
+          ],
+          "resolved": [
+            "It's fixed. But you shouldn't have made me wait.",
+            "I don't need to explain anymore. Too late.",
+            "I fixed it myself. You guys are useless.",
+            "I got a refund from {handyman_name}. But you still failed."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "escalated",
+          "arguing": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Calm down? My TV could fall! This is serious!",
+            "Don't tell me to calm down! You don't understand!",
+            "I will not calm down until this is fixed!",
+            "Calm? Are you kidding? This is an emergency!"
+          ],
+          "arguing": [
+            "How dare you! This is about safety!",
+            "I'll calm down when a fire truck arrives!",
+            "You're not helping! I'm getting angrier!",
+            "I demand you take this seriously!"
+          ],
+          "escalated": [
+            "You're making me more upset! I'm calling the mayor!",
+            "I'll calm down when I see results! None so far!",
+            "This is ridiculous! I want a supervisor!",
+            "I'm so mad! You'll regret this!"
+          ],
+          "resolved": [
+            "I'm calm now. But you were no help.",
+            "Whatever. I fixed it myself.",
+            "Fine. But I'm still disappointed.",
+            "I'm calm, but you should be ashamed."
+          ]
+        }
+      },
+      "OFFER_SOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved",
+          "arguing": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "No solutions except the fire department fixing it!",
+            "A refund? No! I want it fixed now!",
+            "I don't want advice! I want action!",
+            "Call the handyman? He's gone! I need you!"
+          ],
+          "arguing": [
+            "I'm not calling a contractor! The fire department should do it!",
+            "No alternative! You have the tools!",
+            "I want a crime scene unit! The mount is evidence!",
+            "No way! You're the only ones I trust!"
+          ],
+          "escalated": [
+            "Too late for solutions! I want your boss!",
+            "I'll take a free installation, but you still must come!",
+            "I don't need your solutions! I need action!",
+            "I'm going to the press! These solutions are weak!"
+          ],
+          "resolved": [
+            "Fine, I'll call a handyman. But this is on you.",
+            "I'll accept a discount from the handyman. But still.",
+            "I guess I'll live with it. But I'm not happy.",
+            "I'll try your suggestion. But if it fails, I'm calling back."
+          ]
+        }
+      },
+      "TRANSFER": {
+        "score_delta": -20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No! Don't transfer! I want help now!",
+            "Transfer? I demand you handle this!",
+            "I'm not being transferred! This is your job!",
+            "Are you kidding? Transfer? No!"
+          ],
+          "arguing": [
+            "I refuse to be transferred! I insist you deal with this!",
+            "Don't transfer me! I want the fire chief!",
+            "Transfer and I'll report you! This is incompetence!",
+            "I will not accept a transfer!"
+          ],
+          "escalated": [
+            "Fine, transfer me! But I'm filing a complaint!",
+            "Go ahead, transfer. You're useless anyway.",
+            "I'll talk to a supervisor only. No one else.",
+            "Transfer me! I want someone with authority!"
+          ],
+          "resolved": [
+            "No need. I'm hanging up.",
+            "Too late. I've fixed it.",
+            "I don't need a transfer. Goodbye.",
+            "I've already resolved it. Don't bother."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police respond, see a TV mount, and explain it's not a police matter. The caller becomes belligerent. Officers waste time and public trust."
+      },
+      "SEND_FIRE": {
+        "score_delta": -450,
+        "status": "CRITICAL_FAILURE",
+        "message": "A fire engine arrives, crew sees a slightly crooked mount. They cannot fix it. The caller insists they should. Potential disciplinary action for false alarm."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "Paramedics rush in, expecting injuries. They find a crooked TV mount. The caller yells at them for being slow. Ambulance misused."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Animal control arrives, no animal. They refer to a handyman. Caller is confused but slightly amused."
+      },
+      "DISMISS": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "Dispatcher suggests contacting the handyman's company or a local handyman. Caller eventually agrees or disconnects. Resources saved."
+      }
+    },
+    "archetype": "Absurd Entitlement Call"
+  },
+  {
+    "id": "scenario_215",
+    "title": "The Non-Organic Avocado",
+    "description": "A health-conscious person calls 911 after receiving a non-organic avocado in their grocery delivery, demanding medical assistance for potential contamination.",
+    "states": {
+      "initial": "Caller panics about non-organic avocado.",
+      "arguing": "Caller argues it's a health crisis.",
+      "escalated": "Caller threatens to sue.",
+      "resolved": "Caller calms down."
+    },
+    "initial_variations": [
+      "911! I need an ambulance! I just ate a non-organic avocado! I might be poisoned!",
+      "Hi, this is {caller_name}. My grocery delivery from {address_location} included a non-organic avocado. I have a weak immune system! Send medical help!",
+      "Emergency! I've been exposed to pesticides! A non-organic avocado was in my bag! I need a hospital!",
+      "{caller_name} at {address_location}. I'm having a potential allergic reaction to a non-organic avocado. Please send paramedics!"
+    ],
+    "slots": {
+      "caller_name": ["Olivia", "Ethan", "Sophia", "Liam"],
+      "address_location": [
+        "123 Health Drive",
+        "456 Wellness Blvd",
+        "789 Organic Ave",
+        "321 Green Street"
+      ],
+      "delivery_service": ["FreshMart", "GreenGrocer", "EcoDeliver", "OrganicOasis"],
+      "avocado_type": ["Hass", "Fuerte", "Bacon", "Pinkerton"],
+      "ambient_audio": [
+        "TV health show in background",
+        "kitchen sounds",
+        "breathing heavily",
+        "silence"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}! I need help now!",
+            "I'm at {address_location}. Hurry!",
+            "It's {address_location}. I feel dizzy!",
+            "{address_location}! The avocado is here!"
+          ],
+          "arguing": [
+            "I said {address_location}! Are you slow?",
+            "{address_location}! But I might need to go to the hospital!",
+            "It's {address_location}. This is a medical emergency!",
+            "You know where I am: {address_location}. Get here!"
+          ],
+          "escalated": [
+            "{address_location}! I'll sue if I die!",
+            "Fine, {address_location}. I have a lawyer!",
+            "I'm at {address_location}. This is your fault!",
+            "{address_location}. I'm documenting everything."
+          ],
+          "resolved": [
+            "I'm at {address_location}, but never mind.",
+            "I left {address_location}. Too late.",
+            "I threw it away. I'm fine now.",
+            "I'm home at {address_location}. But I'm okay."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "arguing"
+        },
+        "responses": {
+          "initial": [
+            "It's a non-organic {avocado_type} from {delivery_service}! That's poison!",
+            "I ate some already! I feel sick! I need help!",
+            "The avocado is {avocado_type}, but not organic! That's against my diet!",
+            "I ordered organic! They sent non-organic! I'm having a reaction!"
+          ],
+          "arguing": [
+            "I told you! {delivery_service} sent a non-organic {avocado_type}! I ate it!",
+            "Details? It's a {avocado_type}, non-organic! I feel nauseous!",
+            "How many times? Non-organic {avocado_type}! I need a stomach pump!",
+            "The avocado is {avocado_type}, and it's not organic! This is a crime!"
+          ],
+          "escalated": [
+            "I'm done explaining! Non-organic {avocado_type}! Now help!",
+            "You have all the info! {avocado_type}, non-organic! I'm dying!",
+            "Forget details! I'm having a panic attack!",
+            "I'll tell the judge! {avocado_type}, non-organic!"
+          ],
+          "resolved": [
+            "It doesn't matter now. I'm okay.",
+            "I threw it away. Not important.",
+            "I feel fine. Just overreacted.",
+            "I'm fine. False alarm."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "escalated",
+          "arguing": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Calm down? I might be dying!",
+            "Don't tell me to calm! I've been poisoned!",
+            "I can't calm! I feel terrible!",
+            "Calm? Are you a doctor?"
+          ],
+          "arguing": [
+            "I'm not calming! You don't understand!",
+            "Calm? I have a condition! This is serious!",
+            "I'll calm when I'm in a hospital!",
+            "You're not taking me seriously!"
+          ],
+          "escalated": [
+            "I'm furious! I'll sue everyone!",
+            "I'll calm when I see a lawyer!",
+            "I'm going to the media! You'll be sorry!",
+            "This is making me more stressed!"
+          ],
+          "resolved": [
+            "I'm calm. I overreacted. Sorry.",
+            "I feel better now. Thanks for nothing.",
+            "I'm okay. Just a scare.",
+            "I'm fine. No need to send help."
+          ]
+        }
+      },
+      "OFFER_SOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved",
+          "arguing": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "No! I need a hospital! Not a refund!",
+            "Send an ambulance! That's the only solution!",
+            "I want to be checked by a doctor!",
+            "Don't offer money! I need medical attention!"
+          ],
+          "arguing": [
+            "No solution but medical care! I might have had a reaction!",
+            "I won't accept a gift card! This is health!",
+            "I want {delivery_service} prosecuted! Not a refund!",
+            "A replacement? No! I want an ambulance!"
+          ],
+          "escalated": [
+            "Too late for solutions! I'll see you in court!",
+            "I don't want your solutions! I want justice!",
+            "I'll accept nothing less than a hospital visit!",
+            "You had your chance! I'm calling my lawyer!"
+          ],
+          "resolved": [
+            "Fine, I'll drink water. But still.",
+            "I'll accept a refund. But you should be ashamed.",
+            "I'm okay. No need for anything.",
+            "I'll just not eat it. Problem solved."
+          ]
+        }
+      },
+      "TRANSFER": {
+        "score_delta": -20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No transfer! I need help now!",
+            "Don't transfer me! I'm having a medical emergency!",
+            "I won't be transferred! Stay on the line!",
+            "Transfer? I'll faint!"
+          ],
+          "arguing": [
+            "I refuse transfer! Take responsibility!",
+            "Transfer me and I'll report!",
+            "No! I demand you handle this!",
+            "I will not be transferred! Period."
+          ],
+          "escalated": [
+            "Fine, transfer me! But I'm noting this!",
+            "Go ahead, transfer. You're incompetent.",
+            "I'll talk to a supervisor only.",
+            "Transfer me! This is ridiculous!"
+          ],
+          "resolved": [
+            "Never mind. I don't need transfer.",
+            "I'll hang up now. Goodbye.",
+            "Too late. I'm fine.",
+            "No need. I'm okay."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police show up, see an avocado. Caller demands the avocado be tested. Officers provide no help, and the caller wastes their time."
+      },
+      "SEND_FIRE": {
+        "score_delta": -450,
+        "status": "CRITICAL_FAILURE",
+        "message": "Firefighters arrive, find a panicked person over an avocado. They have no hazmat gear for that. Caller becomes hysterical."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "An ambulance rushes over. Paramedics find the caller with an avocado. They explain non-organic isn't toxic. Caller demands to be taken to hospital. Resources wasted."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Animal control arrives, no animal. They recommend calling the delivery service. Caller is confused but calms down."
+      },
+      "DISMISS": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "Dispatcher reassures the caller that non-organic avocados are safe, suggests contacting the delivery service for a refund. Caller hangs up satisfied or still miffed but no emergency."
+      }
+    },
+    "archetype": "Absurd Entitlement Call"
+  },
+  {
+    "id": "scenario_216",
+    "title": "The Insufficiently Sparkly Disco Ball",
+    "description": "A party planner calls 911 because the rented disco ball doesn't sparkle enough to their liking, demanding animal control to 'handle the situation'.",
+    "states": {
+      "initial": "Caller disappointed about disco ball.",
+      "arguing": "Caller insists it's an animal emergency.",
+      "escalated": "Caller threatens to report dispatcher.",
+      "resolved": "Caller cancels party."
+    },
+    "initial_variations": [
+      "Is this animal control? The disco ball I rented is not sparkly enough! It's like a broken disco ball! I need you to come fix it or confiscate it!",
+      "Hi, I'm {caller_name} from {address_location}. I'm throwing a party and the disco ball is a dud. I want you to send someone to deal with this emergency!",
+      "911? I need animal control right now! There's a disco ball that's not sparkling! It's ruining my party!",
+      "{caller_name} here. I'm at {address_location} and this disco ball is pathetic. I demand action!"
+    ],
+    "slots": {
+      "caller_name": ["DJ Pat", "Party Queen", "Glam Gus", "Shine Sam"],
+      "address_location": ["The Venue on 5th", "Community Center", "Party Barn", "Event Hall"],
+      "rental_company": ["Glow Party Rentals", "Sparkle R Us", "Party Time", "Shiny Things"],
+      "disco_ball_size": ["12-inch", "20-inch", "36-inch", "48-inch"],
+      "ambient_audio": [
+        "party music in background",
+        "people laughing",
+        "silence",
+        "sound of disco ball motor"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}! Come see this disaster!",
+            "I'm at {address_location}. Hurry!",
+            "It's {address_location}. The ball is sad!",
+            "{address_location}! I have guests waiting!"
+          ],
+          "arguing": [
+            "I said {address_location}! Are you even listening?",
+            "{address_location}! But this is an animal issue!",
+            "It's {address_location}. The disco ball needs to be contained!",
+            "You have the address: {address_location}. Send someone now!"
+          ],
+          "escalated": [
+            "{address_location}! I'm going to complain!",
+            "Fine, {address_location}. You'll hear from my boss!",
+            "I'm at {address_location}. This is your final warning!",
+            "{address_location}. I'm not moving till you help."
+          ],
+          "resolved": [
+            "Never mind {address_location}. Party's off.",
+            "I left {address_location}. Too late.",
+            "I'm done at {address_location}. Forget it.",
+            "I canceled. No need anymore."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "arguing"
+        },
+        "responses": {
+          "initial": [
+            "The {disco_ball_size} disco ball from {rental_company} is not sparkly! It's a catastrophe!",
+            "It's a {disco_ball_size} ball and it barely shines! That's false advertising!",
+            "The disco ball is {disco_ball_size} and it's like a mirror ball that doesn't mirror!",
+            "I rented a {disco_ball_size} ball from {rental_company} and it's dull!"
+          ],
+          "arguing": [
+            "I told you! {rental_company} gave me a defective {disco_ball_size} ball! It's not sparkling!",
+            "Details? The {disco_ball_size} disco ball is a dud! That's an animal emergency!",
+            "How many times? {disco_ball_size}, no sparkle! Confiscate it!",
+            "The ball is {disco_ball_size} and it's a fake! It's like a giant golf ball!"
+          ],
+          "escalated": [
+            "I'm done explaining! {disco_ball_size}, no sparkle! Now act!",
+            "You know the details! {rental_company}, {disco_ball_size}, dull!",
+            "Forget details! The ball is ugly! Send animal control!",
+            "I'll tell the world! {disco_ball_size}, dull, from {rental_company}!"
+          ],
+          "resolved": [
+            "It's not important anymore. Party's off.",
+            "I don't care about details. It's over.",
+            "I threw it away. No need.",
+            "I'm past it. Goodbye."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "escalated",
+          "arguing": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Calm down? My party is ruined!",
+            "Don't tell me to calm! This is a party emergency!",
+            "I won't calm down until the disco ball sparkles!",
+            "Calm? I spent $500 on this!"
+          ],
+          "arguing": [
+            "How dare you! This is a legitimate issue!",
+            "I'll calm down when the ball is confiscated!",
+            "You're not taking me seriously! I'm a party planner!",
+            "I'm getting more upset!"
+          ],
+          "escalated": [
+            "I'm furious! You'll be fired!",
+            "I'll calm when I see a news crew!",
+            "This is unacceptable! I'm calling the mayor!",
+            "You're making me angrier!"
+          ],
+          "resolved": [
+            "I'm calm. Party is canceled anyway.",
+            "Fine. I'll just use it as is.",
+            "I'm over it. Disappointed.",
+            "I'm calm, but you were no help."
+          ]
+        }
+      },
+      "OFFER_SOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved",
+          "arguing": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "No! I want the disco ball taken away! That's animal control!",
+            "I don't want a refund! I want action!",
+            "Send someone to arrest the disco ball!",
+            "No solution but confiscation!"
+          ],
+          "arguing": [
+            "I won't accept a replacement! The ball is guilty!",
+            "I want animal control to take it! It's an invasive species!",
+            "No! The ball must be removed! It's a menace!",
+            "I demand a full investigation!"
+          ],
+          "escalated": [
+            "Too late! I'll sue the rental company!",
+            "I don't want your solution! I want justice!",
+            "I'm going to social media! This is absurd!",
+            "I'll accept nothing less than the ball being destroyed!"
+          ],
+          "resolved": [
+            "Fine, I'll return it. But still.",
+            "I'll accept a different ball. Okay.",
+            "I'll just use a strobe light. Whatever.",
+            "I canceled the party. No need."
+          ]
+        }
+      },
+      "TRANSFER": {
+        "score_delta": -20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No transfer! Handle it now!",
+            "Don't transfer me! This is a animal emergency!",
+            "I won't be transferred!",
+            "Transfer? I'm not a fool!"
+          ],
+          "arguing": [
+            "I refuse! Transfer and I'll report!",
+            "No! You deal with it!",
+            "I will not accept a transfer!",
+            "Transfer? I demand your badge number!"
+          ],
+          "escalated": [
+            "Fine, transfer! But I'm recording!",
+            "Go ahead! You're useless!",
+            "I'll talk to a supervisor only!",
+            "Transfer me! This is a joke!"
+          ],
+          "resolved": [
+            "Never mind. I'm hanging up.",
+            "Too late. I fixed it.",
+            "I don't need transfer. Goodbye.",
+            "I'm done. Bye."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police arrive, see a disco ball. The caller insists it's a violation. Officers explain it's not, caller becomes hostile. Waste of time."
+      },
+      "SEND_FIRE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Fire truck shows up. Crew sees disco ball. Caller demands they remove it. They refuse. Resources misused."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "Ambulance arrives. No injuries. Caller wants medical for 'depression from bad ball'. Paramedics leave frustrated."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Animal control officer arrives, sees disco ball, laughs. Explains it's not an animal. Caller is embarrassed but still annoyed."
+      },
+      "DISMISS": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "Dispatcher advises caller to contact rental company for exchange. Caller eventually agrees or hangs up. Emergency resources not used."
+      }
+    },
+    "archetype": "Absurd Entitlement Call"
+  },
+  {
+    "id": "scenario_217",
+    "title": "The Missing Crouton Salad",
+    "description": "A customer at a restaurant calls 911 because their salad arrived without croutons, and they demand police arrest the chef.",
+    "states": {
+      "initial": "Caller angry about missing croutons.",
+      "arguing": "Caller claims it's a crime.",
+      "escalated": "Caller demands to speak to chief.",
+      "resolved": "Caller accepts apology."
+    },
+    "initial_variations": [
+      "911? I need the police! My salad has no croutons! I was promised croutons! This is theft!",
+      "Hi, this is {caller_name}. I'm at {address_location} and the chef forgot croutons on my salad! I want them arrested!",
+      "Emergency! Missing croutons in my salad! That's false advertising! Send the cops!",
+      "{caller_name} at {address_location}. The salad is incomplete! I demand justice!"
+    ],
+    "slots": {
+      "caller_name": ["Betty", "Ken", "Linda", "Greg"],
+      "address_location": ["The Salad Spot", "Green Bowl Cafe", "Crunchy Greens", "Leafy Bites"],
+      "chef_name": ["Chef Marco", "Chef Jenny", "Chef Rick", "Chef Ana"],
+      "salad_type": ["Caesar", "Garden", "Cobb", "Greek"],
+      "ambient_audio": ["restaurant noise", "silverware clinking", "music", "arguing in background"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}! I'm waiting for my croutons!",
+            "I'm at {address_location}. Get here now!",
+            "It's {address_location}. The salad is here!",
+            "{address_location}! Hurry!"
+          ],
+          "arguing": [
+            "I said {address_location}! Are you deaf?",
+            "{address_location}! But the chef is the criminal!",
+            "It's {address_location}. I want the chef arrested!",
+            "You know where I am: {address_location}. Send cops!"
+          ],
+          "escalated": [
+            "{address_location}! I want the police chief!",
+            "Fine, {address_location}. You're all useless.",
+            "I'm at {address_location}. This is your last chance.",
+            "{address_location}. I'm not leaving till I get justice."
+          ],
+          "resolved": [
+            "Never mind {address_location}. I'm leaving.",
+            "I left {address_location}. Too late.",
+            "Forget it. I'm not there anymore.",
+            "I'm at home. Don't bother."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "arguing"
+        },
+        "responses": {
+          "initial": [
+            "It's a {salad_type} salad without croutons! That's fraud!",
+            "I ordered a {salad_type} salad with croutons! Chef {chef_name} forgot!",
+            "The {salad_type} salad is missing croutons! That's a crime!",
+            "Chef {chef_name} ruined my meal! No croutons on my {salad_type}!"
+          ],
+          "arguing": [
+            "I told you! {salad_type}, no croutons! Chef {chef_name} did it!",
+            "Details? {salad_type}, croutons missing! That's theft by chef {chef_name}!",
+            "How many times? {salad_type} salad, no croutons! Chef {chef_name} is guilty!",
+            "The {salad_type} salad is incomplete! I want chef {chef_name} arrested!"
+          ],
+          "escalated": [
+            "I'm done! {salad_type}, no croutons! Chef {chef_name}! Now act!",
+            "You know everything! {salad_type}, croutons, chef {chef_name}! Send SWAT!",
+            "Forget details! The salad is missing croutons! I want action!",
+            "I'll tell the judge! {salad_type}, no croutons, chef {chef_name}!"
+          ],
+          "resolved": [
+            "It's over. I got a refund.",
+            "I don't care anymore. I ate it without.",
+            "I'll let it go. But still.",
+            "I'm fine. Gone."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "escalated",
+          "arguing": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Calm down? My lunch is ruined!",
+            "Don't tell me to calm! This is a serious matter!",
+            "I will not calm down until croutons are added!",
+            "Calm? I'm a paying customer!"
+          ],
+          "arguing": [
+            "How dare you! This is fraud!",
+            "I'll calm when the chef is in cuffs!",
+            "You're not helping! I'm more upset now!",
+            "I demand you take this seriously!"
+          ],
+          "escalated": [
+            "I'm furious! I'll call the news!",
+            "I'll calm when I see a police car!",
+            "This is ludicrous! I want your supervisor!",
+            "You're making me angrier!"
+          ],
+          "resolved": [
+            "I'm calm. I'll just leave a bad review.",
+            "Fine. I'm done being angry.",
+            "I overreacted. Sorry.",
+            "I'm okay now. No big deal."
+          ]
+        }
+      },
+      "OFFER_SOLUTION": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "resolved",
+          "arguing": "resolved"
+        },
+        "responses": {
+          "initial": [
+            "No! I want police! Not a new salad!",
+            "A free meal? No! I want justice!",
+            "I don't want compensation! I want the chef arrested!",
+            "Send cops! That's the only solution!"
+          ],
+          "arguing": [
+            "No solution but arrest! Croutons are mandatory!",
+            "I won't accept a discount! This is about the law!",
+            "I want chef {chef_name} charged! Not a voucher!",
+            "No! The chef must pay!"
+          ],
+          "escalated": [
+            "Too late! I'm suing the restaurant!",
+            "I don't want your solution! I want law enforcement!",
+            "I'll accept nothing less than a police report!",
+            "I'm going to the district attorney!"
+          ],
+          "resolved": [
+            "Fine, I'll take a free dessert. But still.",
+            "I'll accept an apology. But you guys are useless.",
+            "I guess I'll just eat it without. Okay.",
+            "I'll let it go. But I'm not happy."
+          ]
+        }
+      },
+      "TRANSFER": {
+        "score_delta": -20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No! Don't transfer! I need police now!",
+            "Transfer? I won't allow it!",
+            "I'm not being transferred! This is an emergency!",
+            "Are you kidding? Transfer?"
+          ],
+          "arguing": [
+            "I refuse to be transferred! I insist you handle this!",
+            "Transfer and I'll file a complaint!",
+            "No! You deal with this now!",
+            "I will not accept a transfer!"
+          ],
+          "escalated": [
+            "Fine, transfer me! But I'm recording!",
+            "Go ahead! You're incompetent!",
+            "I'll talk to a supervisor only!",
+            "Transfer me! I want someone with sense!"
+          ],
+          "resolved": [
+            "Never mind. I'm hanging up.",
+            "Too late. I resolved it.",
+            "I don't need transfer. Bye.",
+            "I'm done. Goodbye."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police respond to a restaurant, find a salad without croutons. The caller is irate. Officers advise it's a civil matter. Wasted resources."
+      },
+      "SEND_FIRE": {
+        "score_delta": -450,
+        "status": "CRITICAL_FAILURE",
+        "message": "Firefighters show up, see a salad. They have no solution. Caller demands they add croutons. Unprofessional."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "Ambulance arrives for a missing crouton emergency. Paramedics are speechless. Caller pretends to have allergic reaction to the absence. Misuse."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Animal control officer arrives, no animal. They recommend talking to manager. Caller is confused but eventually stops."
+      },
+      "DISMISS": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "Dispatcher suggests speaking to the restaurant manager. Caller demands police but after a few minutes, agrees to talk to staff. No emergency."
+      }
+    },
+    "archetype": "Absurd Entitlement Call"
+  },
+  {
+    "title": "The Gourmet Burger Complaint",
+    "archetype": "Absurd Entitlement Call",
+    "states": ["initial", "escalating", "threatening", "resigned"],
+    "initial_variations": [
+      "I need police immediately! My {burger_type} burger is completely ruined! They gave it medium-well when I ordered medium-rare!",
+      "This is an emergency! The chef at {restaurant_name} refuses to remake my burger correctly. I demand justice!",
+      "I'm a paying customer! I ordered a {burger_type} burger and they messed it up. Send someone to arrest the cook!",
+      "This is unacceptable! My {burger_type} burger is dry. I want the manager arrested for culinary crimes!"
+    ],
+    "slots": [
+      {
+        "name": "caller_name",
+        "options": ["Karen", "Chad", "Brenda"]
+      },
+      {
+        "name": "restaurant_name",
+        "options": ["Burger King on 5th Ave", "McDonald's downtown", "Bob's Burgers"]
+      },
+      {
+        "name": "burger_type",
+        "options": ["gourmet truffle", "double bacon", "vegan patty"]
+      },
+      {
+        "name": "ambient_audio",
+        "options": ["sounds of sizzling grill", "muffled arguing", "cash register beeping"]
+      },
+      {
+        "name": "complaint_detail",
+        "options": ["burnt to a crisp", "looks like a frisbee", "smells funny"]
+      }
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {restaurant_name} on Main Street!",
+            "It's the {restaurant_name} near the mall.",
+            "I'm at {restaurant_name}, hurry!"
+          ],
+          "escalating": [
+            "Still at {restaurant_name}, and the manager is ignoring me!",
+            "Same place, {restaurant_name}, they're laughing at me."
+          ],
+          "threatening": [
+            "I'm not leaving {restaurant_name} until someone is arrested!",
+            "I'm at {restaurant_name} and I'm about to lose it."
+          ],
+          "resigned": ["I'm at {restaurant_name}, but I guess I'll just leave."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I ordered a {burger_type} burger and it's {complaint_detail}!",
+            "The burger is {complaint_detail}, I wanted it perfect."
+          ],
+          "escalating": [
+            "I asked for medium-rare, this is well-done. {ambient_audio} is driving me crazy."
+          ],
+          "threatening": [
+            "If I don't get a new burger, I'm calling the health department! {ambient_audio}"
+          ],
+          "resigned": ["Never mind, they gave me a refund. But still, this is bad service."]
+        }
+      },
+      "ASK_IF_SAFE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, I'm safe, just angry!", "I'm fine, but my burger isn't!"],
+          "escalating": ["I'm safe, but my blood pressure is rising!"],
+          "threatening": ["I'm safe, but they won't be if they don't fix this!"],
+          "resigned": ["Yeah, I'm safe. It's just a burger."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrived to find a customer arguing over a burger. A waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department responded to a non-emergency food complaint."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical unit dispatched for a non-injury burger dispute."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control sent to a burger joint; no animals involved."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Advised caller to speak with the manager. Call resolved without emergency response."
+      }
+    },
+    "id": "scenario_218"
+  },
+  {
+    "title": "The Wrong Coffee Order",
+    "archetype": "Absurd Entitlement Call",
+    "states": ["initial", "escalating", "spiteful", "resigned"],
+    "initial_variations": [
+      "I ordered a {drink_type} with oat milk, but they gave me almond! This is a crime against my lifestyle!",
+      "Call the cops! The barista at {coffee_shop} deliberately sabotaged my order. I'm lactose intolerant, not nut intolerant!",
+      "I need emergency services! My {drink_type} is ruined and I have an important meeting. This is assault through beverage!",
+      "This is the third time this week! I want the barista {barista_name} arrested for barista malpractice!"
+    ],
+    "slots": [
+      {
+        "name": "caller_name",
+        "options": ["Samantha", "Tyler", "Ashley"]
+      },
+      {
+        "name": "coffee_shop",
+        "options": ["Starbucks on Elm", "Dunkin' Donuts", "The Daily Grind"]
+      },
+      {
+        "name": "drink_type",
+        "options": ["caramel latte", "vanilla cappuccino", "mocha frappe"]
+      },
+      {
+        "name": "ambient_audio",
+        "options": ["espresso machine hissing", "blender going", "muffled music"]
+      },
+      {
+        "name": "barista_name",
+        "options": ["Jake", "Maria", "Chris"]
+      }
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {coffee_shop} near the park!",
+            "It's {coffee_shop} on Main, I'm inside."
+          ],
+          "escalating": [
+            "Still at {coffee_shop}, they're ignoring me!",
+            "I'm at {coffee_shop}, hurry!"
+          ],
+          "spiteful": ["I'm at {coffee_shop} and I'm about to cause a scene."],
+          "resigned": ["I'm at {coffee_shop}, but whatever."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I ordered a {drink_type} with oat milk, got almond. Unacceptable!",
+            "I specifically asked for oat milk, {ambient_audio} is making it worse."
+          ],
+          "escalating": ["The barista {barista_name} won't admit their mistake! {ambient_audio}"],
+          "spiteful": ["I'm going to post this on social media. {ambient_audio}"],
+          "resigned": ["They remade it, but still."]
+        }
+      },
+      "ASK_IF_SAFE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm safe, just very annoyed.", "Yes, but my drink is a disaster."],
+          "escalating": ["I'm safe, but I might lose my temper."],
+          "spiteful": ["I'm fine, but they won't be when I'm done."],
+          "resigned": ["Yeah, I'm safe. It's just coffee."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police responded to a coffee order dispute. Wasted resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters arrived to find a customer complaining about milk choice."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medics dispatched to a coffee shop; no medical need."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control sent to a coffee shop; no animals involved."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Advised caller to ask for a remake. Issue resolved without emergency response."
+      }
+    },
+    "id": "scenario_219"
+  },
+  {
+    "title": "The Parking Spot Reservation",
+    "archetype": "Absurd Entitlement Call",
+    "states": ["initial", "confronting", "reporting", "resolved"],
+    "initial_variations": [
+      "Someone stole my parking spot that I saved with a cone at {street_location}. I demand police come and tow that {car_description}!",
+      "This is an emergency! I've been circling for 20 minutes and now my spot is taken. The driver is laughing at me!",
+      "I need a patrol car immediately! There's a {car_description} illegally parked in my reserved spot. I have a cone!",
+      "I pay taxes! This is my spot. Send the police to arrest the thief!"
+    ],
+    "slots": [
+      {
+        "name": "caller_name",
+        "options": ["Mike", "Linda", "Steve"]
+      },
+      {
+        "name": "street_location",
+        "options": ["123 Oak Street", "456 Pine Avenue", "789 Maple Drive"]
+      },
+      {
+        "name": "car_description",
+        "options": ["red Honda Civic", "blue Ford F-150", "white Tesla Model 3"]
+      },
+      {
+        "name": "ambient_audio",
+        "options": ["car honking", "people talking", "wind noise"]
+      },
+      {
+        "name": "spot_owner_name",
+        "options": ["my neighbor Bob", "the store owner", "some random guy"]
+      }
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {street_location}, right in front of my house!",
+            "It's {street_location}, the spot with the cone."
+          ],
+          "confronting": [
+            "I'm at {street_location}, confronting the driver!",
+            "Same spot, {street_location}, they won't move."
+          ],
+          "reporting": ["I'm at {street_location}, I've taken a picture."],
+          "resolved": ["I'm at {street_location}, but I gave up."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["A {car_description} is in my spot! {ambient_audio}"],
+          "confronting": ["The {car_description} driver says I'm crazy. {ambient_audio}"],
+          "reporting": ["I have the license plate of the {car_description}. {ambient_audio}"],
+          "resolved": ["They left, but I'm still mad."]
+        }
+      },
+      "ASK_IF_SAFE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, just angry.", "I'm safe, but my property rights are violated!"],
+          "confronting": ["I'm safe, but the driver is getting aggressive."],
+          "reporting": ["I'm safe, I'm just documenting."],
+          "resolved": ["Yeah, I'm fine now."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrived to find a disputed parking spot. A waste of time."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department responded to a parking dispute."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medics dispatched to a non-injury argument over parking."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control sent to a parking dispute; no animals involved."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Advised caller that parking disputes are civil matters. Call resolved."
+      }
+    },
+    "id": "scenario_220"
+  }
+]

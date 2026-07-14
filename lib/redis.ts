@@ -1,11 +1,111 @@
 import { Redis } from '@upstash/redis';
+import fs from 'fs';
+import path from 'path';
 
-let redis: Redis | null = null;
+const CACHE_FILE = path.join(process.cwd(), 'data', 'local_cache.json');
 
+// Helper to read local json cache
+function readLocalCache(): Record<string, unknown> {
+  if (!fs.existsSync(CACHE_FILE)) {
+    return {};
+  }
+  try {
+    const raw = fs.readFileSync(CACHE_FILE, 'utf8');
+    return JSON.parse(raw) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
+}
+
+// Helper to write local json cache
+function writeLocalCache(data: Record<string, unknown>) {
+  try {
+    const dir = path.dirname(CACHE_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(data, null, 2), 'utf8');
+  } catch (e) {
+    console.error('Failed to write local filesystem cache:', e);
+  }
+}
+
+interface LeaderboardMember {
+  member: string;
+  score: number;
+}
+
+// Local mock client implementing Upstash Redis API interfaces
+const localRedisMock = {
+  async get<T>(key: string): Promise<T | null> {
+    const cache = readLocalCache();
+    const val = cache[key];
+    if (val === undefined) return null;
+    return val as T;
+  },
+  async set(key: string, value: unknown): Promise<'OK'> {
+    const cache = readLocalCache();
+    cache[key] = value;
+    writeLocalCache(cache);
+    return 'OK';
+  },
+  async zadd(key: string, scoreMember: LeaderboardMember): Promise<number> {
+    const cache = readLocalCache();
+    if (!Array.isArray(cache[key])) {
+      cache[key] = [];
+    }
+    const list = cache[key] as LeaderboardMember[];
+    const filtered = list.filter((item) => item.member !== scoreMember.member);
+    filtered.push({ member: scoreMember.member, score: scoreMember.score });
+    cache[key] = filtered;
+    writeLocalCache(cache);
+    return 1;
+  },
+  async zrange(
+    key: string,
+    start: number,
+    stop: number,
+    options?: { rev?: boolean; withScores?: boolean }
+  ): Promise<unknown[]> {
+    const cache = readLocalCache();
+    const list = (cache[key] || []) as LeaderboardMember[];
+    const sorted = [...list].sort((a, b) => {
+      return options?.rev ? b.score - a.score : a.score - b.score;
+    });
+    const sliced = sorted.slice(start, stop + 1);
+    if (options?.withScores) {
+      const flat: unknown[] = [];
+      for (const item of sliced) {
+        flat.push(item.member, item.score);
+      }
+      return flat;
+    }
+    return sliced.map((item) => item.member);
+  }
+};
+
+export interface RedisClientMock {
+  get<T>(key: string): Promise<T | null>;
+  set(key: string, value: unknown): Promise<unknown>;
+  zadd(key: string, scoreMember: LeaderboardMember): Promise<number>;
+  zrange(
+    key: string,
+    start: number,
+    stop: number,
+    options?: { rev?: boolean; withScores?: boolean }
+  ): Promise<unknown[]>;
+}
+
+let redis: Redis | RedisClientMock | null = null;
+
+const isDevMode = process.env.DEV_MODE === 'Y';
 const url = process.env.UPSTASH_REDIS_REST_URL;
 const token = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-if (url && token) {
+if (isDevMode) {
+  redis = localRedisMock;
+  console.log('DEV_MODE is active. Initialized local filesystem Redis cache.');
+} else if (url && token) {
   try {
     redis = new Redis({
       url,
@@ -78,7 +178,7 @@ export async function submitScore(name: string, score: number): Promise<void> {
     name
       .trim()
       .toUpperCase()
-      .replace(/[^A-Z0-9_]/g, '')
+      .replace(/[^A-Z0-9_-]/g, '')
       .substring(0, 15) || 'DISPATCHER';
 
   if (redis) {
