@@ -1,0 +1,3053 @@
+[
+  {
+    "id": "scenario_017",
+    "title": "Garage Fire Alert",
+    "archetype": "Automated / Sensor Emergency",
+    "description": "A home security monitoring system reports a smoke and heat sensor activation in a residential garage. The automated system alerts 911 with pre-recorded messages, but the homeowner may be trapped inside.",
+    "initial_prompt": "911, what is the address of your emergency?",
+    "states": {
+      "initial": "Caller is the automated monitoring system reporting a sensor trigger.",
+      "evacuating": "Homeowner is trying to evacuate the garage.",
+      "trapped": "Homeowner is trapped inside the garage.",
+      "secured": "Fire department has arrived and situation is under control."
+    },
+    "initial_variations": [
+      "This is {monitor_service} reporting a {sensor_type} alarm at {address_location}. We have detected {specific_details}. There is {ambient_audio} on the line.",
+      "Automated alert from {monitor_service}: {sensor_type} activation at {address_location}. {specific_details}. Background noise: {ambient_audio}.",
+      "Emergency call from {monitor_service}: {sensor_type} triggered at {address_location}. {specific_details}. {ambient_audio} can be heard.",
+      "Sensor emergency: {monitor_service} reports {sensor_type} alarm at {address_location}. {specific_details}. Audio feed indicates {ambient_audio}."
+    ],
+    "slots": {
+      "monitor_service": [
+        "SafeHome Monitoring",
+        "Guardian Alarm",
+        "Vigilant Security",
+        "HomeShield Plus",
+        "AlertLink Systems"
+      ],
+      "sensor_type": ["smoke detector", "heat sensor", "carbon monoxide alarm", "flood detector"],
+      "address_location": [
+        "123 Maple Street, Apartment 4B",
+        "456 Oak Avenue, Redwood City",
+        "789 Pine Road, Suburbia",
+        "321 Birch Lane, Smallville",
+        "654 Cedar Court, Greenwood"
+      ],
+      "specific_details": [
+        "rapid temperature rise to 150°F",
+        "high smoke density readings",
+        "carbon monoxide level at 400 ppm",
+        "water leak detected in basement"
+      ],
+      "ambient_audio": [
+        "crackling fire sounds",
+        "a person coughing and shouting",
+        "silence except for alarm beeps",
+        "sound of running water"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The address is {address_location}. Please dispatch immediately.",
+            "Location confirmed: {address_location}.",
+            "Alert is at {address_location}."
+          ],
+          "evacuating": [
+            "I'm trying to get out! The address is {address_location}!",
+            "We're at {address_location}, please hurry!"
+          ],
+          "trapped": [
+            "I'm trapped in the garage at {address_location}! Help!",
+            "{address_location}, garage door won't open!"
+          ],
+          "secured": [
+            "Fire department is on scene at {address_location}.",
+            "Situation secured at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Details: {sensor_type} triggered, {specific_details}. Ambient audio: {ambient_audio}.",
+            "Sensor data indicates {specific_details}. Type: {sensor_type}.",
+            "Monitoring system reports {sensor_type} with {specific_details}."
+          ],
+          "evacuating": [
+            "Smoke is getting thick! I can see flames!",
+            "I think it started from the furnace."
+          ],
+          "trapped": ["The heat is unbearable! Smoke everywhere!", "I can't breathe! Help me!"],
+          "secured": [
+            "Fire is contained. No injuries reported.",
+            "FD has ventilated the garage. All clear."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is an automated call from {monitor_service}. There is no live caller currently.",
+            "The caller is the monitoring system, ID {monitor_service}."
+          ],
+          "evacuating": [
+            "I'm the homeowner, John. I'm trying to get out!",
+            "This is Mary, I live here!"
+          ],
+          "trapped": ["Tom here, I'm stuck in the garage!", "Help, it's David!"],
+          "secured": [
+            "This is Captain Smith from the fire department.",
+            "Homeowner is safe with us."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "initial",
+          "evacuating": "evacuating",
+          "trapped": "trapped",
+          "secured": "secured"
+        },
+        "responses": {
+          "initial": [
+            "We are dispatching help. Stay on the line if possible.",
+            "Emergency services are on their way."
+          ],
+          "evacuating": [
+            "Take a deep breath. Try to stay low and cover your mouth.",
+            "You're doing great. Keep moving toward the exit."
+          ],
+          "trapped": [
+            "Stay calm. Help is coming. Try to seal the door with a wet cloth.",
+            "I know it's scary. Firefighters are minutes away."
+          ],
+          "secured": ["All is well now. You are safe."]
+        }
+      },
+      "REASSURE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is a confirmed alarm. Units are responding.",
+            "Your monitoring system is working correctly."
+          ],
+          "evacuating": [
+            "You'll be fine. Just focus on getting out.",
+            "I can hear you, you're almost there."
+          ],
+          "trapped": [
+            "We will get you out. The fire department is almost there.",
+            "Don't give up. Rescue is on the way."
+          ],
+          "secured": ["You made it. Everything is okay now."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuating",
+          "evacuating": "trapped",
+          "trapped": "trapped"
+        },
+        "responses": {
+          "initial": [
+            "If there is someone inside, tell them to evacuate immediately.",
+            "Instruct the occupant to stay low and crawl to the nearest exit."
+          ],
+          "evacuating": [
+            "Get down on your hands and knees and crawl to the exit!",
+            "Do not open hot doors. Feel them first."
+          ],
+          "trapped": [
+            "Seal the door with towels or clothing. Call out for help.",
+            "Break a window if necessary to get fresh air."
+          ],
+          "secured": ["Follow the firefighters' commands."]
+        }
+      },
+      "STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The system will stay on the line until help arrives.",
+            "We are monitoring the feed.",
+            "Audio feed will remain active."
+          ],
+          "evacuating": [
+            "I'm still here. I'm almost out.",
+            "I'll stay on the line until I'm safe."
+          ],
+          "trapped": ["Please stay with me. Talk to me!", "I'm not going anywhere. Keep talking."],
+          "secured": ["You can hang up now if you wish.", "Call is no longer needed."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Police dispatched to fire scene. They assist with traffic control, but fire response was delayed."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Fire department arrives quickly and extinguishes the garage fire. No injuries."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Paramedics dispatched but no injuries reported. They stand by for smoke inhalation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched to a fire scene. Completely inappropriate, fire spreads while waiting for proper units."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as false alarm. The fire grows, resulting in severe property damage and near fatality."
+      }
+    }
+  },
+  {
+    "id": "scenario_018",
+    "title": "Fall Detection Alert",
+    "archetype": "Automated / Sensor Emergency",
+    "description": "A medical alert pendant service reports a fall detected for an elderly subscriber. The automated system cannot confirm voice contact; the subscriber may be unconscious or injured.",
+    "initial_prompt": "911, what is the address of your emergency?",
+    "states": {
+      "initial": "Automated medical alert system reporting a fall.",
+      "unresponsive": "Caller (subscriber) is unconscious or unable to speak.",
+      "conscious": "Subscriber is conscious but injured.",
+      "medical_help_arrived": "Medical help has arrived on scene."
+    },
+    "initial_variations": [
+      "This is {medical_service} with a fall alert for {caller_name} at {address_location}. The device detected {specific_details}. We hear {ambient_audio}.",
+      "Automated call from {medical_service}: fall alarm for {caller_name} at {address_location}. {specific_details}. Background: {ambient_audio}.",
+      "Emergency alert: {medical_service} reports a fall for {caller_name} at {address_location}. {specific_details}. Audio: {ambient_audio}.",
+      "Medical alert: {caller_name} has fallen at {address_location}. {medical_service} detected {specific_details}. {ambient_audio} is audible."
+    ],
+    "slots": {
+      "medical_service": [
+        "LifeGuard Medical Alert",
+        "SeniorSafe Pendant",
+        "HelpNow Monitoring",
+        "CareConnect Response",
+        "EmergencyCall Systems"
+      ],
+      "caller_name": [
+        "Edith Johnson",
+        "George Martinez",
+        "Helen Chen",
+        "Robert Okafor",
+        "Martha Williams"
+      ],
+      "address_location": [
+        "78 Elderberry Lane, Sunnyvale",
+        "124 Silvercrest Drive, Golden Oaks",
+        "56 Pine Valley Road, Retirement Village",
+        "9 Maplewood Circle, Green Hills",
+        "332 Oakwood Terrace, Evergreen Park"
+      ],
+      "specific_details": [
+        "no movement detected for 3 minutes after impact",
+        "impact force classified as major fall",
+        "pendant button not pressed manually",
+        "heart rate spike followed by silence"
+      ],
+      "ambient_audio": [
+        "soft moaning sounds",
+        "complete silence",
+        "TV playing in the background",
+        "faint calls for help"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location is {address_location}. Please dispatch immediately.",
+            "Alert at {address_location}.",
+            "Address: {address_location}."
+          ],
+          "unresponsive": ["(silence) No response.", "(static) ...can't... {address_location}."],
+          "conscious": [
+            "I'm at {address_location}. I fell and I can't get up!",
+            "{address_location}, please hurry!"
+          ],
+          "medical_help_arrived": [
+            "Paramedics are on scene at {address_location}.",
+            "Medical assistance has arrived at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Fall details: {specific_details}. Audio indicates {ambient_audio}.",
+            "The system recorded {specific_details}.",
+            "Pendant data: {specific_details}."
+          ],
+          "unresponsive": ["(no verbal details available)", "I think... {specific_details}"],
+          "conscious": [
+            "I fell from the stairs. I think I broke my hip.",
+            "I slipped in the bathroom. Can't move."
+          ],
+          "medical_help_arrived": [
+            "Patient has a hip fracture and is being stabilized.",
+            "They have a head laceration but are alert."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is an automated call from {medical_service}. The subscriber is {caller_name}.",
+            "Caller is the monitoring system, subscriber {caller_name}."
+          ],
+          "unresponsive": ["(silence)", "It's... {caller_name}... help..."],
+          "conscious": ["This is {caller_name}. I'm hurt.", "It's me, {caller_name}."],
+          "medical_help_arrived": [
+            "I'm {caller_name} with the EMTs now.",
+            "Patient identified as {caller_name}."
+          ]
+        }
+      },
+      "CALM_DOWN": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "conscious",
+          "unresponsive": "unresponsive",
+          "conscious": "conscious",
+          "medical_help_arrived": "medical_help_arrived"
+        },
+        "responses": {
+          "initial": [
+            "We are dispatching an ambulance. If you can hear me, stay calm.",
+            "Help is on the way. Try to remain still."
+          ],
+          "unresponsive": [
+            "(speak louder) Ma'am/Sir, can you hear me? Help is coming.",
+            "I can't hear you, but I'm staying on the line."
+          ],
+          "conscious": [
+            "Take slow breaths. Don't try to move.",
+            "You're going to be okay. I'm here with you."
+          ],
+          "medical_help_arrived": [
+            "You're in good hands now.",
+            "The paramedics will take care of you."
+          ]
+        }
+      },
+      "REASSURE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is a valid medical alert. We are responding.",
+            "Your fall was detected. Emergency services are coming."
+          ],
+          "unresponsive": ["Help is on the way. You are not alone.", "Someone will be there soon."],
+          "conscious": [
+            "I'm with you. Stay with me.",
+            "You've done the right thing by wearing the pendant."
+          ],
+          "medical_help_arrived": ["You are safe now.", "Excellent, they are taking over."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "conscious",
+          "unresponsive": "unresponsive",
+          "conscious": "conscious",
+          "medical_help_arrived": "medical_help_arrived"
+        },
+        "responses": {
+          "initial": [
+            "If the subscriber is awake, tell them to lie still and not move.",
+            "Instruct the person to press the pendant button if able."
+          ],
+          "unresponsive": [
+            "Do not move the person. Wait for paramedics.",
+            "Check if they are breathing from a distance."
+          ],
+          "conscious": [
+            "Don't try to get up. Keep warm if possible.",
+            "Unlock the front door so we can get in."
+          ],
+          "medical_help_arrived": [
+            "Follow the paramedics' instructions.",
+            "They may need to know medical history."
+          ]
+        }
+      },
+      "STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The system will remain connected until help arrives.",
+            "We are monitoring the audio feed.",
+            "Line will stay open for voice contact."
+          ],
+          "unresponsive": ["(silent line)", "I'm still here, even if you can't talk."],
+          "conscious": [
+            "I'll stay on the line with you until the ambulance comes.",
+            "Don't hang up. I'm right here."
+          ],
+          "medical_help_arrived": ["You can hang up now if you wish.", "Call complete."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Police dispatched to medical alert. They secure the scene until EMS arrives, but medical response is delayed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire department dispatched for a medical fall. They assist with lifting, but it ties up resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Ambulance dispatched immediately. Paramedics treat the elderly fall victim, who is transported to hospital with non-life-threatening injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "message": "Animal control dispatched to a medical emergency. Elderly person lies on floor for hours before proper help arrives, leading to complications."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as false alarm. The fall victim remains on floor for a prolonged period, suffers hypothermia and dehydration, and is later found in critical condition."
+      }
+    }
+  },
+  {
+    "title": "Smart Refrigerator Overheat Alert",
+    "description": "An automated alert from a smart refrigerator in a suburban home during a heatwave. The system reports a sudden temperature spike, possibly indicating an electrical fire, but it's actually a power surge from the grid.",
+    "states": {
+      "initial": "The automated system reports a critical temperature anomaly.",
+      "checking": "The system is running diagnostics.",
+      "confirmed_false": "The system identifies the alert as a power surge false alarm."
+    },
+    "initial_variations": [
+      "Alert: Smart Refrigerator, temperature critical at {address_location}. Immediate response required.",
+      "Automated notification: Temperature sensor in {address_location} refrigerator exceeds safe limits. Possible fire risk.",
+      "Smart home system: Refrigerator overheat detected at {address_location}. Please dispatch emergency services.",
+      "Automated alert: Refrigerator internal temperature anomaly at {address_location}. Recommend urgent inspection."
+    ],
+    "slots": {
+      "caller_name": [
+        "HomeAssist AI",
+        "SmartGuard System",
+        "IoT Alert Network",
+        "HouseMind Central"
+      ],
+      "address_location": [
+        "42 Maple Street, Springfield",
+        "1500 Oak Avenue, Lakewood",
+        "8 Pine Road, Hillcrest",
+        "77 Cedar Lane, Brookside"
+      ],
+      "ambient_audio": [
+        "low humming sound from compressor",
+        "faint electrical buzzing",
+        "silence with occasional beep",
+        "background noise of air conditioner"
+      ],
+      "specific_details": [
+        "temperature spike 20 degrees above normal",
+        "coolant pressure dropping rapidly",
+        "internal fan stopped functioning",
+        "power consumption surge detected"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The location is {address_location}. Please confirm dispatch.",
+            "Address: {address_location}. The alert originated from the kitchen.",
+            "Sensor location: {address_location}, attached to the main refrigerator unit."
+          ],
+          "checking": [
+            "Location still {address_location}. Diagnostics in progress.",
+            "We are at {address_location}. Pending diagnostics to verify."
+          ],
+          "confirmed_false": ["Location: {address_location}. Alert was false; no danger."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Details: {specific_details}. The refrigerator model is SmartCool 3000.",
+            "The system reports {specific_details}. No signs of smoke detected yet.",
+            "Sensor data: {specific_details}. Ambient audio: {ambient_audio}."
+          ],
+          "checking": [
+            "Running cross-checks on temperature sensors. Preliminary data suggests a possible power surge.",
+            "Details still show {specific_details}. System is checking for electrical faults."
+          ],
+          "confirmed_false": [
+            "After diagnostics, the alert was caused by a grid power spike. No fire hazard."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is an automated call from {caller_name}. No human caller available.",
+            "System identity: {caller_name}. Caller is AI, no direct contact."
+          ],
+          "checking": ["Still {caller_name}. No human intervention required at this stage."],
+          "confirmed_false": ["{caller_name} confirms false alarm. No further action needed."]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No victims reported. This is a property hazard alert.",
+            "No human involvement. Sensor triggered by equipment anomaly."
+          ],
+          "checking": ["Still no victims. Diagnostics ongoing."],
+          "confirmed_false": ["No victims. Alert was false."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police dispatched to a false alarm caused by a power surge. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department responded to a non-fire event. No damage found."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Medical dispatched unnecessarily; no persons involved. Misallocation of emergency services."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control has no relevance here. Reported as inappropriate dispatch."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Alert dismissed as false alarm. Power surge confirmed later by utility company."
+      }
+    },
+    "id": "scenario_167",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Vehicle Crash Telemetry: Silent Occupant",
+    "description": "An automated crash detection system from a modern vehicle reports an airbag deployment on a remote highway. The vehicle's telemetry indicates moderate impact, but there is no response from the driver via the in-car communication system. The driver may be unconscious or unable to speak.",
+    "states": {
+      "initial": "Automated crash alert received.",
+      "attempting_contact": "Attempting to reach occupant via vehicle mic.",
+      "no_response": "No occupant response after multiple attempts.",
+      "ambulance_en_route": "Medical dispatch has been requested."
+    },
+    "initial_variations": [
+      "Automated crash alert: Vehicle {specific_details} at {address_location}. Airbag deployed. Occupant unresponsive.",
+      "Emergency telematics: Accident detected at {address_location}. Impact force moderate. Attempting occupant communication.",
+      "Vehicle SOS: Crash report from {address_location}. Driver status unknown. Immediate medical response advised.",
+      "Telemetry alert: Airbag deployment at {address_location}. No verbal response from occupant. Escalating."
+    ],
+    "slots": {
+      "caller_name": [
+        "Vehicle eCall System",
+        "CarLink Emergency",
+        "DriveAssist Telematics",
+        "AutoSOS Network"
+      ],
+      "address_location": [
+        "Interstate 77, Mile Marker 42, dark zone",
+        "Highway 9, near milepost 15, wooded area",
+        "State Route 22, just past bridge at Elm Creek",
+        "Rural Road 34, 3 miles west of Harmony"
+      ],
+      "ambient_audio": [
+        "faint hiss and wind noise",
+        "engine ticking, no voice",
+        "static and distant traffic",
+        "broken glass crackling"
+      ],
+      "specific_details": [
+        "2019 sedan, frontal collision",
+        "SUV impacted driver side, rollover risk",
+        "Pickup truck, high-speed rear-end crash",
+        "Compact car, side impact, airbags deployed"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Alert location: {address_location}. GPS coordinates follow.",
+            "The crash occurred at {address_location}. Sending coordinates now.",
+            "Location: {address_location}. Vehicle not moving."
+          ],
+          "attempting_contact": ["Still at {address_location}. Attempting occupant contact."],
+          "no_response": ["Location unchanged: {address_location}. No occupant response."],
+          "ambulance_en_route": ["Medical dispatched to {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Crash details: {specific_details}. Airbag deployed, speed at impact: 35 mph.",
+            "Vehicle type: {specific_details}. Occupant weight sensor indicates driver present.",
+            "Impact vector: frontal. Vehicle status: stationary. Ambient audio: {ambient_audio}."
+          ],
+          "attempting_contact": [
+            "Details as before. We are hailing the occupant through the vehicle speaker system."
+          ],
+          "no_response": ["No change in details. Occupant not responding to hails."],
+          "ambulance_en_route": ["Crash details transmitted to medical team."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is {caller_name} automated crash response.",
+            "Caller: {caller_name}, onboard telematics unit.",
+            "System: {caller_name} - no human caller."
+          ],
+          "attempting_contact": ["Still {caller_name}. We are the system."],
+          "no_response": ["{caller_name} continues automated alerts."],
+          "ambulance_en_route": ["{caller_name} handing off to dispatch."]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Victim status unknown. Occupant is unresponsive.",
+            "No victim information available yet."
+          ],
+          "attempting_contact": ["Trying to establish communication with occupant."],
+          "no_response": ["Occupant presumed incapacitated. No reply to voice prompts."],
+          "ambulance_en_route": ["Medical en route to assist occupant."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police dispatched but medical is primary. Officer arrives to find driver unconscious; medical needed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department dispatched to what turns out to be a no-fire accident. Unnecessary."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Medical dispatched and arrives to find unconscious driver with internal injuries. Life saved."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control dispatched due to misrouting. Driver dies waiting for help."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Alert dismissed as false; driver was actually unconscious and later died from injuries."
+      }
+    },
+    "id": "scenario_168",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Gas Detector Alarm: Conflicting Signals",
+    "description": "A smart gas detector in a small apartment building triggers a carbon monoxide alarm while a separate window sensor reports a broken window. The system suspects a gas leak from a stove left on, but the ambient sound suggests someone is moving inside. The caller is the building's automation system.",
+    "states": {
+      "initial": "Gas and window breach alarms triggered.",
+      "checking_ventilation": "System activates ventilation fans.",
+      "occupant_present": "Motion sensors detect occupant inside.",
+      "evacuating": "System broadcasts evacuation message."
+    },
+    "initial_variations": [
+      "Gas detector alert: Carbon monoxide level critical at {address_location}. Window sensor also tripped.",
+      "Automated emergency: {address_location} has active CO alarm and open window. Possible gas leak.",
+      "Smart building system: {address_location} reports hazardous gas levels and a broken sensor. Immediate response required.",
+      "Alert: CO and intrusion sensors activated at {address_location}. System unable to verify threat."
+    ],
+    "slots": {
+      "caller_name": [
+        "Building Automation System",
+        "SafeHome Central",
+        "SmartGuard Building 42",
+        "ApartmentNet Monitor"
+      ],
+      "address_location": [
+        "1200 Main Street, Apt 3B",
+        "47 Park Lane, Unit 101",
+        "890 Broadway, Suite 205",
+        "67 Greenwich Avenue, Floor 2"
+      ],
+      "ambient_audio": [
+        "faint hissing sound from gas line",
+        "footsteps and muffled voices",
+        "silence except for alarm beeping",
+        "wind blowing through open window"
+      ],
+      "specific_details": [
+        "CO level 200 ppm and rising",
+        "window sensor shows forced entry",
+        "gas valve sensor indicates open stove",
+        "multiple sensor failures possible"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location: {address_location}. Sensors indicate both CO leak and window breach.",
+            "Address: {address_location}. Alerting for gas leak and possible intrusion.",
+            "The incident is at {address_location}. Floor 2, near the kitchen."
+          ],
+          "checking_ventilation": [
+            "Location: {address_location}. We are trying to ventilate the area.",
+            "Still at {address_location}. Ventilation in progress."
+          ],
+          "occupant_present": [
+            "Occupant detected at {address_location}. We cannot reach them via intercom.",
+            "Person inside {address_location}. System attempting contact."
+          ],
+          "evacuating": ["Evacuation in progress at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sensor readings: {specific_details}. Ambient audio: {ambient_audio}.",
+            "Details: {specific_details}. The CO sensor is near the stove.",
+            "Data: {specific_details}. Window sensor was tripped 2 minutes after CO alarm."
+          ],
+          "checking_ventilation": [
+            "Ventilation activated. CO levels rising despite fans. Details as before.",
+            "Still monitoring. {specific_details} unchanged."
+          ],
+          "occupant_present": [
+            "Occupant inside but uncooperative. {specific_details} may indicate a staged scenario.",
+            "Details: {specific_details}. Occupant refuses to leave."
+          ],
+          "evacuating": ["Evacuation triggered. All details logged."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is {caller_name}, automated building management.",
+            "Caller: {caller_name}, no human operator. System is autonomous.",
+            "I am {caller_name}."
+          ],
+          "checking_ventilation": ["{caller_name} still active."],
+          "occupant_present": ["{caller_name} reporting occupant status."],
+          "evacuating": ["{caller_name} managing evacuation."]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No victim confirmed yet. Occupant may or may not exist.",
+            "Unknown if anyone is inside."
+          ],
+          "checking_ventilation": ["Still no victim confirmation."],
+          "occupant_present": [
+            "One occupant detected. No medical emergency reported yet, but CO risk."
+          ],
+          "evacuating": ["Occupant being urged to evacuate."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Police dispatched and find a domestic dispute where the occupant intentionally broke the window and activated the gas stove as a threat. Situation resolved."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Fire department handles the gas leak and ventilates the building. No injuries."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical arrives to find no one injured, but gas exposure risk was minimal."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control dispatched, gas leak worsens, building evacuated with minor injuries."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Alert dismissed as false; actual gas leak went unattended, leading to an explosion."
+      }
+    },
+    "id": "scenario_169",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Wearable Fall Detection: Elderly Malfunction",
+    "description": "A smartwatch fall detection from an 80-year-old woman in her home. The device reports a fall with no movement for 30 seconds, but the woman's grandson is present and says she tripped but is fine. The system insists on confirming the fall via automated voice, but the grandmother is confused and speaks unclearly.",
+    "states": {
+      "initial": "Fall detected, no response from wearer.",
+      "family_intervention": "Grandson explains the situation but system continues to demand confirmation.",
+      "caller_confusion": "Grandmother comes on line, disoriented, giving unclear answers.",
+      "resolved": "System accepts verbal confirmation that no emergency exists."
+    },
+    "initial_variations": [
+      "Fall detection alert: {caller_name} at {address_location}. Wearer motionless for 30 seconds.",
+      "Automated health alert: {caller_name} has experienced a fall at {address_location}. Immediate help needed.",
+      "Emergency: {caller_name} smartwatch reports hard fall at {address_location}. No response from wearer.",
+      "Wearable alert: Possible fall at {address_location}. wearer unresponsive to watch prompts."
+    ],
+    "slots": {
+      "caller_name": [
+        "LifeAlert Smartwatch",
+        "Guardian Wearable",
+        "ElderWatch System",
+        "SafeSteps Band"
+      ],
+      "address_location": [
+        "33 Oak Street, Apartment 2A",
+        "200 Elm Drive, House",
+        "15 Maple Lane, Senior Living Unit",
+        "88 Birch Road, Cottage"
+      ],
+      "ambient_audio": [
+        "TV playing in background",
+        "grandson's voice: 'She's fine, just tripped'",
+        "grandmother's labored breathing",
+        "kitchen sounds, a pot boiling"
+      ],
+      "specific_details": [
+        "fall impact low, according to accelerometer",
+        "watch detected wrist twist indicative of using hand to break fall",
+        "heart rate elevated but stable",
+        "watch battery at 15%, might fail soon"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location: {address_location}. Wearer is indoors.",
+            "The alert is from {address_location}. Grandmother is in the living room.",
+            "Address: {address_location}. Near the kitchen area."
+          ],
+          "family_intervention": [
+            "Still at {address_location}. Grandson says it's a false alarm.",
+            "Location unchanged: {address_location}. Family member present."
+          ],
+          "caller_confusion": [
+            "Grandmother is now on at {address_location}. She is confused.",
+            "At {address_location}. Wearer speaking incoherently."
+          ],
+          "resolved": ["Confirmed at {address_location}. Issue resolved."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Fall details: {specific_details}. Ambient audio: {ambient_audio}.",
+            "Data: {specific_details}. Watch trying to contact wearer.",
+            "Details: {specific_details}. No verbal response yet."
+          ],
+          "family_intervention": [
+            "Grandson says she tripped over rug. Details still show {specific_details}.",
+            "Ambient audio: {ambient_audio}. Grandson confirms no injury."
+          ],
+          "caller_confusion": [
+            "Grandmother says she fell but got up. Her speech is slurred. Details: {specific_details}.",
+            "She is disoriented. Heart rate details as before."
+          ],
+          "resolved": ["All details concluded. No emergency."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is {caller_name}, automated fall detection.",
+            "Caller: {caller_name}.",
+            "System: {caller_name}."
+          ],
+          "family_intervention": ["Still {caller_name}. System overridden by family member."],
+          "caller_confusion": ["{caller_name} still active. Wearer now speaking."],
+          "resolved": ["{caller_name} alert cancelled."]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Victim is the wearer: elderly female, 80 years old.",
+            "Victim: unknown physical condition. "
+          ],
+          "family_intervention": ["Victim is grandmother, reportedly fine."],
+          "caller_confusion": ["Victim on line, unable to confirm status."],
+          "resolved": ["Victim is safe."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police visit to find a false alarm from a malfunctioning watch. Grandmother annoyed."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire department dispatched to a non-emergency. Waste of resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medical crew arrives to find grandmother just dizzy from a minor trip. No treatment needed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control dispatched incorrectly. Grandmother reports the error to her family."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Alert dismissed after grandson confirms she is fine. Grandmother appreciates not being bothered."
+      }
+    },
+    "id": "scenario_170",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Smoke Detector: Cooking Spark",
+    "description": "A smart smoke detector in a university dormitory cafeteria triggers an alarm due to a minor cooking oil spark. The system reports a fire but the cafeteria staff is already handling it with a fire extinguisher. The automated voice from the system is frantic, overriding the staff's calm response.",
+    "states": {
+      "initial": "Smoke detector activated, potential fire.",
+      "staff_intervention": "Cafeteria staff reports it's under control.",
+      "system_override": "System continues alert despite staff confirmation.",
+      "false_alarm": "System acknowledges false alarm after sensor check."
+    },
+    "initial_variations": [
+      "Smoke alarm triggered at {address_location}. High smoke density detected. Possible active fire.",
+      "Emergency: {address_location} dorm cafeteria. Smoke detector indicates fire. Immediate dispatch required.",
+      "Automated fire alert from {address_location}. System awaiting manual verification.",
+      "Alert: {address_location} has smoke levels rising. Kitchen area likely source."
+    ],
+    "slots": {
+      "caller_name": [
+        "Campus FireNet",
+        "SmokeGuard Central",
+        "Dorm Safe System",
+        "University Alert Hub"
+      ],
+      "address_location": [
+        "University Hall, Dorm Cafeteria, Main Kitchen",
+        "Building 4, Student Center, Grill Station",
+        "Residence 12, Community Kitchen, Floor 2",
+        "Campus Dining, East Wing, Frying Area"
+      ],
+      "ambient_audio": [
+        "sizzling and shouts in background",
+        "fire extinguisher spray sound",
+        "alarm beeping overlapping with staff voices",
+        "calm voice saying 'It's okay, just a spark'"
+      ],
+      "specific_details": [
+        "smoke detector optical sensor triggered",
+        "heat sensor rise 10 degrees in 5 seconds",
+        "flame sensor negative or obstructed",
+        "sprinkler system not activated"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location: {address_location}. Fire alarm active.",
+            "Address: {address_location}. Dorm cafeteria.",
+            "The incident is at {address_location}. Kitchen area."
+          ],
+          "staff_intervention": [
+            "Location: {address_location}. Staff on scene extinguishing.",
+            "Still at {address_location}. Staff says it's handled."
+          ],
+          "system_override": [
+            "System continues to report fire at {address_location} despite staff claims.",
+            "Location unchanged: {address_location}. Automated alerts persist."
+          ],
+          "false_alarm": ["Confirmed false alarm at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sensor data: {specific_details}. Ambient audio: {ambient_audio}.",
+            "Details: {specific_details}. System awaiting manual reset.",
+            "Data indicates {specific_details}. Fire may be small."
+          ],
+          "staff_intervention": [
+            "Staff reports oil spark extinguished. Sensor data still {specific_details}.",
+            "Details: {specific_details}. Staff confirms no fire danger.",
+            "Ambient audio: {ambient_audio}. Staff says everything fine."
+          ],
+          "system_override": [
+            "System disregarding staff input. Still showing {specific_details}.",
+            "Details unchanged: {specific_details}. System will not cancel."
+          ],
+          "false_alarm": ["Sensor recalibrated; no fire. Details now normal."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Caller: {caller_name}, automated dorm fire system.",
+            "This is {caller_name}.",
+            "System: {caller_name}."
+          ],
+          "staff_intervention": ["{caller_name} still active despite staff intervention."],
+          "system_override": ["{caller_name} overriding manual confirmation."],
+          "false_alarm": ["{caller_name} resolves alert."]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No victims reported. All occupants evacuated? Unclear.",
+            "No known victims yet."
+          ],
+          "staff_intervention": ["Staff says no injuries.", "No victims according to staff."],
+          "system_override": ["System cannot confirm victims. Staff says none."],
+          "false_alarm": ["No victims."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -75,
+        "feedback": "Police arrive to find false alarm; students annoyed at interruption."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department dispatched to a doused spark. Wasted run."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Medical dispatched unnecessarily; no injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control called, causing confusion and embarrassment."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Alert correctly dismissed as false alarm. Kitchen staff handled it themselves."
+      }
+    },
+    "id": "scenario_171",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Carbon Monoxide Detector Alert",
+    "states": {
+      "initial": "The automated alert from a smart home system reports a carbon monoxide detector activation at {address_location}. No voice response from the property. Ambient audio: {ambient_audio}. Caller is a monitoring center operator.",
+      "checking_background": "Dispatchers are calling back the residence and listening for audio cues.",
+      "dispatching_units": "Units are being dispatched based on the assessment."
+    },
+    "initial_variations": [
+      "We have a carbon monoxide alarm at {address_location}, no one is answering the phone. Ambient sound: {ambient_audio}.",
+      "Automated CO detection alert from {address_location}. Resident unresponsive. Background noise: {ambient_audio}.",
+      "CO detector went off at {address_location}. Attempted callback, no answer. Audio feed shows {ambient_audio}.",
+      "Smart home alarm: carbon monoxide at {address_location}. No response from occupants. Hearing {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Maple Street, Apartment 4B",
+        "456 Oak Avenue, House",
+        "789 Pine Road, Cabin",
+        "321 Elm Drive, Townhouse",
+        "555 Birch Lane, Condo"
+      ],
+      "ambient_audio": [
+        "faint breathing",
+        "a dog barking",
+        "silence",
+        "distant TV noise",
+        "a child crying"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "responses": {
+          "initial": [
+            "The address is {address_location}.",
+            "Location is {address_location}.",
+            "Address confirmed: {address_location}."
+          ],
+          "checking_background": ["Still at {address_location}. No change.", "Same location."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "responses": {
+          "initial": [
+            "The CO alarm activated 2 minutes ago. No contact with residents.",
+            "Alert triggered by a sensor. Automated callback failed.",
+            "System reports dangerous CO levels. No human verification."
+          ],
+          "checking_background": [
+            "Background audio suggests {ambient_audio}. Still no answer.",
+            "Repeated calls are not answered. Audio shows {ambient_audio}."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 20,
+        "responses": {
+          "initial": [
+            "Risk of carbon monoxide poisoning is high. Need immediate response.",
+            "CO is deadly. Please send help quickly.",
+            "This is a life-threatening situation if someone is inside."
+          ],
+          "checking_background": [
+            "No change in risk. Still no response.",
+            "Danger persists. Unresponsive occupants."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "responses": {
+          "initial": [
+            "I am the monitoring center operator. I'm receiving the automated alert.",
+            "This is the centralized alarm system. Alert from {address_location}.",
+            "I'm the dispatch coordinator for the smart home alert system."
+          ],
+          "checking_background": [
+            "Still the operator. Trying to reach residents.",
+            "Same operator. No further contact."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "message": "Police arrived, but fire/EMS is needed for CO. Police secured scene and called fire."
+      },
+      "SEND_FIRE": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Fire department arrived, ventilated the home, found unconscious resident. Rescued and hospitalized."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "EMS arrived, but needed fire to shut off gas. Resident treated for CO poisoning."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Animal control sent to CO alarm. Useless. Resident died due to delayed response."
+      },
+      "DISMISS": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Call dismissed as false alarm. Resident found dead from CO poisoning hours later."
+      }
+    },
+    "id": "scenario_172",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Security Camera Breach",
+    "states": {
+      "initial": "An automated alert from a home security camera shows a person breaking into {address_location}. No one is home. Ambient audio: {ambient_audio}. Caller is the monitoring service.",
+      "watching_feed": "Operator is watching the live feed and describing movements.",
+      "police_dispatched": "Police have been dispatched and are en route."
+    },
+    "initial_variations": [
+      "Perimeter breach at {address_location}. Camera shows intruder entering through window. Audio: {ambient_audio}.",
+      "Smart camera detected forced entry at {address_location}. No residents present. Hearing {ambient_audio}.",
+      "Alert: break-in in progress at {address_location}. Camera feed activated. Background sound: {ambient_audio}.",
+      "Home security alarm: window break sensor and camera trigger at {address_location}. Occupants away. Audio indicates {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Maple Street, House",
+        "456 Oak Avenue, Office",
+        "789 Pine Road, Warehouse",
+        "321 Elm Drive, Retail Store",
+        "555 Birch Lane, Apartment 2A"
+      ],
+      "ambient_audio": [
+        "footsteps",
+        "glass shattering",
+        "muffled voices",
+        "a dog barking",
+        "silence"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "responses": {
+          "initial": [
+            "Address is {address_location}.",
+            "Location: {address_location}.",
+            "Break-in at {address_location}."
+          ],
+          "watching_feed": ["Still at {address_location}. Intruder moving.", "Same location."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "responses": {
+          "initial": [
+            "One suspect, male, wearing dark clothes. Entered via back window.",
+            "Camera shows a single intruder. Appears to be searching for valuables.",
+            "System detected forced entry. Live video shows someone inside."
+          ],
+          "watching_feed": [
+            "Intruder now moving to the living room. He has a crowbar.",
+            "He is heading towards the master bedroom. Looks like a burglary in progress."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 20,
+        "responses": {
+          "initial": [
+            "No one is home, so no immediate danger to residents. But property is at risk.",
+            "Residents are safe, but the intruder may be armed."
+          ],
+          "watching_feed": [
+            "He appears to be alone. No weapons seen yet.",
+            "He has a bag and is filling it with electronics. No threat to life."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "responses": {
+          "initial": [
+            "This is the SmartHome security monitoring center.",
+            "I'm the central station operator for the alarm system.",
+            "I'm from the remote monitoring service."
+          ],
+          "watching_feed": [
+            "Still the monitoring operator. Watching the feed.",
+            "Same operator. I'll keep you updated."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Police arrived, caught the intruder leaving with stolen goods. Suspect arrested."
+      },
+      "SEND_FIRE": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Fire department arrived, no fire. They secured the scene, but police had to be called separately."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -150,
+        "status": "MINOR_ERROR",
+        "message": "EMS arrived to find no injuries. Waste of resources."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Animal control sent. Intruder escaped with valuable items. Homeowner furious."
+      },
+      "DISMISS": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Call dismissed as false alarm. Actually a real burglary. Homeowner lost property and insurance claim denied."
+      }
+    },
+    "id": "scenario_173",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Wearable Cardiac Arrest Alert",
+    "states": {
+      "initial": "A wearable medical device has detected a cardiac event at {address_location}. The wearer is unresponsive. Ambient audio: {ambient_audio}. Caller is the device's emergency response system.",
+      "attempting_contact": "Dispatchers are trying to contact the wearer and nearby contacts.",
+      "ems_activated": "Emergency medical services have been dispatched."
+    },
+    "initial_variations": [
+      "Lifeline alert: cardiac arrhythmia detected at {address_location}. No response from patient. Background: {ambient_audio}.",
+      "Smartwatch detected a sudden cardiac arrest in the wearer at {address_location}. Patient not answering. Hearing {ambient_audio}.",
+      "Automated medical alert: abnormal heart rhythm at {address_location}. Attempted callback failed. Ambient sound: {ambient_audio}.",
+      "Wearable sensor reports cardiac emergency at {address_location}. Patient unresponsive. Audio feed: {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Maple Street, Apartment 2B",
+        "456 Oak Avenue, House",
+        "789 Pine Road, Park Bench",
+        "321 Elm Drive, Office Building",
+        "555 Birch Lane, Gym"
+      ],
+      "ambient_audio": [
+        "heavy breathing",
+        "silence",
+        "a TV playing",
+        "traffic noise",
+        "someone calling for help"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "responses": {
+          "initial": [
+            "Location: {address_location}.",
+            "The patient is at {address_location}.",
+            "Address confirmed: {address_location}."
+          ],
+          "attempting_contact": [
+            "Still at {address_location}. No answer.",
+            "Same location. Trying neighbors."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "responses": {
+          "initial": [
+            "The wearer is a 67-year-old male. No medical history on file.",
+            "Patient fell and is non-responsive. Heart rate erratic.",
+            "Device detected atrial fibrillation and then loss of pulse."
+          ],
+          "attempting_contact": [
+            "We called the patient's emergency contact. She said he had heart problems.",
+            "Neighbor answered. Says the patient is alone. They'll check."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 20,
+        "responses": {
+          "initial": [
+            "This is a life-threatening emergency. Immediate medical intervention is needed.",
+            "Time is critical. Cardiac arrest survival decreases rapidly."
+          ],
+          "attempting_contact": [
+            "Still high risk. No response from patient.",
+            "Emergency contact is not nearby. Need EMS ASAP."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "responses": {
+          "initial": [
+            "I am the automated medical response system for this wearable device.",
+            "This is the SmartHealth monitoring center.",
+            "I'm the algorithm that detected the cardiac event."
+          ],
+          "attempting_contact": [
+            "I'm the automated system. Still trying to reach human.",
+            "Same system. No live operator yet."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "message": "Police arrived and forced entry. Found patient unconscious. Called EMS, but delay reduced survival chance."
+      },
+      "SEND_FIRE": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Fire department arrived, no fire. Provided basic life support until EMS arrived."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 300,
+        "status": "SUCCESS",
+        "message": "EMS arrived in time, defibrillated patient, restored heartbeat. Patient survived with no brain damage."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Animal control sent to a cardiac arrest. Patient died before any help arrived."
+      },
+      "DISMISS": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "message": "Call dismissed as device malfunction. Patient deceased. Device was working correctly."
+      }
+    },
+    "id": "scenario_174",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Flood Detector in Alzheimer's Facility",
+    "states": {
+      "initial": "A flood sensor in the memory care unit at {address_location} has detected rising water. Residents may be in danger. Ambient audio: {ambient_audio}. Caller is the facility monitoring system.",
+      "checking_feed": "Operator is checking camera feeds for water and residents.",
+      "evacuation_initiated": "Staff are being alerted for possible evacuation."
+    },
+    "initial_variations": [
+      "Flood alert in secure memory unit at {address_location}. Water level rising. Camera shows {ambient_audio}.",
+      "Sensor detected water overflow in dementia ward at {address_location}. Residents may be trapped. Background: {ambient_audio}.",
+      "Automated flood alarm at {address_location} memory care center. Potential danger to non-ambulatory residents. Audio: {ambient_audio}.",
+      "Water leak alarm in Alzheimer's unit at {address_location}. High risk of slipping or drowning. Sound of {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Maple Street, Memory Care Wing",
+        "456 Oak Avenue, Sunrise Facility",
+        "789 Pine Road, Serenity Home",
+        "321 Elm Drive, Golden Years Center",
+        "555 Birch Lane, Harbor House"
+      ],
+      "ambient_audio": [
+        "water gushing",
+        "alarms blaring",
+        "staff shouting",
+        "residents crying",
+        "silence"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "responses": {
+          "initial": [
+            "Location is {address_location}.",
+            "Flood at {address_location}.",
+            "Memory care unit at {address_location}."
+          ],
+          "checking_feed": ["Still at {address_location}. Water spreading.", "Same location."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "responses": {
+          "initial": [
+            "Sensor shows 2 inches of water in the common area. 15 residents in the unit.",
+            "A pipe burst in the bathroom. Residents are confused and may not evacuate."
+          ],
+          "checking_feed": [
+            "Cameras show water now 4 inches deep. Some residents are standing but confused.",
+            "Staff are trying to move residents away from the water."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 20,
+        "responses": {
+          "initial": [
+            "Risk of falls and hypothermia for elderly. Water may reach electrical outlets.",
+            "This is dangerous for Alzheimer's patients who may not understand the danger."
+          ],
+          "checking_feed": [
+            "Several residents are in wheelchairs and cannot escape on their own. Need assistance.",
+            "Water approaching bedrooms. Urgent evacuation needed."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "responses": {
+          "initial": [
+            "I am the facility's automated monitoring system.",
+            "This is the safety system of {address_location}.",
+            "I'm the central alert system for this care home."
+          ],
+          "checking_feed": [
+            "Still the monitoring system. I have camera access.",
+            "Same system. I can see the situation."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "message": "Police arrived, helped secure perimeter. But fire/EMS were needed for rescue."
+      },
+      "SEND_FIRE": {
+        "score_delta": 250,
+        "status": "SUCCESS",
+        "message": "Firefighters evacuated all residents, stopped the water main. No injuries."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 100,
+        "status": "SUCCESS",
+        "message": "EMS provided medical checks for residents during evacuation. No serious injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Animal control sent. Residents struggled in rising water. Two fell and were injured."
+      },
+      "DISMISS": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Call dismissed as sensor malfunction. Water continued to rise. Residents trapped for hours, some developed hypothermia."
+      }
+    },
+    "id": "scenario_175",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Baby Monitor - Breathing Cessation Alert",
+    "states": {
+      "initial": "A smart baby monitor has detected no breathing movement for 30 seconds in the baby's room at {address_location}. Ambient audio: {ambient_audio}. Caller is the monitor's alert system.",
+      "parent_contact": "Dispatchers are trying to reach the parents.",
+      "emergency_room": "EMS is making entry to the home."
+    },
+    "initial_variations": [
+      "Breath detection alert at {address_location}. No respiratory movement detected for 30 seconds. Background: {ambient_audio}.",
+      "Smart baby monitor: breathing alarm triggered at {address_location}. Infant may be in distress. Hearing {ambient_audio}.",
+      "Alert: baby not breathing according to sensor at {address_location}. Attempting parent callback. Audio: {ambient_audio}.",
+      "SIDS prevention monitor alarm at {address_location}. No breathing for 30 seconds. Sound of {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Maple Street, Nursery",
+        "456 Oak Avenue, House",
+        "789 Pine Road, Daycare",
+        "321 Elm Drive, Apartment 3C",
+        "555 Birch Lane, Condo"
+      ],
+      "ambient_audio": [
+        "silence",
+        "a fan running",
+        "a lullaby playing",
+        "a dog barking",
+        "a parent's voice in the background"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "responses": {
+          "initial": [
+            "Address is {address_location}.",
+            "The baby is at {address_location}.",
+            "Location: {address_location}."
+          ],
+          "parent_contact": [
+            "Still at {address_location}. No answer from parents.",
+            "Same location."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "responses": {
+          "initial": [
+            "The monitor is a movement sensor pad. No movement for 30 seconds, which is abnormal.",
+            "Baby is 4 months old. Normally moves every few seconds."
+          ],
+          "parent_contact": [
+            "We've called the parents' cell phones. No answer. Landline also rings.",
+            "Neighbor says the parents are home but not answering."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 20,
+        "responses": {
+          "initial": [
+            "Potential life-threatening respiratory arrest. Immediate action needed.",
+            "If the baby stopped breathing, every second counts."
+          ],
+          "parent_contact": [
+            "Still no response. Could be a false alarm, but cannot risk it.",
+            "Risk is high. Parents may be asleep or unable to respond."
+          ]
+        }
+      },
+      "ASK_CALLER": {
+        "score_delta": 5,
+        "responses": {
+          "initial": [
+            "I am the automated baby monitor system. This is an urgent alert.",
+            "This is the SmartBaby monitoring service.",
+            "I'm the algorithm that tracks the baby's breathing."
+          ],
+          "parent_contact": [
+            "Still the automated system. I have no additional info.",
+            "Same system. I can only relay sensor data."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "message": "Police arrived, forced entry. Found baby not breathing. Started CPR, called EMS. Baby survived but with delays."
+      },
+      "SEND_FIRE": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Firefighters entered, provided first aid. But medical response was primary need."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 300,
+        "status": "SUCCESS",
+        "message": "EMS arrived, performed resuscitation. Baby regained breathing and was hospitalized. Full recovery."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Animal control sent. Baby died from sudden infant death syndrome. No help arrived in time."
+      },
+      "DISMISS": {
+        "score_delta": -450,
+        "status": "CRITICAL_FAILURE",
+        "message": "Call dismissed as sensor false alarm. Parents later found baby not breathing in the morning. Fatal outcome."
+      }
+    },
+    "id": "scenario_176",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smartwatch Fall Detection with Unresponsive Wearer",
+    "states": {
+      "initial": "Alert received from smartwatch fall detection.",
+      "unresponsive": "Caller is unresponsive or confused.",
+      "verifying": "Dispatch attempting to verify the situation.",
+      "evacuated": "Caller has been moved or helped."
+    },
+    "initial_variations": [
+      "I've detected a severe fall alert for {caller_name} at {address_location}. The wearer is not responding to haptic feedback.",
+      "Fall detection triggered for {caller_name}. No movement detected for over 2 minutes. Location: {address_location}.",
+      "Emergency: {caller_name} possibly fell. Heart rate is abnormal. Sending GPS coordinates for {address_location}.",
+      "Smartwatch alert: {caller_name} has taken a hard fall. No verbal response. Background audio: {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": [
+        "Margaret Johnson",
+        "Henry Lee",
+        "Eleanor Davis",
+        "Frank Thompson",
+        "Grace Kim"
+      ],
+      "address_location": [
+        "123 Oak Street, Apartment 4B",
+        "456 Pine Avenue",
+        "789 Maple Drive",
+        "321 Elm Lane, House",
+        "654 Birch Road"
+      ],
+      "ambient_audio": ["faint moaning", "silence", "heavy breathing", "TV static", "dog barking"],
+      "specific_details": [
+        "hip injury history",
+        "Parkinson's disease",
+        "on blood thinners",
+        "lives alone",
+        "no known conditions"
+      ],
+      "caller_age": [78, 85, 70, 92, 66]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The location is {address_location}. GPS coordinates are being transmitted.",
+            "Address is {address_location}. Confirm you have it?",
+            "Alert is from {address_location}. Do you need additional location data?"
+          ],
+          "unresponsive": [
+            "Still at {address_location}. No change in position.",
+            "Same location: {address_location}. Wearer hasn't moved."
+          ],
+          "verifying": [
+            "Still at {address_location}. Attempting to contact emergency contacts.",
+            "We have the location as {address_location}. Stand by for verification."
+          ],
+          "evacuated": ["Wearer was moved to {address_location}. Now at neighbor's house."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "verifying",
+          "unresponsive": "verifying"
+        },
+        "responses": {
+          "initial": [
+            "The alert shows a hard fall. Wearer is {caller_age} with {specific_details}.",
+            "Fall detected with impact force. Medical history indicates {specific_details}.",
+            "Heart rate is erratic. Background audio: {ambient_audio}."
+          ],
+          "unresponsive": [
+            "No response from wearer. Last known heart rate was abnormal.",
+            "Wearer is unresponsive. Attempting voice call now.",
+            "Medical history: {specific_details}. Possible need for immediate aid."
+          ],
+          "verifying": [
+            "We are calling the wearer's phone. Preliminary data suggests trauma.",
+            "Emergency contacts have been notified. Awaiting callback.",
+            "Checked with nearby devices: no fire or gas detected."
+          ],
+          "evacuated": [
+            "Wearer has been assisted. They are conscious but in pain.",
+            "Neighbor reports wearer is alert. Medical evaluation still recommended.",
+            "Wearer refused ambulance. Advising to stay with them."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The wearer's status is unknown. No voice response yet.",
+            "Alert indicates potential fall. Wearer may be injured.",
+            "System shows 'Unresponsive' status."
+          ],
+          "unresponsive": [
+            "Wearer is not responding to phone or haptic alerts.",
+            "No verbal response. Possible loss of consciousness.",
+            "Breathing detected via sensor but no movement."
+          ],
+          "verifying": [
+            "We are still verifying. Wearer's phone is ringing.",
+            "Emergency contact on the way to check.",
+            "Status update pending."
+          ],
+          "evacuated": [
+            "Wearer has been moved and is safe. Paramedics have been called.",
+            "Wearer is sitting up. Vitals stable.",
+            "Evacuated to neighbor's home. Waiting for medical."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived but medical assistance was more appropriate. Waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Sending fire department delayed medical response. Patient condition worsened."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Correct dispatch. Paramedics arrived and treated the fall victim. Patient stabilized."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control was sent to a medical emergency. Patient died waiting for help."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Dismissed the alert as malfunction. Patient later found dead from fall complications."
+      }
+    },
+    "id": "scenario_177",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Vehicle Crash Telemetry with Silent Cabin",
+    "states": {
+      "initial": "Vehicle crash alert received.",
+      "silent": "No voice from cabin but telemetry active.",
+      "verifying": "Attempting to contact occupants.",
+      "extracted": "Occupants have been rescued."
+    },
+    "initial_variations": [
+      "Automatic crash notification: Vehicle at {address_location} involved in collision. Airbags deployed. Cabin audio: {ambient_audio}.",
+      "Crash detected for {caller_name}'s vehicle at {address_location}. No occupant response. Telemetry shows rapid deceleration.",
+      "Emergency: Vehicle crash on {address_location}. Sending GPS coordinates. Occupants unresponsive.",
+      "Alert from {caller_name}'s car: High impact collision at {address_location}. Background: {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": ["John Smith", "Maria Garcia", "David Chen", "Sarah Williams", "Robert Brown"],
+      "address_location": [
+        "I-95 North mile marker 23",
+        "Intersection of 5th and Main",
+        "Highway 101 near exit 12",
+        "Parking lot of Walmart on Route 9",
+        "Rural road CR-42"
+      ],
+      "ambient_audio": [
+        "silence",
+        "hissing steam",
+        "faint groaning",
+        "radio static",
+        "traffic sounds"
+      ],
+      "specific_details": [
+        "vehicle type: sedan",
+        "multiple impacts",
+        "occupants: 2",
+        "fuel leak detected",
+        "rollover suspected"
+      ],
+      "crash_time": ["just now", "2 minutes ago", "5 minutes ago", "unknown"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Crash location is {address_location}. Telemetry data confirms.",
+            "Vehicle at {address_location}. Dispatch coordinates."
+          ],
+          "silent": [
+            "Same location: {address_location}. No voice contact.",
+            "Still at {address_location}. Attempting to raise occupants."
+          ],
+          "verifying": [
+            "Location unchanged: {address_location}. Calling registered owner.",
+            "Stationary at {address_location}. Emergency lights spotted by passerby."
+          ],
+          "extracted": ["Vehicle was at {address_location}. Occupants now at scene."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "verifying"
+        },
+        "responses": {
+          "initial": [
+            "Crash severity: high. {specific_details}. Airbags deployed.",
+            "Impact force 40g. {specific_details}. Fuel system status unknown.",
+            "Telemetry shows {crash_time}. Cabin audio: {ambient_audio}."
+          ],
+          "silent": [
+            "No voice from cabin. Microphone may be damaged. Sensor data indicates {specific_details}.",
+            "Heart rate sensors show one occupant with weak pulse.",
+            "Attempting two-way communication. No response."
+          ],
+          "verifying": [
+            "Contacting the vehicle's OnStar system. No answer.",
+            "Passerby report: vehicle smoking. Occupants trapped.",
+            "Fire department alerted due to fuel leak."
+          ],
+          "extracted": [
+            "Occupants extracted by bystanders. One unconscious.",
+            "Waiting for medical. Two people out of vehicle.",
+            "Rescue complete. Injuries present."
+          ]
+        }
+      },
+      "ASK_OCCUPANTS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "silent"
+        },
+        "responses": {
+          "initial": [
+            "Telemetry indicates {specific_details} occupant count.",
+            "System shows 2 occupants. No response yet."
+          ],
+          "silent": [
+            "No occupant response. Voice channels silent.",
+            "Attempting to call occupant phones. No answer.",
+            "One wrist device detected with weak pulse."
+          ],
+          "verifying": [
+            "Registered owner {caller_name} not answering. Calling emergency contacts.",
+            "Passerby saw two people inside. Unconscious.",
+            "Update: one occupant moving slightly."
+          ],
+          "extracted": [
+            "Two occupants out. One in critical condition.",
+            "All occupants accounted for. Medical evaluation underway."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but medical and fire were also needed. Delayed assistance."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Fire department handled fuel leak, but medical needed for injuries."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Medical dispatched and treated injured occupants. Some saved."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control sent to a crash scene. Occupants died from injuries."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Dismissed as false alarm. Fatalities discovered later."
+      }
+    },
+    "id": "scenario_178",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Smoke Detector with Conflicting Signals",
+    "states": {
+      "initial": "Smoke detector alert received.",
+      "verifying": "Checking other sensors and home automation.",
+      "evacuated": "Residents have evacuated.",
+      "false_alarm": "Likely false alarm."
+    },
+    "initial_variations": [
+      "Smart smoke detector triggered at {address_location}. No fire confirmed by other sensors. Background: {ambient_audio}.",
+      "Fire alarm from {address_location}. However, heat sensors show normal. Possible malfunction.",
+      "Alert: Smoke detected in kitchen at {address_location}. But home automation system reports no smoke elsewhere.",
+      "Smoke detector alarm at {address_location}. {caller_name} is unresponsive via voice. {ambient_audio} in background."
+    ],
+    "slots": {
+      "caller_name": ["Homeowner", "Tenant", "Security company"],
+      "address_location": [
+        "789 Maple Drive",
+        "456 Pine Avenue",
+        "123 Oak Street",
+        "321 Elm Lane",
+        "654 Birch Road"
+      ],
+      "ambient_audio": ["silence", "sizzling sound", "beeping", "children crying", "TV noise"],
+      "specific_details": [
+        "recent cooking",
+        "old smoke detector",
+        "known false alarm history",
+        "gas stove left on",
+        "smoke from adjacent unit"
+      ],
+      "sensor_type": ["ionization", "photoelectric", "dual sensor"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Alarm from {address_location}. Specific location: kitchen.",
+            "Address: {address_location}. Zone: kitchen."
+          ],
+          "verifying": [
+            "Location confirmed: {address_location}. No other zones triggered.",
+            "Still at {address_location}. Checking auxiliary sensors."
+          ],
+          "evacuated": [
+            "Residents evacuated to {address_location} front yard.",
+            "Safe area: outside {address_location}."
+          ],
+          "false_alarm": ["Location: {address_location}. Determined to be sensor error."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "verifying"
+        },
+        "responses": {
+          "initial": [
+            "Alarm triggered by {sensor_type}. {specific_details}. Heat sensor shows normal.",
+            "Specific detail: {specific_details}. No visible smoke from cameras.",
+            "Background audio: {ambient_audio}. This may be a cooking incident."
+          ],
+          "verifying": [
+            "Checking CO2 levels: normal. No fire signature.",
+            "Neighbors report no smoke or flames. Smart plugs show no anomalies.",
+            "Attempting to contact residents via phone."
+          ],
+          "evacuated": [
+            "Residents report seeing light smoke but no fire. They evacuated as precaution.",
+            "One resident says they were cooking and forgot to vent.",
+            "Evacuated: all safe. Awaiting further instructions."
+          ],
+          "false_alarm": [
+            "Consistent with previous false alarms. Cleaning detectors recommended.",
+            "Data indicates steam triggered it. No danger."
+          ]
+        }
+      },
+      "ASK_CALLER_SAFETY": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "evacuated",
+          "verifying": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Residents are still inside. Advise evacuation.",
+            "Occupants not responding. Urging them to evacuate."
+          ],
+          "verifying": [
+            "No confirmation of safety. Still trying to raise occupants.",
+            "Automatic door locks released. Occupants can exit."
+          ],
+          "evacuated": [
+            "All residents are outside. No injuries reported.",
+            "Evacuation successful. Head count: 2 adults, 1 child."
+          ],
+          "false_alarm": ["No evacuation needed. Residents can remain."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived unnecessarily. Fire department should have been sent if fire confirmed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Fire dispatched but turned out to be a false alarm. Wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Medical sent to a smoke alarm. Delayed response for others."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control dispatched to a fire alarm. Completely inappropriate."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Correctly identified as sensor malfunction. No response needed."
+      }
+    },
+    "id": "scenario_179",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Wearable Cardiac Arrest Alert",
+    "states": {
+      "initial": "Cardiac arrest alert from wearable device.",
+      "unresponsive": "Wearer unresponsive.",
+      "verifying": "Attempting to reach wearer or bystanders.",
+      "resuscitated": "CPR in progress or wearer revived."
+    },
+    "initial_variations": [
+      "Cardiac event detected for {caller_name} at {address_location}. No pulse detected. {ambient_audio}.",
+      "Wearable alert: {caller_name} in cardiac arrest. Location: {address_location}. Immediate CPR needed.",
+      "Emergency: {caller_name} has irregular heart rhythm and is unresponsive. Device at {address_location}.",
+      "Alert from {caller_name}'s health monitor: possible heart attack. Background: {ambient_audio} at {address_location}."
+    ],
+    "slots": {
+      "caller_name": [
+        "Michael Brown",
+        "Jennifer Lee",
+        "Robert Taylor",
+        "Amanda Wilson",
+        "Christopher Davis"
+      ],
+      "address_location": [
+        "123 Health Court",
+        "456 Wellness Drive",
+        "789 Fitness Lane",
+        "321 Gym Avenue",
+        "654 Cardio Street"
+      ],
+      "ambient_audio": [
+        "silence",
+        "heavy breathing then stop",
+        "gasping",
+        "TV sound",
+        "dog barking"
+      ],
+      "specific_details": [
+        "known heart condition",
+        "age 65",
+        "diabetic",
+        "on aspirin therapy",
+        "previous heart attack"
+      ],
+      "device_type": ["Apple Watch", "Fitbit", "Garmin", "Samsung Watch", "Whoop strap"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location is {address_location}. GPS accurate to 10 meters.",
+            "Wearer at {address_location}. Apartment 3B if residential."
+          ],
+          "unresponsive": [
+            "Same location: {address_location}. No movement detected.",
+            "Still at {address_location}. Have dispatched closest medic."
+          ],
+          "verifying": [
+            "Location unchanged. Attempting to contact {caller_name}'s emergency contact.",
+            "Bystander located at {address_location}."
+          ],
+          "resuscitated": ["Wearer at {address_location}. CPR in progress by bystander."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "unresponsive"
+        },
+        "responses": {
+          "initial": [
+            "Cardiac arrest detected by {device_type}. {specific_details}.",
+            "No pulse for 30 seconds. {specific_details}.",
+            "Background: {ambient_audio}. No voice response."
+          ],
+          "unresponsive": [
+            "Wearer unresponsive. Performing CPR instructions via device.",
+            "Device shows no breathing. AED nearby recommended."
+          ],
+          "verifying": [
+            "Contacted neighbor who is checking. No verbal response yet.",
+            "Device sends real-time ECG. Signs of ventricular fibrillation.",
+            "Emergency services on the way. Bystander located."
+          ],
+          "resuscitated": [
+            "CPR started. Pulse regained? Update pending.",
+            "Paramedics arrived and using AED. Patient stabilized."
+          ]
+        }
+      },
+      "ASK_CPR_STATUS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "resuscitated",
+          "unresponsive": "resuscitated"
+        },
+        "responses": {
+          "initial": [
+            "No CPR reported yet. Teaching bystander via device.",
+            "Device can guide CPR. Activating."
+          ],
+          "unresponsive": [
+            "No CPR started. Providing instructions.",
+            "Bystander just arrived and beginning chest compressions."
+          ],
+          "verifying": [
+            "Attempting to find bystander. Device audio playing CPR guide.",
+            "No one on scene. Police and medical dispatched."
+          ],
+          "resuscitated": [
+            "CPR in progress. Rate 100-120 compressions per minute.",
+            "AED applied. Shock advised. Stand clear."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived before medical. Medical delayed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Fire department can assist with CPR but medical needed."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Medical dispatched and performed life-saving treatment. Patient revived."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control sent to cardiac arrest. Patient died."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Alert dismissed as false. Patient died from heart attack."
+      }
+    },
+    "id": "scenario_180",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Automated Flood Sensor in Basement with Alzheimer's Patient",
+    "states": {
+      "initial": "Flood sensor triggered.",
+      "verifying": "Checking on patient.",
+      "evacuated": "Patient evacuated.",
+      "false_alarm": "Sensor malfunction."
+    },
+    "initial_variations": [
+      "Flood sensor alert at {address_location}. Resident {caller_name} has Alzheimer's. Water level rising. {ambient_audio}.",
+      "Basement flood detected at {address_location}. {caller_name} may be confused. No voice response.",
+      "Water leak in basement at {address_location}. {caller_name} is not answering phone. {ambient_audio}.",
+      "Flood warning from smart sensor at {address_location}. Resident with dementia requires assistance."
+    ],
+    "slots": {
+      "caller_name": [
+        "Dorothy Smith",
+        "Arthur Jones",
+        "Evelyn White",
+        "George Martin",
+        "Helen Clark"
+      ],
+      "address_location": [
+        "123 Memory Lane",
+        "456 Dementia Drive",
+        "789 Forgetful Court",
+        "321 Alzheimer Avenue",
+        "654 Seniors Circle"
+      ],
+      "ambient_audio": ["water rushing", "alarm beeping", "silence", "TV", "moaning"],
+      "specific_details": [
+        "Alzheimer's stage 5",
+        "lives alone",
+        "wandering risk",
+        "hearing impaired",
+        "uses walker"
+      ],
+      "flood_depth": ["1 inch", "3 inches", "6 inches", "unknown"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location: {address_location}. Basement sensor triggered.",
+            "Address: {address_location}. Access through front door."
+          ],
+          "verifying": [
+            "Still at {address_location}. Checking attic for patient.",
+            "Location confirmed. Water level rising."
+          ],
+          "evacuated": [
+            "Patient evacuated to {address_location} front yard.",
+            "Safe zone: neighbor's house at {address_location}."
+          ],
+          "false_alarm": ["Location: {address_location}. No actual flood."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "verifying"
+        },
+        "responses": {
+          "initial": [
+            "Flood depth: {flood_depth}. {specific_details}.",
+            "Water detected from burst pipe. {specific_details}.",
+            "Patient status unknown. Medical history: Alzheimer's."
+          ],
+          "verifying": [
+            "Attempting to call patient. No answer. Checking cameras.",
+            "Neighbor reports seeing patient upstairs. Water in basement.",
+            "Patient may be wandering. Water is not near staircase yet."
+          ],
+          "evacuated": [
+            "Patient found in bedroom, confused. Brought outside.",
+            "Evacuated by neighbor. Patient is safe but wet.",
+            "Patient in neighbor's house. Water shut off."
+          ],
+          "false_alarm": [
+            "Sensor misread. No water. Pipe was replaced recently.",
+            "False alarm. Humidity triggered sensor."
+          ]
+        }
+      },
+      "ASK_PATIENT": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "verifying",
+          "verifying": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Patient may be in home. Not responding to voice calls.",
+            "No contact with {caller_name}."
+          ],
+          "verifying": [
+            "Patient not answering. Checking all rooms.",
+            "Patient is likely upstairs. Stairs are dry.",
+            "Alzheimer's patient may be frightened."
+          ],
+          "evacuated": [
+            "Patient is safe with neighbor. Mild hypothermia risk.",
+            "Patient is alert but confused. Warm blankets provided.",
+            "Patient refuses to leave. Caretaker on way."
+          ],
+          "false_alarm": ["Patient was sleeping through alarm. No danger."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police assisted but fire or medical for water and patient more appropriate."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Fire department pumped water and rescued patient. Medical also on scene."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical helped patient but flood mitigation needed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Animal control sent. Patient fell in water and suffered injury."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Dismissed as false alarm. Patient wandered into basement and drowned."
+      }
+    },
+    "id": "scenario_181",
+    "archetype": "Automated / Sensor Emergency"
+  },
+  {
+    "title": "Smart Home Fire Alarm with Automated Voice",
+    "archetype": "Automated / Sensor Emergency",
+    "description": "An automated smart home system reports a fire alarm activation in the kitchen. The system attempts to reach the residents but receives no response. The call includes sensor data but lacks human verification.",
+    "states": {
+      "initial": "Automated system reports fire alarm triggered.",
+      "verifying": "Attempting to verify if fire is real or false alarm.",
+      "evacuating": "Residents evacuating or system indicating evacuation.",
+      "fire_department_notified": "Fire department has been dispatched."
+    },
+    "initial_variations": [
+      "Fire detected in kitchen. No response from residents.",
+      "Smoke alarm activated at {address_location}. Automated message: {specific_details}.",
+      "Smart home alert: fire alarm triggered. No voice confirmation from occupants.",
+      "Automated fire detection at {address_location}. Sensor indicates {specific_details}."
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Jordan", "Sam", "Taylor", "Morgan"],
+      "victim_relation": ["homeowner", "tenant", "resident", "family member", "neighbor"],
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Road",
+        "101 Elm Lane",
+        "202 Birch Boulevard"
+      ],
+      "ambient_audio": [
+        "crackling fire sounds",
+        "smoke alarm beeping",
+        "silence",
+        "muffled voices",
+        "sizzling noise"
+      ],
+      "specific_details": [
+        "high smoke levels",
+        "rapid temperature rise",
+        "flames detected",
+        "carbon monoxide spike",
+        "heat sensor triggered"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "verifying"
+        },
+        "responses": {
+          "initial": [
+            "Location confirmed: {address_location}.",
+            "The address is {address_location}.",
+            "Alert origin: {address_location}."
+          ],
+          "verifying": [
+            "Still attempting to reach occupants at {address_location}.",
+            "No change at {address_location}.",
+            "Address remains {address_location}."
+          ],
+          "evacuating": [
+            "Residents are evacuating {address_location}.",
+            "Evacuation in progress at {address_location}."
+          ],
+          "fire_department_notified": [
+            "Fire department has been dispatched to {address_location}.",
+            "Units en route to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sensor reports {specific_details}.",
+            "Automated message: {specific_details}.",
+            "Details: {specific_details}."
+          ],
+          "verifying": [
+            "Still waiting for confirmation. Sensor shows {specific_details}.",
+            "No update yet. Last reading: {specific_details}."
+          ],
+          "evacuating": [
+            "Evacuating. Sensor still indicates {specific_details}.",
+            "Residents report {specific_details} during evacuation."
+          ],
+          "fire_department_notified": [
+            "Fire department aware of {specific_details}.",
+            "Situation: {specific_details}. Units responding."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No response from residents.",
+            "Occupants unresponsive.",
+            "System unable to contact occupants."
+          ],
+          "verifying": [
+            "Attempting to reach occupants via phone.",
+            "Trying alternate contact methods.",
+            "No contact yet."
+          ],
+          "evacuating": [
+            "Residents are safe and evacuating.",
+            "Occupants are exiting the building.",
+            "Evacuation underway."
+          ],
+          "fire_department_notified": [
+            "Residents safe or accounted for.",
+            "Occupants are outside.",
+            "All clear for occupants."
+          ]
+        }
+      },
+      "INSTRUCTIONS_FOLLOWED": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "evacuating",
+          "verifying": "evacuating"
+        },
+        "responses": {
+          "initial": [
+            "Understood. We are checking the system.",
+            "Acknowledged. Evacuating now.",
+            "Following instructions to evacuate."
+          ],
+          "verifying": [
+            "Verified. Starting evacuation.",
+            "Confirmed. Moving to evacuate.",
+            "We are evacuating the premises."
+          ],
+          "evacuating": [
+            "Evacuation in progress.",
+            "Residents are leaving.",
+            "Following evacuation plan."
+          ],
+          "fire_department_notified": [
+            "Evacuation complete.",
+            "All evacuees accounted for.",
+            "Evacuation successful."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "Police dispatched as precaution for possible arson or break-in causing alarm."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "message": "Unnecessary police dispatch, fire was the primary issue."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "message": "Police dispatched instead of fire; delay in fire response caused property damage."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 200,
+          "message": "Fire department dispatched. Fire confirmed and extinguished quickly."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "False alarm. Fire dispatch was unnecessary but no harm done."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "message": "Fire not dispatched despite confirmed alarm; building destroyed."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "Medical dispatched for smoke inhalation; minor injuries treated."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "message": "Medical dispatched but fire was the priority; resources split."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "message": "Medical only dispatched; no fire response led to casualties."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "No animal involvement; no action needed."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Animal control dispatched unnecessarily; waste of resources."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -350,
+          "message": "Sent animal control instead of fire; fire spread uncontrollably."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "False alarm, dismissed correctly."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -150,
+          "message": "Dismissed but alarm was real; minor delay before calling back."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "message": "Dismissed a real fire; catastrophic outcome."
+        }
+      }
+    },
+    "id": "scenario_182"
+  },
+  {
+    "title": "Wearable Device Fall Detection with Unresponsive Elderly",
+    "archetype": "Automated / Sensor Emergency",
+    "description": "A smartwatch fall detection alert is received for an elderly person who is not responding. The device indicates a possible fall but cannot confirm consciousness. The caregiver is not answering.",
+    "states": {
+      "initial": "Fall detected, wearer unresponsive.",
+      "attempting_contact": "Trying to reach wearer or caregiver.",
+      "caregiver_notified": "Caregiver has been contacted and is checking.",
+      "medical_dispatched": "Medical help has been sent."
+    },
+    "initial_variations": [
+      "Fall detected for {caller_name} at {address_location}. No reply.",
+      "Wearable alert: {specific_details}. Unresponsive user.",
+      "Automated fall alert for {victim_relation} at {address_location}. Please check on them.",
+      "Smartwatch detected fall. No movement from {caller_name}. Last known location: {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Eleanor", "George", "Martha", "Harold", "Irene"],
+      "victim_relation": ["grandmother", "grandfather", "elderly neighbor", "parent", "patient"],
+      "address_location": [
+        "55 Elderberry Lane",
+        "88 Sunset Drive",
+        "12 Maple Retirement Home",
+        "3 Oak Grove",
+        "77 Pine View Apartments"
+      ],
+      "ambient_audio": ["silence", "faint breathing", "background TV", "dog barking", "no audio"],
+      "specific_details": [
+        "no movement for 2 minutes",
+        "heart rate elevated",
+        "impact force high",
+        "user unresponsive to alerts",
+        "location: living room"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Location: {address_location}.",
+            "The alert originated from {address_location}.",
+            "GPS indicates {address_location}."
+          ],
+          "attempting_contact": [
+            "Still at {address_location}. Trying to reach caregiver.",
+            "No movement from {address_location}.",
+            "Address unchanged: {address_location}."
+          ],
+          "caregiver_notified": [
+            "Caregiver is going to {address_location}.",
+            "Caregiver confirmed location: {address_location}.",
+            "At {address_location}, caregiver en route."
+          ],
+          "medical_dispatched": [
+            "Medical dispatched to {address_location}.",
+            "Ambulance heading to {address_location}.",
+            "Paramedics en route to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sensor data: {specific_details}.",
+            "Alert details: {specific_details}.",
+            "Indicates {specific_details}."
+          ],
+          "attempting_contact": [
+            "No new data. Last reading: {specific_details}.",
+            "Still {specific_details}.",
+            "Unchanged: {specific_details}."
+          ],
+          "caregiver_notified": [
+            "Caregiver will assess. Known: {specific_details}.",
+            "Information passed: {specific_details}.",
+            "Details shared with caregiver: {specific_details}."
+          ],
+          "medical_dispatched": [
+            "Medical advised of {specific_details}.",
+            "Paramedics aware of {specific_details}.",
+            "Situation: {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Unresponsive.", "No reply from wearer.", "Wearer not answering."],
+          "attempting_contact": [
+            "Still unresponsive.",
+            "Attempting to call caregiver.",
+            "No response yet."
+          ],
+          "caregiver_notified": [
+            "Caregiver is checking.",
+            "Caregiver has been informed.",
+            "Waiting for caregiver update."
+          ],
+          "medical_dispatched": [
+            "Wearer status unknown, paramedics en route.",
+            "Medical will assess.",
+            "Ambulance on scene shortly."
+          ]
+        }
+      },
+      "INSTRUCTIONS_FOLLOWED": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "attempting_contact"
+        },
+        "responses": {
+          "initial": [
+            "Trying to contact caregiver.",
+            "Calling the wearer's emergency contact.",
+            "Sending alert to caregiver."
+          ],
+          "attempting_contact": [
+            "Contacting caregiver now.",
+            "Attempting alternate numbers.",
+            "Sending SMS to caregiver."
+          ],
+          "caregiver_notified": [
+            "Caregiver alerted and responding.",
+            "Caregiver is on the way.",
+            "Caregiver has been reached."
+          ],
+          "medical_dispatched": [
+            "Medical already dispatched.",
+            "Caregiver informed of medical response.",
+            "All notifications sent."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "message": "Police assisted with wellness check; found elderly person safe but confused."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "message": "Police dispatched but medical was more appropriate; delay in care."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -350,
+          "message": "Police sent only; medical not dispatched, person suffered complications."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "Fire dispatched for lift assist; no medical needed."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Fire dispatched unnecessarily; medical could have handled."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "message": "Fire delayed medical response; person injured from prolonged fall."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 200,
+          "message": "Medical dispatched; person found with hip fracture, treated in time."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Medical dispatched but was false alarm; no harm but resources wasted."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "message": "Medical not dispatched; person died from injuries."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "No animal involved; no action."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Animal control dispatched; irrelevant to fall."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -350,
+          "message": "Sent animal control instead of medical; person found deceased."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "Dismissed as false alarm; caregiver confirmed it was a glitch."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -150,
+          "message": "Dismissed but fall was real; person later called for help."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "message": "Dismissed a real fall; person died without assistance."
+        }
+      }
+    },
+    "id": "scenario_183"
+  },
+  {
+    "title": "Vehicle Crash Telemetry with Silent Cabin",
+    "archetype": "Automated / Sensor Emergency",
+    "description": "An automated crash notification from a vehicle's telemetry system indicates a high-impact collision. The cabin is silent, with no response from the occupants. The vehicle's location is remote.",
+    "states": {
+      "initial": "Crash detected, no occupant response.",
+      "attempted_contact": "Trying to reach occupants via phone or emergency contacts.",
+      "rescue_dispatched": "Rescue services dispatched to the scene.",
+      "extrication": "Extrication underway or completed."
+    },
+    "initial_variations": [
+      "Vehicle crash detected at {address_location}. No response from occupants.",
+      "Telemetry alert: high impact collision at {address_location}. Cabin silent.",
+      "Automated crash notification for vehicle ID {specific_details}. Unable to contact driver.",
+      "Crash sensor triggered at {address_location}. Occupants unresponsive."
+    ],
+    "slots": {
+      "caller_name": ["James", "Emily", "Michael", "Sarah", "David"],
+      "victim_relation": ["driver", "passenger", "family member", "friend", "co-worker"],
+      "address_location": [
+        "Highway 101 near Mile Marker 15",
+        "Rural Route 3, intersection with County Road 7",
+        "Parking lot of 500 Commerce Blvd",
+        "Tunnel on Interstate 5, southbound",
+        "Remote logging road, GPS coordinates 45.678, -123.456"
+      ],
+      "ambient_audio": ["silence", "faint traffic noise", "hissing sound", "moaning", "crackling"],
+      "specific_details": [
+        "impact speed 70 mph",
+        "airbags deployed",
+        "vehicle rollover detected",
+        "fuel leak detected",
+        "emergency brake activated"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Crash location: {address_location}.",
+            "Vehicle is at {address_location}.",
+            "Coordinates: {address_location}."
+          ],
+          "attempted_contact": [
+            "Still at {address_location}. Trying to reach contacts.",
+            "Location unchanged: {address_location}.",
+            "No movement from vehicle at {address_location}."
+          ],
+          "rescue_dispatched": [
+            "Rescue en route to {address_location}.",
+            "Units dispatched to {address_location}.",
+            "Ambulance and fire heading to {address_location}."
+          ],
+          "extrication": [
+            "Extrication in progress at {address_location}.",
+            "Rescue operations at {address_location}.",
+            "Scene at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Telemetry shows {specific_details}.",
+            "Crash data: {specific_details}.",
+            "Details: {specific_details}."
+          ],
+          "attempted_contact": [
+            "No update. Last data: {specific_details}.",
+            "Still {specific_details}.",
+            "Unchanged: {specific_details}."
+          ],
+          "rescue_dispatched": [
+            "Rescue advised of {specific_details}.",
+            "Information passed: {specific_details}.",
+            "Crews aware of {specific_details}."
+          ],
+          "extrication": [
+            "Extrication challenges: {specific_details}.",
+            "Using tools due to {specific_details}.",
+            "Scene conditions: {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Occupants unresponsive.", "No reply from vehicle.", "Silent cabin."],
+          "attempted_contact": ["Still unresponsive.", "Trying phone numbers.", "No answer."],
+          "rescue_dispatched": [
+            "Rescue will assess.",
+            "Crews expecting unresponsive patients.",
+            "Paramedics prepared for silent scene."
+          ],
+          "extrication": [
+            "Occupants being removed.",
+            "Extrication in progress.",
+            "Victims still trapped."
+          ]
+        }
+      },
+      "INSTRUCTIONS_FOLLOWED": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "attempted_contact"
+        },
+        "responses": {
+          "initial": [
+            "Calling vehicle owner.",
+            "Contacting emergency contacts.",
+            "Attempting to reach occupants via phone."
+          ],
+          "attempted_contact": [
+            "Still calling.",
+            "Sending alerts to family.",
+            "Trying another number."
+          ],
+          "rescue_dispatched": ["Rescue dispatched.", "Services alerted.", "Help is on the way."],
+          "extrication": [
+            "Rescue team on site.",
+            "Extrication started.",
+            "Victims being cared for."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "message": "Police secured scene; traffic control aided rescue."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "message": "Police dispatched but medical and fire were primary; slight coordination delay."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "message": "Police only; no medical or fire; victims died from injuries."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 200,
+          "message": "Fire extricated trapped victims; prevented fire from wreckage."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Fire dispatched but no fire present; resources wasted."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "message": "Fire not dispatched; vehicle caught fire and victims burned."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 200,
+          "message": "Medical treated injuries; all occupants survived."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Medical dispatched but no injuries; false alarm."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "message": "Medical not dispatched; victims died from untreated injuries."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "No animals involved; no action needed."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "message": "Animal control dispatched; irrelevant to crash."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -350,
+          "message": "Sent animal control instead of fire/medical; victims perished."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "message": "Dismissed as false alarm; telemetry glitch."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -150,
+          "message": "Dismissed but crash real; caller called back with delay."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "message": "Dismissed a real crash; no response, victims died."
+        }
+      }
+    },
+    "id": "scenario_184"
+  }
+]

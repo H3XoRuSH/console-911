@@ -25,8 +25,13 @@ export interface Scenario {
   difficulty: 'Easy' | 'Medium' | 'Hard';
   initial_variations: string[];
   slots: ScenarioSlot;
+  states: Record<string, string>;
   intents: {
-    [key: string]: ScenarioIntent;
+    [key: string]: {
+      score_delta: number;
+      transitions?: Record<string, string>;
+      responses: Record<string, string[]>;
+    };
   };
   dispatch_outcomes: {
     SEND_POLICE: ScenarioOutcome;
@@ -44,11 +49,13 @@ export interface HydratedCallSession {
   difficulty: string;
   selectedSlots: Record<string, string>;
   initialMessage: string;
+  states: Record<string, string>;
   intents: Record<
     string,
     {
-      response: string;
       score_delta: number;
+      transitions?: Record<string, string>;
+      responses: Record<string, string>; // maps state name to hydrated response text
     }
   >;
   dispatchOutcomes: Record<
@@ -97,17 +104,35 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
       ? hydrateString(initialVariations[Math.floor(Math.random() * initialVariations.length)])
       : '911. What is your emergency?';
 
-  // 3. For each intent, select a random response variation and hydrate it
-  const intents: Record<string, { response: string; score_delta: number }> = {};
+  // 3. For each intent, select a random response variation for each state and hydrate it
+  const intents: Record<
+    string,
+    {
+      score_delta: number;
+      transitions?: Record<string, string>;
+      responses: Record<string, string>;
+    }
+  > = {};
   if (scenario.intents) {
     for (const intentKey in scenario.intents) {
       const intentData = scenario.intents[intentKey];
-      if (intentData && Array.isArray(intentData.variations) && intentData.variations.length > 0) {
-        const randomVar =
-          intentData.variations[Math.floor(Math.random() * intentData.variations.length)];
+      if (intentData) {
+        const responses: Record<string, string> = {};
+        if (intentData.responses) {
+          for (const stateName in intentData.responses) {
+            const variations = intentData.responses[stateName];
+            if (Array.isArray(variations) && variations.length > 0) {
+              const randomIndex = Math.floor(Math.random() * variations.length);
+              responses[stateName] = hydrateString(variations[randomIndex]);
+            } else {
+              responses[stateName] = '';
+            }
+          }
+        }
         intents[intentKey] = {
-          response: hydrateString(randomVar),
-          score_delta: intentData.score_delta || 0
+          score_delta: intentData.score_delta || 0,
+          transitions: intentData.transitions,
+          responses
         };
       }
     }
@@ -120,25 +145,67 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
   > = {};
   if (scenario.dispatch_outcomes) {
     for (const outcomeKey in scenario.dispatch_outcomes) {
-      const outcome =
+      let outcome =
         scenario.dispatch_outcomes[outcomeKey as keyof typeof scenario.dispatch_outcomes];
       if (outcome) {
+        const obj = outcome as unknown as Record<string, unknown>;
+        // Handle nested structure (e.g. { SUCCESS: {...}, MINOR_ERROR: {...} })
+        if (!outcome.status && !obj.correctness) {
+          const subKey = obj.SUCCESS
+            ? 'SUCCESS'
+            : obj.MINOR_ERROR
+              ? 'MINOR_ERROR'
+              : 'CRITICAL_FAILURE';
+          const subOutcome = obj[subKey] as Record<string, unknown> | undefined;
+          if (subOutcome) {
+            outcome = {
+              status: subKey as 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE',
+              score_delta: (subOutcome.score_delta as number) || 0,
+              message: (subOutcome.message as string) || (subOutcome.feedback as string) || ''
+            };
+          }
+        }
+
+        const status = (outcome.status || obj.correctness || 'CRITICAL_FAILURE') as string as
+          'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE';
+
         dispatchOutcomes[outcomeKey] = {
-          status: outcome.status,
+          status,
           score_delta: outcome.score_delta || 0,
-          message: hydrateString(outcome.message)
+          // Support both 'message' and 'feedback' keys fallback
+          message: hydrateString(outcome.message || (obj.feedback as string) || '')
         };
       }
     }
   }
 
+  // Normalize states structure (support both object maps and string arrays)
+  let statesObj: Record<string, string> = {};
+  const rawStates = scenario.states;
+  if (Array.isArray(rawStates)) {
+    for (const st of rawStates) {
+      if (typeof st === 'string') {
+        statesObj[st] = `Caller is in ${st} state.`;
+      }
+    }
+  } else if (rawStates && typeof rawStates === 'object') {
+    statesObj = rawStates;
+  }
+  if (!statesObj.initial) {
+    statesObj.initial = 'Line connected.';
+  }
+
   return {
     scenarioId: scenario.id,
-    title: scenario.title,
-    archetype: scenario.archetype,
-    difficulty: scenario.difficulty,
+    title:
+      scenario.title ||
+      ((scenario as unknown as Record<string, unknown>).scenario_title as string) ||
+      'Unknown Incident',
+    archetype: scenario.archetype || 'Unknown Archetype',
+    difficulty: scenario.difficulty || 'Medium', // Fallback default difficulty
     selectedSlots,
     initialMessage,
+    states: statesObj,
     intents,
     dispatchOutcomes
   };

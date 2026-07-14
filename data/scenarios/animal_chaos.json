@@ -1,0 +1,3205 @@
+[
+  {
+    "title": "Bear in Backyard",
+    "states": ["initial", "hiding", "confronting", "secured"],
+    "initial_variations": [
+      "Oh my god, there's a {animal_size} {animal_type} in my backyard! It's tearing apart my fence! Please send help!",
+      "Hi, I'm {caller_name} at {address_location}. I think I hear something big outside... it sounds like an {animal_type}. What should I do?",
+      "You're not gonna believe this, but a {animal_size} {animal_type} just walked into my yard. My kids are scared. Get someone here now!",
+      "Hey, uh, this is {caller_name} from {address_location}. There's a {animal_type} out here. It's pretty calm, but I don't feel safe. Can you send animal control?"
+    ],
+    "slots": {
+      "caller_name": ["John", "Mary", "Bob", "Jane"],
+      "address_location": ["123 Elm St", "456 Oak Ave", "789 Pine Ln", "321 Maple Dr"],
+      "ambient_audio": [
+        "loud growling sounds",
+        "fence breaking",
+        "children crying",
+        "eerie silence"
+      ],
+      "animal_type": ["bear", "moose", "coyote", "deer"],
+      "animal_size": ["huge", "medium-sized", "small", "enormous"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My address is {address_location}.",
+            "I'm at {address_location}.",
+            "It's {address_location}.",
+            "I'm at {address_location}!"
+          ],
+          "hiding": [
+            "I'm hiding inside at {address_location}.",
+            "Still at {address_location}, in the closet.",
+            "We're at {address_location}, locked in the bathroom."
+          ],
+          "confronting": [
+            "I'm at {address_location}, trying to scare it away.",
+            "It's {address_location}, I'm waving my arms."
+          ],
+          "secured": [
+            "It left! I'm at {address_location}.",
+            "Animal control got it. I'm at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {animal_size} {animal_type} and it's destroying my yard.",
+            "I see a {animal_type}. It's {animal_size}.",
+            "It's {animal_size}, brown fur, definitely a {animal_type}."
+          ],
+          "hiding": [
+            "From the window, it looks {animal_size} and brown.",
+            "I can hear it sniffing around. It's a {animal_type}."
+          ],
+          "confronting": [
+            "It's right in front of me! {animal_size} {animal_type}, and it's not backing down."
+          ],
+          "secured": ["It was a {animal_size} {animal_type}. Now it's gone."]
+        }
+      },
+      "ASK_ACTION": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "hiding",
+          "confronting": "hiding"
+        },
+        "responses": {
+          "initial": ["I'm going to try to scare it away.", "I'm staying inside."],
+          "hiding": ["I'm hiding in the basement with my family.", "I'm staying put."],
+          "confronting": ["I'm yelling at it to go away.", "I'm banging pots."],
+          "secured": ["I'm safe now.", "We're all inside."]
+        }
+      },
+      "ASK_ANIMAL_DESC": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {animal_size} and looks like a {animal_type}.",
+            "Brown fur, big paws. {animal_size}."
+          ],
+          "hiding": ["I think it's a {animal_type}. Big one."],
+          "confronting": ["It's a {animal_size} {animal_type}, angry."],
+          "secured": ["It was a {animal_size} {animal_type}."]
+        }
+      },
+      "ASK_PEOPLE_COUNT": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are 2 adults and 3 kids.",
+            "Just me and my dog.",
+            "My whole family of 4."
+          ],
+          "hiding": ["We're all hiding. 4 people.", "Just me and my cat."],
+          "confronting": ["It's just me here.", "Me and my neighbor."],
+          "secured": ["Everyone is safe. 5 people total."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived but animal control was needed. A waste of resources."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters are not trained for bears. They called animal control."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "No injuries reported. Medical dispatch was completely unnecessary. Resources wasted."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control arrived and safely tranquilized and relocated the bear."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "You dismissed a legitimate bear encounter. The bear injured a person before animal control was called again."
+      }
+    },
+    "id": "scenario_013",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Alligator on the Loose",
+    "states": ["initial", "trapped", "evacuated", "resolved"],
+    "initial_variations": [
+      "There's an alligator crossing the road near {address_location}! It's blocking traffic and people are freaking out!",
+      "Hi, this is {caller_name}. I'm at {address_location} and I see a {animal_color} alligator just lying on the sidewalk. It's huge!",
+      "Holy crap! A big alligator just crawled out of the pond and is heading towards the playground! My kid is there!",
+      "Uh, yes, I'd like to report a {animal_color} alligator at {address_location}. It's just chilling, but it's near houses. Should I be worried?"
+    ],
+    "slots": {
+      "caller_name": ["Tom", "Sarah", "Mike", "Linda"],
+      "address_location": ["500 Lakeview Dr", "200 Swamp Rd", "100 Pond Ln", "300 River St"],
+      "ambient_audio": [
+        "car horns honking",
+        "children screaming",
+        "water splashing",
+        "crowd murmuring"
+      ],
+      "animal_color": ["dark green", "brownish", "black", "gray"],
+      "people_nearby": ["several families", "a few joggers", "kids on bikes", "no one"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}.",
+            "Right by the pond at {address_location}.",
+            "I'm at {address_location}."
+          ],
+          "trapped": [
+            "I'm trapped in my car at {address_location}.",
+            "The alligator is blocking my driveway at {address_location}."
+          ],
+          "evacuated": [
+            "We evacuated to {address_location} nearby.",
+            "I'm at the store across from {address_location}."
+          ],
+          "resolved": ["All clear at {address_location}.", "It swam away from {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {animal_color} alligator, looks about 6 feet long.",
+            "Large {animal_color} reptile, maybe 8 feet."
+          ],
+          "trapped": ["It's right outside my car door. {animal_color} and big."],
+          "evacuated": ["From a distance, it's {animal_color} and moving slowly."],
+          "resolved": ["It was {animal_color}. Animal control got it."]
+        }
+      },
+      "ASK_ACTION": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuated",
+          "trapped": "evacuated"
+        },
+        "responses": {
+          "initial": ["I'm staying back, but it's getting closer.", "I'm trying to warn people."],
+          "trapped": [
+            "I can't move. It's right in front of my car.",
+            "I'm stuck inside my house with it at the door."
+          ],
+          "evacuated": [
+            "We've all moved to the other side of the street.",
+            "Everyone is in the community center."
+          ],
+          "resolved": ["We're all safe now."]
+        }
+      },
+      "ASK_ANIMAL_DESC": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{animal_color} alligator, maybe 7 feet.",
+            "Looks like a {animal_color} alligator, pretty large."
+          ],
+          "trapped": ["Close up, it's {animal_color} and has yellow eyes."],
+          "evacuated": ["It's {animal_color}, I'd say 6-8 feet."],
+          "resolved": ["It was a {animal_color} alligator."]
+        }
+      },
+      "ASK_PEOPLE_SAFETY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are {people_nearby} nearby. We're trying to keep them back.",
+            "Kids are playing near the pond!"
+          ],
+          "trapped": ["I'm alone in my car.", "My family is inside the house with me."],
+          "evacuated": [
+            "Everyone has been evacuated. Around 20 people.",
+            "We're all at a safe distance."
+          ],
+          "resolved": ["No injuries. Everyone is safe."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police managed crowd control but couldn't handle the alligator. Animal control was needed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters are not equipped for alligators. They called animal control."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "No injuries, but paramedics stood by. Overkill."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Animal control arrived and captured the alligator safely. Area cleared."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "You dismissed the call. The alligator attacked a dog and caused a car accident."
+      }
+    },
+    "id": "scenario_014",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Bear in the Suburbs",
+    "summary": "A homeowner reports a bear rummaging through their trash and then entering their garage. The bear appears agitated and is trapped inside the garage.",
+    "states": ["initial", "trapped_inside", "bear_charging", "secured"],
+    "initial_variations": [
+      "There's a huge bear in my garage! It's tearing everything apart! Please send help! This is {caller_name} at {address_location}.",
+      "Oh my God, we have a bear trapped in our garage. It's going crazy! Hurry! My family is hiding inside the house. We are at {address_location}.",
+      "A bear just broke into my garage! It's snarling and trying to get out. I think it's scared. We need animal control now! This is {caller_name} at {address_location}.",
+      "We're trapped in our house because a bear is in the garage. It's banging against the door. I can hear it growling. Please help! Address: {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["John Smith", "Mary Johnson", "David Brown", "Sarah Davis"],
+      "address_location": [
+        "123 Oak Street, Suburbia",
+        "456 Maple Avenue, Greenfield",
+        "789 Pine Road, Lakewood",
+        "321 Elm Drive, Riverdale"
+      ],
+      "ambient_audio": [
+        "loud growling and banging",
+        "trash cans crashing",
+        "bear huffing and pacing",
+        "children crying in background"
+      ],
+      "specific_details": [
+        "bear is about 6 feet tall, brown fur",
+        "bear is near the car",
+        "bear broke the garage door",
+        "bear has two cubs outside"
+      ],
+      "victim_relation": ["my husband and kids", "my elderly mother", "my neighbor", "just me"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}. Please hurry!",
+            "It's {address_location}, the house with the broken garage door.",
+            "Address is {address_location}. Can you see it on the map?",
+            "I already told you, {address_location}! Just send help!"
+          ],
+          "trapped_inside": [
+            "We're still at {address_location}, but now we're in the basement.",
+            "Same address, {address_location}. We're barricaded in the bathroom.",
+            "{address_location} - we moved to the upstairs bedroom.",
+            "It's {address_location}. Please tell us what to do!"
+          ],
+          "bear_charging": [
+            "Oh no! Same location, {address_location}! The bear is charging at the door!",
+            "We're at {address_location} and the bear broke through! Help!",
+            "Still {address_location}! It's coming inside!",
+            "{address_location} - the bear is in the house!"
+          ],
+          "secured": [
+            "We're safe now at {address_location}. Animal control is here.",
+            "The bear is secured at {address_location}. Thanks.",
+            "We're at {address_location} and the bear is tranquilized.",
+            "{address_location} - all clear."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a large brown bear, maybe 300 pounds. It's in the garage.",
+            "The bear is black, about 5 feet tall. It just wants food.",
+            "I see a mother bear with two cubs. They're scared.",
+            "The bear is aggressive, showing teeth and growling."
+          ],
+          "trapped_inside": [
+            "The bear is now in the garage, but it's quiet. Maybe it's calming down.",
+            "The bear is pacing back and forth. It looks stressed.",
+            "The bear is trying to climb the walls. It's getting desperate.",
+            "The bear broke a window and half escaped. Now it's stuck."
+          ],
+          "bear_charging": [
+            "The bear just rammed the front door! It's breaking through!",
+            "It's charging at us! We need police with guns!",
+            "The bear is inside! It's in the living room!",
+            "It swatted at my husband! We're running upstairs!"
+          ],
+          "secured": [
+            "Animal control has it caged. No injuries.",
+            "They shot a tranquilizer. Bear is down.",
+            "Police scared it off into the woods.",
+            "The bear is safely trapped in the garage waiting."
+          ]
+        }
+      },
+      "ASK_CONFIRM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, I'm sure it's a bear. It's not a dog!",
+            "Absolutely. I can see its claws and ears.",
+            "Yes, I've seen bears before. This is real.",
+            "Definitely a bear. It just roared."
+          ],
+          "trapped_inside": [
+            "Yes, still a bear. It's now inside the garage.",
+            "Yes, it's still there. Please hurry.",
+            "Yes, we are not joking. It's a real bear.",
+            "Yes, we can hear it breathing."
+          ],
+          "bear_charging": [
+            "YES! It's attacking! Now!",
+            "Hurry! It's breaking the door!",
+            "Oh God, yes! It's here!",
+            "Yes! Send police with guns!"
+          ],
+          "secured": [
+            "It's over. Bear is gone.",
+            "No longer a threat. Secured.",
+            "Confirm? It's taken care of.",
+            "Yes, but safe now."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "trapped_inside",
+          "trapped_inside": "bear_charging"
+        },
+        "responses": {
+          "initial": [
+            "We're hiding in the house. The door is locked.",
+            "The garage door is closed, but the bear is inside.",
+            "We're in the kitchen, far from the garage.",
+            "Kids are in the bedroom. We're scared."
+          ],
+          "trapped_inside": [
+            "We're barricaded in the basement. The bear is above us.",
+            "We locked ourselves in the bathroom. The bear is at the door.",
+            "We're in the attic. The bear is downstairs.",
+            "We have a weapon in case."
+          ],
+          "bear_charging": [
+            "It's coming through! We need to escape!",
+            "We're running out the back door!",
+            "I'm hiding in a closet! I hear it outside!",
+            "We're all in panic mode!"
+          ],
+          "secured": [
+            "We're safe. Bear is contained.",
+            "Everyone is fine. Thanks for the help.",
+            "No injuries. We're relieved.",
+            "We're outside now. Safe."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but were not equipped to handle a bear. Animal control was called as backup. Delay caused by incorrect dispatch."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department arrived with sirens, which agitated the bear further. It broke into the house and injured a resident before being subdued."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "No medical emergency initially. Medical units arrived but were unable to handle the bear. Bear attacked the paramedics, causing injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control arrived promptly, assessed the situation, and safely tranquilized the bear. No injuries and bear relocated to a forest."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as non-emergency. Bear escaped garage and roamed neighborhood, causing property damage and injuring a jogger before being shot by police."
+      }
+    },
+    "id": "scenario_131",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Alligator in the Pool",
+    "summary": "A parent at a family resort spots an alligator in the swimming pool. Children are playing nearby.",
+    "states": ["initial", "evacuating", "alligator_approaching", "secured"],
+    "initial_variations": [
+      "There's an alligator in the pool! My kids are near! This is {caller_name} at {address_location}. Hurry!",
+      "Oh my God! A huge alligator just climbed into the pool! We need animal control! Address: {address_location}. Please come quick!",
+      "Alligator swimming in the family pool! People are screaming! Get animal control here now! This is {caller_name} at {address_location}.",
+      "A gator is in the swimming pool at {address_location}. It's about 8 feet long! Kids are still in the water! Help!"
+    ],
+    "slots": {
+      "caller_name": ["Tom Anderson", "Linda Martinez", "Chris Wilson", "Angela Clark"],
+      "address_location": [
+        "Beachside Resort, 100 Ocean Drive, Miami",
+        "Lakeside Lodge, 200 Lake Road, Orlando",
+        "Sunny Villas, 300 Palm Street, Tampa",
+        "Family Fun Hotel, 400 Sandpiper Lane, Fort Myers"
+      ],
+      "ambient_audio": [
+        "children screaming and splashing",
+        "panicked shouts",
+        "alligator hissing",
+        "pool water splashing"
+      ],
+      "specific_details": [
+        "alligator is about 7 feet long",
+        "alligator has its mouth open",
+        "alligator is near the shallow end",
+        "a child is trapped on the pool steps"
+      ],
+      "victim_relation": [
+        "my two kids",
+        "my nephew",
+        "my daughter and her friends",
+        "the neighbor's child"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "At {address_location}, the pool area near the main building.",
+            "It's {address_location}. The pool is right behind the lobby.",
+            "Address is {address_location}. Can you see the big green pool?",
+            "{address_location}, the gator is in the family pool."
+          ],
+          "evacuating": [
+            "We are at {address_location}, evacuating the pool now.",
+            "Still at {address_location}. We've cleared the pool.",
+            "Same location, {address_location}. Pool is empty now.",
+            "{address_location}. Everyone is out of the water."
+          ],
+          "alligator_approaching": [
+            "Still at {address_location}! The alligator is coming towards the lounge chairs!",
+            "{address_location}! It's heading for the playground!",
+            "We're at {address_location} but people are still nearby!",
+            "{address_location} - it's getting more aggressive."
+          ],
+          "secured": [
+            "Alligator is contained at {address_location}. Pool is closed.",
+            "Animal control has it at {address_location}. Safe now.",
+            "Alligator removed from {address_location}. All clear.",
+            "Everything is under control at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a large alligator, about 8 feet. It's in the middle of the pool.",
+            "Dark green, maybe 6 feet. It's just floating.",
+            "I see its eyes and snout. It's watching us.",
+            "It just caught a duck. Now it's looking at my son."
+          ],
+          "evacuating": [
+            "We are getting everyone out. The alligator is still in the pool.",
+            "Kids are crying but safe. Gator is still there.",
+            "Pool is empty. We are keeping distance.",
+            "Alligator hasn't moved. It seems calm."
+          ],
+          "alligator_approaching": [
+            "It's climbing out of the pool! Heading toward the snack bar!",
+            "It's moving fast towards us! We're backing away!",
+            "It chased a dog! Now it's by the beach!",
+            "It's going after a small child! We need help!"
+          ],
+          "secured": [
+            "The alligator is tranquilized and being carried away.",
+            "It's in a cage. No one got hurt.",
+            "Wildlife experts have it under control.",
+            "Alligator is gone. Pool will be drained."
+          ]
+        }
+      },
+      "ASK_CONFIRM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's definitely an alligator. Not a log.",
+            "I'm positive. It has a long tail and teeth.",
+            "Yes, I saw it move. It's real.",
+            "Absolutely. Everyone is terrified."
+          ],
+          "evacuating": [
+            "Yes, still an alligator. It's still in the pool.",
+            "Yes, confirmed. We are evacuating.",
+            "Yes, it's still there. People are leaving.",
+            "Yes, but we are moving away."
+          ],
+          "alligator_approaching": [
+            "YES! It's coming! Run!",
+            "It's chasing us! Yes!",
+            "Oh yes, it's attacking!",
+            "Yes! It's out of the pool!"
+          ],
+          "secured": [
+            "No, it's safe now.",
+            "Alligator is handled.",
+            "It's over.",
+            "No emergency now."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "evacuating",
+          "evacuating": "alligator_approaching"
+        },
+        "responses": {
+          "initial": [
+            "Children are near the edge but not in water.",
+            "My son is on the diving board. He can't move.",
+            "Kids are running around screaming. We can't control them.",
+            "Some kids are still in the shallow end."
+          ],
+          "evacuating": [
+            "We're getting everyone out. No one is in the water now.",
+            "Kids are on the chairs away from pool.",
+            "We've moved everyone inside the building.",
+            "All children are accounted for and safe."
+          ],
+          "alligator_approaching": [
+            "It's coming towards the lounge area! People are panicking!",
+            "It's heading to the playground. Kids are still there!",
+            "We're running to the lobby. It's right behind us!",
+            "I'm carrying my toddler. The gator is close!"
+          ],
+          "secured": [
+            "Everyone is safe. No injuries.",
+            "Children are inside. All okay.",
+            "No one was hurt. Thanks.",
+            "We're all fine. The pool is closed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived and secured the area, but were not animal experts. They had to wait for animal control, causing some delay and panic."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters used water hoses to spray the alligator, which agitated it. It attacked a firefighter's boot but no injuries. Gator was eventually captured by animal control."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Medical units arrived but were unprepared for the alligator. The alligator bit a paramedic's leg, requiring hospitalization. Incident escalated."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Animal control arrived quickly with proper equipment. Tranquilized the alligator and removed it safely. No injuries. Resort guests praised response."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as likely hoax. Alligator attacked a child playing by the pool, causing severe injuries. Resort sued for negligence."
+      }
+    },
+    "id": "scenario_132",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Cows on the Highway",
+    "summary": "A truck has overturned on a major highway, spilling dozens of cows onto the road. Cars are swerving and crashing.",
+    "states": ["initial", "cows_stampeding", "evacuating_vehicles", "herd_controlled"],
+    "initial_variations": [
+      "Dozens of cows are on Interstate 95! They're everywhere after a truck crash! This is {caller_name} near {address_location}. Cars are crashing!",
+      "There's a livestock truck overturned on the highway! Cows are running all over the road! I almost hit one at {address_location}. Send help!",
+      "A bunch of cows are blocking the highway at {address_location}. People are slamming brakes and causing accidents! It's chaos!",
+      "Oh my god, there are cows everywhere on the freeway! Truck spilled them. I'm at {address_location}. Can't move. Some cars are wrecked."
+    ],
+    "slots": {
+      "caller_name": ["Mike Foster", "Emily White", "James Carter", "Laura Bennett"],
+      "address_location": [
+        "mile marker 42, I-95 North, Richmond",
+        "near exit 15, I-75, Atlanta",
+        "overpass on Route 66, St. Louis",
+        "southbound lane of the 405, Los Angeles"
+      ],
+      "ambient_audio": [
+        "car horns blaring",
+        "tires screeching",
+        "cows mooing loudly",
+        "metal crunching"
+      ],
+      "specific_details": [
+        "about 30 cows loose",
+        "one cow is injured on the road",
+        "a car has flipped over",
+        "the truck driver is trapped in his cab"
+      ],
+      "victim_relation": [
+        "my wife and kids in the car behind me",
+        "my friend in the car next to me",
+        "the driver of the truck",
+        "myself, I'm stuck"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm on I-95 North, mile marker 42, near the Richmond exit.",
+            "Exit 15 on I-75, just south of the airport.",
+            "Route 66 overpass, eastbound side.",
+            "I'm on the 405 South, just past the 10 interchange."
+          ],
+          "cows_stampeding": [
+            "Still on I-95, same spot. Cows are running into traffic!",
+            "I-75, exit 15. Some cows are heading towards the oncoming lane!",
+            "Route 66 overpass. Cows are on both sides now!",
+            "405 South, they're spreading to the shoulder!"
+          ],
+          "evacuating_vehicles": [
+            "We're moving people away from the cars. Same location.",
+            "At exit 15, guiding people to the median.",
+            "Route 66 overpass, everyone is out of their cars.",
+            "405 South, we're herding people to safety."
+          ],
+          "herd_controlled": [
+            "The cows are being guided off the highway at mile marker 42.",
+            "Exit 15 area. Police are managing the herd.",
+            "Route 66 clear. Cows are in a nearby field.",
+            "405 South is reopening. All cows accounted for."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A livestock truck flipped. Cows are all over the road.",
+            "About 20 cows, maybe more. They're panicking.",
+            "One cow is down, looks injured. Others are roaming.",
+            "The truck driver is hanging out of the cab, calling for help."
+          ],
+          "cows_stampeding": [
+            "The cows are running everywhere! They're causing more crashes!",
+            "Some cows are charging at cars! People are scared.",
+            "A group of cows is blocking the entire highway.",
+            "I see a cow on the roof of a car!"
+          ],
+          "evacuating_vehicles": [
+            "We are getting people out of their cars. Some are injured.",
+            "Traffic has stopped. We are moving to the sides.",
+            "People are leaving their vehicles. It's safer on foot.",
+            "I'm directing people away from the herd."
+          ],
+          "herd_controlled": [
+            "Police and animal control are rounding up the cows.",
+            "Cows are being loaded onto trailers.",
+            "Only a few cows left. Traffic is starting to move.",
+            "The injured cow is being treated."
+          ]
+        }
+      },
+      "ASK_CONFIRM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, cows. Real cows. Lots of them.",
+            "I'm not kidding. There are cows on the highway.",
+            "Yes, I can hear them mooing. It's real.",
+            "Yes, I saw the truck overturn. Cows everywhere."
+          ],
+          "cows_stampeding": [
+            "Yes! They're still stampeding! Get help!",
+            "Yes, it's getting worse! More cars crashing!",
+            "Yes, send police and animal control now!",
+            "Yes, the cows are going crazy!"
+          ],
+          "evacuating_vehicles": [
+            "Yes, but we are evacuating people.",
+            "Yes, but we have it under control.",
+            "Yes, but we are out of the cars.",
+            "Yes, people are safe now."
+          ],
+          "herd_controlled": [
+            "No, situation is calming down.",
+            "It's under control. Cows being herded.",
+            "Not chaotic now. Clearing up.",
+            "All clear soon."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "cows_stampeding",
+          "cows_stampeding": "evacuating_vehicles"
+        },
+        "responses": {
+          "initial": [
+            "I'm in my car, but cows are all around. I'm trapped.",
+            "I'm on the shoulder. People are in their cars.",
+            "Some people are getting out to help the driver.",
+            "I see injuries. Someone is bleeding."
+          ],
+          "cows_stampeding": [
+            "Cows are hitting cars! People are running for cover!",
+            "A cow just rammed a car window! Family inside!",
+            "People are trapped in their cars! Cows are surrounding them!",
+            "The injured truck driver is still in the cab!"
+          ],
+          "evacuating_vehicles": [
+            "We are getting everyone out of vehicles. Some are hurt.",
+            "I'm leading people to a safe zone away from cows.",
+            "We've evacuated about 20 people so far.",
+            "The truck driver is out and being treated."
+          ],
+          "herd_controlled": [
+            "Everyone is safe. Minor injuries only.",
+            "No life-threatening injuries. People are being checked.",
+            "All motorists accounted for. Cows secure.",
+            "Situation stable. Thank you."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Police arrived, set up roadblocks, and directed traffic while animal control handled the cows. Efficient coordination prevented further accidents."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire trucks arrived with sirens, startling the cows and causing them to stampede onto the other side of the highway, causing more crashes."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical units treated minor injuries but could not manage the cows. Police and animal control had to be called anyway."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control arrived with trailers and herded the cows off the highway efficiently. Traffic resumed within an hour. No major injuries."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as a prank. Cows continued to roam the highway, causing a multi-car pileup with fatalities. The truck driver died from injuries."
+      }
+    },
+    "id": "scenario_133",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Snake in Daycare",
+    "summary": "A venomous snake has been found inside a daycare center during playtime. Children are in the same room.",
+    "states": ["initial", "children_evacuated", "snake_cornered", "snake_contained"],
+    "initial_variations": [
+      "There's a snake in the daycare! It's in the playroom with the children! This is {caller_name} at {address_location}. Please help!",
+      "A big snake, maybe a rattlesnake, is in the toddler room! We need help now! Address: {address_location}. Kids are screaming!",
+      "Please send animal control! A snake is crawling under the tables at {address_location}. It could be venomous. We have 15 kids here!",
+      "Emergency! Snake in the daycare at {address_location}. It's coiled up near the toys. Kids are hiding in the corner. I'm scared."
+    ],
+    "slots": {
+      "caller_name": ["Nancy Green", "Kevin Smith", "Rachel Adams", "Brian Thomas"],
+      "address_location": [
+        "Little Stars Daycare, 1234 Main St, Springfield",
+        "Kiddie Haven, 5678 Oak Ave, Centerville",
+        "Sunny Days Childcare, 9101 Pine Blvd, Fairview",
+        "Happy Tots Center, 1122 Elm St, Rivertown"
+      ],
+      "ambient_audio": [
+        "children crying and shouting",
+        "snake hissing",
+        "teachers trying to calm kids",
+        "toys being knocked over"
+      ],
+      "specific_details": [
+        "snake is about 4 feet long, brown with diamond pattern",
+        "snake is near the sandbox",
+        "snake is wrapped around a chair leg",
+        "could be a copperhead"
+      ],
+      "victim_relation": [
+        "my daughter",
+        "the whole class",
+        "my son and his friends",
+        "the daycare staff"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Little Stars Daycare, 1234 Main St, Springfield. The playroom is on the left.",
+            "Kiddie Haven, 5678 Oak Ave, Centerville. It's in the room with red door.",
+            "Sunny Days, 9101 Pine Blvd, Fairview. The snake is in the toddlers' room.",
+            "Happy Tots, 1122 Elm St, Rivertown. Come to the back entrance."
+          ],
+          "children_evacuated": [
+            "Same location, Little Stars. Kids are in the backyard now.",
+            "Kiddie Haven. Children are in the cafeteria across the hall.",
+            "Sunny Days. Evacuated to the playground.",
+            "Happy Tots. Kids are in the gym now."
+          ],
+          "snake_cornered": [
+            "Still at Little Stars. Snake is in the corner near the bookshelf.",
+            "Kiddie Haven. Snake is behind the piano.",
+            "Sunny Days. It's under the art table.",
+            "Happy Tots. Cornered in the storage closet."
+          ],
+          "snake_contained": [
+            "Little Stars. Snake is in a bucket. Waiting for expert.",
+            "Kiddie Haven. Snake is under a bin.",
+            "Sunny Days. Caught in a net.",
+            "Happy Tots. Snake is in a cage."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a brown snake with diamond patterns. Could be a rattlesnake.",
+            "It's about 3 feet, slender. I think it's a copperhead.",
+            "I see a black snake with a white belly. Maybe it's harmless?",
+            "It's coiled and hissing. Looks dangerous."
+          ],
+          "children_evacuated": [
+            "Snake is still in the playroom. Kids are safe outside.",
+            "The snake hasn't moved. It's just resting.",
+            "It's now under the table where we had snacks.",
+            "We left the room. Snake is alone."
+          ],
+          "snake_cornered": [
+            "It's trapped in the corner. Trying to escape.",
+            "It's striking at a broom. We blocked it.",
+            "It's between the wall and the bookshelf.",
+            "We have it cornered with chairs."
+          ],
+          "snake_contained": [
+            "We got it in a trash can with a lid.",
+            "It's in a plastic bin with holes.",
+            "A teacher captured it in a net.",
+            "It's in a pet carrier from the office."
+          ]
+        }
+      },
+      "ASK_CONFIRM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's a snake. I'm not kidding.",
+            "I swear it's real. It moved.",
+            "Yes, I saw its tongue.",
+            "Yes, children are terrified."
+          ],
+          "children_evacuated": [
+            "Yes, snake still there. Kids out.",
+            "Confirmed. Snake present.",
+            "Yes, we evacuated.",
+            "Yes, snake remains."
+          ],
+          "snake_cornered": [
+            "Yes, we have it cornered.",
+            "Confirmed. It's trapped.",
+            "Yes, but we need help.",
+            "Yes, please send someone."
+          ],
+          "snake_contained": [
+            "No, it's contained.",
+            "Under control now.",
+            "Handled. Thanks.",
+            "No longer an emergency."
+          ]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "children_evacuated",
+          "children_evacuated": "snake_cornered"
+        },
+        "responses": {
+          "initial": [
+            "Children are in the room with the snake. We're trying to keep them away.",
+            "The snake is near the door. We can't get out.",
+            "Kids are crying but staying still.",
+            "I'm holding a child. The snake is nearby."
+          ],
+          "children_evacuated": [
+            "Children are out of the room. They're in the hallway.",
+            "We moved everyone to the playground. They're safe.",
+            "Kids are in another classroom. Door is closed.",
+            "All children accounted for. No one bitten."
+          ],
+          "snake_cornered": [
+            "Children are safe outside. We are adults cornering the snake.",
+            "Teachers are handling it. Kids are away.",
+            "No children nearby. Snake is isolated.",
+            "We are waiting for animal control."
+          ],
+          "snake_contained": [
+            "Everyone safe. Snake secure.",
+            "No injuries. Children still outside.",
+            "Situation under control.",
+            "All good."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived and secured the area but were not trained in snake handling. Animal control had to be called, causing a 20-minute delay."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters attempted to remove snake but it slithered into a vent, requiring building maintenance and pest control to remove it later."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "No bites reported. Medical units unnecessarily tied up resources. When a real medical emergency came, response was delayed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Animal expert arrived, identified the snake as a non-venomous garter snake, and safely removed it. Children watched with fascination. Great outcome."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as prank. Snake turned out to be a venomous rattlesnake. It bit a child before being killed by a teacher. Child survived but permanent damage."
+      }
+    },
+    "id": "scenario_134",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Monkey Escape at Zoo",
+    "summary": "A monkey has escaped its enclosure at a zoo and is now running through the public area, stealing food and causing panic.",
+    "states": ["initial", "monkey_on_rampage", "visitors_sheltered", "monkey_captured"],
+    "initial_variations": [
+      "A monkey escaped at the zoo! It's running through the crowd! This is {caller_name} at {address_location}. It's causing chaos!",
+      "There's a monkey loose in the zoo! It's attacking food carts! Help! Address: {address_location}. People are screaming and running.",
+      "A capuchin monkey got out of its cage and is now in the picnic area! It's stealing bags! Send animal control to {address_location}!",
+      "Monkey on the loose at {address_location}! It just grabbed a woman's purse and is climbing trees! We need help!"
+    ],
+    "slots": {
+      "caller_name": ["Samantha Lee", "Robert Garcia", "Heather Miller", "Daniel Kim"],
+      "address_location": [
+        "City Zoo, 4500 Zoo Drive, Metropolis",
+        "Wildlife Park, 6789 Safari Lane, Riverside",
+        "Adventure Zoo, 1230 Animal Trail, Hillside",
+        "National Zoo, 5500 Conservation Blvd, Arlington"
+      ],
+      "ambient_audio": [
+        "crowd screaming and laughing",
+        "monkey screeching",
+        "music from a carousel",
+        "children crying"
+      ],
+      "specific_details": [
+        "monkey is small, brown, and very fast",
+        "monkey is carrying a bag of chips",
+        "monkey is sitting on the roof of a gift shop",
+        "monkey is fighting a peacock"
+      ],
+      "victim_relation": [
+        "my son who is terrified",
+        "my grandmother who was pushed",
+        "a zookeeper trying to catch it",
+        "the vendor at the food cart"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "City Zoo, near the entrance. The monkey is by the food court.",
+            "Wildlife Park, by the reptile house. It's on the roof.",
+            "Adventure Zoo, near the carousel. People are scattering.",
+            "National Zoo, in the Africa section. It's climbing the trees."
+          ],
+          "monkey_on_rampage": [
+            "Still City Zoo, but now it's in the children's petting area!",
+            "Wildlife Park. It's terrorizing the snack bar.",
+            "Adventure Zoo. It's swinging from the lights.",
+            "National Zoo. It's stealing ice cream from kids."
+          ],
+          "visitors_sheltered": [
+            "We're in the zoo auditorium. Monkey is outside.",
+            "People are in the food court with doors locked.",
+            "Visitors are in the indoor exhibits. Monkey outside.",
+            "Everyone is in the main building. Monkey on grounds."
+          ],
+          "monkey_captured": [
+            "Monkey caught near the gift shop. Handled.",
+            "Trapped in the aviary. Staff are retrieving it.",
+            "Tranquilized and safe. In the back.",
+            "Monkey returned to enclosure. Thanks."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Small brown monkey, about the size of a cat. Very active.",
+            "It's a capuchin monkey, fast and agile.",
+            "It has a white face and long tail.",
+            "It's throwing things at people."
+          ],
+          "monkey_on_rampage": [
+            "It just knocked over a trash can and took food.",
+            "It is chasing a peacock! Feathers everywhere!",
+            "It's opening bags and eating everything.",
+            "It's being aggressive, baring teeth."
+          ],
+          "visitors_sheltered": [
+            "Monkey is still out there, but visitors are safe inside.",
+            "It's trying to open the door to the food court.",
+            "Monkey is calm now, sitting on a bench.",
+            "It stole a hot dog and is eating it."
+          ],
+          "monkey_captured": [
+            "Monkey is in a cage, no harm done.",
+            "Captured by zookeepers. Everyone safe.",
+            "Tranquilizer dart worked. Monkey is asleep.",
+            "It was lured with peanuts. Caught."
+          ]
+        }
+      },
+      "ASK_CONFIRM": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's a real monkey. Not a child in costume.",
+            "I swear, it's a monkey! Look up!",
+            "Yes, I saw it escape from the cage.",
+            "Yes, people are running. It's real."
+          ],
+          "monkey_on_rampage": [
+            "Yes! It's getting worse!",
+            "Yes, it's still causing trouble.",
+            "Yes, please hurry!",
+            "Yes, it just bit someone!"
+          ],
+          "visitors_sheltered": [
+            "Yes, but it's contained for now.",
+            "Yes, but we are safe.",
+            "Yes, we are waiting for animal control.",
+            "Yes, but under control."
+          ],
+          "monkey_captured": ["No, it's over.", "All clear.", "No emergency.", "Monkey caught."]
+        }
+      },
+      "ASK_SAFETY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "monkey_on_rampage",
+          "monkey_on_rampage": "visitors_sheltered"
+        },
+        "responses": {
+          "initial": [
+            "People are running and screaming. A child fell.",
+            "A woman is crying on the ground. She might be hurt.",
+            "My son is hiding behind a table. The monkey is close.",
+            "I'm trying to record it, but it's too fast."
+          ],
+          "monkey_on_rampage": [
+            "It just scratched a man's arm. He's bleeding.",
+            "A child is trapped on a bench. The monkey is nearby.",
+            "It's throwing food and hitting visitors.",
+            "People are panicking. I need help!"
+          ],
+          "visitors_sheltered": [
+            "All visitors are inside buildings. No injuries.",
+            "Some minor cuts from falls. But everyone is inside.",
+            "We have about 200 people in the auditorium. Safe.",
+            "Security is guiding people to exits."
+          ],
+          "monkey_captured": [
+            "No injuries to visitors. Monkey is fine.",
+            "One zookeeper got a scratch. Treated.",
+            "All safe. Incident resolved.",
+            "Thanks for your help."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived and helped corral visitors, but the monkey was too quick. Animal control had to catch it later. Some minor injuries from falls."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters used a ladder to try to reach the monkey in a tree, but it kept moving. They accidentally knocked over a food cart, causing mess."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Medical units arrived but were not needed. They blocked the ambulance bay, delaying an actual emergency call. Monkey still loose."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control zoo staff quickly responded with treats and a net. The monkey was lured back into its enclosure within minutes. Visitors amused."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as not serious. Monkey entered the control room and caused a power outage. Zoo had to evacuate. Several visitors injured in the dark."
+      }
+    },
+    "id": "scenario_135",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "id": "scenario_136",
+    "title": "Kangaroo on the Highway",
+    "description": "A caller reports a large kangaroo hopping along a busy highway, causing cars to swerve and nearly causing multiple collisions. The caller is in a car, following at a safe distance.",
+    "archetype": "Animal Chaos",
+    "states": {
+      "initial": "Caller is in a vehicle, observing the kangaroo.",
+      "following": "Caller is following the kangaroo at a distance to keep track of its location.",
+      "stopped": "Caller has pulled over and is watching from the roadside.",
+      "evacuated": "Caller has left the area and is reporting from a safe spot."
+    },
+    "initial_variations": [
+      "There's a massive kangaroo on the highway! It's causing chaos, cars are swerving everywhere at {address_location}!",
+      "Oh my god, a giant kangaroo is hopping down the middle of {address_location} and almost hit a car! You need to send help!",
+      "I'm on {address_location} and there's a kangaroo in the road! People are slamming on brakes, it's a disaster!",
+      "This is insane! A kangaroo just bounced across the highway near {address_location} and caused a pile-up! Hurry!"
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Linda", "Tom"],
+      "address_location": [
+        "Interstate 95 near exit 12",
+        "Highway 101 at mile marker 30",
+        "Route 66 at the county line",
+        "Main Street and 5th Avenue",
+        "The freeway overpass on I-75"
+      ],
+      "ambient_audio": [
+        "car horns blaring",
+        "screeching tires",
+        "people shouting",
+        "engine revving"
+      ],
+      "specific_details": [
+        "the kangaroo is about 6 feet tall",
+        "it's hopping southbound",
+        "it has a joey in its pouch",
+        "there's a damaged car with a flat tire from swerving"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm on {address_location}, heading northbound. The kangaroo is hopping south in the median.",
+            "We're at {address_location}, near the overpass. Please send someone!"
+          ],
+          "following": [
+            "I'm still following it on {address_location}, now near the gas station. It's moving fast!",
+            "It's on {address_location} just past the big billboard. I'm a quarter mile behind."
+          ],
+          "stopped": [
+            "I pulled over at the rest area on {address_location}. The kangaroo is about 200 yards ahead, still on the highway.",
+            "I'm at the side of {address_location} near the truck stop. It's now in the southbound lanes."
+          ],
+          "evacuated": [
+            "I've moved to the parking lot of the mall off {address_location}. It's still on the highway, but I can see it from here."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a huge kangaroo, maybe 6 feet tall, with a joey. It's hopping erratically, almost causing crashes.",
+            "It's gray and muscular, definitely a wild kangaroo. It jumped in front of a minivan!"
+          ],
+          "following": [
+            "It just hopped over a guardrail and back onto the road. It's getting aggressive, kicking at cars.",
+            "Two cars have minor collisions trying to avoid it. It's now on the shoulder, looking confused."
+          ],
+          "stopped": [
+            "From here I can see it's stopped in the middle of the road, looking around. Traffic is backing up badly.",
+            "It's now sitting on the median, grooming itself. But cars are still swerving."
+          ],
+          "evacuated": [
+            "It's still on the highway, but traffic has slowed to a crawl. No injuries that I can see."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}, I'm a truck driver. I've been driving for 20 years and never seen anything like this.",
+            "This is {caller_name}, I'm a mom with two kids in the car. We're scared!"
+          ],
+          "following": [
+            "I'm {caller_name}, I'm retired and have a dashcam recording everything.",
+            "This is {caller_name}, I'm just a commuter trying to get home."
+          ],
+          "stopped": [
+            "{caller_name} here, I pulled over because I didn't want to hit it. I'm safe for now.",
+            "I'm {caller_name}, I'm a nurse and I'm worried someone will get hurt."
+          ],
+          "evacuated": ["{caller_name}, I'm now at a safe distance. My car is fine."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "following",
+          "following": "stopped",
+          "stopped": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "You want me to keep an eye on it? I can try to follow from a distance.",
+            "Should I try to scare it off the road?"
+          ],
+          "following": [
+            "I'm following it slowly, but it's getting more agitated. I can pull over if that's safer.",
+            "I'll keep tracking it until you tell me otherwise."
+          ],
+          "stopped": [
+            "I've stopped. I can watch from here and report its movements.",
+            "I'll stay put and keep observing."
+          ],
+          "evacuated": [
+            "I'm well away from the highway now, but I can still see it. I'll wait for updates."
+          ]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's an emergency! Cars are crashing and people could die!",
+            "This is serious, a kangaroo on a highway is a recipe for disaster!"
+          ],
+          "following": [
+            "It's still dangerous. The kangaroo just kicked a motorcycle. The rider is on the ground!",
+            "Getting worse, there's now a three-car pileup behind it."
+          ],
+          "stopped": [
+            "I think it's calming down, but it's still a hazard. No injuries yet, but it's just a matter of time.",
+            "It's standing still, but traffic is backing up for miles. Someone could rear-end."
+          ],
+          "evacuated": [
+            "From my spot, I can hear sirens approaching, but it's still a mess. I'm out of harm's way."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police are dispatched but have no equipment to handle a kangaroo. They call animal control anyway, delaying response."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Fire department arrives with a large truck, but the kangaroo escapes into the woods. Traffic chaos continues."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Medical team arrives to treat minor injuries from the fender benders, but the kangaroo remains loose."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Animal control arrives with a tranquilizer gun and safely captures the kangaroo. It is later released in a wildlife reserve."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Call was dismissed, but the kangaroo caused a multi-car accident with serious injuries. Callers later sue the dispatch center."
+      }
+    }
+  },
+  {
+    "id": "scenario_137",
+    "title": "Elephant Escapes Circus",
+    "description": "A panicked caller from a small town reports that an elephant has escaped from a traveling circus and is wandering through a residential neighborhood, trampling gardens and overturning cars.",
+    "archetype": "Animal Chaos",
+    "states": {
+      "initial": "Caller sees the elephant from their house.",
+      "hiding": "Caller is hiding indoors, watching from a window.",
+      "following": "Caller is walking at a safe distance, trying to keep the elephant in sight.",
+      "evacuated": "Caller has moved to a designated safe zone."
+    },
+    "initial_variations": [
+      "There's an elephant in my front yard! It just stepped on my neighbor's car! It's at {address_location}!",
+      "Oh no, an elephant escaped the circus and is roaming the streets of {address_location}! It's huge!",
+      "Help! A giant elephant is crashing through the neighborhood on {address_location}! People are running!",
+      "This is crazy! An elephant is wandering around {address_location} and it's destroying everything!"
+    ],
+    "slots": {
+      "caller_name": ["David", "Emily", "Jake", "Karen"],
+      "address_location": [
+        "Elm Street near the park",
+        "Oak Avenue and 3rd",
+        "Maple Drive",
+        "Pine Lane",
+        "Cedar Court"
+      ],
+      "ambient_audio": ["trumpeting sounds", "crashing metal", "screaming children", "car alarms"],
+      "specific_details": [
+        "the elephant has a torn circus blanket",
+        "it's eating from a dumpster",
+        "it seems scared and agitated",
+        "a small dog is barking at it"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, and the elephant is heading towards the school!",
+            "It's on {address_location}, near the intersection with Oak."
+          ],
+          "hiding": [
+            "I'm hiding in my house on {address_location}. The elephant is outside, knocking over trash cans.",
+            "From my window on {address_location}, I can see it walking down the street."
+          ],
+          "following": [
+            "I'm following it at a safe distance on {address_location}. It just turned onto Pine.",
+            "It's moving east on {address_location}, past the gas station."
+          ],
+          "evacuated": [
+            "I'm at the community center, but the elephant was last seen near {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a gray African elephant, about 10 feet tall. It has a circus harness on, but it's torn.",
+            "It's huge! It knocked over a mailbox and is now heading towards the playground."
+          ],
+          "hiding": [
+            "It just stepped on a parked car, completely flattened it. It's making deep trumpeting noises.",
+            "It's eating the flowers in Mrs. Johnson's garden. Seems calmer but still dangerous."
+          ],
+          "following": [
+            "It overturned a dumpster and is now spraying water from a hydrant. It looks playful but could turn aggressive.",
+            "It's walking slowly, occasionally stopping to sniff at doors."
+          ],
+          "evacuated": [
+            "From the safe zone, I can hear it trumpeting. It seems to be heading out of the neighborhood."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}, I live on this street. My kids are inside, terrified!",
+            "This is {caller_name}, I'm visiting my parents here. We're all hiding."
+          ],
+          "hiding": [
+            "{caller_name} here, I'm safe inside but I can see it from my window.",
+            "I'm {caller_name}, a retired teacher. I've never seen an elephant up close."
+          ],
+          "following": [
+            "{caller_name}, I'm following at a distance. I used to work at a zoo, so I know to keep my distance.",
+            "This is {caller_name}, I'm just trying to make sure it doesn't hurt anyone."
+          ],
+          "evacuated": ["{caller_name}, I've been evacuated. My house is on {address_location}."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "following",
+          "following": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Should I stay indoors or try to scare it away?",
+            "I'm going to go to the basement. Is that safe?"
+          ],
+          "hiding": [
+            "I'll stay here and keep watching. It doesn't seem to notice me.",
+            "I'm going to lock the doors and stay quiet."
+          ],
+          "following": [
+            "I'll keep following it and update you if it changes direction.",
+            "I think it's heading back towards the circus grounds. I'll follow."
+          ],
+          "evacuated": ["I'm staying at the safe zone. No need for me to go back."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes! It's a danger to everyone. It could hurt someone!",
+            "It's emergency level for sure. People are panicking."
+          ],
+          "hiding": [
+            "It's still an emergency. It could break into a house any moment.",
+            "Yes, it's unpredictable. Please send animal control."
+          ],
+          "following": [
+            "It's still a hazard, but at least it's moving away from homes.",
+            "Moderate emergency. It seems to be calming down."
+          ],
+          "evacuated": [
+            "Now that I'm safe, I'd say it's under control. But it still needs to be captured."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police arrive and try to block traffic, but the elephant is too large. They request animal control, causing delay."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters use water hoses to try to steer the elephant, but it only angers it. The elephant breaks a fire hydrant."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Medical team treats a few people with minor injuries from falls, but the elephant remains a threat."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Animal control arrives with a veterinarian and tranquilizers. The elephant is safely sedated and returned to the circus."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "message": "Call dismissed; the elephant later damages multiple homes and injures a child. Dispatch center faces public outrage."
+      }
+    }
+  },
+  {
+    "id": "scenario_138",
+    "title": "Wild Boar in School Yard",
+    "description": "A teacher calls from an elementary school where a wild boar has wandered onto the playground during recess. Children are screaming and the boar is charging at anyone who moves.",
+    "archetype": "Animal Chaos",
+    "states": {
+      "initial": "Caller is inside the school building, watching from a window.",
+      "secured": "Children have been brought inside, caller is locking doors.",
+      "confronting": "Staff are trying to hold the boar at bay with chairs and brooms.",
+      "evacuated": "Everyone is in a safe room, away from windows."
+    },
+    "initial_variations": [
+      "There's a wild boar on the playground of {address_location}! Kids are still outside, we need help NOW!",
+      "A huge boar with tusks just ran into the school yard at {address_location}! It's chasing the children!",
+      "This is an emergency at {address_location} Elementary! A wild boar is attacking the playground!",
+      "Please send help! A boar is on the loose at {address_location} school! It's very aggressive!"
+    ],
+    "slots": {
+      "caller_name": ["Principal Moore", "Teacher Jenkins", "Ms. Garcia", "Coach Harris"],
+      "address_location": [
+        "Lincoln Elementary, 123 School St",
+        "Sunrise Academy, 456 Park Ave",
+        "Hilltop School, 789 Mountain Road",
+        "Riverdale Elementary, 321 River Rd",
+        "Oakwood School, 654 Oak Lane"
+      ],
+      "ambient_audio": [
+        "children screaming",
+        "boar snorting and grunting",
+        "clattering of metal chairs",
+        "shouting teachers"
+      ],
+      "specific_details": [
+        "the boar has sharp tusks",
+        "it's about 200 pounds",
+        "it already gored a trash can",
+        "the children are hiding behind slides"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, in the main office. The boar is on the north playground.",
+            "It's at {address_location}, right outside the cafeteria windows."
+          ],
+          "secured": [
+            "All children are inside now at {address_location}. The boar is at the front entrance.",
+            "We've locked down the school at {address_location}. The boar is circling the building."
+          ],
+          "confronting": [
+            "We have a few staff members holding it back near the gym entrance at {address_location}.",
+            "It's cornered against the fence at {address_location}."
+          ],
+          "evacuated": [
+            "We're all in the auditorium at {address_location}. The boar is still outside, but we're safe."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a large brown boar with tusks, maybe 200 pounds. It's charging at anything that moves.",
+            "It's grunting loudly and has foam at the mouth. It looks rabid."
+          ],
+          "secured": [
+            "It's now ramming the front door. The glass is shaking but holding.",
+            "It's scratching at the window of the kindergarten room. The kids are crying."
+          ],
+          "confronting": [
+            "We have a trash can lid as a shield. It's keeping the boar at a distance, but it's tiring.",
+            "It backed off after we shouted, but it's still pacing."
+          ],
+          "evacuated": [
+            "From the auditorium, we can hear it snorting in the hallway. But we locked all doors."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}, the school principal. I'm responsible for these kids.",
+            "This is {caller_name}, a second-grade teacher. I'm terrified."
+          ],
+          "secured": [
+            "{caller_name} here, we have all children accounted for.",
+            "I'm {caller_name}, the school secretary. Everyone is inside."
+          ],
+          "confronting": [
+            "{caller_name}, I'm the janitor. We need help, we can't hold it forever.",
+            "I'm {caller_name}, a science teacher. I'm trying to stay calm."
+          ],
+          "evacuated": ["{caller_name}, we're all in the auditorium. No injuries so far."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "secured",
+          "secured": "confronting",
+          "confronting": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Should we try to get the kids inside or stay put?",
+            "I'm calling a lockdown now."
+          ],
+          "secured": [
+            "We have everyone inside. What should we do about the boar ramming the door?",
+            "I'll have staff guard the doors and keep kids away."
+          ],
+          "confronting": [
+            "We're trying to keep it away from the doors while kids get to safety.",
+            "I'll try to lead it away from the building."
+          ],
+          "evacuated": ["We're all safe in the auditorium. We'll wait for help."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's life-threatening! Children are in danger!",
+            "Absolutely an emergency! It's charging!"
+          ],
+          "secured": [
+            "It's still an emergency. The boar is trying to break in.",
+            "Definitely still critical. We need animal control."
+          ],
+          "confronting": [
+            "It's an emergency, we need backup now!",
+            "Yes, we can't hold it much longer."
+          ],
+          "evacuated": [
+            "Not as urgent now, but it's still loose in the building? No, it's outside. We need it removed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Police arrive and attempt to dispatch the boar with guns, but it charges and injures an officer before being shot."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire department uses a hose to drive the boar away, but it breaks a window and enters a classroom, causing panic."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Medical team treats a teacher for minor cuts, but the boar remains on the loose."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Animal control arrives with a tranquilizer and safely captures the boar. No children are hurt. The boar is later released into a forest."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; the boar breaks into the school, injures three children and a teacher. The dispatch center is held liable."
+      }
+    }
+  },
+  {
+    "id": "scenario_139",
+    "title": "Raccoon Invasion at Restaurant",
+    "description": "A restaurant manager calls because a large group of raccoons has entered the dining area through a broken back door. They are aggressive, stealing food, and customers are trapped in their seats.",
+    "archetype": "Animal Chaos",
+    "states": {
+      "initial": "Caller is in the kitchen, watching raccoons in the dining room.",
+      "hiding": "Caller and staff are hiding in the back office.",
+      "confronting": "Caller is trying to shoo raccoons with a broom, but they are not afraid.",
+      "evacuated": "All humans have evacuated outside, leaving raccoons inside."
+    },
+    "initial_variations": [
+      "There are like 20 raccoons in my restaurant at {address_location}! They're tearing the place apart and customers are terrified!",
+      "A bunch of raccoons just invaded our dining room at {address_location}! They're hissing and stealing food! We need help!",
+      "It's a raccoon invasion at {address_location}! They came through the back door and won't leave! People are scared!",
+      "Send animal control ASAP! Raccoons have taken over my restaurant on {address_location}! they're everywhere!"
+    ],
+    "slots": {
+      "caller_name": ["Chef Marco", "Manager Lisa", "Owner Dave", "Waiter Tim"],
+      "address_location": [
+        "Bella Italia, 123 Main St",
+        "Sushi Place, 456 Oak Ave",
+        "The Burger Joint, 789 Elm St",
+        "Pizza Palace, 321 Pine Rd",
+        "Taco Stand, 654 Maple Dr"
+      ],
+      "ambient_audio": [
+        "chattering and hissing",
+        "breaking dishes",
+        "customers screaming",
+        "raccoons rummaging"
+      ],
+      "specific_details": [
+        "they are on tables stealing bread",
+        "one raccoon is at the salad bar",
+        "they look aggressive, possibly rabid",
+        "they overturned a drinks station"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The raccoons are all over the dining room near the front.",
+            "We're on {address_location}, in the back kitchen. The raccoons are blocking the exit."
+          ],
+          "hiding": [
+            "We're hiding in the office at {address_location}. They're scratching at the door.",
+            "From the back room at {address_location}, I can hear them destroying the bar."
+          ],
+          "confronting": [
+            "I'm in the dining area at {address_location}, trying to scare them off. It's not working.",
+            "I'm at the front door of {address_location}, the raccoons are now on the hostess stand."
+          ],
+          "evacuated": [
+            "We're all outside on the sidewalk of {address_location}. The raccoons are still inside."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are about 15 raccoons, big ones. They're not afraid of people. They're eating everything.",
+            "They came in through the back door, which is broken. They're hissing and baring teeth."
+          ],
+          "hiding": [
+            "They're trying to get into the office. One just put its paws under the door.",
+            "I can hear them climbing the shelves and knocking over bottles."
+          ],
+          "confronting": [
+            "They just ignored my broom and one crawled up a table leg. The customers are freaking out.",
+            "I swatted one and it hissed. They're now cornering a customer in the booth."
+          ],
+          "evacuated": [
+            "They've totally taken over. I can see them through the window, feasting on the buffet."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}, the manager. I'm responsible for the customers.",
+            "This is {caller_name}, the chef. I've never seen anything like this."
+          ],
+          "hiding": [
+            "{caller_name} here, I'm with three waitresses. We're all scared.",
+            "I'm {caller_name}, the owner. My livelihood is being destroyed."
+          ],
+          "confronting": [
+            "{caller_name}, I'm a part-time cook. I grabbed a broom to help.",
+            "I'm {caller_name}, I've been trying to get customers out."
+          ],
+          "evacuated": ["{caller_name}, we're all safe outside. There's about 20 of us."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Should we try to leave through the back or stay put?",
+            "I'm going to lock the dining room doors so they don't spread."
+          ],
+          "hiding": [
+            "We'll stay hidden until help arrives.",
+            "I should try to get customers out through the window."
+          ],
+          "confronting": [
+            "I'm trying to create a path to the exit for customers.",
+            "I'll keep them at bay while people evacuate."
+          ],
+          "evacuated": ["We're out. No one is hurt. Just the restaurant is trashed."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes! They could bite someone. Some look rabid.",
+            "Emergency! A child is trapped under a table with raccoons nearby."
+          ],
+          "hiding": [
+            "It's still very bad. They're aggressive and we're trapped.",
+            "Definitely an emergency. We need someone to remove them."
+          ],
+          "confronting": [
+            "It's getting worse. A raccoon just scratched a customer.",
+            "Yes, they're circling me now."
+          ],
+          "evacuated": [
+            "No one is hurt now, but the raccoons are inside. We need animal control to clear them out."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "message": "Police arrive but are not equipped for raccoon control. They try to use batons, but raccoons scatter into the kitchen, causing more damage."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -60,
+        "message": "Firefighters use loud sirens and water, but raccoons only become more agitated and knock over a grill, causing a small fire."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -30,
+        "message": "Medical team treats a few customers for scratches, but raccoons remain inside."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 220,
+        "message": "Animal control arrives with traps and baits. They safely capture all raccoons and release them in a forest. Restaurant is closed for cleanup but no injuries."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "message": "Call dismissed; raccoons bite several customers and staff. Health department fines the restaurant, and dispatch faces negligence claims."
+      }
+    }
+  },
+  {
+    "id": "scenario_140",
+    "title": "Python in the Plumbing",
+    "description": "A frantic homeowner calls because a large python has crawled up through a toilet drain and is now coiled in the bathroom. The caller is trapped in the bedroom with the door closed.",
+    "archetype": "Animal Chaos",
+    "states": {
+      "initial": "Caller is in the bedroom, door closed, python in bathroom.",
+      "confronting": "Caller has opened the door and sees the python fully emerged.",
+      "contained": "Caller has sealed the bathroom door from outside, python trapped.",
+      "evacuated": "Caller has left the house entirely."
+    },
+    "initial_variations": [
+      "A huge snake just came up my toilet! It's in the bathroom at {address_location}! Please send help!",
+      "There's a massive python in my bathroom! It came through the pipes! I'm trapped in my bedroom at {address_location}!",
+      "Oh god, I just flushed the toilet and a giant snake appeared! It's at {address_location} and I'm scared!",
+      "A python's in my house! It slithered out of the toilet bowl! I'm hiding in the bedroom at {address_location}!"
+    ],
+    "slots": {
+      "caller_name": ["James", "Nancy", "Carlos", "Rachel"],
+      "address_location": [
+        "1234 Oakwood Drive",
+        "5678 Pinecrest Lane",
+        "91011 Maple Avenue",
+        "1213 Elm Street",
+        "1415 Birch Road"
+      ],
+      "ambient_audio": [
+        "hissing sound",
+        "water running",
+        "furniture being knocked over",
+        "snake's scales scraping floor"
+      ],
+      "specific_details": [
+        "the python is about 10 feet long",
+        "it's coiled around the toilet",
+        "it has a bulge in its belly (ate something)",
+        "it's looking at me through the crack under the door"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, in the master bedroom. The snake is in the ensuite bathroom.",
+            "Our house is {address_location}. Python is in the bathroom off the hall."
+          ],
+          "confronting": [
+            "I opened the door to peek and it's right there, by the sink at {address_location}.",
+            "I can see it from the hallway at {address_location}. It's heading towards the living room."
+          ],
+          "contained": [
+            "I closed the bathroom door and put a towel under it. It's still in there at {address_location}.",
+            "The snake is trapped in the bathroom on the second floor of {address_location}."
+          ],
+          "evacuated": [
+            "I'm out of the house at {address_location}. The snake is inside, probably still in the bathroom."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a huge python, maybe 10 feet long. It came up through the toilet drain. I saw it when I lifted the lid.",
+            "It's thick, like a boa. It's hissing and moving slowly."
+          ],
+          "confronting": [
+            "It's now coming out of the bathroom. It's heading towards the living room. It's very long.",
+            "I can see its head. It's triangular. It looks like it could eat a small dog."
+          ],
+          "contained": [
+            "It's still in the bathroom. I can hear it moving around, knocking over the toilet brush.",
+            "The bathroom door is shaking occasionally. It might try to push it open."
+          ],
+          "evacuated": ["I don't know exactly where it is now. It could be anywhere in the house."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}, I live alone. I'm freaking out!",
+            "This is {caller_name}, I'm a retired plumber. Never saw a snake in a pipe before."
+          ],
+          "confronting": [
+            "{caller_name}, I'm trying to get a photo but I'm too scared to get close.",
+            "I'm {caller_name}, my dog is in the living room and I'm worried."
+          ],
+          "contained": [
+            "{caller_name}, I sealed the door. I think it's secure.",
+            "I'm {caller_name}, I'm waiting for instructions."
+          ],
+          "evacuated": ["{caller_name}, I'm standing on the lawn. The house is empty now."]
+        }
+      },
+      "ASK_ACTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "confronting",
+          "confronting": "contained",
+          "contained": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Should I try to open the door and see where it went?",
+            "I'm thinking of sealing the door shut."
+          ],
+          "confronting": [
+            "I'm going to try to close the bathroom door from outside.",
+            "I'll try to scare it back into the bathroom."
+          ],
+          "contained": [
+            "I've blocked the door. What now?",
+            "I'll stay here and wait for animal control."
+          ],
+          "evacuated": ["I'm outside now. I'll wait for the experts."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes! It's a huge snake in my house! Could be venomous!",
+            "Definitely an emergency. I don't know what to do."
+          ],
+          "confronting": [
+            "It's dangerous now that it's out. It could wrap around me.",
+            "Yes, it's chasing me? No, it's just exploring."
+          ],
+          "contained": [
+            "It's contained for now, but it needs to be removed.",
+            "Still an emergency because it's a large constrictor."
+          ],
+          "evacuated": ["I'm safe now, but the snake is still inside. Please send someone."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police arrive, but are not trained to handle pythons. They attempt to shoot it, but miss and damage the bathroom wall. Snake escapes into the house."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "message": "Fire department uses a hose to flush it back down the toilet, but the snake resists and causes flooding."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -30,
+        "message": "Medical team arrives to treat the caller for anxiety, but snake remains."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 280,
+        "message": "Animal control arrives with a snake handler. They safely capture the python using a hook and bag. It is found to be an escaped pet. Returned to owner."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Call dismissed; the python later enters the bedroom and constricts the caller's cat before escaping. The caller suffers trauma and sues the city."
+      }
+    }
+  },
+  {
+    "title": "Ostrich Running in Traffic",
+    "states": {
+      "initial": "Caller reports an ostrich on the road",
+      "hiding": "Caller has taken cover and is watching",
+      "evacuated": "Caller has left the area",
+      "secured": "Ostrich is contained or gone"
+    },
+    "initial_variations": [
+      "There's a {specific_details} on the road! It's blocking traffic and running into cars! My name is {caller_name} and I'm at {address_location}. I can hear {ambient_audio}.",
+      "Oh my god, a huge bird is loose on the highway! It's an {specific_details} and it's causing chaos! This is {caller_name}. Please send help to {address_location}! All I hear is {ambient_audio}.",
+      "Help! An {specific_details} is sprinting down the middle of the street near {address_location}. It's dodging cars. I'm {caller_name}. The noise is {ambient_audio}.",
+      "I'm at {address_location} and there's an {specific_details} running wild in traffic! It's dangerous for everyone. My name is {caller_name}. I can hear {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": [
+        "John Davis",
+        "Maria Rodriguez",
+        "Steve Chen",
+        "Emily White",
+        "Carlos Mendez"
+      ],
+      "address_location": [
+        "the intersection of Main and 5th",
+        "the 101 freeway near exit 12",
+        "the downtown area on Oak Street",
+        "the highway overpass at mile marker 45",
+        "the roundabout near the mall"
+      ],
+      "ambient_audio": [
+        "honking horns and screeching tires",
+        "screaming pedestrians and car alarms",
+        "engines revving and people shouting",
+        "a mix of sirens and bird calls",
+        "crashes and yelling"
+      ],
+      "specific_details": [
+        "giant ostrich",
+        "full-grown ostrich",
+        "six-foot-tall ostrich",
+        "enormous flightless bird"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I already told you, I'm at {address_location}!",
+            "Please hurry, it's at {address_location}!",
+            "Look, just send someone to {address_location}!"
+          ],
+          "hiding": [
+            "Still at {address_location}, hiding behind a car.",
+            "Same place, {address_location}, it's getting worse."
+          ],
+          "evacuated": [
+            "I left the area. It was at {address_location}.",
+            "I'm not there anymore, but it was near {address_location}."
+          ],
+          "secured": [
+            "The ostrich is gone now from {address_location}.",
+            "It was contained at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}, very fast!",
+            "Yes, it's a {specific_details}, about 6 feet tall.",
+            "It's an {specific_details}, with long legs and neck."
+          ],
+          "hiding": [
+            "Still a {specific_details}, now pecking at a car.",
+            "Same {specific_details}, it's running in circles."
+          ],
+          "evacuated": [
+            "It was a {specific_details}. I got out safely.",
+            "The {specific_details} was there when I left."
+          ],
+          "secured": [
+            "The {specific_details} has been caught.",
+            "It was a {specific_details}, now under control."
+          ]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Not that I can see, but it's causing accidents!",
+            "No injuries yet, but it's dangerous.",
+            "People are scared but no one hurt so far."
+          ],
+          "hiding": [
+            "No one injured near me, but I hear crashes.",
+            "I think some cars bumped but no ambulance needed."
+          ],
+          "evacuated": [
+            "I didn't see any injuries when I left.",
+            "No blood or anything, just chaos."
+          ],
+          "secured": ["No injuries reported. Animal control handled it.", "All clear, no injuries."]
+        }
+      },
+      "CONFIRM_PRESENCE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, it's still there! Please hurry!",
+            "Absolutely, running wild on the road!",
+            "Still here, causing more trouble!"
+          ],
+          "hiding": [
+            "Yes, I can see it from my hiding spot.",
+            "It's still running around, not leaving."
+          ],
+          "evacuated": [
+            "No, I left. It was there when I left.",
+            "I don't know, I'm not there anymore."
+          ],
+          "secured": ["No, it's gone. Animal control got it.", "All clear now."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived and directed traffic but had to wait for animal control to handle the bird."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Fire department arrived but lacked equipment for ostrich. They contained the area until animal control came."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical unit arrived but no injuries reported. They assisted with traffic control."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control dispatched. They successfully tranquilized the ostrich and removed it from traffic."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "You dismissed the call. The ostrich caused multiple car accidents and people were injured."
+      }
+    },
+    "id": "scenario_141",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Zebra Loose on Golf Course",
+    "states": {
+      "initial": "Caller reports a zebra on a golf course",
+      "hiding": "Caller has taken shelter in a clubhouse",
+      "evacuated": "Caller has left the golf course",
+      "secured": "Zebra is contained"
+    },
+    "initial_variations": [
+      "There's a {specific_details} on the golf course! It's running across the greens and scaring golfers! This is {caller_name} at {address_location}. I can hear {ambient_audio}.",
+      "A zebra escaped from the zoo and is now on the golf course near {address_location}! My name is {caller_name}. It's causing a panic. All I hear is {ambient_audio}.",
+      "Help! A {specific_details} is loose on the fairway at {address_location}! People are running. I'm {caller_name}. The background noise is {ambient_audio}.",
+      "I'm at {address_location} and a {specific_details} is stomping across the putting green. Caller is {caller_name}. I hear {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": ["Bob Thompson", "Linda Zhao", "Greg Miller", "Sofia Patel", "Kenji Tanaka"],
+      "address_location": [
+        "the Green Valley Golf Club",
+        "the 12th hole at Pine Ridge Course",
+        "the course near Oak Park",
+        "the fairway at Sunset Links",
+        "the clubhouse at Riverbend Golf"
+      ],
+      "ambient_audio": [
+        "golfers shouting and clubs dropping",
+        "zebra neighs and galloping hoofbeats",
+        "screams and panic chatter",
+        "golf carts speeding and horns",
+        "a mix of laughter and alarm"
+      ],
+      "specific_details": ["zebra", "striped horse", "escaped zebra", "wild zebra"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, the golf course!",
+            "It's at {address_location}, can't you see the map?",
+            "Please, {address_location}!"
+          ],
+          "hiding": [
+            "Still at {address_location}, hiding in the clubhouse.",
+            "Same place, {address_location}, the zebra is on the 14th hole."
+          ],
+          "evacuated": [
+            "I left {address_location}. It was there.",
+            "Not there anymore, but it was at {address_location}."
+          ],
+          "secured": [
+            "The zebra was caught at {address_location}.",
+            "It's over, at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}, black and white stripes!",
+            "Yes, a {specific_details}, about 5 feet tall."
+          ],
+          "hiding": [
+            "Still a {specific_details}, now it's on the 18th tee.",
+            "Same {specific_details}, it's eating the grass."
+          ],
+          "evacuated": [
+            "It was a {specific_details} when I saw it.",
+            "A {specific_details}, that's all I know."
+          ],
+          "secured": [
+            "The {specific_details} is tranquilized by zoo staff.",
+            "It was a {specific_details}, now safe."
+          ]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No injuries yet, but people are scared.",
+            "Some people tripped but no serious injuries."
+          ],
+          "hiding": ["I'm fine hiding. Not sure about others.", "No one hurt in the clubhouse."],
+          "evacuated": ["I didn't see any injuries when I left.", "All safe as far as I know."],
+          "secured": [
+            "No injuries reported. All clear.",
+            "Just a few ruffled feathers, no injuries."
+          ]
+        }
+      },
+      "CONFIRM_PRESENCE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, it's still running around!", "Absolutely, still on the course!"],
+          "hiding": ["Yes, I see it from the window.", "It's still out there."],
+          "evacuated": ["No, I left.", "I don't know, I'm not there."],
+          "secured": ["No, it's been captured.", "All clear."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived and secured the perimeter. Zoo staff later recaptured the zebra."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Fire department helped herd the zebra away from hazards until animal control arrived."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical team checked a few golfers for minor scrapes. No serious injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control and zoo staff tranquilized the zebra and returned it to the zoo."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "You dismissed the call. The zebra caused extensive damage to the golf course and injured a golfer."
+      }
+    },
+    "id": "scenario_142",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Emu Chasing Joggers in Park",
+    "states": {
+      "initial": "Caller reports an emu chasing people",
+      "hiding": "Caller has climbed a tree or hiding behind a bench",
+      "evacuated": "Caller ran away from the park",
+      "secured": "Emu is caught or gone"
+    },
+    "initial_variations": [
+      "An {specific_details} is chasing joggers in the park! It's aggressive! My name is {caller_name} at {address_location}. I hear {ambient_audio}.",
+      "There's a large bird attacking people near {address_location}! It's an {specific_details}. This is {caller_name}. Please send animal control! Background: {ambient_audio}.",
+      "Help! An {specific_details} is sprinting after me! I'm at {address_location}. Caller {caller_name}. All I can hear is {ambient_audio}.",
+      "I'm at {address_location} and a {specific_details} is chasing everyone. My name is {caller_name}. The sound is {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": ["Sarah Mitchell", "James O'Neil", "Yuki Tanaka", "Amara Singh", "David Kim"],
+      "address_location": [
+        "Riverside Park near the playground",
+        "the jogging trail at Central Park",
+        "the field at Oakwood Park",
+        "the path along Lake Park",
+        "the entrance to Pine Grove Park"
+      ],
+      "ambient_audio": [
+        "heavy footsteps and loud squawks",
+        "screaming and fast breathing",
+        "a mix of panicked voices and bird calls",
+        "leaves rustling and running feet",
+        "wings flapping and shouts"
+      ],
+      "specific_details": [
+        "large emu",
+        "aggressive emu",
+        "six-foot-tall emu",
+        "running bird like an emu"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, hurry!",
+            "It's at {address_location}, the park!",
+            "Please, {address_location}!"
+          ],
+          "hiding": [
+            "Still at {address_location}, hiding in a tree.",
+            "Same park, {address_location}, it's circling nearby."
+          ],
+          "evacuated": [
+            "I ran to safety from {address_location}.",
+            "I'm out of the park now, but it was at {address_location}."
+          ],
+          "secured": [
+            "The emu was caught at {address_location}.",
+            "All safe now at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}, very fast and angry!",
+            "Yes, a {specific_details}, it chased me!"
+          ],
+          "hiding": [
+            "Still a {specific_details}, it's looking up at me.",
+            "Same {specific_details}, it's pecking at the tree."
+          ],
+          "evacuated": [
+            "It was a {specific_details} when I left.",
+            "A {specific_details}, that's what I saw."
+          ],
+          "secured": [
+            "The {specific_details} is in a trailer now.",
+            "It was a {specific_details}, caught safely."
+          ]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No one hurt yet, but it's scary!", "A jogger fell but got up okay."],
+          "hiding": ["I'm safe in the tree. Others might be scratched.", "No injuries near me."],
+          "evacuated": ["I'm fine, I got away. Not sure about others.", "I didn't see any blood."],
+          "secured": ["No injuries reported. Emu is under control.", "All clear."]
+        }
+      },
+      "CONFIRM_PRESENCE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, still chasing people!", "Absolutely, it's running wild!"],
+          "hiding": ["Yes, it's still here, pacing.", "It hasn't left."],
+          "evacuated": ["No, I'm gone. It was there.", "I don't know now."],
+          "secured": ["No, it's gone. Animal control got it.", "All clear."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived and warned joggers. They cornered the emu until animal control came."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Fire department used nets to try to catch the emu but failed. Animal control had to tranquilize it."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical team treated a jogger with minor scratches. Emu was later caught by animal control."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control captured the emu with a net and tranquilizer. No injuries."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "You dismissed the call. The emu attacked several joggers, causing serious injuries."
+      }
+    },
+    "id": "scenario_143",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Moose in Downtown City",
+    "states": {
+      "initial": "Caller reports a moose wandering in downtown",
+      "hiding": "Caller is hiding in a store",
+      "evacuated": "Caller left the downtown area",
+      "secured": "Moose is tranquilized or gone"
+    },
+    "initial_variations": [
+      "A {specific_details} is walking down Main Street in downtown! It's huge! This is {caller_name} at {address_location}. I can hear {ambient_audio}.",
+      "There's a moose in the city! Near {address_location}! Caller {caller_name}. It's blocking traffic and people are scared. Background: {ambient_audio}.",
+      "Help! A {specific_details} is roaming through the street at {address_location}. It's bumping into cars. My name is {caller_name}. I hear {ambient_audio}.",
+      "I'm at {address_location} and a {specific_details} is standing in the middle of the road. This is {caller_name}. Sound: {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": ["Mike Johnson", "Priya Sharma", "Tom Baker", "Emma Williams", "Alex Liu"],
+      "address_location": [
+        "the corner of Broadway and 1st",
+        "the city square near the fountain",
+        "in front of the downtown mall",
+        "the bus stop on Elm Street",
+        "the parking lot of the city hall"
+      ],
+      "ambient_audio": [
+        "car horns and shouting",
+        "shoes running on pavement",
+        "a crowd murmuring and gasps",
+        "traffic and confused voices",
+        "a mix of sirens and animal sounds"
+      ],
+      "specific_details": [
+        "adult moose",
+        "bull moose with antlers",
+        "large moose",
+        "full-grown moose"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, downtown!",
+            "It's at {address_location}, can you see it?",
+            "Please, {address_location}!"
+          ],
+          "hiding": [
+            "Still at {address_location}, hiding in a cafe.",
+            "Same place, {address_location}, it's near the bank."
+          ],
+          "evacuated": [
+            "I left downtown from {address_location}.",
+            "It was at {address_location} when I got out."
+          ],
+          "secured": [
+            "The moose was contained at {address_location}.",
+            "All clear at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}, very tall!",
+            "Yes, a {specific_details}, with big antlers."
+          ],
+          "hiding": [
+            "Still a {specific_details}, it's walking calmly.",
+            "Same {specific_details}, it's looking around."
+          ],
+          "evacuated": [
+            "It was a {specific_details} when I left.",
+            "A {specific_details}, that's what I saw."
+          ],
+          "secured": [
+            "The {specific_details} is sedated and being moved.",
+            "It was a {specific_details}, safe now."
+          ]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No injuries yet, but it could charge.", "People are keeping distance."],
+          "hiding": ["I'm safe inside. Not sure about outside.", "No blood seen."],
+          "evacuated": ["I'm fine. Others seemed okay too.", "No injuries reported as I left."],
+          "secured": ["No injuries. Moose is under control.", "All clear."]
+        }
+      },
+      "CONFIRM_PRESENCE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, it's still wandering around!", "Still there, causing traffic jam!"],
+          "hiding": ["Yes, I can see it through the window.", "It's still in the square."],
+          "evacuated": ["No, I'm not there. It was there.", "I don't know now."],
+          "secured": ["No, it's been caught.", "All clear."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "feedback": "Police arrived and cleared the area. They guided the moose out of the city with the help of animal control."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department helped direct traffic but could not handle the moose. Animal control was needed."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical unit stood by but no injuries. They assisted with crowd control."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control tranquilized the moose and transported it to a wildlife refuge."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "You dismissed the call. The moose charged at a pedestrian and caused a car crash, resulting in injuries."
+      }
+    },
+    "id": "scenario_144",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Crocodile in Flooded Street",
+    "states": {
+      "initial": "Caller reports a crocodile in floodwater",
+      "hiding": "Caller is on higher ground or in a building",
+      "evacuated": "Caller has moved to safety",
+      "secured": "Crocodile is captured or gone"
+    },
+    "initial_variations": [
+      "There's a {specific_details} in the flooded street near {address_location}! It's swimming towards houses! My name is {caller_name}. I can hear {ambient_audio}.",
+      "A crocodile is in the water on my street! At {address_location}! This is {caller_name}. Please send animal control! Background: {ambient_audio}.",
+      "Help! A {specific_details} is lurking in the floodwater at {address_location}. It's dangerous! Caller {caller_name}. Sound: {ambient_audio}.",
+      "I'm at {address_location} and a {specific_details} just appeared in the flood. My name is {caller_name}. I hear {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": [
+        "Robert Brown",
+        "Isabella Costa",
+        "Derek Smith",
+        "Nina Patel",
+        "Oscar Torres"
+      ],
+      "address_location": [
+        "the corner of River Road and Oak",
+        "the flooded intersection near the bayou",
+        "the street in front of the high school",
+        "the cul-de-sac on Cypress Lane",
+        "the parking lot of the flood zone"
+      ],
+      "ambient_audio": [
+        "water splashing and rain",
+        "people shouting and dogs barking",
+        "a mix of sirens and rushing water",
+        "distant thunder and panicked voices",
+        "metal scraping and water flowing"
+      ],
+      "specific_details": [
+        "large crocodile",
+        "12-foot crocodile",
+        "aggressive crocodile",
+        "full-grown crocodile"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, the flooded area!",
+            "It's at {address_location}, please hurry!",
+            "Please, {address_location}!"
+          ],
+          "hiding": [
+            "Still at {address_location}, on my roof.",
+            "Same place, {address_location}, it's circling."
+          ],
+          "evacuated": [
+            "I left {address_location} to higher ground.",
+            "It was at {address_location} when I left."
+          ],
+          "secured": [
+            "The crocodile was caught at {address_location}.",
+            "All safe at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {specific_details}, I saw its snout!",
+            "Yes, a {specific_details}, about 12 feet."
+          ],
+          "hiding": [
+            "Still a {specific_details}, it's near my car.",
+            "Same {specific_details}, it's swimming towards me."
+          ],
+          "evacuated": [
+            "It was a {specific_details} when I saw it.",
+            "A {specific_details}, that's what I saw."
+          ],
+          "secured": [
+            "The {specific_details} is in a cage now.",
+            "It was a {specific_details}, captured safely."
+          ]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No one has been attacked yet!", "People are staying away."],
+          "hiding": ["I'm safe but it's close. Others might be in danger.", "No injuries near me."],
+          "evacuated": [
+            "I'm fine. I don't know about others.",
+            "No injuries reported when I left."
+          ],
+          "secured": ["No injuries. All clear.", "The crocodile didn't hurt anyone."]
+        }
+      },
+      "CONFIRM_PRESENCE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Yes, it's still there swimming!", "Still in the water, getting closer!"],
+          "hiding": ["Yes, I can see it from my roof.", "It's still in the flood."],
+          "evacuated": ["No, I'm not there. It was there.", "I don't know now."],
+          "secured": ["No, it's been captured.", "All clear."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "feedback": "Police evacuated the area and kept people away until animal control arrived."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department tried to snare the crocodile but it escaped into a drain. Animal control later caught it."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical team was on standby but no injuries occurred."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Animal control captured the crocodile with a pole and transported it to a sanctuary."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "You dismissed the call. The crocodile attacked a resident trying to wade through the flood, causing severe injury."
+      }
+    },
+    "id": "scenario_145",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Bear in School Playground",
+    "description": "A caller reports a bear wandering near a playground full of children during recess. The bear appears agitated but not aggressive yet.",
+    "states": {
+      "initial": "The caller has just noticed the bear and is describing the scene.",
+      "hiding": "The caller and children have moved indoors or taken cover.",
+      "evacuated": "The area has been cleared of people.",
+      "secure": "The bear has been contained or has left the area."
+    },
+    "initial_variations": [
+      "There's a bear! It's right by the playground! We need help now! The kids are still outside!",
+      "Oh my God, I think I see a bear near the school. It's huge. Please send someone, the children are playing.",
+      "Um, hi. There's a bear at {school_name}. It's walking towards the playground. I'm scared. Please hurry."
+    ],
+    "slots": {
+      "caller_name": ["Mrs. Thompson", "Principal Davis", "Mr. Lee"],
+      "school_name": ["Lincoln Elementary", "Springfield Middle School", "Riverview Preschool"],
+      "address_location": ["123 Main Street", "456 Oak Avenue", "789 Pine Road"],
+      "number_of_children": ["about 30", "over 50", "a dozen"],
+      "bear_behavior": [
+        "sniffing around",
+        "standing on hind legs",
+        "walking slowly towards the swings"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {school_name}, {address_location}. The bear is near the playground!",
+            "It's {address_location}, at the elementary school. Please come!"
+          ],
+          "hiding": ["We're inside the school building now. The address is {address_location}."],
+          "evacuated": ["Everyone is out. The location is {address_location}."],
+          "secure": ["The bear is gone. We're still at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are {number_of_children} children. The bear is {bear_behavior}.",
+            "I see the bear {bear_behavior}. Kids are scared."
+          ],
+          "hiding": [
+            "No one is hurt. We're all hiding inside.",
+            "We're safe inside, but the bear is still out there."
+          ],
+          "evacuated": ["Everyone is out of the area. No injuries."],
+          "secure": ["The bear is gone. No one was hurt."]
+        }
+      },
+      "ASK_URGENCY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's urgent! The bear is getting closer!",
+            "Please hurry, it's just a few feet away!"
+          ],
+          "hiding": [
+            "We're safe for now, but we need help to remove the bear.",
+            "It's not urgent now, but we're trapped inside."
+          ],
+          "evacuated": [
+            "The situation is under control. We need animal control.",
+            "No need to rush, but we need the bear gone."
+          ],
+          "secure": ["The situation is resolved. Thank you."]
+        }
+      },
+      "GIVE_INSTRUCTION": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "evacuated",
+          "evacuated": "secure"
+        },
+        "responses": {
+          "initial": [
+            "Okay, everyone move inside slowly. Don't run.",
+            "Get the children to the classroom, lock the doors."
+          ],
+          "hiding": [
+            "Now, make sure all doors are locked and stay quiet.",
+            "Good, stay put. We're sending animal control."
+          ],
+          "evacuated": [
+            "Please stay away from the area. We'll handle the bear.",
+            "Thank you for following instructions."
+          ],
+          "secure": ["The bear has been tranquilized. All clear."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "description": "Police arrive but are not equipped for animal control. They secure the perimeter until animal control arrives. Minor delay."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "description": "Firefighters arrive with no animal control training. They manage to scare the bear away, but it could have gone worse."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "description": "Medical team arrives, but no injuries. They stand by unnecessarily."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "description": "Animal control arrives quickly and safely tranquilizes the bear. No injuries, children safe."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "description": "Call dismissed as a prank. The bear attacks a child before police arrive. Severe injuries."
+      }
+    },
+    "id": "scenario_146",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Raccoons in Restaurant Kitchen",
+    "description": "A restaurant manager calls because several raccoons have broken into the kitchen through a damaged vent, causing chaos and health risks.",
+    "states": {
+      "initial": "The caller reports raccoons in the kitchen, describing the scene.",
+      "evacuated": "Staff and customers have been evacuated from the restaurant.",
+      "containment": "The raccoons are trapped or isolated in the kitchen.",
+      "cleanup": "The raccoons have been removed, and cleanup begins."
+    },
+    "slots": {
+      "caller_name": ["Chef Marco", "Manager Sarah", "Owner Mr. Chen"],
+      "restaurant_name": ["The Golden Spoon", "Bella Napoli Pizzeria", "Dragon Palace"],
+      "address_location": ["1500 Elm Street", "2200 Broadway Avenue", "3100 Lake Drive"],
+      "raccoon_count": ["three", "a family of four", "at least five"],
+      "damage_description": [
+        "overturned pots and spilled flour",
+        "chewed through food packages",
+        "broken dishes and scattered trash"
+      ]
+    },
+    "initial_variations": [
+      "This is an emergency! Raccoons are running around the kitchen, ruining everything!",
+      "I need help! {raccoon_count} raccoons got into the kitchen. They're making a huge mess!",
+      "Hi, there are raccoons in my restaurant kitchen. The health inspector will shut us down. Please send someone."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {restaurant_name}, {address_location}. The raccoons are in the back.",
+            "It's {address_location}, at the restaurant. Please come."
+          ],
+          "evacuated": [
+            "Everyone is outside at {address_location}.",
+            "The restaurant is empty. Address is {address_location}."
+          ],
+          "containment": ["We've locked them in the kitchen. Still at {address_location}."],
+          "cleanup": ["We're cleaning up at {address_location}. All clear."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are {raccoon_count} raccoons. They have {damage_description}.",
+            "The raccoons are {damage_description}. It's a mess."
+          ],
+          "evacuated": [
+            "No one is inside. The raccoons are still in the kitchen.",
+            "We're safe outside. The raccoons are contained inside."
+          ],
+          "containment": [
+            "The raccoons are trapped. No one is hurt.",
+            "They're in the kitchen with doors closed."
+          ],
+          "cleanup": ["The raccoons are gone. We need to sanitize."]
+        }
+      },
+      "ASK_URGENCY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's urgent! They're destroying the kitchen!",
+            "Please hurry before they get into the dining area!"
+          ],
+          "evacuated": [
+            "The situation is under control, but we need them removed.",
+            "Not urgent now, but we need animal control."
+          ],
+          "containment": [
+            "No urgency, they're trapped. But we need someone to take them.",
+            "It's safe for now."
+          ],
+          "cleanup": ["No urgency. Just a follow-up."]
+        }
+      },
+      "GIVE_INSTRUCTION": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuated",
+          "evacuated": "containment",
+          "containment": "cleanup"
+        },
+        "responses": {
+          "initial": [
+            "Evacuate the restaurant immediately. Close the kitchen doors.",
+            "Get everyone out and seal the kitchen."
+          ],
+          "evacuated": [
+            "Good. Now make sure no one goes back in. We're sending animal control.",
+            "Keep everyone away from the kitchen."
+          ],
+          "containment": [
+            "Wait for animal control. Do not approach the raccoons.",
+            "Stay away until they are removed."
+          ],
+          "cleanup": [
+            "You can start cleaning once animal control confirms it's safe.",
+            "Proceed with cleanup, wear gloves."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "description": "Police respond but cannot handle raccoons. They set up perimeter, but problem persists."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "description": "Firefighters use hoses to chase raccoons out, causing water damage to the kitchen."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "description": "Medical team arrives but no injuries. They waste resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "description": "Animal control safely captures and removes the raccoons. Kitchen can be cleaned."
+      },
+      "DISMISS": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "description": "Call dismissed as minor. Raccoons cause extensive damage and health code violation results in shutdown."
+      }
+    },
+    "id": "scenario_147",
+    "archetype": "Animal Chaos"
+  },
+  {
+    "title": "Swarm of Bees Blocking Traffic",
+    "description": "A massive swarm of bees has settled on a vehicle at a busy intersection, causing gridlock and panicked drivers.",
+    "states": {
+      "initial": "The caller reports bees covering a car and blocking traffic.",
+      "trapped": "The caller is trapped in their car with bees outside.",
+      "evacuated": "People have abandoned vehicles and are taking shelter.",
+      "cleared": "The swarm has been dispersed or removed."
+    },
+    "slots": {
+      "caller_name": ["Jennifer", "Officer Blake", "Tom"],
+      "intersection_name": ["Main Street and 1st Avenue", "Oak and Pine", "Highway 101 and Maple"],
+      "address_location": [
+        "downtown near the courthouse",
+        "the main intersection in the city center",
+        "the busiest crossroads in town"
+      ],
+      "bee_swarm_size": [
+        "thousands of bees",
+        "a basketball-sized cluster",
+        "so many you can't see the car"
+      ],
+      "traffic_conditions": [
+        "bumper to bumper, horns honking",
+        "cars stopped, people running away",
+        "complete gridlock, emergency vehicles can't pass"
+      ]
+    },
+    "initial_variations": [
+      "Oh my God, there's a swarm of bees covering a car at {intersection_name}! Traffic is a mess!",
+      "Help! Bees everywhere! They're swarming a car and people are panicking at {address_location}.",
+      "I'm stuck in traffic because of a giant bee swarm at {intersection_name}. It's chaos!"
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "At {intersection_name}, {address_location}. The swarm is on a red car.",
+            "It's at the corner of {intersection_name}."
+          ],
+          "trapped": [
+            "I'm in my car at {intersection_name}. Bees are covering my windows!",
+            "Location is still {address_location}. I'm trapped inside."
+          ],
+          "evacuated": [
+            "We've all moved away from the intersection. North side of the street.",
+            "Everyone is inside the coffee shop on the corner."
+          ],
+          "cleared": [
+            "The intersection is clear now at {address_location}.",
+            "Bees are gone from {intersection_name}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are {bee_swarm_size} bees. Traffic is {traffic_conditions}.",
+            "The swarm is huge. People are abandoning their cars."
+          ],
+          "trapped": [
+            "I'm sealed in my car. Bees are all over the outside. I'm allergic!",
+            "I can't get out. The swarm is thick on my windshield."
+          ],
+          "evacuated": [
+            "We're safe inside a building. The bees are still at the intersection.",
+            "No injuries so far. Just scared."
+          ],
+          "cleared": ["The bee keeper took them away. Traffic is moving again."]
+        }
+      },
+      "ASK_URGENCY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's extremely urgent! Someone might get stung badly!",
+            "Please hurry, the bees are getting agitated!"
+          ],
+          "trapped": [
+            "I'm trapped and allergic! This is life-threatening!",
+            "I can't breathe from panic! Hurry!"
+          ],
+          "evacuated": [
+            "It's urgent but we are safe for now. Need bee removal.",
+            "The swarm is still a hazard."
+          ],
+          "cleared": ["No further urgency."]
+        }
+      },
+      "GIVE_INSTRUCTION": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuated",
+          "evacuated": "cleared"
+        },
+        "responses": {
+          "initial": [
+            "Tell everyone to stay inside their cars or go into nearby buildings. Close windows.",
+            "Evacuate the intersection on foot, but move calmly and cover your face."
+          ],
+          "trapped": [
+            "Stay in your car with windows up. Do not honk or move suddenly.",
+            "Keep calm, do not provoke the bees. Help is on the way."
+          ],
+          "evacuated": [
+            "Wait for animal control or a beekeeper. Do not approach the swarm.",
+            "Keep people away from the area."
+          ],
+          "cleared": ["The swarm has been removed. You can return to your cars."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "description": "Police block off the area and wait for animal control. Traffic is delayed but no injuries."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "description": "Firefighters spray water, agitating the swarm. Several people get stung, causing minor injuries."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "description": "Medics arrive but find no injuries yet. They stand by."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "description": "Beekeeper arrives and safely relocates the swarm. No stings, traffic resumes."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "description": "Call dismissed as non-emergency. A driver allergic to bees exits car, gets stung, and goes into anaphylactic shock before help arrives."
+      }
+    },
+    "id": "scenario_148",
+    "archetype": "Animal Chaos"
+  }
+]

@@ -1,0 +1,3523 @@
+[
+  {
+    "title": "Home Invasion in Progress",
+    "description": "The caller whispers in panic, reporting that intruders are breaking into their home. They are hiding in a closet, fearing for their life.",
+    "states": {
+      "initial": "Caller has just contacted dispatch, whispering and frightened.",
+      "hiding": "Caller is in a hiding spot and remains quiet to avoid detection.",
+      "confronting": "Caller has been discovered by intruders and is being threatened.",
+      "secured": "Police have arrived and the scene is secure."
+    },
+    "initial_variations": [
+      "Please help, someone is breaking into my house! I think I hear them downstairs!",
+      "Oh my God, there are people in my house! I'm hiding in the closet, please send someone!",
+      "I need police immediately! I hear glass breaking, I think they're coming upstairs!",
+      "Please hurry, I'm scared! I can hear footsteps outside my door!"
+    ],
+    "slots": {
+      "caller_name": ["John", "Sarah", "Mike", "Emily", "David"],
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "intruder_count": ["one", "two", "three", "multiple", "I don't know"],
+      "ambient_audio": ["breaking glass", "footsteps", "voices", "door slamming", "silence"],
+      "specific_details": [
+        "they have weapons",
+        "they're wearing masks",
+        "they're yelling",
+        "I think they're armed",
+        "I'm alone"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Please hurry!",
+            "My address is {address_location}, please send help!",
+            "It's {address_location}, the house with the red door!"
+          ],
+          "hiding": [
+            "Still at {address_location}, please be quiet!",
+            "Same place, {address_location}, I can hear them!"
+          ],
+          "confronting": [
+            "They found me! I'm at {address_location}!",
+            "Please, they're here! {address_location}!"
+          ],
+          "secured": ["I'm safe now at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I see {intruder_count} intruders, {ambient_audio}. {specific_details}.",
+            "There are {intruder_count} of them, I hear {ambient_audio}. {specific_details}.",
+            "I think {intruder_count} people, {ambient_audio}. {specific_details}."
+          ],
+          "hiding": [
+            "Still {intruder_count} intruders, {ambient_audio}. {specific_details}.",
+            "I can't see them now, but I hear {ambient_audio}."
+          ],
+          "confronting": [
+            "They have {specific_details}!",
+            "{intruder_count} intruders, {ambient_audio}!"
+          ],
+          "secured": ["It's over. {intruder_count} suspects arrested."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "Stay quiet, lock the door if you can.",
+            "Don't make a sound. I'm sending police now.",
+            "Hide and stay on the line with me."
+          ],
+          "hiding": [
+            "Do not leave your hiding spot.",
+            "Stay calm, police are on the way.",
+            "Keep whispering, I'm here with you."
+          ],
+          "confronting": [
+            "Do not resist. Comply with their demands.",
+            "Stay calm, police are almost there.",
+            "Try to stay safe, I'm tracking your location."
+          ],
+          "secured": ["You can come out now, police are there."]
+        }
+      },
+      "STAY_ON_LINE": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Okay, I'm staying on the line.", "I won't hang up."],
+          "hiding": ["I'm still here, please don't leave me.", "I'm here, I'll stay quiet."],
+          "confronting": ["I'm here, they're talking to me!", "I'm still on the line."],
+          "secured": ["Thank you, I'm safe now."]
+        }
+      },
+      "REASSURE": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Help is on the way, just stay calm.",
+            "You're going to be okay, police are coming."
+          ],
+          "hiding": [
+            "You're doing great. Stay quiet, help is coming.",
+            "Almost there, stay hidden."
+          ],
+          "confronting": [
+            "We're here for you. Do exactly what they say.",
+            "Help is right outside."
+          ],
+          "secured": ["You're safe now. You did the right thing."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Police arrived in time, intruders apprehended. Caller rescued."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Fire department responded but this is a police matter. Delayed police response."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Medical dispatched but no injuries reported. Police should have been sent."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control cannot handle armed intruders. Caller at risk."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller left helpless. Tragic outcome likely."
+      }
+    },
+    "id": "scenario_001",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Severe Allergic Reaction",
+    "description": "A panicked caller reports that their friend is experiencing a severe allergic reaction, unable to breathe, and no EpiPen is available.",
+    "states": {
+      "initial": "Caller has just called, frantic and describing symptoms.",
+      "waiting": "Caller is following instructions while waiting for paramedics.",
+      "administering_aid": "Caller is performing emergency aid (CPR or positioning patient).",
+      "paramedic_arrived": "Paramedics have arrived and are taking over."
+    },
+    "initial_variations": [
+      "My friend can't breathe! I think it's an allergic reaction! Please send help!",
+      "Oh God, she's swelling up and her throat is closing! What do I do?",
+      "He ate peanuts and now he's turning blue! Please send an ambulance!",
+      "I need an ambulance immediately! My friend is having anaphylaxis and I don't have an EpiPen!"
+    ],
+    "slots": {
+      "caller_name": ["Alice", "Bob", "Carol", "Dan", "Eve"],
+      "victim_name": ["Tom", "Lily", "Jake", "Mia", "Zoe"],
+      "address_location": [
+        "123 Main Street",
+        "456 Park Avenue",
+        "789 Broadway",
+        "321 Elm Street",
+        "654 Lake Drive"
+      ],
+      "allergen": ["peanuts", "shellfish", "bee sting", "medication", "unknown"],
+      "symptoms": [
+        "swelling of face and throat",
+        "hives and difficulty breathing",
+        "vomiting and collapse",
+        "blue lips and wheezing",
+        "loss of consciousness"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}, please hurry!",
+            "I'm at {address_location}, it's an apartment on the second floor!"
+          ],
+          "waiting": [
+            "Still at {address_location}, he's not getting better!",
+            "Same location, {address_location}, please come fast!"
+          ],
+          "administering_aid": [
+            "We're at {address_location}, I'm doing CPR!",
+            "At {address_location}, she's not breathing!"
+          ],
+          "paramedic_arrived": ["They're here at {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He ate {allergen} and now has {symptoms}.",
+            "She's showing {symptoms}, I think it's from {allergen}.",
+            "Symptoms are {symptoms} after exposure to {allergen}."
+          ],
+          "waiting": [
+            "Symptoms worsening: {symptoms}. Still from {allergen}.",
+            "No change, {symptoms}."
+          ],
+          "administering_aid": [
+            "Unconscious now, {symptoms}. I'm doing chest compressions.",
+            "Still {symptoms}, I'm trying to keep him breathing."
+          ],
+          "paramedic_arrived": ["Paramedics are assessing, symptoms improving slowly."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "waiting",
+          "waiting": "administering_aid",
+          "administering_aid": "administering_aid"
+        },
+        "responses": {
+          "initial": [
+            "Lay them flat and elevate their legs if they're dizzy.",
+            "If they're conscious, have them sit upright to help breathing.",
+            "Check if they have an EpiPen and use it if available."
+          ],
+          "waiting": [
+            "Keep them calm and monitor breathing.",
+            "If they stop breathing, start CPR immediately.",
+            "I'll guide you through CPR if needed."
+          ],
+          "administering_aid": [
+            "Push hard and fast in the center of the chest.",
+            "Tilt the head back and give rescue breaths.",
+            "Continue CPR until paramedics arrive."
+          ],
+          "paramedic_arrived": ["Let the professionals take over now."]
+        }
+      },
+      "STAY_ON_LINE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Okay, I'm staying on the line.", "I won't hang up."],
+          "waiting": [
+            "I'm still here, please keep guiding me.",
+            "I'm here, I'm doing what you said."
+          ],
+          "administering_aid": [
+            "I'm still here, doing chest compressions.",
+            "Don't leave me, I need your help!"
+          ],
+          "paramedic_arrived": ["Thank you, they're here now."]
+        }
+      },
+      "REASSURE": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Help is on the way, just stay calm.",
+            "You're doing great, I'm here to help."
+          ],
+          "waiting": [
+            "You're handling this well, paramedics are close.",
+            "Almost there, keep doing what you're doing."
+          ],
+          "administering_aid": [
+            "You're saving a life, keep going!",
+            "Help is almost there, don't stop."
+          ],
+          "paramedic_arrived": ["You did an amazing job. They'll take over now."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Paramedics arrived quickly, administered epinephrine, patient stabilized."
+      },
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police dispatched but medical is needed. Delayed paramedic response."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "feedback": "Fire department responded but no fire. Slight delay in medical care."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Animal control dispatched. No help for allergic reaction. Patient critical."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Patient died from anaphylaxis. Negligent outcome."
+      }
+    },
+    "id": "scenario_002",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "id": "scenario_023",
+    "title": "Severe Asthma Attack",
+    "states": {
+      "initial": "Caller is gasping and can barely speak.",
+      "struggling": "Caller is trying to breathe but can't talk.",
+      "unconscious": "Caller has collapsed and is not responding."
+    },
+    "initial_variations": [
+      "{caller_name} I can't... breathe... please... {ambient_audio}",
+      "Help... {victim_relation} is having asthma... {address_location}...",
+      "My {victim_relation} can't breathe... {ambient_audio}... hurry!",
+      "{caller_name} please... inhaler... not working... {specific_details}"
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Emily", "David", "Anna"],
+      "victim_relation": ["my son", "my daughter", "my husband", "my wife", "my friend"],
+      "address_location": [
+        "123 Oak Street, Apt 4B",
+        "456 Maple Avenue",
+        "789 Pine Road",
+        "321 Elm Drive",
+        "654 Birch Lane"
+      ],
+      "ambient_audio": [
+        "wheezing sounds",
+        "gasping for air",
+        "coughing",
+        "nothing",
+        "background TV"
+      ],
+      "specific_details": [
+        "no inhaler nearby",
+        "asthma attack for 10 minutes",
+        "lips turning blue",
+        "can't find phone",
+        "used inhaler but no relief"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}... {ambient_audio}",
+            "It's {address_location}... please help!"
+          ],
+          "struggling": ["{address_location}... *gasp*", "Can't... talk... {address_location}"],
+          "unconscious": ["*silence*", "*no response*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} has asthma... inhaler not helping... {ambient_audio}",
+            "They're having an attack... can't breathe..."
+          ],
+          "struggling": ["*wheezing* inhaler... didn't work...", "Medication... not working..."],
+          "unconscious": ["*no answer*", "*faint breathing*"]
+        }
+      },
+      "ASK_CONDITION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They're gasping... lips are blue... {specific_details}",
+            "Getting worse... can't talk..."
+          ],
+          "struggling": ["*struggling to breathe*", "Turning blue..."],
+          "unconscious": ["They're not waking up...", "I think they stopped breathing..."]
+        }
+      },
+      "INSTRUCT_CPR": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "struggling",
+          "struggling": "unconscious"
+        },
+        "responses": {
+          "initial": [
+            "Put them on their back... but they're still conscious...",
+            "They're awake... can't perform CPR yet."
+          ],
+          "struggling": [
+            "Okay... putting them on floor...",
+            "I'll try... but they're fighting me..."
+          ],
+          "unconscious": ["Please tell me how... I'm scared.", "No response... doing it now."]
+        }
+      },
+      "ASK_AGE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["They're {specific_details} years old", "Adult... about 30..."],
+          "struggling": ["*cough* adult...", "teenager..."],
+          "unconscious": ["*silence*", "I don't know..."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but could not provide medical aid. Medical was needed."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters arrived with oxygen but medical was more appropriate."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Paramedics arrived quickly and administered medication. Patient stabilized."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control cannot handle medical emergencies. Patient died."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Patient died of asthma attack."
+      }
+    },
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "id": "scenario_024",
+    "title": "Flash Flood Trapped Hiker",
+    "states": {
+      "initial": "Caller is on a trail, water rising fast.",
+      "climbing": "Caller is climbing to higher ground.",
+      "swept_away": "Caller has been swept by current."
+    },
+    "initial_variations": [
+      "I'm at {address_location}... water is rising! {ambient_audio}",
+      "Help! {caller_name} trapped in {specific_details}! {ambient_audio}",
+      "flash flood! {address_location}... can't hold on! {ambient_audio}",
+      "{victim_relation} and I are stuck on a rock! {address_location}!"
+    ],
+    "slots": {
+      "caller_name": ["Tom", "Jessica", "Alex", "Rachel", "Chris"],
+      "victim_relation": ["my friend", "my boyfriend", "my sister", "my child", "my dog"],
+      "address_location": [
+        "Bear Creek Trail near marker 5",
+        "Rattlesnake Canyon at the base",
+        "Eagle Peak lower trailhead",
+        "Devil's Gulch area",
+        "Blue River path"
+      ],
+      "ambient_audio": ["rushing water", "thunder", "rain pouring", "screaming", "nothing"],
+      "specific_details": [
+        "on a small rock",
+        "clinging to a tree",
+        "water up to my chest",
+        "lost my footing",
+        "cramped in a crevice"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location} near {specific_details}!",
+            "I'm by {address_location}... hurry!"
+          ],
+          "climbing": [
+            "Moving higher... near {address_location}...",
+            "Climbing... still at {specific_details}"
+          ],
+          "swept_away": ["*gurgling*... river... *water sounds*", "*splash*... help..."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} with me... {ambient_audio} water rising!",
+            "We were hiking... flash flood came..."
+          ],
+          "climbing": [
+            "Gaining elevation... {victim_relation} is scared...",
+            "Almost to safety..."
+          ],
+          "swept_away": ["*coughing* I'm in the water... *noise*", "I can't swim... *sputter*"]
+        }
+      },
+      "ASK_CONDITION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Cold... scared... {ambient_audio} water at my waist!",
+            "Holding onto {specific_details}..."
+          ],
+          "climbing": ["Making progress... fingers slipping...", "Exhausted but climbing..."],
+          "swept_away": ["Can't feel my legs... *water sounds*", "I'm going under..."]
+        }
+      },
+      "INSTRUCT_EVACUATE": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "climbing",
+          "climbing": "swept_away"
+        },
+        "responses": {
+          "initial": ["Trying to move higher... but it's steep!", "I'll try to climb that tree..."],
+          "climbing": ["Climbing as you said... almost there!", "I slipped! Help!"],
+          "swept_away": ["Too late! I'm being swept away! *scream*", "*silence*"]
+        }
+      },
+      "ASK_VICTIMS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["Just me and {victim_relation}", "Two of us..."],
+          "climbing": ["{victim_relation} is just below me...", "We're both climbing..."],
+          "swept_away": ["{victim_relation} is gone...", "I lost grip of {victim_relation}"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but lacked water rescue equipment."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Fire department swift water team rescued the hiker."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medics arrived but couldn't reach the hiker without rescue team."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control cannot handle floods. Hiker drowned."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Hiker swept away and died."
+      }
+    },
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "id": "scenario_025",
+    "title": "Choking Child",
+    "states": {
+      "initial": "Caller in panic, child choking.",
+      "performing_heimlich": "Caller is trying Heimlich maneuver.",
+      "child_unconscious": "Child is unconscious."
+    },
+    "initial_variations": [
+      "My {victim_relation} is choking! {address_location}! {ambient_audio}",
+      "{caller_name} please! {victim_relation} can't breathe! {specific_details}",
+      "Help! {victim_relation} ate a {specific_details}! {address_location}",
+      "Drowning? No, choking! {ambient_audio} {victim_relation} turning blue!"
+    ],
+    "slots": {
+      "caller_name": ["Lily", "James", "Sophia", "Ethan", "Mia"],
+      "victim_relation": ["my son", "my daughter", "my baby", "my nephew", "my grandchild"],
+      "address_location": [
+        "15 Cherry Street",
+        "220 Pine Avenue",
+        "3 Rose Lane",
+        "98 Hilltop Drive",
+        "12 Sunset Blvd"
+      ],
+      "ambient_audio": ["coughing", "screaming", "silence", "crying", "gagging"],
+      "specific_details": ["a grape", "a toy piece", "a hot dog", "a coin", "a piece of candy"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["{address_location}! Please hurry!", "We're at {address_location}..."],
+          "performing_heimlich": [
+            "{address_location}... still working...",
+            "Same address... {address_location}"
+          ],
+          "child_unconscious": [
+            "*sobbing* {address_location}...",
+            "{address_location}... they're not moving"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Choking on {specific_details}! Can't cough it out!",
+            "{victim_relation} started choking..."
+          ],
+          "performing_heimlich": [
+            "Abdominal thrusts... not working yet...",
+            "Trying... but {victim_relation} won't cough it out."
+          ],
+          "child_unconscious": [
+            "Nothing came out... they passed out...",
+            "I think the obstruction is still there."
+          ]
+        }
+      },
+      "INSTRUCT_HEIMLICH": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "performing_heimlich",
+          "performing_heimlich": "child_unconscious"
+        },
+        "responses": {
+          "initial": ["Okay, I'll try it now...", "Show me how... I'm scared."],
+          "performing_heimlich": ["Doing it... but no effect!", "Thrusting... *grunt* nothing..."],
+          "child_unconscious": [
+            "I'm starting CPR now...",
+            "They're not breathing, tell me what to do!"
+          ]
+        }
+      },
+      "ASK_AGE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["{victim_relation} is 3 years old", "A toddler... 2 years..."],
+          "performing_heimlich": ["Same, 3 years old...", "Slightly different technique needed?"],
+          "child_unconscious": ["2 years old... please help!", "Baby, 1 year..."]
+        }
+      },
+      "ASK_BREATHING": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["They're gasping... not getting air!", "Coughing weakly..."],
+          "performing_heimlich": [
+            "Still not breathing normally...",
+            "Some air, but still choking..."
+          ],
+          "child_unconscious": ["Not breathing... no pulse?", "Can't feel breath..."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but could not perform medical procedures effectively."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters arrived with some medical training, but ambulance was needed."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Paramedics arrived and cleared the airway. Child safe."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control has no medical training. Child died."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Child died of choking."
+      }
+    },
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "id": "scenario_026",
+    "title": "Elderly Fall with Bleeding",
+    "states": {
+      "initial": "Caller found elderly person on floor, bleeding.",
+      "attempting_stop_bleed": "Caller is applying pressure.",
+      "unconscious_bleeding": "Elderly person unconscious."
+    },
+    "initial_variations": [
+      "My {victim_relation} has fallen! Blood everywhere! {address_location}!",
+      "{caller_name} I need help! {victim_relation} is bleeding from {specific_details}!",
+      "Found {victim_relation} on the floor... not moving... {ambient_audio}",
+      "Please send an ambulance! {address_location}... {victim_relation} hit head!"
+    ],
+    "slots": {
+      "caller_name": ["Carol", "Robert", "Linda", "William", "Karen"],
+      "victim_relation": ["my mother", "my father", "my grandfather", "my neighbor", "my husband"],
+      "address_location": [
+        "55 Elderberry Court",
+        "188 Maple Street",
+        "72 Chestnut Avenue",
+        "3 Sycamore Lane",
+        "901 Pinehill Road"
+      ],
+      "ambient_audio": [
+        "moaning",
+        "silence",
+        "blood dripping",
+        "pacing footsteps",
+        "TV in background"
+      ],
+      "specific_details": ["the head", "the leg", "the arm", "the hip", "the side"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["{address_location}! Hurry!", "We're at {address_location}"],
+          "attempting_stop_bleed": [
+            "Still at {address_location}... applying pressure...",
+            "{address_location}... bleeding a lot!"
+          ],
+          "unconscious_bleeding": [
+            "{address_location}... they passed out...",
+            "Same place, {address_location}"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Fell off a chair... hit {specific_details}! Blood!",
+            "Found them like this... bleeding from {specific_details}..."
+          ],
+          "attempting_stop_bleed": [
+            "Using a towel... blood still coming...",
+            "Pressure on {specific_details}..."
+          ],
+          "unconscious_bleeding": [
+            "Not responding... bleeding seems slower...",
+            "I think they have a head wound."
+          ]
+        }
+      },
+      "ASK_CONDITION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Bleeding heavily... they're disoriented... {ambient_audio}",
+            "Moaning... but conscious..."
+          ],
+          "attempting_stop_bleed": [
+            "Conscious but pale... bleeding slowing a bit...",
+            "They're weak... {ambient_audio}"
+          ],
+          "unconscious_bleeding": [
+            "Unconscious... breathing shallow...",
+            "Pulse weak... not waking up."
+          ]
+        }
+      },
+      "INSTRUCT_BLEED_CONTROL": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "attempting_stop_bleed",
+          "attempting_stop_bleed": "unconscious_bleeding"
+        },
+        "responses": {
+          "initial": ["Okay... pressing hard on the wound...", "Using cloth... how long?"],
+          "attempting_stop_bleed": [
+            "Pressing... not stopping...",
+            "I'm trying... they're getting weaker..."
+          ],
+          "unconscious_bleeding": [
+            "They passed out while I was pressing...",
+            "I can't keep pressure if I do CPR?"
+          ]
+        }
+      },
+      "ASK_AGE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["{victim_relation} is 85", "Elderly... mid-70s..."],
+          "attempting_stop_bleed": ["80 years old...", "75..."],
+          "unconscious_bleeding": ["Around 80...", "Old... 90 maybe..."]
+        }
+      },
+      "ASK_MEDICATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They take blood thinners!",
+            "Aspirin daily...",
+            "Not sure... but they have a bottle."
+          ],
+          "attempting_stop_bleed": [
+            "Blood thinners... that's why bleeding won't stop!",
+            "Yes, warfarin..."
+          ],
+          "unconscious_bleeding": [
+            "*crying* they're on blood thinners...",
+            "Medicine... anticoagulant..."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but had limited first aid. Medical was needed."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Firefighters arrived and controlled bleeding until medics came."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Medics provided advanced care and transported to hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control sent. Patient bled out."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Patient died from blood loss."
+      }
+    },
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "id": "scenario_027",
+    "title": "Car Crash with Fire and Trapped Victim",
+    "states": {
+      "initial": "Caller reporting car crash, vehicle on fire, driver trapped.",
+      "attempting_extraction": "Caller trying to help victim out.",
+      "fire_spreading": "Fire is spreading rapidly."
+    },
+    "initial_variations": [
+      "Car crash! {address_location}! Vehicle is on fire! {ambient_audio}",
+      "{caller_name} there's a car on fire! {victim_relation} is trapped! {specific_details}",
+      "I see smoke and flames! {address_location}... someone inside! {ambient_audio}",
+      "Help! A car just hit a pole and caught fire! {address_location}!"
+    ],
+    "slots": {
+      "caller_name": ["Mark", "Tiffany", "Steve", "Angela", "Jake"],
+      "victim_relation": ["the driver", "a person", "someone", "my friend", "a stranger"],
+      "address_location": [
+        "Intersection of Main and 1st",
+        "Highway 101 mile marker 22",
+        "Parking lot of Target on Elm",
+        "Corner of Oak and 5th",
+        "Tunnel near downtown"
+      ],
+      "ambient_audio": [
+        "screaming",
+        "hissing fire",
+        "car horns",
+        "breaking glass",
+        "crackling flames"
+      ],
+      "specific_details": [
+        "seatbelt stuck",
+        "door jammed",
+        "leg trapped",
+        "unconscious",
+        "bleeding badly"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["{address_location}! Hurry, fire is spreading!", "At {address_location}..."],
+          "attempting_extraction": [
+            "Still at {address_location}... trying to open door...",
+            "{address_location}... fire getting closer!"
+          ],
+          "fire_spreading": [
+            "Same location... {address_location}... fire is everywhere!",
+            "I can't stay... {address_location}"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Car hit a pole... front is crushed... {ambient_audio}",
+            "{victim_relation} is trapped inside... {specific_details}"
+          ],
+          "attempting_extraction": [
+            "Trying to break window... {specific_details}",
+            "Seatbelt is stuck... can't pull them out..."
+          ],
+          "fire_spreading": [
+            "Fire is near the gas tank! I'm backing off!",
+            "Flames are too intense... can't get close."
+          ]
+        }
+      },
+      "ASK_CONDITION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{ambient_audio} they're bleeding... but conscious...",
+            "Unconscious... head wound..."
+          ],
+          "attempting_extraction": [
+            "Conscious but panicked... {ambient_audio}",
+            "Bleeding heavily..."
+          ],
+          "fire_spreading": [
+            "Can't tell... too much smoke...",
+            "I think they passed out from smoke."
+          ]
+        }
+      },
+      "INSTRUCT_EVACUATE": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "attempting_extraction",
+          "attempting_extraction": "fire_spreading"
+        },
+        "responses": {
+          "initial": ["I'll try to get them out...", "How do I get them out? Use a tool?"],
+          "attempting_extraction": [
+            "I'm pulling... almost got them out...",
+            "They're stuck... fire is getting worse!"
+          ],
+          "fire_spreading": [
+            "I have to move back... explosion risk!",
+            "I can't save them... fire is too big!"
+          ]
+        }
+      },
+      "ASK_FIRE_SIZE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Flames coming from the hood... growing fast!",
+            "Small fire now but spreading..."
+          ],
+          "attempting_extraction": ["Fire is reaching the cabin...", "Getting bigger..."],
+          "fire_spreading": [
+            "Entire front is engulfed... maybe explosion!",
+            "Huge flames... I have to move away."
+          ]
+        }
+      },
+      "ASK_TRAPPED": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, {victim_relation} is trapped by wreckage.",
+            "Door jammed... {specific_details}"
+          ],
+          "attempting_extraction": ["Still trapped... almost free...", "Seatbelt jammed..."],
+          "fire_spreading": ["Still trapped... fire is too close...", "I can't get to them now."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Police arrived but lacked firefighting equipment. Fire spread."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Fire department extinguished fire and rescued the victim."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medics could not approach due to fire. Fire needed first."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control sent. Victim died in fire."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Victim died in crash and fire."
+      }
+    },
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Carbon Monoxide Leak",
+    "prompt": "A family is experiencing carbon monoxide poisoning. The caller is disoriented and reports multiple family members feeling ill.",
+    "states": {
+      "initial": "Caller reports symptoms and possible gas leak.",
+      "confused": "Caller is disoriented and unable to provide clear information.",
+      "evacuating": "Caller is trying to get family outside.",
+      "unconscious": "Caller or family members have lost consciousness."
+    },
+    "initial_variations": [
+      "Help, I think there's a gas leak at {address_location}, my {victim_relation} is feeling very {specific_details}.",
+      "Something's wrong at {address_location}, we all have {specific_details} and there's a beeping sound.",
+      "Please hurry to {address_location}, we can barely stay awake, I think it's carbon monoxide."
+    ],
+    "slots": {
+      "caller_name": ["John", "Mary", "David"],
+      "address_location": ["123 Oak St", "456 Elm Ave", "789 Pine Rd"],
+      "victim_relation": ["mother", "father", "child"],
+      "ambient_audio": ["faint beeping", "silence", "heavy breathing"],
+      "specific_details": ["headache", "nausea", "dizziness"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {address_location}. Please hurry!",
+            "We are at {address_location}, corner of Maple and 5th.",
+            "Address is {address_location}, apartment 2B."
+          ],
+          "confused": [
+            "I... I can't remember. I think it's {address_location}?",
+            "Somewhere near... maybe {address_location}?",
+            "The street sign says {address_location} but I'm not sure."
+          ],
+          "evacuating": [
+            "We're outside at {address_location}. Please send help.",
+            "We made it out to the front yard at {address_location}."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We have {specific_details} and there's a weird smell.",
+            "My {victim_relation} is vomiting and has {specific_details}.",
+            "Everyone has {specific_details}, and the alarm keeps beeping."
+          ],
+          "confused": [
+            "I feel {specific_details}. I can't think straight.",
+            "My head hurts, and I'm {specific_details}."
+          ],
+          "evacuating": [
+            "We're all outside now. My {victim_relation} still feels {specific_details}.",
+            "Fresh air helps but {victim_relation} is still {specific_details}."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_VICTIM_CONDITION": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "evacuating"
+        },
+        "responses": {
+          "initial": [
+            "My {victim_relation} is unconscious! I'm trying to carry them out.",
+            "The kids are dizzy, but awake. They keep saying {specific_details}."
+          ],
+          "confused": [
+            "I don't know, I can't see them clearly. Everything is blurry.",
+            "I think {victim_relation} is still inside, I can't move."
+          ],
+          "evacuating": [
+            "My {victim_relation} is breathing but unresponsive. We're outside.",
+            "Everyone is out; {victim_relation} is coughing and weak."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm still conscious but feel {specific_details}.",
+            "I can barely stand, my head is pounding."
+          ],
+          "confused": [
+            "I don't know where I am... the room is spinning.",
+            "I'm having trouble breathing and seeing double."
+          ],
+          "evacuating": [
+            "I'm outside now, gasping for air. I feel a bit better.",
+            "I got out, but I'm shaking and nauseous."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived but could not handle the gas leak; fire department was called anyway."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Fire department detected and stopped the carbon monoxide leak; victims treated by paramedics."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "feedback": "Paramedics treated the victims but the source of the leak remained; fire department was later called."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control arrived and was unable to assist; victims suffered prolonged exposure."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed; family found dead from carbon monoxide poisoning the next day."
+      }
+    },
+    "id": "scenario_028",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Drowning Child",
+    "prompt": "A parent is calling from a poolside. Their child is not breathing after being pulled from the water.",
+    "states": {
+      "initial": "Caller reports child pulled from pool, not breathing.",
+      "performing_cpr": "Caller is performing CPR as instructed.",
+      "child_responsive": "Child starts breathing or showing signs of life.",
+      "child_unresponsive": "Child remains unresponsive despite CPR."
+    },
+    "initial_variations": [
+      "My child isn't breathing! We were at the pool at {address_location}. Please help!",
+      "I just pulled my {victim_relation} from the pool at {address_location}, they're not moving!",
+      "Emergency! My {victim_relation} drowned at {address_location}! I need an ambulance now!"
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Linda"],
+      "address_location": ["1234 Swimming Lane", "5678 Pool Drive", "9101 Water Street"],
+      "victim_relation": ["son", "daughter", "nephew"],
+      "ambient_audio": ["splashing water", "screaming", "silence"],
+      "specific_details": ["blue lips", "no pulse", "water in lungs"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {address_location}, the pool in the backyard!",
+            "We're at {address_location}, near the community pool.",
+            "Address is {address_location}, just off Main Street."
+          ],
+          "performing_cpr": [
+            "Still at {address_location}. I'm doing CPR like you said!",
+            "Same place, {address_location}. Please keep talking me through this."
+          ],
+          "child_responsive": [
+            "We're still at {address_location}. He's coughing up water!",
+            "At {address_location}, she's crying now! Thank you!"
+          ],
+          "child_unresponsive": ["Still here at {address_location}. He's not responding!"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's about 5, blue lips, not breathing. I don't see a pulse.",
+            "She was underwater for maybe 2 minutes. She's not moving.",
+            "His face is pale, he's not breathing. I'm so scared."
+          ],
+          "performing_cpr": [
+            "I'm doing chest compressions. He's still not breathing.",
+            "I'm giving rescue breaths. No response yet."
+          ],
+          "child_responsive": [
+            "He's coughing and spitting water! He's breathing on his own!",
+            "She's crying and breathing! I think she's going to be okay."
+          ],
+          "child_unresponsive": ["Still no pulse. I've been doing CPR for 3 minutes. Nothing."]
+        }
+      },
+      "ASK_VICTIM_AGE": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["He's {age}. Please hurry!", "She's {age}, just a toddler."],
+          "performing_cpr": [
+            "{age} years old. I'm doing compressions with two fingers.",
+            "He's {age}, should I use one hand or two?"
+          ],
+          "child_responsive": [
+            "{age} years old. He's crying, which is good I think.",
+            "She's {age}, she's asking for me."
+          ],
+          "child_unresponsive": ["{age} years old. Still unresponsive."]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm panicking but I'm here. I need help!",
+            "I'm trying to stay calm. Tell me what to do."
+          ],
+          "performing_cpr": [
+            "I'm doing CPR as instructed. My hands are shaking.",
+            "I'm trying to keep the rhythm. Please keep talking."
+          ],
+          "child_responsive": [
+            "I'm crying with relief. Thank you so much!",
+            "I'm okay now that she's breathing."
+          ],
+          "child_unresponsive": ["I'm exhausted and terrified. He's not coming back."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived but could not provide medical care; paramedics were eventually dispatched."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Firefighters arrived with medical equipment and revived the child; transported to hospital."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Paramedics arrived quickly and resuscitated the child using advanced life support."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Animal control arrived; child died due to lack of medical intervention."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as prank; child found dead at pool."
+      }
+    },
+    "id": "scenario_029",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Severe Allergic Reaction (Bee Sting)",
+    "prompt": "A caller reports that their friend is experiencing anaphylactic shock after a bee sting. EpiPen was used but symptoms are not improving.",
+    "states": {
+      "initial": "Caller reports friend collapsed after bee sting, EpiPen administered.",
+      "administering_epipen": "Caller is administering or has administered EpiPen.",
+      "symptoms_worsening": "Symptoms are worsening despite EpiPen.",
+      "unresponsive": "Victim has become unresponsive."
+    },
+    "initial_variations": [
+      "My {victim_relation} got stung by a bee at {address_location} and can't breathe! I used an EpiPen but it's not helping!",
+      "Help! We're at {address_location}. My friend is having a severe allergic reaction to a bee sting. He's swelling up and his throat is closing!",
+      "Emergency at {address_location}! I gave {victim_relation} an EpiPen but he's still wheezing and turning blue!"
+    ],
+    "slots": {
+      "caller_name": ["Emily", "James", "Rachel"],
+      "address_location": ["22 Park Ave", "345 Forest Trail", "678 Meadow Lane"],
+      "victim_relation": ["husband", "sister", "coworker"],
+      "ambient_audio": ["wheezing", "vomiting", "panic shouting"],
+      "specific_details": ["hives all over", "swollen face", "difficulty breathing"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}, in the picnic area.",
+            "It's {address_location}, near the big oak tree.",
+            "Address is {address_location}, the blue house on the corner."
+          ],
+          "administering_epipen": [
+            "Still at {address_location}. I just injected the EpiPen.",
+            "Same location, {address_location}. He's not improving."
+          ],
+          "symptoms_worsening": [
+            "We're at {address_location}. He's getting worse!",
+            "Here at {address_location}, his face is swelling even more."
+          ],
+          "unresponsive": ["Still at {address_location}. He's passed out!"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He was stung on the arm. Now his face is swollen and he's wheezing.",
+            "She's covered in hives and says her tongue is tingling.",
+            "He's vomiting and can barely breathe. The EpiPen didn't help."
+          ],
+          "administering_epipen": [
+            "I injected into his thigh. He's still struggling to breathe.",
+            "Used the EpiPen 30 seconds ago. No change."
+          ],
+          "symptoms_worsening": [
+            "His lips are blue now. He's barely conscious.",
+            "She stopped wheezing but she's not moving."
+          ],
+          "unresponsive": ["He's unresponsive. No pulse detectable."]
+        }
+      },
+      "ASK_EPIPEN_USAGE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Yes, I used it once. Should I use another?",
+            "I haven't used it yet; should I?"
+          ],
+          "administering_epipen": [
+            "I used it exactly as instructed. It didn't work.",
+            "I pushed it into his outer thigh. He flinched."
+          ],
+          "symptoms_worsening": [
+            "I used one EpiPen. No improvement. Can I give a second?",
+            "Administered one dose; no effect."
+          ],
+          "unresponsive": ["I used one EpiPen before he passed out. Nothing happened."]
+        }
+      },
+      "ASK_VICTIM_CONDITION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's conscious but struggling to breathe.",
+            "She's sitting up but very pale and shaking."
+          ],
+          "administering_epipen": [
+            "He's still conscious but says his throat is closing.",
+            "She's lying down, groaning."
+          ],
+          "symptoms_worsening": [
+            "He's barely conscious. His breathing is shallow.",
+            "She's limp and not responding to voice."
+          ],
+          "unresponsive": ["He's unconscious. I can't find a pulse."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived but could not provide advanced medical care; paramedics arrived later."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Firefighters with EMS training stabilized the victim and transported to hospital."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Paramedics arrived within 5 minutes, administered epinephrine and oxygen; victim survived."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Animal control responded; victim died from anaphylactic shock."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed; victim found dead at scene."
+      }
+    },
+    "id": "scenario_030",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Gunshot Wound (Self-Accidental)",
+    "prompt": "A caller reports accidentally shooting themselves while cleaning a gun. They are bleeding heavily and need immediate medical assistance.",
+    "states": {
+      "initial": "Caller reports they've been shot accidentally.",
+      "applying_pressure": "Caller is applying pressure to wound as instructed.",
+      "weakening": "Caller's voice is weakening due to blood loss.",
+      "unconscious": "Caller has lost consciousness."
+    },
+    "initial_variations": [
+      "I accidentally shot myself while cleaning my gun at {address_location}! I'm bleeding badly!",
+      "Help! I was cleaning a gun at {address_location} and it went off! I'm hit in the {specific_details}!",
+      "Oh God, please help! I'm at {address_location}, I shot myself in the leg. There's blood everywhere!"
+    ],
+    "slots": {
+      "caller_name": ["Tom", "Laura", "Chris"],
+      "address_location": ["88 Gun Club Rd", "1234 Safety Lane", "5678 Target Drive"],
+      "victim_relation": ["myself", "myself", "myself"],
+      "ambient_audio": ["loud moaning", "gurgling sounds", "heavy bleeding sounds"],
+      "specific_details": ["leg", "arm", "chest"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, in the garage.",
+            "Address is {address_location}, it's a ranch house.",
+            "Please hurry, {address_location}, I'm losing blood!"
+          ],
+          "applying_pressure": [
+            "Still at {address_location}. I'm applying pressure like you said.",
+            "Same place, {address_location}. I've wrapped a towel around it."
+          ],
+          "weakening": [
+            "Still at {address_location}. I feel faint.",
+            "Here... at {address_location}... losing too much blood..."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The bullet is in my {specific_details}. There's a lot of blood.",
+            "I shot myself in the {specific_details} by accident.",
+            "It's my {specific_details}, I can see the bone."
+          ],
+          "applying_pressure": [
+            "I'm pressing on the wound. It's still bleeding a lot.",
+            "The bleeding is slowing a bit but not stopping."
+          ],
+          "weakening": [
+            "I can't hold pressure anymore... so weak...",
+            "The blood is soaking through the towel."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It was a handgun, a 9mm.",
+            "A shotgun, I was cleaning it.",
+            "A rifle, I thought it was unloaded."
+          ],
+          "applying_pressure": [
+            "Same gun. I put it down. Please help.",
+            "It's on the table. I don't care about it now."
+          ],
+          "weakening": ["Gun... still there...", "I dropped the gun when I fell."],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "applying_pressure"
+        },
+        "responses": {
+          "initial": [
+            "I'm scared but I'm trying to stay calm. Tell me what to do.",
+            "I feel dizzy and nauseous."
+          ],
+          "applying_pressure": [
+            "I'm applying pressure but I'm getting lightheaded.",
+            "I think I'm going to pass out. I'm so cold."
+          ],
+          "weakening": [
+            "I can barely talk. Please hurry.",
+            "I'm fading... tell my family I love them."
+          ],
+          "unconscious": ["(No response - caller is unconscious)"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Police arrived first and applied tourniquet; paramedics took over and saved caller's life."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Firefighters with medical training stabilized the wound and transported to hospital."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Paramedics arrived quickly and provided life-saving blood transfusion and surgery."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Animal control responded; caller died from exsanguination."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as prank; caller found dead from blood loss."
+      }
+    },
+    "id": "scenario_031",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Cave-In Trapped Hiker",
+    "prompt": "A hiker is trapped under rocks after a cave-in in a remote area. Phone battery is low and they are injured.",
+    "states": {
+      "initial": "Caller reports being trapped under rocks after cave-in.",
+      "extrication_attempt": "Caller is trying to free themselves or signal for help.",
+      "battery_low": "Phone battery is about to die.",
+      "unresponsive": "Caller loses consciousness."
+    },
+    "initial_variations": [
+      "Help! I'm trapped in a cave-in at {address_location}! Rocks are pinning my legs!",
+      "I'm hiking on {address_location} trail and a cave collapsed on me! I'm stuck and can't move!",
+      "Please send rescue to {address_location}! I'm in a cave that just caved in, I'm injured!"
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Jordan", "Sam"],
+      "address_location": [
+        "Mountainside Trail, mile 3",
+        "Rocky Ridge Cave, entrance 2",
+        "Deep Woods, near Eagle Peak"
+      ],
+      "victim_relation": ["myself", "myself", "myself"],
+      "ambient_audio": ["falling rocks", "echoing drips", "wind howling"],
+      "specific_details": ["broken leg", "head injury", "torn shoulder"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm on the {address_location} trail, near a large boulder.",
+            "I'm at {address_location}, there's a red flag marking the trailhead.",
+            "Coordinates: 34.0522, -118.2437. That's {address_location} area."
+          ],
+          "extrication_attempt": [
+            "I'm near the entrance of {address_location}, digging with my hands.",
+            "Still at {address_location}, but I've shifted a little."
+          ],
+          "battery_low": [
+            "Same location, {address_location}. Battery is at 5%.",
+            "At {address_location}, please hurry, battery dying."
+          ],
+          "unresponsive": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A boulder fell on my legs. I can't feel them.",
+            "I hit my head and it's bleeding. Rocks are pinning my chest.",
+            "My arm is trapped under a slab. I think it's broken."
+          ],
+          "extrication_attempt": [
+            "I've moved a small rock but the big one won't budge.",
+            "I'm trying to signal with my flashlight."
+          ],
+          "battery_low": [
+            "I'm still stuck. Bleeding from {specific_details}.",
+            "No change. Losing feeling in my legs."
+          ],
+          "unresponsive": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I think I have {specific_details}. I'm losing blood.",
+            "My {specific_details} is crushed. I can't move it."
+          ],
+          "extrication_attempt": [
+            "Same {specific_details}, but I've stopped the bleeding with my shirt.",
+            "The {specific_details} is getting numb."
+          ],
+          "battery_low": [
+            "I'm in severe pain from {specific_details}. Can't hold on much longer.",
+            "{specific_details} is worse. I'm fading."
+          ],
+          "unresponsive": ["(No response - caller is unconscious)"]
+        }
+      },
+      "ASK_BATTERY_STATUS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "battery_low"
+        },
+        "responses": {
+          "initial": [
+            "My battery is at 40%. I have maybe 30 minutes.",
+            "Full battery, but the signal is weak."
+          ],
+          "extrication_attempt": [
+            "Battery at 20% now. I'm conserving power.",
+            "15% left. Please send coordinates."
+          ],
+          "battery_low": [
+            "Critical: 3% battery. This may be my last transmission.",
+            "1% battery. I love you all."
+          ],
+          "unresponsive": ["(No response - call dropped)"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Police search and rescue team located and extricated the hiker with minor injuries."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Fire department heavy rescue team used specialized equipment to free the hiker safely."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Paramedics arrived but could not extract the victim without rescue team; delayed treatment."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Animal control responded; hiker died from crush syndrome."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed as hoax; hiker found dead days later."
+      }
+    },
+    "id": "scenario_032",
+    "archetype": "Life-Threatening Emergency"
+  },
+  {
+    "title": "Explosive Gas Leak in Apartment Building",
+    "description": "A neighbor calls 911 reporting a strong smell of natural gas coming from a nearby apartment. The building could explode at any moment. The caller is panicked and unsure if anyone is inside the leaking unit.",
+    "archetype": "Life-Threatening Emergency",
+    "states": ["initial", "evacuating", "evacuated", "leak_contained"],
+    "initial_variations": [
+      "I smell gas really strong, like rotten eggs! It's coming from apartment {apartment_number} at {address_location}. I think the whole building is going to blow!",
+      "Oh my god, there's a gas leak! I can smell it in the hallway. The building is {address_location}. Please hurry, it's going to explode!",
+      "This is an emergency! There's a massive gas leak in my building. I'm calling from {apartment_number}, but the smell is coming from next door. {address_location}, please send help!",
+      "I'm scared, the gas smell is overwhelming. It's coming from {apartment_number} at {address_location}. I don't know if anyone is inside."
+    ],
+    "slots": {
+      "address_location": {
+        "type": "string",
+        "options": [
+          "123 Maple Street",
+          "456 Oak Avenue",
+          "789 Pine Road",
+          "321 Elm Street",
+          "654 Birch Lane"
+        ]
+      },
+      "apartment_number": {
+        "type": "string",
+        "options": ["Apt 2B", "Apt 3A", "Apt 1C", "Apt 4D", "Apt 5E"]
+      },
+      "caller_name": {
+        "type": "string",
+        "options": ["Mr. Johnson", "Ms. Smith", "Officer Dave", "Mrs. Chen", "Alex"]
+      },
+      "ambient_audio": {
+        "type": "string",
+        "options": [
+          "a faint hissing sound",
+          "alarms blaring in the background",
+          "people shouting in the hallway",
+          "silence"
+        ]
+      },
+      "specific_details": {
+        "type": "string",
+        "options": [
+          "I think the stove was left on",
+          "there's a broken pipe",
+          "someone might be sleeping inside",
+          "I saw a gas company truck here yesterday"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {address_location}, apartment {apartment_number}. Please come now!",
+            "I already said, {address_location}. Hurry!",
+            "The building is at {address_location}. I'm in {apartment_number}."
+          ],
+          "evacuating": [
+            "I'm leaving the building now, but it's at {address_location}.",
+            "The address is {address_location}. I'm heading outside."
+          ],
+          "evacuated": [
+            "We're out. The address is {address_location}. Please send fire trucks.",
+            "Everyone is outside. It's {address_location}."
+          ],
+          "leak_contained": [
+            "The gas company turned it off. The address is still {address_location}.",
+            "It's safe now at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm not sure, but I can hear {ambient_audio}. Also, {specific_details}.",
+            "It smells really strong. {ambient_audio}. And {specific_details}.",
+            "All I know is {specific_details}. Please, just get someone here!"
+          ],
+          "evacuating": [
+            "I'm trying to get out. {ambient_audio}. {specific_details}.",
+            "I don't know more. {ambient_audio}."
+          ],
+          "evacuated": [
+            "Now that I'm outside, I can see the gas meter is spinning. {ambient_audio} is gone.",
+            "Out here it's quiet. The smell is still strong."
+          ],
+          "leak_contained": [
+            "It's under control. The gas company is here.",
+            "No more leak. They fixed it."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuating",
+          "evacuating": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "I'm still in the hallway, I'm shaking.",
+            "I'm in my apartment, not sure what to do.",
+            "I'm about to leave, I have my keys."
+          ],
+          "evacuating": [
+            "I'm going down the stairs now.",
+            "I'm leaving the building, almost at the exit.",
+            "I'm outside, but I'm telling others to leave."
+          ],
+          "evacuated": ["I'm safe, across the street.", "I'm out, standing with my neighbors."],
+          "leak_contained": ["I'm fine, just relieved."]
+        }
+      },
+      "ASK_VICTIM_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I don't know if anyone is in that apartment.",
+            "I haven't seen anyone come out.",
+            "There might be an elderly person inside."
+          ],
+          "evacuating": ["I can't check now, I'm leaving.", "No idea, I'm focused on getting out."],
+          "evacuated": [
+            "I see some people from that apartment, but not everyone.",
+            "We're doing a headcount."
+          ],
+          "leak_contained": ["Everyone is accounted for, thank goodness."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "evacuating",
+          "evacuating": "evacuated"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll start moving to the exit.",
+            "I'll tell my neighbors to evacuate.",
+            "I'm leaving now, thank you."
+          ],
+          "evacuating": [
+            "I'm going down the stairs, not the elevator.",
+            "I'm warning people as I go.",
+            "I'm almost out."
+          ],
+          "evacuated": [
+            "I'm outside, far from the building.",
+            "I'm with the others in the parking lot."
+          ],
+          "leak_contained": ["Understood. I'll stay back."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 150,
+          "feedback": "Police arrive quickly, help evacuate the building and secure the perimeter. The gas leak is contained without explosion."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Police respond but lack equipment to stop the leak. They request fire department, causing a slight delay."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "feedback": "Police arrive, but without proper hazmat gear, they are unable to enter the building. The leak ignites, causing an explosion."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 300,
+          "feedback": "Firefighters arrive immediately, shut off the gas main, and ventilate the building. No injuries. All evacuate safely."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "feedback": "Fire department responds, but there is a miscommunication about the location, causing a 5-minute delay. The leak is eventually stopped."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Fire department gets lost due to poor address. Meanwhile, the gas leak ignites, destroying the building and causing multiple casualties."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "feedback": "Medical team arrives to treat residents for gas inhalation. No serious injuries, but they stabilize a few affected individuals."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -150,
+          "feedback": "Medical team treats symptoms but cannot stop the leak. Fire department is called later, resulting in panic."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Medical personnel are overwhelmed by the gas and fail to evacuate. Explosion kills several responders."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "feedback": "Animal control arrives, confused, and calls fire department. Leak is eventually handled, but time is wasted."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -200,
+          "feedback": "Animal control tries to find animals, delays proper response. Gas leak causes minor injuries."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Animal control's presence delays evacuation. Explosion kills many."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": -100,
+          "feedback": "You dismissed the call as a false alarm. The leak was real and causes a small fire but no deaths."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -300,
+          "feedback": "You dismiss the call. The building explodes, dozens die."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "You ignore the caller. The gas leak causes a catastrophic explosion, leveling the block."
+        }
+      }
+    },
+    "id": "scenario_033"
+  },
+  {
+    "title": "Snake Bite in Remote Wilderness",
+    "description": "A hiker calls 911 after being bitten by a venomous snake on a remote trail. They are alone, losing feeling in their leg, and their phone battery is low.",
+    "archetype": "Life-Threatening Emergency",
+    "states": ["initial", "waiting", "rescued", "deteriorating"],
+    "initial_variations": [
+      "I've been bitten by a snake! I'm on the {trail_name} trail near {landmark}. My leg is going numb. Please, I need help!",
+      "Emergency! Snake bite! I'm at {landmark} on {trail_name}. The snake was brown with diamond patterns. I'm starting to feel dizzy.",
+      "This is an emergency! I'm a hiker on {trail_name}, near {landmark}. A rattlesnake just bit my ankle. I can't walk. Please send a helicopter!",
+      "Help! Bitten by a snake. Location: {landmark}, {trail_name}. My friend {caller_name} is with me but he's panicking. I need medical aid now."
+    ],
+    "slots": {
+      "trail_name": {
+        "type": "string",
+        "options": [
+          "Bear Peak Trail",
+          "River Bend Path",
+          "Eagle Ridge Loop",
+          "Coyote Canyon Trail",
+          "Sunset Summit"
+        ]
+      },
+      "landmark": {
+        "type": "string",
+        "options": [
+          "the old oak tree",
+          "Blue Lake",
+          "the ranger station ruins",
+          "the waterfall",
+          "the rocky outcrop"
+        ]
+      },
+      "caller_name": {
+        "type": "string",
+        "options": ["Alex", "Jamie", "Taylor", "Jordan", "Morgan"]
+      },
+      "ambient_audio": {
+        "type": "string",
+        "options": [
+          "birds chirping",
+          "wind howling",
+          "river rushing",
+          "heavy breathing",
+          "phone static"
+        ]
+      },
+      "specific_details": {
+        "type": "string",
+        "options": [
+          "I have a first aid kit but no antivenom",
+          "the snake was about 4 feet long",
+          "I see a trail marker nearby",
+          "I'm allergic to some medications"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm on {trail_name}, near {landmark}. It's about 2 miles from the parking lot.",
+            "Location: {trail_name}, just past {landmark}. Please hurry!",
+            "At {landmark} on {trail_name}. I can see a sign that says 'Mile 3'."
+          ],
+          "waiting": [
+            "Same place, {landmark} on {trail_name}. I haven't moved.",
+            "Still at {landmark}. Please tell them I'm here."
+          ],
+          "rescued": [
+            "I've been rescued, but thank you. The location was {landmark}.",
+            "They found me at {landmark}. All good now."
+          ],
+          "deteriorating": [
+            "I... I'm still at {landmark}. Can't talk much longer.",
+            "Same spot. Getting worse."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The snake was brown with diamond shapes. Bit me on the left ankle. I can hear {ambient_audio}. Also, {specific_details}.",
+            "It felt like a hot needle. I see fang marks. {ambient_audio}. And {specific_details}.",
+            "It's a pit viper, I think. My leg is swelling. {specific_details}."
+          ],
+          "waiting": [
+            "The swelling is up to my knee now. {ambient_audio}. {specific_details}.",
+            "I feel nauseous. {ambient_audio}."
+          ],
+          "rescued": [
+            "I got antivenom. I'm stable now.",
+            "Rescuers have me. They're treating the bite."
+          ],
+          "deteriorating": [
+            "I can't feel my leg at all. Breathing is hard. {ambient_audio}.",
+            "Vision blurry. {ambient_audio} fading."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "waiting",
+          "waiting": "deteriorating"
+        },
+        "responses": {
+          "initial": [
+            "I'm sitting down, trying to stay calm.",
+            "I'm walking slowly, but it hurts.",
+            "I'm alone and scared."
+          ],
+          "waiting": [
+            "I'm staying put as you said.",
+            "I'm lying down, keeping the bite below heart level.",
+            "I'm trying to keep my phone on."
+          ],
+          "rescued": [
+            "I'm in the ambulance. They're giving me antivenom.",
+            "Rescued! Feeling a bit better."
+          ],
+          "deteriorating": ["I'm fading... please hurry.", "I can barely speak. Getting worse."]
+        }
+      },
+      "ASK_VICTIM_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm the victim. It's me.",
+            "I'm the one who got bitten.",
+            "My friend is fine, but I'm the one hurt."
+          ],
+          "waiting": ["I'm still the only one bitten.", "No one else is hurt."],
+          "rescued": [
+            "I'm being treated. The bite was serious but under control.",
+            "Victim is stable."
+          ],
+          "deteriorating": ["I'm the victim and I'm getting worse.", "Still me. Not good."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "waiting",
+          "waiting": "deteriorating"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll sit down and stay calm.",
+            "I'll keep my leg still and remove any tight clothing.",
+            "I won't cut the wound or suck venom.",
+            "I'll try to describe the snake to the rescuers."
+          ],
+          "waiting": [
+            "I'm doing as you said. Waiting.",
+            "Keeping my leg elevated slightly.",
+            "I'm marking my location with bright fabric."
+          ],
+          "rescued": [
+            "No more instructions needed, I'm being helped.",
+            "Rescuers are here, thank you."
+          ],
+          "deteriorating": [
+            "I can't follow instructions anymore... help.",
+            "Too weak to do anything."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "feedback": "Police coordinate with park rangers and locate the hiker quickly. They provide first aid until medical arrives."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "feedback": "Police search but get lost in the wilderness. Delay of 30 minutes before medical arrives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Police are unfamiliar with the trail and cannot find the hiker. The hiker dies from venom."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 150,
+          "feedback": "Fire department's search and rescue team finds the hiker using GPS coordinates. They administer oxygen and transport to hospital."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Firefighters arrive but lack antivenom; they stabilize the victim and call for a medical helicopter."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "feedback": "Fire brigade gets stuck on rough terrain. By the time they reach, the venom has spread fatally."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 300,
+          "feedback": "Medics are dispatched with antivenom and GPS locator. They reach the hiker within 20 minutes and treat the bite. Full recovery."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Medics arrive but realize they need a helicopter for evacuation. Slight delay, but victim survives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Medical team gets lost; no cell service. The hiker goes into shock and dies before rescue."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": -50,
+          "feedback": "Animal control comes to capture the snake but the hiker needs medical. They call for backup, causing delay."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -200,
+          "feedback": "Animal control focuses on snake, hiker's condition worsens. Medical arrives late."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Animal control ignores the hiker to catch the snake. The hiker dies from lack of treatment."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": -100,
+          "feedback": "You dismiss as non-emergency. The hiker manages to call again later, but receives delayed help."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -300,
+          "feedback": "You dismiss the call. The hiker's condition deteriorates; a fellow hiker finds them too late."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "You hang up. The hiker dies alone in the wilderness."
+        }
+      }
+    },
+    "id": "scenario_034"
+  },
+  {
+    "title": "Freezing Man Down",
+    "description": "A caller reports finding an unconscious person lying in the snow on a cold winter night. The victim is not responding and appears hypothermic.",
+    "archetype": "Life-Threatening Emergency",
+    "states": ["initial", "assessing", "warming", "rescued"],
+    "initial_variations": [
+      "I found a man passed out in the snow near {landmark} on {street_name}. He's not moving! It's freezing out here!",
+      "There's a person lying on the ground at {address_location}. I think he's frozen. Please send an ambulance!",
+      "Oh my God, there's a body in the snow at {landmark}. I touched him, he's cold as ice. {ambient_audio}.",
+      "Emergency! Unconscious male at {address_location}. He's in the snow, not breathing normally. {caller_name} reporting."
+    ],
+    "slots": {
+      "address_location": {
+        "type": "string",
+        "options": ["123 Main St", "456 Park Ave", "789 Broadway", "321 Elm St", "654 Pine St"]
+      },
+      "landmark": {
+        "type": "string",
+        "options": [
+          "the bus stop",
+          "the park bench",
+          "the alley behind the store",
+          "the church entrance",
+          "the bridge underpass"
+        ]
+      },
+      "caller_name": {
+        "type": "string",
+        "options": ["Sarah", "Mike", "Jane", "Officer Tom", "Emily"]
+      },
+      "ambient_audio": {
+        "type": "string",
+        "options": ["wind howling", "distant traffic", "a dog barking", "silence", "snow crunching"]
+      },
+      "specific_details": {
+        "type": "string",
+        "options": [
+          "He's wearing only a thin jacket",
+          "I saw him stumble and fall",
+          "He smells like alcohol",
+          "There's a homeless camp nearby"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, near {landmark}. He's right here.",
+            "It's {address_location}, in front of {landmark}. Please hurry!",
+            "At {landmark} on {street_name}. I can see the sign."
+          ],
+          "assessing": [
+            "Same location: {address_location}. I haven't moved him.",
+            "Still at {landmark}."
+          ],
+          "warming": [
+            "I've moved him to {landmark}? No, he's still at {address_location} but I'm trying to warm him.",
+            "At {address_location}. I'm using my coat on him."
+          ],
+          "rescued": [
+            "He's in the ambulance now. The location was {address_location}.",
+            "Rescue came. It was {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's pale, not moving. I can hear {ambient_audio}. {specific_details}.",
+            "He's breathing but shallow. {ambient_audio}. {specific_details}.",
+            "No pulse? I don't know. {ambient_audio}. {specific_details}."
+          ],
+          "assessing": [
+            "I checked his pulse, it's weak. {ambient_audio}. {specific_details}.",
+            "He's shivering slightly, then stopped. {ambient_audio}."
+          ],
+          "warming": [
+            "I put my scarf on his neck. He's still unresponsive. {ambient_audio}.",
+            "There's no change. {ambient_audio}."
+          ],
+          "rescued": [
+            "He's getting care. He had severe hypothermia.",
+            "The medics say he'll be okay."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "assessing",
+          "assessing": "warming"
+        },
+        "responses": {
+          "initial": [
+            "I'm standing over him, not sure what to do.",
+            "I'm by his side, I've called 911.",
+            "I'm waiting for instructions."
+          ],
+          "assessing": [
+            "I'm checking his breathing now.",
+            "I'm trying to see if he's alive.",
+            "I'm looking for ID."
+          ],
+          "warming": [
+            "I'm covering him with my coat.",
+            "I'm rubbing his hands to warm them.",
+            "I'm staying on the line."
+          ],
+          "rescued": [
+            "I'm standing back, the medics are here.",
+            "I'm relieved, he's in good hands."
+          ]
+        }
+      },
+      "ASK_VICTIM_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's unconscious. I don't know if he's alive.",
+            "He's not responding. I think he's alive because I saw a breath.",
+            "He looks dead, but I'm not sure."
+          ],
+          "assessing": [
+            "He's breathing very slowly.",
+            "He has a pulse, but it's weak.",
+            "He's not shivering anymore, which is bad."
+          ],
+          "warming": ["No change yet.", "He's still unresponsive.", "He groaned a little."],
+          "rescued": [
+            "He's conscious now! He's talking.",
+            "They're wrapping him in blankets. He's shivering again, which is good."
+          ]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "assessing",
+          "assessing": "warming"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll check his breathing and pulse.",
+            "I'll carefully move him onto a dry surface.",
+            "I'll call out to see if he responds.",
+            "I'll keep him still and not give him anything to drink."
+          ],
+          "assessing": [
+            "I'm checking for breathing every few seconds.",
+            "I'm looking for a pulse.",
+            "I'm trying to keep him dry."
+          ],
+          "warming": [
+            "I'm putting my jacket over him, but not too fast.",
+            "I'm covering his head and neck.",
+            "I'm using my own body heat but carefully."
+          ],
+          "rescued": [
+            "Medics are handling it now. I'll step back.",
+            "No further instructions needed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "feedback": "Police arrive quickly, assess the victim, and call for medical. They provide initial warmth with blankets from their car."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Police arrive but do not have medical training. They wait for medics, losing precious time."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Police assume the person is drunk and do nothing. The victim dies from hypothermia."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 150,
+          "feedback": "Firefighters are trained in cold-weather rescue. They use thermal blankets and oxygen, stabilizing the victim until medical arrives."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "feedback": "Fire department responds but gets stuck in traffic. Delay of 10 minutes."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "feedback": "Firefighters arrive late; the victim has gone into cardiac arrest. Resuscitation fails."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 300,
+          "feedback": "Ambulance arrives within minutes. Paramedics treat severe hypothermia with heated IV and transport to hospital. Full recovery."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Medics arrive but have difficulty finding the exact spot. Slight delay, but victim survives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Medics get lost and arrive too late. Victim dies at the scene."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "feedback": "Animal control is confused and calls for proper help. Time wasted."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -200,
+          "feedback": "Animal control tries to move the victim, causing further injury."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Animal control treats the victim like an animal and leaves them outside. Victim dies."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": -100,
+          "feedback": "You dismiss as a drunk person. The victim is found later by a passerby but suffers from frostbite."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -300,
+          "feedback": "You dismiss. The victim dies from hypothermia overnight."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "You hang up. The victim dies alone in the snow."
+        }
+      }
+    },
+    "id": "scenario_035"
+  },
+  {
+    "title": "Child Trapped in Freezer",
+    "description": "A panicked child calls 911 saying their younger sibling is locked inside a chest freezer. The freezer is old and the latch may be jammed.",
+    "archetype": "Life-Threatening Emergency",
+    "states": ["initial", "attempting_rescue", "freezer_opened", "victim_safe"],
+    "initial_variations": [
+      "My little brother is stuck in the freezer! He went inside to hide and the lid locked. Please help! We're at {address_location}.",
+      "Oh no, oh no! My sister is trapped in the chest freezer in the garage at {address_location}. I can hear her crying but I can't open it!",
+      "Emergency! A child is locked in a freezer. It's at {address_location}. I'm {caller_name}, my sibling {victim_name} is inside. Please send someone!",
+      "I need help! My friend {victim_name} got trapped in a freezer in the basement of {address_location}. I can't get the latch open. It's getting cold!"
+    ],
+    "slots": {
+      "address_location": {
+        "type": "string",
+        "options": [
+          "123 Oak Street",
+          "456 Maple Avenue",
+          "789 Elm Drive",
+          "321 Birch Lane",
+          "654 Cedar Court"
+        ]
+      },
+      "caller_name": {
+        "type": "string",
+        "options": ["Timmy", "Sophie", "Alex", "Mia", "Jake"]
+      },
+      "victim_name": {
+        "type": "string",
+        "options": ["Benny", "Lily", "Charlie", "Emma", "Lucas"]
+      },
+      "ambient_audio": {
+        "type": "string",
+        "options": [
+          "muffled crying from inside",
+          "a humming motor",
+          "a dog barking",
+          "silence",
+          "a clock ticking"
+        ]
+      },
+      "specific_details": {
+        "type": "string",
+        "options": [
+          "The freezer is unplugged",
+          "I tried using a screwdriver",
+          "There's a key on top of the fridge",
+          "My parents are not home"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}. The freezer is in the garage.",
+            "At {address_location}. The freezer is in the basement.",
+            "In the kitchen, but the house is {address_location}."
+          ],
+          "attempting_rescue": [
+            "Still at {address_location}. I'm trying to open it.",
+            "Same place, {address_location}. I'm using a crowbar."
+          ],
+          "freezer_opened": [
+            "I got it open! We're at {address_location}.",
+            "Freezer is open at {address_location}."
+          ],
+          "victim_safe": [
+            "She's out! We're at {address_location}. She's shivering but okay.",
+            "Rescued! Address is {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a big chest freezer. I can hear {ambient_audio}. {specific_details}.",
+            "The freezer is old. {ambient_audio}. {specific_details}.",
+            "He's been inside for maybe 5 minutes. {ambient_audio}. {specific_details}."
+          ],
+          "attempting_rescue": [
+            "I'm trying to pry it open with a crowbar. {ambient_audio}.",
+            "I found the key but it's rusty. {ambient_audio}."
+          ],
+          "freezer_opened": [
+            "I managed to break the latch. He's out but very cold.",
+            "Open! He's breathing. Cold but alive."
+          ],
+          "victim_safe": [
+            "He's wrapped in blankets now. Breathing fine.",
+            "She's warming up. Doing much better."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "attempting_rescue",
+          "attempting_rescue": "freezer_opened"
+        },
+        "responses": {
+          "initial": [
+            "I'm scared, I don't know what to do.",
+            "I'm standing by the freezer.",
+            "I'm trying to stay calm."
+          ],
+          "attempting_rescue": [
+            "I'm hitting the latch with a hammer.",
+            "I'm trying to find something to open it.",
+            "I'm talking to my sibling through the lid."
+          ],
+          "freezer_opened": ["I got it open! I'm helping him out.", "I'm pulling her out now."],
+          "victim_safe": [
+            "I'm holding my sibling, keeping them warm.",
+            "We're sitting together waiting for help."
+          ]
+        }
+      },
+      "ASK_VICTIM_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "She's crying and asking for help.",
+            "He's quiet now, I'm worried.",
+            "I can hear him banging inside."
+          ],
+          "attempting_rescue": [
+            "He sounds weaker now.",
+            "She's not crying anymore, just whimpering.",
+            "He's breathing heavily."
+          ],
+          "freezer_opened": [
+            "He's conscious but very cold and scared.",
+            "She's shivering uncontrollably.",
+            "He can't speak, just staring."
+          ],
+          "victim_safe": [
+            "She's talking and crying, but okay.",
+            "He's warming up and smiling a little.",
+            "They're fine, just cold."
+          ]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "attempting_rescue",
+          "attempting_rescue": "freezer_opened"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll look for something to pry the lid.",
+            "I'll try the key on top of the fridge.",
+            "I'll keep talking to him to keep him calm.",
+            "I'll unplug the freezer if I can."
+          ],
+          "attempting_rescue": [
+            "I'm using a butter knife to wedge it open.",
+            "I'm trying to lift the lid with all my strength.",
+            "I found a hammer, I'm going to break the lock."
+          ],
+          "freezer_opened": [
+            "I'm helping him out. I'll wrap him in a blanket.",
+            "I'll get him away from the freezer.",
+            "I'll check his breathing."
+          ],
+          "victim_safe": [
+            "No more steps needed. We're safe.",
+            "I'm waiting for medical as you asked."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "feedback": "Police arrive and use a crowbar to open the freezer. Child is rescued and treated for mild hypothermia."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Police struggle with the latch but eventually get it open. Child is frightened but okay."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Police take too long to arrive. Child suffers severe hypothermia and brain damage."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 200,
+          "feedback": "Firefighters use hydraulic tools to quickly open the freezer. Child is cold but unharmed."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Fire department arrives but their tools are too big for the space. They manage after a few minutes."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "feedback": "Firefighters accidentally damage the freezer's cooling system, making it colder inside. Child suffers frostbite."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 250,
+          "feedback": "Medics bring warming equipment and treat the child immediately after rescue. No lasting effects."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "feedback": "Medics arrive before the child is freed, causing frustration. They help after rescue."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Medics cannot open the freezer and wait for fire. Delayed rescue leads to hypothermia."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "feedback": "Animal control arrives, confused, and calls fire department. Child is rescued but later."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -200,
+          "feedback": "Animal control tries to use a dog to fetch the child? Wastes time."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Animal control thinks it's a pet and leaves. Child dies from cold."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": -100,
+          "feedback": "You dismiss as a prank. The child is freed by a parent but suffers mild hypothermia."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -300,
+          "feedback": "You dismiss. Child is found too late, dies from hypothermia."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "You hang up. The child dies trapped in the freezer."
+        }
+      }
+    },
+    "id": "scenario_036"
+  },
+  {
+    "title": "Overdose in Public Restroom",
+    "description": "A janitor finds an unresponsive person in a public restroom with a needle nearby. The victim is breathing irregularly and turning blue.",
+    "archetype": "Life-Threatening Emergency",
+    "states": ["initial", "monitoring", "naloxone_administered", "victim_stable"],
+    "initial_variations": [
+      "I found a man in the restroom at {location_name} on {address_location}. He's not moving and there's a needle on the floor. I think he's overdosed!",
+      "Emergency! There's a woman passed out in the bathroom at {address_location}. She's blue and barely breathing. Needle beside her. Please send an ambulance!",
+      "This is a janitor at {location_name}, {address_location}. A person is unconscious in the stall, looks like an overdose. No pulse, I think. Hurry!",
+      "I just walked into the restroom at {location_name} and found someone on the floor. Needle nearby. They're not responding. {ambient_audio}. Address is {address_location}."
+    ],
+    "slots": {
+      "address_location": {
+        "type": "string",
+        "options": ["123 Main St", "456 Elm St", "789 Park Ave", "321 Broadway", "654 Market St"]
+      },
+      "location_name": {
+        "type": "string",
+        "options": [
+          "the gas station",
+          "the public library",
+          "the train station",
+          "the fast food restaurant",
+          "the park restroom"
+        ]
+      },
+      "caller_name": {
+        "type": "string",
+        "options": ["Janitor Mike", "Maria", "Security Guard Tom", "Amy", "Officer Lee"]
+      },
+      "ambient_audio": {
+        "type": "string",
+        "options": [
+          "a toilet running",
+          "footsteps nearby",
+          "a radio playing",
+          "silence",
+          "someone knocking on the door"
+        ]
+      },
+      "specific_details": {
+        "type": "string",
+        "options": [
+          "There's naloxone in the first aid kit",
+          "I think I saw them a few minutes ago",
+          "They're wearing a medical ID bracelet",
+          "The needle is still full"
+        ]
+      }
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {location_name} on {address_location}. Inside the men's restroom.",
+            "{address_location}, {location_name}. The restroom is at the back.",
+            "At {location_name}, {address_location}. I'm in the bathroom."
+          ],
+          "monitoring": [
+            "Same spot, {location_name}, {address_location}. They haven't moved.",
+            "Still at {address_location} in the restroom."
+          ],
+          "naloxone_administered": [
+            "I gave naloxone. Still at {location_name}, {address_location}.",
+            "Same location, {address_location}. They're starting to stir."
+          ],
+          "victim_stable": [
+            "They're breathing easier. At {address_location}.",
+            "Stable now. Location is {location_name}, {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They're on the floor, not moving. Needle on the ground. I can hear {ambient_audio}. {specific_details}.",
+            "Pale, blue lips. Needle near hand. {ambient_audio}. {specific_details}.",
+            "I can see track marks. {ambient_audio}. {specific_details}."
+          ],
+          "monitoring": [
+            "Still not breathing well. {ambient_audio}. {specific_details}.",
+            "I'm watching their chest. Slow breaths. {ambient_audio}."
+          ],
+          "naloxone_administered": [
+            "I gave the naloxone. They coughed. {ambient_audio}.",
+            "They started breathing deeper. {ambient_audio}."
+          ],
+          "victim_stable": [
+            "They're alert now. Still weak. {ambient_audio}.",
+            "Talking a bit. {ambient_audio}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "monitoring",
+          "monitoring": "naloxone_administered"
+        },
+        "responses": {
+          "initial": [
+            "I'm standing by the door, not sure to touch anything.",
+            "I'm kneeling next to them.",
+            "I'm trying to keep others out."
+          ],
+          "monitoring": [
+            "I'm checking their breathing every few seconds.",
+            "I'm putting them in recovery position.",
+            "I'm waiting for instructions."
+          ],
+          "naloxone_administered": [
+            "I gave the naloxone. I'm watching them.",
+            "I'm staying on the line."
+          ],
+          "victim_stable": [
+            "I'm here with them, they're coming around.",
+            "I'm just making sure they stay awake."
+          ]
+        }
+      },
+      "ASK_VICTIM_STATUS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Unresponsive. Not sure if breathing.",
+            "They're breathing maybe once every 10 seconds.",
+            "No response to my voice."
+          ],
+          "monitoring": [
+            "Breathing is very shallow.",
+            "They haven't moved at all.",
+            "Pulse is weak."
+          ],
+          "naloxone_administered": [
+            "They started gasping and moved a little.",
+            "Now breathing more regularly.",
+            "They opened their eyes briefly."
+          ],
+          "victim_stable": [
+            "They're conscious and talking.",
+            "Sitting up now. Still confused.",
+            "They're saying thank you."
+          ]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "monitoring",
+          "monitoring": "naloxone_administered"
+        },
+        "responses": {
+          "initial": [
+            "Okay, I'll put them on their side in recovery position.",
+            "I'll check for a pulse.",
+            "I'll see if there's naloxone nearby.",
+            "I'll make sure the area is safe."
+          ],
+          "monitoring": [
+            "I'm doing rescue breathing if needed.",
+            "I'll administer naloxone if you say so.",
+            "I'm checking for ID."
+          ],
+          "naloxone_administered": [
+            "I gave one dose. Should I give another?",
+            "Done. They're responding.",
+            "I'll stay with them until help arrives."
+          ],
+          "victim_stable": [
+            "They're stable. I'll keep them comfortable.",
+            "No more instructions needed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "SUCCESS": {
+          "score_delta": 100,
+          "feedback": "Police arrive with naloxone and revive the victim. They secure the scene and call medical."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Police take time to assess, but eventually administer naloxone. Victim survives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -400,
+          "feedback": "Police handcuff the victim instead of helping. Victim dies from overdose."
+        }
+      },
+      "SEND_FIRE": {
+        "SUCCESS": {
+          "score_delta": 150,
+          "feedback": "Firefighters are trained in overdose response. They administer oxygen and naloxone, saving the victim."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -100,
+          "feedback": "Firefighters arrive but lack naloxone. They perform CPR until medical arrives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -300,
+          "feedback": "Firefighters break down the door but cause a commotion. Victim dies from delayed treatment."
+        }
+      },
+      "SEND_MEDICAL": {
+        "SUCCESS": {
+          "score_delta": 300,
+          "feedback": "Medics arrive quickly, administer naloxone and oxygen. Victim revived and transported. Full recovery."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -50,
+          "feedback": "Medics have trouble finding the restroom. Slight delay but victim survives."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Medics get stuck in traffic. Victim dies before arrival."
+        }
+      },
+      "ANIMAL_CONTROL": {
+        "SUCCESS": {
+          "score_delta": 0,
+          "feedback": "Animal control arrives, realizes the situation, and calls for medical. Time wasted."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -200,
+          "feedback": "Animal control tries to move the victim roughly, causing injury."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "Animal control ignores the victim to capture a stray cat. Victim dies."
+        }
+      },
+      "DISMISS": {
+        "SUCCESS": {
+          "score_delta": -100,
+          "feedback": "You dismiss as a false alarm. The victim is found later by another person, but survives due to bystander naloxone."
+        },
+        "MINOR_ERROR": {
+          "score_delta": -300,
+          "feedback": "You dismiss. The victim dies before anyone else finds them."
+        },
+        "CRITICAL_FAILURE": {
+          "score_delta": -500,
+          "feedback": "You hang up. The victim dies alone in the restroom."
+        }
+      }
+    },
+    "id": "scenario_037"
+  },
+  {
+    "id": "scenario_038",
+    "title": "Severe Allergic Reaction on a Plane",
+    "archetype": "Life-Threatening Emergency",
+    "description": "A flight attendant calls 911 because a passenger is having a severe allergic reaction, possibly anaphylaxis. The plane is in the air, and the caller needs guidance for emergency treatment while coordinating an emergency landing.",
+    "states": {
+      "initial": "Caller reports the emergency and provides initial information.",
+      "treating": "Caller is administering epinephrine or following instructions while waiting for medical assistance.",
+      "landing_prep": "Plane is preparing for emergency landing; caller needs to coordinate with crew."
+    },
+    "initial_variations": [
+      "This is flight attendant {caller_name} on flight {flight_number}. A passenger is having a severe allergic reaction! Their throat is swelling up, and they can't breathe!",
+      "We need immediate medical assistance! A passenger on flight {flight_number} is in anaphylactic shock. {victim_name} is turning blue and gasping for air!",
+      "911, this is an emergency! I'm a flight attendant on {airline} flight {flight_number}. One of our passengers collapsed after eating peanuts. I think they're going into shock!",
+      "Please help! A passenger on my flight is having a life-threatening allergic reaction. Their face is swollen, and they're struggling to breathe. We need to land immediately!"
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mark", "Jessica", "David", "Emily"],
+      "victim_name": ["passenger", "John", "Anna", "Mr. Smith", "a woman in 3A"],
+      "flight_number": ["UA123", "AA456", "DL789", "SW101", "BA202"],
+      "airline": ["United", "American", "Delta", "Southwest", "British Airways"],
+      "allergen": ["peanuts", "shellfish", "bee sting", "penicillin", "unknown"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We are currently at {altitude} feet, approximately {distance} miles from {airport}. Our flight number is {flight_number}.",
+            "Location: airborne flight {flight_number}, approaching {airport}. ETA is {minutes} minutes.",
+            "I'm on flight {flight_number}, {airline} airlines. We're about {minutes} out from {airport}."
+          ],
+          "treating": [
+            "Still on flight {flight_number}, same location. The passenger is not improving.",
+            "We are now {distance} miles from {airport}. Please expedite!",
+            "We're in the air, flight {flight_number}. We need a gate for immediate medical assistance."
+          ],
+          "landing_prep": [
+            "Flight {flight_number} is on final approach to {airport}. We are cleared for emergency landing.",
+            "We are landing at {airport} in {minutes} minutes. Have medical team ready at the gate.",
+            "We're descending into {airport}. Please have paramedics standing by."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The passenger is a {victim_age} year old {gender}. Symptoms started suddenly after eating {allergen}. They have swelling, hives, and difficulty breathing.",
+            "Victim is {victim_name}, age {victim_age}. Known allergy to {allergen}. They used an EpiPen but are still in distress.",
+            "The passenger is unconscious and not breathing well. They have a history of severe allergies. I need instructions!"
+          ],
+          "treating": [
+            "We administered epinephrine from the onboard kit. The passenger is now conscious but still having trouble breathing.",
+            "We gave {medication} as instructed. The swelling has reduced slightly, but they are still wheezing.",
+            "I've laid the passenger flat and elevated their legs. Their pulse is weak. What else should I do?"
+          ],
+          "landing_prep": [
+            "The passenger is stable but needs immediate hospital care. We have oxygen on them.",
+            "Condition unchanged despite treatment. We need paramedics with advanced airway equipment.",
+            "The passenger is improving but still needs evaluation. Prepare for rapid transport."
+          ]
+        }
+      },
+      "INSTRUCT_GUIDE": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "treating"
+        },
+        "responses": {
+          "initial": [
+            "Check if they have an epinephrine auto-injector. Administer it to the outer thigh if they are unconscious.",
+            "Keep the passenger calm. Have them sit upright if they can. Ask if they have any known allergies.",
+            "Look for a medical alert bracelet. If they have one, note the allergen. Prepare to use the onboard emergency medical kit."
+          ],
+          "treating": [
+            "If they still can't breathe, perform back blows and abdominal thrusts if choking. Monitor their pulse.",
+            "Continue to monitor breathing and consciousness. If they stop breathing, start CPR immediately.",
+            "Give them antihistamine if available and they can swallow. Keep them warm and reassure them."
+          ],
+          "landing_prep": [
+            "Prepare the passenger for landing. Secure them in a seat if possible. Have crew assist with medical needs.",
+            "Make sure the aisle is clear for paramedics. Have the passenger's information ready.",
+            "Brief the medical team on the situation: allergen, treatment given, current condition."
+          ]
+        }
+      },
+      "CONFIRM_SAFETY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The cabin is calm. Other passengers are assisting. No immediate threats.",
+            "The flight crew is managing the situation. We have a doctor on board who is helping.",
+            "We have the passenger in a safe position. The crew is trained for this."
+          ],
+          "treating": [
+            "The passenger is stable for now. We are monitoring closely.",
+            "We have a physician on board who is taking over. I am assisting as needed.",
+            "The situation is under control. We just need to land and get proper medical care."
+          ],
+          "landing_prep": [
+            "The passenger is secured and stable. Landing preparations are complete.",
+            "All clear for landing. Medical team will board immediately upon arrival.",
+            "We are ready for landing. The passenger is being attended to."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Police dispatched unnecessarily. The situation is medical and does not require law enforcement. Medical units would have been more appropriate."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -50,
+            "feedback": "Police arrived to assist with crowd control, but medical was the priority. Points deducted for not dispatching medical first."
+          }
+        ]
+      },
+      "SEND_FIRE": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -150,
+            "feedback": "Fire department responded, but they are not equipped for this medical emergency. Medical units should have been dispatched."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Firefighters provided basic first aid, but a paramedic team was needed. Suboptimal response."
+          }
+        ]
+      },
+      "SEND_MEDICAL": {
+        "outcomes": [
+          {
+            "status": "SUCCESS",
+            "score_delta": 250,
+            "feedback": "Medical team dispatched and provided life-saving treatment. The passenger is stable and recovering. Excellent dispatch decision."
+          },
+          {
+            "status": "SUCCESS",
+            "score_delta": 200,
+            "feedback": "Paramedics met the plane and administered advanced care. The passenger survived and is in hospital. Good job."
+          }
+        ]
+      },
+      "ANIMAL_CONTROL": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -400,
+            "feedback": "Animal control dispatched to a medical emergency on a plane. Complete waste of resources and delay in actual help. Extreme failure."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Caller confused. Animal control has no role here. Valuable time lost."
+          }
+        ]
+      },
+      "DISMISS": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Call dismissed as non-emergency. The passenger went into cardiac arrest and died. Unforgivable error."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -450,
+            "feedback": "You hung up on a life-threatening emergency. The caller had to re-dial, losing critical minutes. Passenger suffered severe brain damage."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "scenario_039",
+    "title": "Child Trapped in a Well",
+    "archetype": "Life-Threatening Emergency",
+    "description": "A child has fallen into a narrow, deep well on a rural property. The parent or neighbor calls 911 in panic. The child is conscious but trapped, and there is a risk of hypothermia or collapse.",
+    "states": {
+      "initial": "Caller reports the incident and provides location and initial details.",
+      "rescue_attempt": "Emergency services are on scene attempting rescue, caller is assisting or observing.",
+      "waiting": "Rescue ongoing, caller is waiting and providing updates on child's condition."
+    },
+    "initial_variations": [
+      "My {victim_relation}, {child_name}, has fallen into a well in our backyard! It's deep and he's crying for help! Please send someone now!",
+      "Help! A child fell down a well at {address_location}. We can hear him but we can't reach him. He's scared and cold!",
+      "This is an emergency! My {victim_relation} fell into an old well. He's about {depth} feet down and there's water at the bottom!",
+      "911, there's a child trapped in a well at {property_name} on {street}. He's been down there for ten minutes and we need rescue immediately!"
+    ],
+    "slots": {
+      "caller_name": ["Tom", "Linda", "Mike", "Susan", "Chris"],
+      "child_name": ["Sammy", "Emma", "Jake", "Lily", "Noah"],
+      "victim_relation": ["son", "daughter", "grandson", "neighbor's child", "little brother"],
+      "address_location": [
+        "123 Oak Lane",
+        "456 Maple Drive",
+        "789 Pine Road",
+        "321 Elm Street",
+        "555 Birch Avenue"
+      ],
+      "depth": ["15 feet", "20 feet", "30 feet", "40 feet", "50 feet"],
+      "property_name": [
+        "Green Acres Farm",
+        "Johnson Ranch",
+        "Willow Creek",
+        "Sunset Meadows",
+        "Happy Hills"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We are at {address_location} in rural {county}. The well is behind the barn, next to the old oak tree.",
+            "Location: {address_location}. The well is in the backyard, covered by some boards that gave way.",
+            "Our property is on {street}, about {miles} miles from {nearest_town}. The well is near the garden."
+          ],
+          "rescue_attempt": [
+            "Same location: {address_location}. Rescue teams are setting up equipment now.",
+            "We're still at {address_location}. The well is narrow so they're using a tripod and harness.",
+            "Emergency crews are on site at {address_location}. They are assessing the best approach."
+          ],
+          "waiting": [
+            "We're at the well at {address_location}. The child is still down there. We're talking to him to keep him calm.",
+            "Still waiting at {address_location}. Firefighters are working on getting him out.",
+            "Location unchanged: {address_location}. The child is tired but conscious."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The child is {child_name}, age {age}. He fell in about {minutes} ago. We can see him but he's too deep to reach.",
+            "He fell down a well that is about {depth} deep and {width} wide. He's standing on a ledge and there's water up to his waist.",
+            "The well is old, possibly {years_old} years old. The sides are crumbling. He's scared but talking."
+          ],
+          "rescue_attempt": [
+            "The child is at {depth} down. Rescue has a line down to him. He's secured and they are pulling him up.",
+            "He's conscious and responsive. He's cold but no serious injuries. Rescue is progressing slowly due to narrow shaft.",
+            "The well is unstable. Rescue is using a spreader bar to avoid collapse. He's doing okay."
+          ],
+          "waiting": [
+            "He's getting weaker. He's shivering and says his legs are numb. Please hurry!",
+            "The child is crying for his mom. He's scared of the dark. We're shining a light down.",
+            "He's calm now, talking to the rescuers. They've reassured him. He says he's okay."
+          ]
+        }
+      },
+      "INSTRUCT_GUIDE": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "rescue_attempt"
+        },
+        "responses": {
+          "initial": [
+            "Keep the child warm by dropping a blanket or jacket down. Reassure him that help is coming.",
+            "Do not attempt to go down yourself. The well may be unstable. Wait for professional rescuers.",
+            "Clear the area around the well. Make sure there are no loose objects that could fall in."
+          ],
+          "rescue_attempt": [
+            "Keep talking to the child. Tell him to stay still and not move around too much.",
+            "If you have rope, lower it down but don't pull. Let the rescuers handle extraction.",
+            "Make sure the well opening is secure and no one else gets near the edge."
+          ],
+          "waiting": [
+            "Continue to comfort the child. Ask simple questions to keep him awake and oriented.",
+            "If rescue is taking long, consider warming the air being pumped down with a portable heater.",
+            "Monitor for signs of hypothermia: shivering, confusion. Report to rescuers."
+          ]
+        }
+      },
+      "CONFIRM_SAFETY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The area is safe. The child is not in immediate danger of drowning but hypothermia is a risk.",
+            "We have called the fire department. They are en route. The child is conscious and we are with him.",
+            "Other children are kept away. The well is isolated."
+          ],
+          "rescue_attempt": [
+            "Rescue is proceeding safely. No signs of collapse. The child is secure in the harness.",
+            "The child is being lifted slowly. Everything is under control.",
+            "Crews are working efficiently. The child is about halfway up."
+          ],
+          "waiting": [
+            "The child is stable and being monitored. Rescue is expected to be complete in {estimated_time} minutes.",
+            "We are all safe. Just waiting for the final extraction.",
+            "The situation is controlled. The child will be out soon."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Police dispatched but they are not trained for technical rescue. Fire department should have been sent. Delay in actual rescue."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -50,
+            "feedback": "Police arrived and secured the scene, but fire rescue was needed. Points lost for not dispatching fire immediately."
+          }
+        ]
+      },
+      "SEND_FIRE": {
+        "outcomes": [
+          {
+            "status": "SUCCESS",
+            "score_delta": 300,
+            "feedback": "Fire department rescue team arrived and successfully extracted the child. The child was treated for mild hypothermia and released. Perfect dispatch."
+          },
+          {
+            "status": "SUCCESS",
+            "score_delta": 250,
+            "feedback": "Firefighters used specialized equipment to rescue the child. The child is safe and recovering. Good job."
+          }
+        ]
+      },
+      "SEND_MEDICAL": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Medical sent but no rescue capability. Fire department needed for extraction. Medical could not reach the child."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -50,
+            "feedback": "Paramedics on standby, but rescue operations delayed due to lack of equipment. Fire should have been primary."
+          }
+        ]
+      },
+      "ANIMAL_CONTROL": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -400,
+            "feedback": "Animal control dispatched to a child in a well. Completely inappropriate. Child suffered hypothermia while waiting."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Caller confused. No animals involved. Child trapped for hours due to wrong dispatch. Critical failure."
+          }
+        ]
+      },
+      "DISMISS": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Call dismissed as a prank. The child died from hypothermia and exhaustion. Unforgivable."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -450,
+            "feedback": "You hung up on a frantic parent. Child trapped for hours before another call came in. Serious injury."
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "scenario_040",
+    "title": "Chemical Spill at a Factory",
+    "archetype": "Life-Threatening Emergency",
+    "description": "A worker at an industrial factory calls 911 after a large container of toxic chemical (chlorine) ruptures. Workers are exposed and need evacuation, while hazmat response is critical.",
+    "states": {
+      "initial": "Caller reports the spill and provides location and chemical info.",
+      "evacuating": "Caller is leading or participating in evacuation of the facility.",
+      "contained": "Leak is stopped or isolated, and victims are receiving medical attention."
+    },
+    "initial_variations": [
+      "This is {caller_name} at {factory_name} on {street}. We have a major chemical spill! Chlorine gas is filling the building! People are choking!",
+      "Emergency at {factory_name}! A tank of {chemical} just ruptured. We need hazmat and medical immediately! Multiple workers are down!",
+      "911, I'm at {address_location}. There's a toxic gas leak! I see people collapsing. We need to evacuate but some are trapped!",
+      "Please help! Chemical spill at {factory_name}. It's {chemical} and it's spreading fast. Our alarms are going off. Everyone is coughing and eyes burning!"
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Maria", "James", "Angela", "Robert"],
+      "factory_name": [
+        "Acme Chemical Plant",
+        "Global Industries",
+        "Pinnacle Manufacturing",
+        "Sterling Processing",
+        "Vertex Labs"
+      ],
+      "street": [
+        "100 Industrial Blvd",
+        "200 Commerce Ave",
+        "300 Factory Row",
+        "400 Manufacturing Dr",
+        "500 Tech Park"
+      ],
+      "address_location": [
+        "100 Industrial Blvd, Springfield",
+        "200 Commerce Ave, Riverside",
+        "300 Factory Row, Greenville",
+        "400 Manufacturing Dr, Fairview",
+        "500 Tech Park, Midtown"
+      ],
+      "chemical": [
+        "chlorine",
+        "ammonia",
+        "hydrochloric acid",
+        "sulfur dioxide",
+        "anhydrous ammonia"
+      ],
+      "num_affected": ["10", "20", "5", "30", "50"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We are at {address_location}. The spill is in building 2, near the loading dock.",
+            "Location: {address_location}. This is the main plant of {factory_name}. The leak is in the storage area.",
+            "I'm at {factory_name}, {address_location}. The chemical is spreading towards the office area."
+          ],
+          "evacuating": [
+            "We are evacuating to the designated meeting point at the front gate of {factory_name}. Address: {address_location}.",
+            "Some workers are heading to the east parking lot. Address is still {address_location}.",
+            "Moving away from the building. We're at the north side of {factory_name} on {street}."
+          ],
+          "contained": [
+            "The leak is now isolated to the containment area. We are at {address_location}. Emergency crews are on scene.",
+            "We are all outside the building at {address_location}. Hazmat teams are entering.",
+            "The area is secured. Victims are being treated in the triage area at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The chemical is {chemical}. It's a gas leak from a ruptured tank. We see a greenish cloud forming.",
+            "It's {chemical} gas. People are experiencing burning eyes, coughing, and difficulty breathing. Some have collapsed.",
+            "Approximately {num_affected} people are exposed. The leak is in the main processing hall. We need immediate evacuation."
+          ],
+          "evacuating": [
+            "We have evacuated about {num_evacuated} people so far. {num_missing} are unaccounted for. The gas is spreading.",
+            "Most workers are out. A few are trapped in the west wing. The gas is thick there.",
+            "Evacuation is ongoing. We are using fire alarms to alert everyone. Many are heading to the exits."
+          ],
+          "contained": [
+            "The leak is stopped. Hazmat team is monitoring air quality. {num_injured} people are being treated for inhalation.",
+            "All personnel are accounted for. {num_hospitalized} are being transported to hospitals. The rest are decontaminated.",
+            "The chemical is neutralized. The building is being ventilated. Medical teams are assessing everyone."
+          ]
+        }
+      },
+      "INSTRUCT_GUIDE": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "evacuating"
+        },
+        "responses": {
+          "initial": [
+            "Evacuate the building immediately. Move upwind and avoid the vapor cloud. Use wet cloths over mouth and nose if possible.",
+            "Do not use elevators. Take stairs. Alert others as you go. If you have a safety shower, use it to decontaminate.",
+            "Close doors behind you to contain the spread. Head to the designated assembly point."
+          ],
+          "evacuating": [
+            "Keep moving away from the leak. Do not return for personal items. Help anyone who is struggling.",
+            "If you see someone collapsed, do not approach if the gas is thick. Notify responders of their location.",
+            "Once outside, perform headcount. Check for symptoms: burning eyes, coughing, confusion."
+          ],
+          "contained": [
+            "Remain at the assembly point. Do not re-enter until cleared by hazmat. Follow decontamination procedures.",
+            "Provide first aid for breathing difficulties. Give oxygen if available. Wait for medical help.",
+            "Stay calm. Help the injured. Keep airways clear."
+          ]
+        }
+      },
+      "CONFIRM_SAFETY": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The gas is spreading quickly. It's not safe to stay in the building. Everyone is trying to get out.",
+            "We have activated the emergency shutdown. The leak is not yet contained. Evacuation is critical.",
+            "The area is hazardous. We need immediate response. Some people are already showing severe symptoms."
+          ],
+          "evacuating": [
+            "We are mostly out. The gas has not reached outside yet. We are safe at the assembly point.",
+            "The wind is blowing the cloud away from us. We are in a safe zone now.",
+            "Evacuation is almost complete. No new exposures. We are monitoring the situation."
+          ],
+          "contained": [
+            "The immediate danger is over. Hazmat reports the leak is sealed. Air quality is improving.",
+            "Victims are being treated. No new casualties. The area is stable.",
+            "All clear for now. The event is under control. Further assessment ongoing."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Police sent but they are not hazmat trained. Fire and hazmat needed. Police can assist with crowd control, but primary response was delayed."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -50,
+            "feedback": "Police arrived and set up perimeter. However, chemical response was delayed. Points lost."
+          }
+        ]
+      },
+      "SEND_FIRE": {
+        "outcomes": [
+          {
+            "status": "SUCCESS",
+            "score_delta": 300,
+            "feedback": "Fire department hazmat team responded, contained the leak, and decontaminated victims. All survivors. Excellent dispatch."
+          },
+          {
+            "status": "SUCCESS",
+            "score_delta": 250,
+            "feedback": "Firefighters stopped the leak and coordinated medical care. Multiple lives saved. Great decision."
+          }
+        ]
+      },
+      "SEND_MEDICAL": {
+        "outcomes": [
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -100,
+            "feedback": "Medical dispatched but without hazmat, they could not enter the contaminated area. Fire needed to secure scene first."
+          },
+          {
+            "status": "MINOR_ERROR",
+            "score_delta": -50,
+            "feedback": "Paramedics treated some victims outside, but could not access the trapped ones. Inefficient response."
+          }
+        ]
+      },
+      "ANIMAL_CONTROL": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -400,
+            "feedback": "Animal control sent to a chemical spill. No animals involved. Workers were exposed for hours. Terrible."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Caller confused. No pets or wildlife. Chemical cloud spread to neighborhood. Multiple casualties due to delay."
+          }
+        ]
+      },
+      "DISMISS": {
+        "outcomes": [
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -500,
+            "feedback": "Call dismissed as false alarm. Explosion occurred minutes later. Multiple fatalities and injuries. Unforgivable."
+          },
+          {
+            "status": "CRITICAL_FAILURE",
+            "score_delta": -450,
+            "feedback": "You ignored the call. The chemical leak caused a chain reaction fire. Several workers died. Massive failure."
+          }
+        ]
+      }
+    }
+  }
+]

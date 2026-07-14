@@ -1,0 +1,2949 @@
+[
+  {
+    "id": "scenario_007",
+    "title": "The Coded Pizza Order",
+    "description": "A domestic violence victim calls 911 under duress, pretending to order a pizza while secretly signaling for help. The dispatcher must decode the subtle clues.",
+    "states": ["initial", "code_negotiation", "escalated", "secured"],
+    "initial_variations": [
+      "Hi, I'd like to place an order for a large pepperoni pizza at {address_location}.",
+      "Can I get a pizza delivered to {address_location}? Make it a large with extra cheese, please.",
+      "I need to order a pizza for {address_location}. Uh, large, pepperoni and mushrooms.",
+      "Delivery please, to {address_location}. Large pizza, half pepperoni, half plain."
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "John", "Maria", "Alex"],
+      "address_location": [
+        "123 Maple Street, Apt 4B",
+        "456 Oak Avenue",
+        "789 Pine Road",
+        "321 Birch Lane"
+      ],
+      "ambient_audio": [
+        "muffled arguing in background",
+        "crying sounds",
+        "heavy breathing",
+        "door slamming"
+      ],
+      "specific_details": [
+        "large pepperoni means danger",
+        "extra cheese means abuser present",
+        "mushrooms means children in house",
+        "half plain means weapon visible"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The address is {address_location}. Please hurry.",
+            "I already said {address_location}!",
+            "Delivery to {address_location}, as I said."
+          ],
+          "code_negotiation": [
+            "I told you, {address_location}. Just a pizza!",
+            "Please, {address_location}. Is that clear?",
+            "{address_location}, yes. Are you getting this?"
+          ],
+          "escalated": [
+            "{address_location}! Please, just send help!",
+            "I already gave you {address_location}! Why aren't you sending someone?"
+          ],
+          "secured": ["Thank you, yes, {address_location}. The police are here."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "code_negotiation"
+        },
+        "responses": {
+          "initial": [
+            "I said large pepperoni. Is there a problem?",
+            "Extra cheese, large. That's the order.",
+            "Just a standard large pizza."
+          ],
+          "code_negotiation": [
+            "Large pepperoni means I need help now!",
+            "Extra cheese is code for my abuser is here.",
+            "Mushrooms mean there are children in the house."
+          ],
+          "escalated": [
+            "He's getting angry! Large pepperoni! Now!",
+            "Please, extra cheese! He's coming!"
+          ],
+          "secured": ["The code worked. Thank you."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name? It's {caller_name}. For the pizza.",
+            "{caller_name}. Why does that matter?",
+            "Just {caller_name}. Can you take my order?"
+          ],
+          "code_negotiation": [
+            "It's {caller_name}. Please, just send the pizza.",
+            "{caller_name}. Is the pizza coming?"
+          ],
+          "escalated": ["{caller_name}! He's yelling! Send help!", "{caller_name}, please!"],
+          "secured": ["{caller_name}. I'm safe now."]
+        }
+      },
+      "ASK_SPECIFICS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "code_negotiation",
+          "code_negotiation": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "What specifics? A large pizza. That's all.",
+            "I don't understand, just a pizza.",
+            "Nothing else, just deliver it."
+          ],
+          "code_negotiation": [
+            "Large pepperoni is the code for danger. Extra cheese means abuser present.",
+            "Mushrooms mean children. Half plain means weapon.",
+            "The toppings are the message. Please understand."
+          ],
+          "escalated": [
+            "He's got a knife! Large pepperoni! Now!",
+            "Extra cheese! He's coming! Code red!"
+          ],
+          "secured": ["The code was understood. Thank you for saving us."]
+        }
+      },
+      "ASSESS_SITUATION": {
+        "score_delta": 200,
+        "transitions": {
+          "initial": "code_negotiation",
+          "code_negotiation": "escalated"
+        },
+        "responses": {
+          "initial": [
+            "Just a pizza order. Why are you asking?",
+            "Is this a prank? I need a pizza.",
+            "Please, I'm busy. Just take the order."
+          ],
+          "code_negotiation": [
+            "Something's wrong. I'm in danger. Please send police.",
+            "I can't talk freely. He's here. Help via code.",
+            "The pizza order is a cover. I need help."
+          ],
+          "escalated": [
+            "He's violent! I need police now! The code was real!",
+            "He's hitting me! Send help! The pizza was a lie!"
+          ],
+          "secured": ["I'm safe now. Thank you for understanding the code."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "You correctly identified the coded call and dispatched police. The caller and children were rescued from the abuser."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Sending fire trucks was a mistake. There was no fire, and the noise may have escalated the situation. Police were needed."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical dispatch was not immediately necessary. The caller needed police protection. However, medical could have been called later if injuries were present."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Sending animal control was completely inappropriate. The caller was in mortal danger, and the delay could have been fatal."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Dismissing the call as a prank or wrong number was a critical error. The caller was a victim of domestic violence and needed immediate police intervention."
+      }
+    },
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "id": "scenario_008",
+    "title": "The Nursery Rhyme Distress",
+    "description": "A child calls 911 and begins reciting a nursery rhyme that contains a hidden plea for help, while parents argue violently in the background.",
+    "states": ["initial", "questioning", "confrontation", "safe"],
+    "initial_variations": [
+      "Hello? Twinkle twinkle little star, how I wonder where you are, up above the world so high, like a diamond in the sky.",
+      "Is this 911? Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. All the king's horses and all the king's men couldn't put Humpty together again.",
+      "Hi, I'm at {address_location}. Mary had a little lamb, its fleece was white as snow, and everywhere that Mary went, the lamb was sure to go.",
+      "Please, I need help. Jack and Jill went up the hill to fetch a pail of water. Jack fell down and broke his crown, and Jill came tumbling after."
+    ],
+    "slots": {
+      "caller_name": ["Tommy", "Emma", "Liam", "Sophia"],
+      "address_location": [
+        "15 Sunset Boulevard",
+        "200 Lake Drive",
+        "77 Cedar Court",
+        "18 River Road"
+      ],
+      "ambient_audio": ["loud arguing", "banging sounds", "crying", "breaking glass"],
+      "specific_details": [
+        "twinkle twinkle means help",
+        "humpty dumpty means father is hurting mother",
+        "mary had a little lamb means mother is hurt",
+        "jack and jill means both parents are fighting"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Jack and Jill...",
+            "I told you, {address_location}. Twinkle twinkle...",
+            "{address_location}. Mary had a little lamb..."
+          ],
+          "questioning": [
+            "{address_location}. Please send someone. The rhyme says it all.",
+            "It's {address_location}. The nursery rhyme is the clue."
+          ],
+          "confrontation": [
+            "{address_location}! They're fighting! Humpty Dumpty!",
+            "{address_location}! Hurry! Jack fell down!"
+          ],
+          "safe": ["Thank you. I'm at {address_location}. The police are here now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "questioning"
+        },
+        "responses": {
+          "initial": [
+            "I'm just reciting a rhyme. Twinkle twinkle.",
+            "Humpty Dumpty, that's all.",
+            "Mary had a little lamb, that's what I said."
+          ],
+          "questioning": [
+            "Twinkle twinkle means I need help. My parents are fighting.",
+            "Humpty Dumpty means my dad is hurting my mom.",
+            "Mary had a little lamb means my mom is hurt."
+          ],
+          "confrontation": [
+            "He's hitting her! The rhyme is real! Humpty Dumpty!",
+            "They're both fighting! Jack and Jill! Help!"
+          ],
+          "safe": ["The rhyme worked. Thank you for understanding."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. Twinkle twinkle.",
+            "I'm {caller_name}. Humpty Dumpty.",
+            "{caller_name}. Mary had a little lamb."
+          ],
+          "questioning": [
+            "It's {caller_name}. Please, the rhyme is a cry for help.",
+            "{caller_name}. I'm scared."
+          ],
+          "confrontation": ["{caller_name}! They're hurting each other!", "{caller_name}! Please!"],
+          "safe": ["{caller_name}. I'm safe. Thank you."]
+        }
+      },
+      "ASK_SPECIFICS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "questioning",
+          "questioning": "confrontation"
+        },
+        "responses": {
+          "initial": [
+            "No specifics. Just a rhyme.",
+            "It's just a nursery rhyme.",
+            "I don't know any specifics."
+          ],
+          "questioning": [
+            "Twinkle twinkle means danger. Humpty Dumpty means abuse.",
+            "The rhymes are code. Please send police.",
+            "Mary had a little lamb means mother needs help."
+          ],
+          "confrontation": [
+            "They are going to kill each other! The rhymes are not just rhymes!",
+            "Jack and Jill is a fight! They are bleeding!"
+          ],
+          "safe": ["The code was the rhyme. Thank you for listening."]
+        }
+      },
+      "ASSESS_SITUATION": {
+        "score_delta": 200,
+        "transitions": {
+          "initial": "questioning",
+          "questioning": "confrontation"
+        },
+        "responses": {
+          "initial": [
+            "I'm just a kid reciting a poem.",
+            "Is this a game? I'm reciting a rhyme.",
+            "I don't know what you mean."
+          ],
+          "questioning": [
+            "I'm in danger. My parents are fighting. The rhyme is a code.",
+            "Please understand. The rhyme means I need help."
+          ],
+          "confrontation": [
+            "It's a domestic violence situation. They are violent! Send police!",
+            "The nursery rhyme is a distress signal. Immediate help needed!"
+          ],
+          "safe": ["I am safe now. The code worked. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "You correctly interpreted the child's coded nursery rhyme and dispatched police. Officers intervened in a domestic violence incident and rescued the child and injured parent."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Sending fire was inappropriate. There was no fire, and the delay in sending police could have escalated the danger."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Medical dispatch alone was insufficient. While injuries may be present, police were needed first to secure the scene. Medical could be requested after."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Sending animal control was a critical mistake. The call was a child seeking help during a violent domestic dispute."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Dismissing the call as a prank was a fatal error. The child was in grave danger, and failure to respond led to serious harm."
+      }
+    },
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Book Club Meeting",
+    "description": "A caller pretends to discuss a book club meeting, but uses coded language to indicate a hostage situation. Background sounds of muffled voices and a TV.",
+    "states": {
+      "initial": "Caller is speaking in code, pretending to discuss book club details.",
+      "probing": "Caller is trying to convey the severity without alerting the perpetrator.",
+      "escalating": "Perpetrator becomes suspicious, caller's tone becomes more frantic.",
+      "secured": "Perpetrator is distracted or leaves, caller can speak freely."
+    },
+    "initial_variations": [
+      "Hi, I need to reschedule the book club meeting for {caller_name}. We were thinking of {address_location} instead, but the agenda has changed.",
+      "Yes, I'm calling about the book club. The meeting at {address_location} might need to be moved because the host has a {specific_details} situation.",
+      "Hello, I wanted to discuss the next book for our club. Actually, can you tell me if {victim_relation} is available? There's a {ambient_audio} issue at {address_location}.",
+      "Oh, good, you picked up. I'm at {address_location} for the book club, but there's an unexpected {specific_details}. The door is locked and I hear {ambient_audio}."
+    ],
+    "slots": {
+      "caller_name": ["Jane", "Sam", "Alex", "Pat"],
+      "victim_relation": ["my sister", "the neighbor", "the caretaker", "the delivery person"],
+      "address_location": ["123 Oak Street", "456 Maple Avenue", "789 Pine Road", "321 Birch Lane"],
+      "ambient_audio": ["muffled voices", "footsteps", "a TV playing loudly", "a door creaking"],
+      "specific_details": [
+        "unexpected guest",
+        "disagreement about the plot",
+        "missing chapters",
+        "change in the reading list"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}. Can you confirm the meeting time?",
+            "The location is {address_location}. There's been a change of plans.",
+            "I'm at {address_location}. The host has a {specific_details} to discuss."
+          ],
+          "probing": [
+            "It's still {address_location}. Please hurry, the {ambient_audio} is getting louder.",
+            "Same place: {address_location}. I think {victim_relation} needs help."
+          ],
+          "escalating": [
+            "I told you, {address_location}! Someone is {ambient_audio}. Just send help!",
+            "At {address_location}! The {specific_details} is becoming dangerous."
+          ],
+          "secured": [
+            "Thank you, we're at {address_location}. The perpetrator left. Send police now."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "probing"
+        },
+        "responses": {
+          "initial": [
+            "We're discussing a book about {specific_details}. It's quite intense.",
+            "The plot involves {victim_relation} and a {ambient_audio} climax.",
+            "The main character is dealing with a {specific_details} at {address_location}."
+          ],
+          "probing": [
+            "It's not about a book. There's a {specific_details} situation here. {victim_relation} is in danger.",
+            "The meeting is a cover. There's a {ambient_audio} and someone is threatening {victim_relation}."
+          ],
+          "escalating": [
+            "He has a weapon! The {specific_details} is a hostage crisis. Please send police!",
+            "The {ambient_audio} is the sound of a struggle. {victim_relation} needs immediate help."
+          ],
+          "secured": [
+            "It's over. The perpetrator is gone. We need police and medical at {address_location}."
+          ]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm calling for {caller_name}. They're the host.",
+            "This is {caller_name}. I'm at the meeting.",
+            "My name is {caller_name}, but I'm just a member."
+          ],
+          "probing": [
+            "It's {caller_name}. I'm the one who called. Please understand.",
+            "I'm {caller_name}. I can't say more."
+          ],
+          "escalating": [
+            "This is {caller_name}. Just send police now!",
+            "Call me {caller_name}. I'm in danger."
+          ],
+          "secured": ["I'm {caller_name}. Thank you for helping."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} is the one who might need assistance.",
+            "Check on {victim_relation}. They seem unwell.",
+            "I'm concerned about {victim_relation}."
+          ],
+          "probing": [
+            "{victim_relation} is being held against their will.",
+            "{victim_relation} is in trouble. The {ambient_audio} is from them.",
+            "Please help {victim_relation}. They are the victim."
+          ],
+          "escalating": [
+            "They're hurting {victim_relation}! Hurry!",
+            "{victim_relation} is the hostage! Send SWAT!"
+          ],
+          "secured": ["The hostage is {victim_relation}. They're safe now."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The book discusses a weapon, but it's fictional.",
+            "There's talk of a {specific_details} but it's all metaphors.",
+            "No weapons mentioned in the story."
+          ],
+          "probing": [
+            "There might be a weapon. The {ambient_audio} could be a knife.",
+            "I think he has a gun. Be careful."
+          ],
+          "escalating": [
+            "He has a knife! He's threatening {victim_relation}!",
+            "Gun! He has a gun! Send armed units!"
+          ],
+          "secured": ["The weapon is secured. Perpetrator disarmed."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrived and apprehended the perpetrator. Hostage safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Firefighters arrived but there was no fire. Police later resolved the situation."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Paramedics arrived but no injuries. Police backup was delayed."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Animal control was sent, but it was a hostage situation. Police had to be called again, causing delay."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Call dismissed as book club inquiry. Hostage situation escalated, victim injured."
+      }
+    },
+    "id": "scenario_077",
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Wrong Number",
+    "description": "A caller repeatedly calls and hangs up, but background sounds indicate a break-in. The caller may be hiding and using the call to signal for help.",
+    "states": {
+      "initial": "Caller calls and hangs up immediately, no verbal response.",
+      "whispering": "Caller whispers briefly, then hangs up.",
+      "background": "Caller stays on line, sounds of struggle or intruder in background.",
+      "resolved": "Caller is safe or intruder leaves."
+    },
+    "initial_variations": [
+      "[Click] ... [Dial tone]",
+      "Hello? [Silence] [Click]",
+      "[Static] [Muffled] ... [Dial tone]",
+      "Sorry, wrong number. [Click]"
+    ],
+    "slots": {
+      "caller_name": ["unknown", "Anonymous", "Caller", "Victim"],
+      "victim_relation": ["the homeowner", "a child", "an elderly person", "someone inside"],
+      "address_location": ["15 Maple Drive", "42 Birch Lane", "8 Pine Street", "27 Elm Road"],
+      "ambient_audio": [
+        "breaking glass",
+        "heavy footsteps",
+        "muffled voices",
+        "door being forced open"
+      ],
+      "specific_details": [
+        "a window smashed",
+        "a door kicked in",
+        "alarm system beeping",
+        "furniture being moved"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "whispering",
+          "whispering": "background"
+        },
+        "responses": {
+          "initial": ["[No response]", "[Click]", "[Silence]"],
+          "whispering": [
+            "[Whispering] {address_location} ... {ambient_audio}",
+            "...help... {address_location}",
+            "{address_location} ... intruder"
+          ],
+          "background": [
+            "[Background sounds: {ambient_audio} and {specific_details}]",
+            "[Sounds of struggle at {address_location}]"
+          ],
+          "resolved": ["Thank you. At {address_location}. Danger passed."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "whispering",
+          "whispering": "background"
+        },
+        "responses": {
+          "initial": ["[Click]", "[Silence]"],
+          "whispering": [
+            "There's someone ... {specific_details} ...",
+            "Burglary ... {ambient_audio} ... hide",
+            "Help ... {victim_relation} in danger"
+          ],
+          "background": [
+            "[Loud crash] [Footsteps running] [Voice: 'Where is it?']",
+            "[Crying] [Man shouting] [Sound of drawers opening]"
+          ],
+          "resolved": ["They left. Police can come now."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["[No response]", "[Click]"],
+          "whispering": ["[Whispering] I can't say...", "...[muffled]..."],
+          "background": ["[Screaming] [Dial tone]"],
+          "resolved": ["My name is {caller_name}. I'm safe now."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["[Silence]"],
+          "whispering": ["{victim_relation} is upstairs... hiding...", "Kids... in closet..."],
+          "background": ["[Child crying] [Adult: 'Shut up!']", "[Elderly voice: 'Please, no...']"],
+          "resolved": ["{victim_relation} is safe. Everyone is okay."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": ["[Click]"],
+          "whispering": ["Maybe a knife... saw something shiny...", "Gun? Not sure..."],
+          "background": ["[Gunshot] [Screaming]", "[Sound of metal hitting floor]"],
+          "resolved": ["No weapon seen. They just stole things."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and arrested the burglars. Residents safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Firefighters arrived but no fire. Police had to be dispatched separately."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Paramedics treated minor injuries from the break-in."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Animal control sent to the wrong scene. Burglars escaped."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as prank. Residents were attacked and severely injured."
+      }
+    },
+    "id": "scenario_078",
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Pet Grooming Appointment",
+    "description": "A caller pretends to schedule a pet grooming appointment, but uses code to report an abusive partner present. Sounds of a dog barking in background.",
+    "states": {
+      "initial": "Caller is speaking openly about grooming, but with coded phrases.",
+      "coded": "Caller uses specific code words to indicate danger.",
+      "confronted": "Abuser confronts caller, caller tries to maintain cover.",
+      "safe": "Abuser leaves or is distracted."
+    },
+    "initial_variations": [
+      "Hi, I need to book a grooming appointment for my {specific_details} at {address_location}. Can you fit us in?",
+      "Yes, I'm calling about the grooming. My {victim_relation} recommended you. The dog has a {ambient_audio} issue.",
+      "I'd like to schedule a wash and clip for my pet. We're at {address_location}. The dog is very {specific_details} today.",
+      "Hello, this is about the appointment for {caller_name}'s dog. The address is {address_location}. There's a lot of {ambient_audio} here."
+    ],
+    "slots": {
+      "caller_name": ["Lisa", "Mark", "Jessica", "Tom"],
+      "victim_relation": ["my sister", "my neighbor", "my friend", "my mother"],
+      "address_location": [
+        "450 Cedar Street",
+        "789 Willow Way",
+        "123 Spruce Lane",
+        "567 Ash Avenue"
+      ],
+      "ambient_audio": ["barking", "growling", "whimpering", "scratching"],
+      "specific_details": ["aggressive", "nervous", "anxious", "frightened"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}. The dog needs urgent care.",
+            "The address is {address_location}. Can you send someone quickly?",
+            "Location: {address_location}. The {ambient_audio} is getting worse."
+          ],
+          "coded": [
+            "Same location: {address_location}. The {specific_details} problem is escalating.",
+            "At {address_location}. I'm worried about {victim_relation}."
+          ],
+          "confronted": [
+            "I said {address_location}! Please just send the groomer!",
+            "I'm at {address_location} with the {specific_details} dog. Just come!"
+          ],
+          "safe": [
+            "Thanks for the appointment. We're at {address_location}. The issue is resolved."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "coded"
+        },
+        "responses": {
+          "initial": [
+            "The dog is {specific_details} because of the {ambient_audio}. We need a gentle handler.",
+            "My {victim_relation} said to ask for a {specific_details} package. There's also a {ambient_audio} problem.",
+            "The condition is {specific_details} and the environment is {ambient_audio}. It's a tough situation."
+          ],
+          "coded": [
+            "The dog isn't the issue. There's a {specific_details} person here. {victim_relation} is in danger.",
+            "It's not about the dog. The {ambient_audio} is from a struggle. Please send police."
+          ],
+          "confronted": [
+            "He's right here. I can't talk. The dog is fine, but the {specific_details} is out of control!",
+            "I'm being watched. Just send help. The {ambient_audio} is from him."
+          ],
+          "safe": [
+            "He left. The dog is fine. But {victim_relation} needs assistance. Can you send police quietly?"
+          ]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}. The owner of the dog.",
+            "This is {caller_name}. I'm calling for the pet.",
+            "My name is {caller_name}."
+          ],
+          "coded": [
+            "It's {caller_name}. Please recognize the code.",
+            "I'm {caller_name}, but that's not important."
+          ],
+          "confronted": [
+            "I'm {caller_name}. Just send the police, please.",
+            "Call me {caller_name}. I can't say more."
+          ],
+          "safe": ["I'm {caller_name}. Thank you for understanding."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} is the one who recommended your grooming.",
+            "I'm concerned about {victim_relation}. They seem upset.",
+            "Check on {victim_relation}. They are with the dog."
+          ],
+          "coded": [
+            "{victim_relation} is being hurt. The {ambient_audio} is from them.",
+            "{victim_relation} needs immediate help. The dog is just a cover."
+          ],
+          "confronted": [
+            "He's hurting {victim_relation} now! Please!",
+            "{victim_relation} is the real victim. Hurry!"
+          ],
+          "safe": ["{victim_relation} is free. They have bruises."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons, just the dog's {specific_details} behavior.",
+            "The dog is the only weapon here, ha ha.",
+            "Nothing like that. Just grooming tools."
+          ],
+          "coded": [
+            "He has a knife. I saw it in the kitchen.",
+            "I think there's a gun in the house. Be careful."
+          ],
+          "confronted": [
+            "He's holding a {specific_details} to her throat!",
+            "Weapon! ! He has a weapon!"
+          ],
+          "safe": ["No weapon found. He didn't have one."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police responded and arrested the abusive partner. Victim safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire crew arrived but no fire. Police had to handle the situation."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Paramedics treated the victim's injuries. Police made arrest later."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Animal control handled the dog, but the domestic issue was missed. Police called separately."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Call dismissed as pet grooming. Victim suffered severe injuries."
+      }
+    },
+    "id": "scenario_079",
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Tech Support Call",
+    "description": "A caller pretends to have computer issues but is actually reporting a cyber stalker who broke into their home. Background sounds of keyboard typing and muffled speech.",
+    "states": {
+      "initial": "Caller is describing fake tech problems with coded warnings.",
+      "code_active": "Caller uses specific phrases to indicate intruder presence.",
+      "intruder_interaction": "Intruder comes near, caller must keep up act.",
+      "safe": "Intruder leaves or is apprehended."
+    },
+    "initial_variations": [
+      "Hello, my computer is having a {specific_details} issue. I'm at {address_location}. The screen keeps {ambient_audio}.",
+      "I need tech support for a {specific_details} error. It started when {victim_relation} visited. Can you help quickly?",
+      "My device is acting {ambient_audio}. I think it's a {specific_details} virus. Please send a technician to {address_location}.",
+      "Yes, I'm calling about the {specific_details} problem. The {ambient_audio} is really distracting. Address is {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Chris", "Morgan", "Taylor", "Jordan"],
+      "victim_relation": ["my colleague", "my roommate", "my ex-partner", "a stranger"],
+      "address_location": ["34 Tech Avenue", "56 Cyber Lane", "78 Digital Drive", "90 Code Street"],
+      "ambient_audio": ["beeping", "clicking", "static", "humming"],
+      "specific_details": ["blue screen", "slow performance", "pop-up ads", "network error"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The {specific_details} is happening on the main computer.",
+            "Location is {address_location}. The {ambient_audio} is coming from the server room.",
+            "Address: {address_location}. Please send a tech soon."
+          ],
+          "code_active": [
+            "Same: {address_location}. The {specific_details} is a person. Hurry.",
+            "At {address_location}. The intruder is in the {ambient_audio} area."
+          ],
+          "intruder_interaction": [
+            "Yes, I'm at {address_location}. The {specific_details} needs urgent attention. (To intruder: 'Just a second, tech support.')",
+            "It's {address_location}. I can't talk in detail. Please send police."
+          ],
+          "safe": ["Location: {address_location}. The issue is resolved. Send police for evidence."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "code_active"
+        },
+        "responses": {
+          "initial": [
+            "The computer shows a {specific_details} after {victim_relation} was here. Also there's {ambient_audio}.",
+            "It's a {specific_details} error. The {ambient_audio} indicates a hardware problem.",
+            "I think it's a {specific_details} from a {victim_relation}. The {ambient_audio} is annoying."
+          ],
+          "code_active": [
+            "It's not a computer problem. There's an intruder named {victim_relation}. He's using the computer.",
+            "The {ambient_audio} is him typing. He broke in through the {specific_details} window. Send police."
+          ],
+          "intruder_interaction": [
+            "He's right here. I'm pretending to fix a {specific_details}. He's suspicious. Help!",
+            "The {specific_details} is a ruse. He has a weapon. Police now!"
+          ],
+          "safe": ["He's gone. He stole some data. But we're safe. Police can come."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm {caller_name}. I work from home.",
+            "This is {caller_name}. I need help.",
+            "My name is {caller_name}."
+          ],
+          "code_active": [
+            "It's {caller_name}. Under duress.",
+            "I'm {caller_name}. Please understand the code."
+          ],
+          "intruder_interaction": [
+            "I'm {caller_name}. Just do what I say on the phone.",
+            "{caller_name} here. Send help covertly."
+          ],
+          "safe": ["I'm {caller_name}. Thank you for your patience."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} was here earlier. They might have caused the {specific_details}.",
+            "Ask {victim_relation} about the {ambient_audio} issue.",
+            "I'm worried about {victim_relation}'s involvement."
+          ],
+          "code_active": [
+            "{victim_relation} is the intruder. He's dangerous.",
+            "The victim is me! He's threatening me.",
+            "{victim_relation} has a weapon."
+          ],
+          "intruder_interaction": [
+            "He's threatening {victim_relation} too. Send police.",
+            "I'm the victim. {victim_relation} is the perp."
+          ],
+          "safe": ["I'm the victim. Arrest {victim_relation}."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons, just a computer virus.",
+            "Weapon? No, it's a {specific_details}.",
+            "The only weapon is the {ambient_audio} sound."
+          ],
+          "code_active": [
+            "He has a knife. I saw it on his belt.",
+            "Probably a gun. He's paranoid."
+          ],
+          "intruder_interaction": [
+            "He's holding a {specific_details} to my back. I think it's a gun.",
+            "He has a weapon. I can see it in his hand."
+          ],
+          "safe": ["He was armed. He dropped it when he ran."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and arrested the intruder. Caller safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Firefighters responded but no fire. Police had to be called again."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Paramedics treated caller for minor injuries. Intruder fled."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Animal control sent to location. Intruder escaped and caller was assaulted."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Call dismissed as tech support. Intruder stole sensitive data and harmed caller."
+      }
+    },
+    "id": "scenario_080",
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Late Delivery Complaint",
+    "description": "A caller complains about a late pizza delivery, but is actually reporting a home invasion in progress. Background sounds of struggle and smashing.",
+    "states": {
+      "initial": "Caller pretends to be angry about a pizza delivery.",
+      "escalating": "Intruder becomes more aggressive, caller's voice shakes.",
+      "desperate": "Caller's cover is nearly blown, pleads for help.",
+      "resolved": "Police arrive or intruder leaves."
+    },
+    "initial_variations": [
+      "I ordered a pizza over an hour ago! It's for {caller_name} at {address_location}. This is unacceptable!",
+      "Where is my delivery? I've been waiting for {specific_details} minutes. The {ambient_audio} is driving me crazy!",
+      "I'm calling about a late pizza. I'm at {address_location}. I have {victim_relation} here and we're starving!",
+      "Hello, I want to speak to the manager. My pizza hasn't arrived. There's a lot of {ambient_audio} going on here."
+    ],
+    "slots": {
+      "caller_name": ["Mike", "Sarah", "Dave", "Emma"],
+      "victim_relation": ["my wife", "my kids", "my roommate", "my parents"],
+      "address_location": [
+        "22 Pepperoni Place",
+        "44 Cheese Street",
+        "66 Topping Avenue",
+        "88 Dough Lane"
+      ],
+      "ambient_audio": ["crashing sounds", "yelling", "glass breaking", "heavy footsteps"],
+      "specific_details": ["30", "45", "60", "90"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I already told you: {address_location}! Now where's my pizza?",
+            "It's {address_location}. The delivery driver should know this.",
+            "Address: {address_location}. I'm getting really annoyed."
+          ],
+          "escalating": [
+            "Same place, {address_location}! I need that pizza now! (Sounds of struggle) ... Did you hear that?",
+            "It's {address_location}. Please, the {ambient_audio} is getting worse. Just send someone."
+          ],
+          "desperate": [
+            "I'm at {address_location}! Forget the pizza, just send police! (To intruder: 'Don't hurt them!')",
+            "{address_location}! Help! They have {victim_relation}!"
+          ],
+          "resolved": [
+            "Thanks for the pizza. Actually, police are here. It's over at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "I ordered a large pepperoni. The order number is {specific_details}. The {ambient_audio} is from my TV.",
+            "It's been {specific_details} minutes! The {ambient_audio} is from the neighbor's party.",
+            "I want a refund. The {ambient_audio} is making this worse."
+          ],
+          "escalating": [
+            "It's not about the pizza. There are people in my house. They are {ambient_audio} and threatening {victim_relation}.",
+            "Forget the pizza. I'm being robbed. They have {specific_details} intruders. Please send police."
+          ],
+          "desperate": [
+            "They're hurting {victim_relation}! I can't pretend anymore! Send police to {address_location}!",
+            "There are {specific_details} men with weapons! They're ransacking the house! Help!"
+          ],
+          "resolved": [
+            "The intruders fled when police arrived. {victim_relation} is safe. Thank you."
+          ]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "This is {caller_name}. I placed the order.",
+            "I'm {caller_name}. I've been waiting for ages.",
+            "My name is {caller_name}."
+          ],
+          "escalating": [
+            "I'm {caller_name}. Just send the police, please.",
+            "It's {caller_name}. I'm in danger."
+          ],
+          "desperate": [
+            "I'm {caller_name}! They're coming! Help!",
+            "Call me {caller_name}. I'm hiding."
+          ],
+          "resolved": ["This is {caller_name}. Everything is under control."]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{victim_relation} is here with me. We're both hungry.",
+            "I'm with {victim_relation}. They're also annoyed.",
+            "{victim_relation} told me to call for the pizza."
+          ],
+          "escalating": [
+            "{victim_relation} is being threatened. They're in the other room.",
+            "They have {victim_relation} at knifepoint. Please!"
+          ],
+          "desperate": [
+            "They're hurting {victim_relation}! I can hear them crying!",
+            "{victim_relation} is the target! Save them!"
+          ],
+          "resolved": ["{victim_relation} is safe. The intruders are arrested."]
+        }
+      },
+      "ASK_WEAPON": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Weapon? I don't have any. Just a pizza cutter.",
+            "No weapons here. Just the delivery driver issue.",
+            "The only weapon is my frustration."
+          ],
+          "escalating": [
+            "One of them has a knife. I saw it.",
+            "I think they have guns. They're shouting about money."
+          ],
+          "desperate": [
+            "They have guns! And they're pointing at {victim_relation}!",
+            "I saw a shotgun. Please hurry!"
+          ],
+          "resolved": ["They were armed. Police confiscated weapons."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police responded to the home invasion. Intruders arrested. Residents safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Firefighters arrived but no fire. Police had to be dispatched to handle the invasion."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Paramedics treated the victims for minor injuries. Police made arrests."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Animal control sent to the scene. Intruders escaped, victims traumatized."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as a pizza complaint. Home invasion escalated, victims killed."
+      }
+    },
+    "id": "scenario_081",
+    "archetype": "Ambiguous / Code Call"
+  },
+  {
+    "title": "The Stranded Motorist",
+    "description": "A caller reports a broken-down vehicle but uses coded phrases to indicate a hostage situation. The dispatcher must decipher the hidden plea.",
+    "archetype": "Ambiguous / Code Call",
+    "states": {
+      "initial": ["Caller says car is broken down but sounds tense."],
+      "hiding": ["Caller whispers from inside the vehicle, fearing the kidnapper overhears."],
+      "confronting": ["Caller confronts the captor, tone shifts to pleading or bargaining."],
+      "secured": ["Police arrive and caller is safe."]
+    },
+    "initial_variations": [
+      "My car broke down on {address_location} and I need a tow truck, but there's a {specific_details} nearby.",
+      "Hi, I'm {caller_name}, my car's dead at {address_location}. There's a {ambient_audio} coming from the engine.",
+      "Help! My car stopped at {address_location}. I think someone tampered with it, and I hear {ambient_audio}."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, on the side of the highway.",
+            "I'm near {address_location}, by the old gas station."
+          ],
+          "hiding": [
+            "I'm at {address_location}, in the ditch. Please hurry.",
+            "Same place, {address_location}. I'm hiding now."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 80,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The car won't start, maybe a dead battery? But there's a strange smell, like {specific_details}.",
+            "There's a person in a {specific_details} watching me from across the street."
+          ],
+          "hiding": [
+            "I can't say much. There's a man with a {specific_details} outside.",
+            "The car is fine, but I'm not. Someone put a {specific_details} in my pocket."
+          ]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm {caller_name}. Please just send a tow truck.", "This is {caller_name}."],
+          "hiding": ["{caller_name}... that's all I can say."]
+        }
+      },
+      "ASK_VICTIM_RELATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's just me, I was alone in the car.",
+            "My {victim_relation} was supposed to meet me here."
+          ]
+        }
+      },
+      "ASK_AMBIENT": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I hear {ambient_audio}. It's getting closer.",
+            "There's a lot of {ambient_audio} nearby."
+          ],
+          "hiding": ["I hear footsteps on gravel, {ambient_audio}."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "I'll pretend to fix the car. Please don't send sirens.",
+            "I'll try to stay calm. Send someone unmarked."
+          ]
+        }
+      }
+    },
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Linda", "Tom", "Karen"],
+      "victim_relation": ["brother", "wife", "daughter", "neighbor", "coworker"],
+      "address_location": [
+        "123 Elm Street",
+        "45 Oak Avenue",
+        "78 Pine Road",
+        "99 Maple Drive",
+        "12 Birch Lane"
+      ],
+      "ambient_audio": [
+        "distant sirens",
+        "footsteps on gravel",
+        "car doors slamming",
+        "heavy breathing",
+        "muffled screams"
+      ],
+      "specific_details": ["red van", "black glove", "silver knife", "broken window", "blood stain"]
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and rescued the caller from a kidnapper. The coded call was deciphered perfectly."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire trucks arrived but no fire was found. The delay allowed the kidnapper to flee with the victim."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "message": "Medics responded but the caller was not injured. The misdispatch delayed police intervention."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "message": "Animal control showed up, causing confusion and wasting valuable time."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "The call was dismissed as a routine breakdown. The kidnapper escaped with the victim."
+      }
+    },
+    "id": "scenario_082"
+  },
+  {
+    "title": "Silent Struggle",
+    "description": "An open line with heavy breathing and muffled sounds suggests a domestic violence incident where the victim cannot speak.",
+    "archetype": "Ambiguous / Code Call",
+    "states": {
+      "initial": ["Caller is silent, only heavy breathing is heard."],
+      "hiding": ["Caller whispers after being prompted, indicating they are hiding."],
+      "confronting": ["Sounds of a struggle escalate, caller may be in immediate danger."],
+      "secured": ["Police arrive and the situation is contained."]
+    },
+    "initial_variations": [
+      "Heavy breathing and occasional thuds are heard in the background.",
+      "A woman's breathing, muffled as if hand over mouth, plus a man's angry voice.",
+      "Open line, no speech, but {ambient_audio} is clearly audible."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I can't speak, the line is open. Please trace it.",
+            "I'm at {address_location}, but I can't talk."
+          ],
+          "hiding": [
+            "{address_location}... he's in the next room.",
+            "Same address, {address_location}. I'm in the closet."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 80,
+        "transitions": {},
+        "responses": {
+          "initial": ["I cannot say. Just listen.", "There's a {specific_details} involved."],
+          "hiding": ["He has a {specific_details}. He's angry about {something}."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["I can't say my name.", "Please, just help."],
+          "hiding": ["{caller_name}... that's me."]
+        }
+      },
+      "ASK_VICTIM_RELATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": ["It's my {victim_relation}. He's dangerous."],
+          "hiding": ["My {victim_relation} is the one attacking."]
+        }
+      },
+      "ASK_AMBIENT": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": ["You can hear {ambient_audio}."],
+          "hiding": ["He's breaking things, {ambient_audio}."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "I'll try to hide. Send police quietly.",
+            "I'll pretend to be on a regular call."
+          ]
+        }
+      }
+    },
+    "slots": {
+      "caller_name": ["Emily", "Jessica", "Anna", "Maria", "John"],
+      "victim_relation": ["husband", "ex-boyfriend", "partner", "father", "roommate"],
+      "address_location": [
+        "456 Willow Street",
+        "89 Cedar Court",
+        "234 Birch Avenue",
+        "567 Spruce Drive",
+        "890 Ash Lane"
+      ],
+      "ambient_audio": [
+        "glass breaking",
+        "slamming doors",
+        "muffled shouting",
+        "heavy footsteps",
+        "crying"
+      ],
+      "specific_details": ["a knife", "a gun", "a broken bottle", "a hammer", "a rope"]
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police arrived discreetly and arrested the aggressor. The silent call was a lifesaver."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Fire engines arrived with sirens, alerting the attacker and escalating the violence."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -120,
+        "message": "Medics responded but the victim refused treatment. The misdispatch delayed police intervention."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Animal control arrived, completely misinterpreting the call. The victim was severely injured."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "message": "The call was dismissed as a pocket dial. The victim was found dead the next day."
+      }
+    },
+    "id": "scenario_083"
+  },
+  {
+    "title": "Foreign Language Cry for Help",
+    "description": "A caller speaks in a foreign language, only uttering a few English words like 'help' and an address, possibly a code call.",
+    "archetype": "Ambiguous / Code Call",
+    "states": {
+      "initial": ["Caller speaks in Spanish, frantic, with limited English."],
+      "hiding": ["Caller whispers in Spanish, indicating they are hiding."],
+      "confronting": ["Caller screams in Spanish, sounds of a struggle."],
+      "secured": ["Police arrive and the situation is resolved."]
+    },
+    "initial_variations": [
+      "¡Ayuda! {address_location}... please, police! ¡Rápido!",
+      "Help me! {address_location}. No English... {ambient_audio}.",
+      "I speak Spanish. Please send police to {address_location}. {specific_details}."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": ["{address_location}, please hurry!", "Es {address_location}."],
+          "hiding": ["Estoy en {address_location}, escondido."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 80,
+        "transitions": {},
+        "responses": {
+          "initial": ["Hay un {specific_details}. Peligro.", "My {victim_relation} is in danger."],
+          "hiding": ["Él tiene un {specific_details}."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["Me llamo {caller_name}.", "{caller_name}."],
+          "hiding": ["{caller_name}. No puedo hablar mucho."]
+        }
+      },
+      "ASK_VICTIM_RELATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": ["Mi {victim_relation} está herido.", "Es mi {victim_relation}."],
+          "hiding": ["Mi {victim_relation} también está escondido."]
+        }
+      },
+      "ASK_AMBIENT": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": ["Oigo {ambient_audio}.", "Hay {ambient_audio}."],
+          "hiding": ["Silencio... pero {ambient_audio}."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": ["Me escondo. No hagan ruido.", "I hide. Please quiet."]
+        }
+      }
+    },
+    "slots": {
+      "caller_name": ["José", "María", "Carlos", "Ana", "Luis"],
+      "victim_relation": ["madre", "padre", "hermano", "hija", "esposa"],
+      "address_location": [
+        "123 Calle Principal",
+        "45 Avenida Roble",
+        "78 Camino Pino",
+        "99 Callejón Olmo",
+        "12 Ruta Abedul"
+      ],
+      "ambient_audio": ["gritos", "vidrios rotos", "pasos", "golpes", "sirenas lejanas"],
+      "specific_details": ["cuchillo", "pistola", "botella rota", "martillo", "cuerda"]
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and arrested the suspect. The language barrier was overcome with translation services."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire department responded, but no fire. The victim was found injured but alive."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "message": "Medics treated minor injuries, but police were needed for the domestic violence situation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control arrived, leading to confusion and escalation. The victim was severely harmed."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed due to language barrier. Victim found dead from stab wounds."
+      }
+    },
+    "id": "scenario_084"
+  },
+  {
+    "title": "Locked in the Bathroom",
+    "description": "A caller says they are locked in a bathroom, but the story is inconsistent; they might be hiding from an intruder.",
+    "archetype": "Ambiguous / Code Call",
+    "states": {
+      "initial": ["Caller says they are locked in the bathroom at {address_location}."],
+      "hiding": ["Caller whispers that they are hiding from someone."],
+      "confronting": ["Caller yells as someone tries to break in."],
+      "secured": ["Police arrive and the intruder is caught."]
+    },
+    "initial_variations": [
+      "I'm locked in my bathroom at {address_location}. The door won't open. Can you send a locksmith?",
+      "Help! I'm trapped in the bathroom at {address_location}. I think someone is outside.",
+      "I'm {caller_name}, and I'm stuck in the bathroom at {address_location}. I hear {ambient_audio}."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}, the bathroom on the second floor.",
+            "It's {address_location}, the main bathroom."
+          ],
+          "hiding": ["Same, {address_location}. I'm hiding in the tub."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 80,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The door just jammed. But I heard {ambient_audio} before.",
+            "I think someone locked me in. There's a {specific_details} outside."
+          ],
+          "hiding": ["There's a man with a {specific_details} trying to get in."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm {caller_name}.", "{caller_name} here."],
+          "hiding": ["{caller_name}, please hurry."]
+        }
+      },
+      "ASK_VICTIM_RELATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": ["My {victim_relation} is out there, I think.", "It's just me, I live alone."],
+          "hiding": ["My {victim_relation} might be hurt."]
+        }
+      },
+      "ASK_AMBIENT": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I hear {ambient_audio}. Creaking.",
+            "There's {ambient_audio} outside the door."
+          ],
+          "hiding": ["{ambient_audio}... he's trying the lock."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "I'll stay quiet and hide behind the shower curtain.",
+            "I'm going to lock the inner latch and hide."
+          ]
+        }
+      }
+    },
+    "slots": {
+      "caller_name": ["David", "Lisa", "Chris", "Amanda", "Brian"],
+      "victim_relation": ["husband", "wife", "son", "daughter", "roommate"],
+      "address_location": [
+        "321 Maple Street",
+        "654 Oak Avenue",
+        "987 Pine Road",
+        "246 Birch Lane",
+        "135 Cedar Court"
+      ],
+      "ambient_audio": [
+        "footsteps",
+        "door handle jiggling",
+        "whispering",
+        "scratching",
+        "heavy breathing"
+      ],
+      "specific_details": ["crowbar", "baseball bat", "kitchen knife", "rope", "duct tape"]
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and found a burglar trying to break in. The caller was rescued safely."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Fire department forced the door, but the burglar escaped. The caller was safe but resources wasted."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -80,
+        "message": "Medics treated the caller for anxiety, but the police never came; the burglar got away."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control arrived, thinking it was an animal stuck. The burglar fled, but the caller was locked for hours."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as a minor lockout. The caller was found dead from an intruder."
+      }
+    },
+    "id": "scenario_085"
+  },
+  {
+    "title": "Gas Leak or Cover-Up?",
+    "description": "A caller reports a gas leak, but background sounds suggest a domestic dispute. The dispatcher must determine if it's a real emergency or a code call.",
+    "archetype": "Ambiguous / Code Call",
+    "states": {
+      "initial": ["Caller says there is a gas leak at {address_location}."],
+      "hiding": ["Caller whispers that the gas leak is a cover for an intruder."],
+      "confronting": ["Sounds of a physical altercation escalate."],
+      "secured": ["Police arrive and the situation is under control."]
+    },
+    "initial_variations": [
+      "There's a gas leak at {address_location}! I smell {specific_details}. Please send help!",
+      "I'm {caller_name}, reporting a strong gas odor at {address_location}. I also hear {ambient_audio}.",
+      "Emergency! Gas leak! {address_location}. But there's something else, {ambient_audio}."
+    ],
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}, the kitchen. The smell is strong.",
+            "At {address_location}, by the furnace."
+          ],
+          "hiding": ["{address_location}, I'm in the basement. He's upstairs."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 80,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The smell is like rotten eggs. There's a {specific_details} near the stove.",
+            "I think the pilot light went out. But there's a {specific_details} in the room."
+          ],
+          "hiding": [
+            "The gas leak is fake. He's using it to get me out. He has a {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm {caller_name}.", "{caller_name}."],
+          "hiding": ["{caller_name}, but don't say my name."]
+        }
+      },
+      "ASK_VICTIM_RELATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": ["My {victim_relation} is here too.", "It's me and my {victim_relation}."],
+          "hiding": ["My {victim_relation} is the one threatening me."]
+        }
+      },
+      "ASK_AMBIENT": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I hear {ambient_audio}. Maybe it's the gas.",
+            "There's {ambient_audio} in the background."
+          ],
+          "hiding": ["{ambient_audio} from upstairs. He's pacing."]
+        }
+      },
+      "GIVE_INSTRUCTIONS": {
+        "score_delta": 100,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "I'll open a window. Please send police, not gas company.",
+            "I'll pretend to evacuate. Send unmarked cars."
+          ]
+        }
+      }
+    },
+    "slots": {
+      "caller_name": ["Robert", "Jennifer", "Michael", "Stephanie", "Kevin"],
+      "victim_relation": ["girlfriend", "boyfriend", "wife", "husband", "ex-partner"],
+      "address_location": [
+        "789 Walnut Street",
+        "234 Spruce Avenue",
+        "567 Ash Road",
+        "890 Poplar Lane",
+        "123 Hickory Drive"
+      ],
+      "ambient_audio": ["arguing", "objects breaking", "slamming doors", "crying", "threats"],
+      "specific_details": [
+        "a knife",
+        "a broken bottle",
+        "a baseball bat",
+        "a piece of glass",
+        "a rope"
+      ]
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrived and arrested the abusive partner. The gas leak was a ruse to get help."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -120,
+        "message": "Fire department responded, found no gas leak. The domestic violence escalated before police arrived."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Medics treated minor injuries, but the abuser fled. Police were needed but not called."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control arrived, causing confusion. The victim was severely beaten."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as a false alarm. The victim was found hospitalized with serious injuries."
+      }
+    },
+    "id": "scenario_086"
+  },
+  {
+    "title": "The Laundry Service Call",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller pretends to schedule a laundry pickup, but is actually reporting a domestic violence situation using coded phrases.",
+    "states": {
+      "initial": "Caller is on the line, speaking in a forced cheerful tone about laundry pickup.",
+      "hiding": "Caller has moved to a closet or bathroom, whispering.",
+      "confronting": "The abuser is present and threatening, caller tries to maintain facade.",
+      "secured": "Police have arrived and the caller is safe."
+    },
+    "initial_variations": [
+      "Hi, I'd like to schedule a laundry pickup for {caller_name} at {address_location}. The service code is {specific_details}.",
+      "Hello, I'm calling about the laundry. Can you send someone to pick up the {specific_details} from {caller_name} at {address_location}?",
+      "This is {caller_name}. I need a laundry pickup at {address_location}. The bags are tagged with {specific_details} and there's a {ambient_audio} sound in the background."
+    ],
+    "slots": {
+      "caller_name": ["Jane", "Maria", "Alice", "Sarah", "Laura"],
+      "address_location": [
+        "123 Oak St",
+        "456 Maple Ave",
+        "789 Elm Dr",
+        "321 Pine Ln",
+        "654 Birch Rd"
+      ],
+      "ambient_audio": ["muffled shouts", "glass breaking", "heavy footsteps", "crying", "silence"],
+      "specific_details": [
+        "code red",
+        "blue tag",
+        "emergency pickup",
+        "immediate",
+        "do not disturb"
+      ],
+      "abuser_name": ["Mike", "Tom", "Dave", "Steve", "John"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Please send a pickup.",
+            "It's {address_location}. I need it today.",
+            "The address is {address_location}, hurry."
+          ],
+          "hiding": [
+            "I'm at {address_location}, hiding in the closet.",
+            "Same address: {address_location}. He's looking for me.",
+            "Please send help to {address_location}. I'm in the bathroom."
+          ],
+          "confronting": [
+            "I told you, {address_location}!",
+            "I can't talk. {address_location}.",
+            "Just come to {address_location}."
+          ],
+          "secured": ["Thank you. I'm at {address_location}, safe now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "It's a {specific_details} pickup. Please note.",
+            "The service is {specific_details}. Understand?",
+            "I mentioned {specific_details}."
+          ],
+          "hiding": [
+            "{specific_details}. That's the code. He's in the next room.",
+            "Please, {specific_details} means danger. Hurry.",
+            "Remember {specific_details}. I can't say more."
+          ],
+          "confronting": [
+            "{specific_details} is what I need. Just do it!",
+            "Stop asking! {specific_details}!",
+            "I already said {specific_details}."
+          ],
+          "secured": ["{specific_details} was the signal. You saved me."]
+        }
+      },
+      "CLARIFY_INTENT": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "initial",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "Isn't it clear? I need laundry service.",
+            "What part of 'pickup' don't you understand?",
+            "Are you new? I need a pickup."
+          ],
+          "hiding": [
+            "I'm trying to tell you! Please just send help!",
+            "Can't you hear the {ambient_audio}? I'm not talking about laundry!",
+            "Forget laundry! Send police!"
+          ],
+          "confronting": [
+            "I can't explain. Just do your job!",
+            "I said laundry. Nothing more.",
+            "Please, just agree and send someone."
+          ],
+          "secured": ["I was so scared. He's gone now."]
+        }
+      },
+      "PROVIDE_SILENT": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "secured",
+          "confronting": "secured"
+        },
+        "responses": {
+          "initial": ["(silence) ... ", "(whisper) He's here.", "(sound of struggle)"],
+          "hiding": [
+            "(whisper) I'm in the closet. He's leaving.",
+            "(silence) ... ",
+            "(crying quietly)"
+          ],
+          "confronting": ["(scream) No! Get away!", "(crash) ... ", "(silence)"],
+          "secured": ["(relieved sigh) He's handcuffed. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Police arrived and arrested the abuser. Caller is safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters were confused. The situation was a domestic dispute, not a fire."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "EMS arrived but no injuries. They called police to handle the domestic situation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Animal control showed up, causing confusion and endangering the caller. Abuser escalated."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller was assaulted severely before police could respond."
+      }
+    },
+    "id": "scenario_087"
+  },
+  {
+    "title": "The Wrong Apartment Call",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller pretends to have dialed the wrong number but is actually held captive and using a code to signal for help.",
+    "states": {
+      "initial": "Caller speaks nervously, claiming to have the wrong apartment.",
+      "hiding": "Caller is whispering from a bathroom or closet.",
+      "confronting": "The captor is nearby, caller tries to sound normal.",
+      "rescued": "Police have entered and caller is safe."
+    },
+    "initial_variations": [
+      "Hi, I think I have the wrong apartment. Is this {address_location}? I was looking for {specific_details}.",
+      "Sorry to bother, I dialed {specific_details} by mistake. Is this {address_location}?",
+      "Hello? I'm trying to reach {caller_name} at {address_location}. I have a {specific_details} delivery."
+    ],
+    "slots": {
+      "caller_name": ["Tom", "David", "Chris", "Mike", "Jake"],
+      "address_location": [
+        "10th floor, Apt 5",
+        "Building B, Room 12",
+        "Unit 3, 55 Park Ave",
+        "2nd door left, 123 Main",
+        "The blue house on Elm"
+      ],
+      "ambient_audio": [
+        "muffled TV",
+        "heavy breathing",
+        "door creaking",
+        "footsteps",
+        "whispering"
+      ],
+      "specific_details": [
+        "package of medicine",
+        "urgent mail",
+        "code blue delivery",
+        "emergency pizza",
+        "safe word 'red'"
+      ],
+      "captor_name": ["Lee", "Carlos", "Marcus", "Derek", "Alex"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Is that correct?",
+            "Yes, I'm at {address_location}.",
+            "I said {address_location}."
+          ],
+          "hiding": [
+            "Same place, {address_location}. I'm hiding.",
+            "Please send to {address_location}. Hurry.",
+            "I'm at {address_location}, locked in a room."
+          ],
+          "confronting": [
+            "I told you, {address_location}! Just confirm the delivery!",
+            "You know the address: {address_location}. Don't make them suspicious.",
+            "It's {address_location}. Like I said."
+          ],
+          "rescued": ["Thank you. I'm at {address_location}, safe now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "Yes, it's a {specific_details} delivery. Please hurry.",
+            "The package is {specific_details}. It's important.",
+            "I mentioned {specific_details}."
+          ],
+          "hiding": [
+            "{specific_details} is the code! He's holding me.",
+            "Please, {specific_details} means emergency. Send police.",
+            "Don't you understand? {specific_details} is a signal."
+          ],
+          "confronting": [
+            "{specific_details} is what I ordered. Just confirm.",
+            "I said {specific_details}. That's what I need.",
+            "Stop asking! It's {specific_details}."
+          ],
+          "rescued": ["{specific_details} was the key. They're gone."]
+        }
+      },
+      "CLARIFY_INTENT": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "initial",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "I just want to know if this is the right number.",
+            "I'm trying to deliver a package. Is this {address_location}?",
+            "Do you want the delivery or not?"
+          ],
+          "hiding": [
+            "I need help! This isn't about delivery!",
+            "Can't you hear {ambient_audio}? Send police!",
+            "Please, I'm being held against my will!"
+          ],
+          "confronting": [
+            "I can't talk. Just send the delivery.",
+            "Nothing else. Just the delivery.",
+            "Please, just go along with it."
+          ],
+          "rescued": ["You saved me. I was so afraid."]
+        }
+      },
+      "PROVIDE_SILENT": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "rescued"
+        },
+        "responses": {
+          "initial": ["(silence) ... ", "(whisper) Help.", "(sound of struggle)"],
+          "hiding": ["(whisper) He's asleep.", "(silence) ... ", "(quiet crying)"],
+          "confronting": ["(loud) No! Get away from me!", "(crash) ... ", "(silence)"],
+          "rescued": ["I'm free. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Police raided the apartment and freed the hostage. Captor arrested."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters arrived but couldn't enter without police. Delayed rescue."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "EMS treated minor injuries after police secured scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control arrived and the captor became violent. Caller injured."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller was later found deceased."
+      }
+    },
+    "id": "scenario_088"
+  },
+  {
+    "title": "The Birthday Party Invitation",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller sounds cheerful but uses coded phrases to indicate a hostage or domestic violence situation.",
+    "states": {
+      "initial": "Caller speaks cheerfully about a birthday party.",
+      "hiding": "Caller is away from the abuser, whispering.",
+      "confronting": "Abuser is present, caller maintains facade.",
+      "safe": "Police have intervened and caller is safe."
+    },
+    "initial_variations": [
+      "Hi! I'm inviting you to {caller_name}'s birthday party at {address_location}. Please bring {specific_details}.",
+      "Hey there! Birthday party for {caller_name} at {address_location}. Don't forget the {specific_details}!",
+      "You're invited to a party! It's at {address_location} for {caller_name}. The theme is {specific_details}."
+    ],
+    "slots": {
+      "caller_name": ["Emma", "Olivia", "Sophia", "Isabella", "Mia"],
+      "address_location": [
+        "456 Cedar Ln",
+        "789 Walnut St",
+        "321 Cherry Ave",
+        "654 Spruce Dr",
+        "987 Ash Blvd"
+      ],
+      "ambient_audio": [
+        "balloons popping",
+        "loud music",
+        "shattering glass",
+        "screaming",
+        "silence"
+      ],
+      "specific_details": [
+        "red balloons",
+        "a cake with candles",
+        "emergency candles",
+        "police whistle",
+        "first aid kit"
+      ],
+      "abuser_name": ["Ben", "Ryan", "Kevin", "Ethan", "Jacob"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}. Don't be late!",
+            "Yes, {address_location}. Party starts soon.",
+            "Come to {address_location}."
+          ],
+          "hiding": [
+            "I'm at {address_location}, but I'm in the back room.",
+            "Same address: {address_location}. Please hurry.",
+            "I'm at {address_location}, hiding in the closet."
+          ],
+          "confronting": [
+            "I told you, {address_location}!",
+            "Just come to {address_location}. I can't talk.",
+            "It's {address_location}. Like I said."
+          ],
+          "safe": ["Thank you. I'm at {address_location}, safe."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "Definitely bring {specific_details}. It's important.",
+            "I need {specific_details} for the party.",
+            "Don't forget the {specific_details}."
+          ],
+          "hiding": [
+            "{specific_details} is the code! He's hurting me.",
+            "Please, {specific_details} means danger. Send police.",
+            "I said {specific_details}. That's a signal."
+          ],
+          "confronting": [
+            "I need {specific_details}. That's what I said.",
+            "Just bring {specific_details}. Nothing else.",
+            "Stop asking! It's {specific_details}."
+          ],
+          "safe": ["{specific_details} was the signal. You understood."]
+        }
+      },
+      "CLARIFY_INTENT": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "initial",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "It's a party! What's not clear?",
+            "I'm inviting you to a birthday party.",
+            "Do you want to come or not?"
+          ],
+          "hiding": [
+            "Please! It's not a party! He's got a knife!",
+            "Can't you hear {ambient_audio}? Send police now!",
+            "I'm in danger! This is a code."
+          ],
+          "confronting": [
+            "I can't explain. Just bring the {specific_details}.",
+            "Nothing else. Just the party.",
+            "Please, just go along."
+          ],
+          "safe": ["You saved my life. Thank you."]
+        }
+      },
+      "PROVIDE_SILENT": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "safe"
+        },
+        "responses": {
+          "initial": ["(silence) ... ", "(forced laugh) Ha ha.", "(sound of a slap)"],
+          "hiding": ["(whisper) He's leaving.", "(silence) ... ", "(crying)"],
+          "confronting": ["(scream) No! Don't hurt me!", "(crash) ... ", "(silence)"],
+          "safe": ["(crying) Thank you. He's gone."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Police arrived and arrested the abuser. Caller is safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters were confused. They called police to handle the domestic situation."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "EMS treated the caller's injuries after police secured the scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control arrived and the abuser became violent. Caller severely injured."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller was assaulted critically before police could respond."
+      }
+    },
+    "id": "scenario_089"
+  },
+  {
+    "title": "The Dog Walker Incident",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller pretends to be a dog walker reporting an aggressive dog, but is actually a hostage trying to signal for help.",
+    "states": {
+      "initial": "Caller sounds nervous, reporting a dog problem.",
+      "hiding": "Caller is hiding from the captor.",
+      "confronting": "Captor is present, caller tries to stay calm.",
+      "rescued": "Police have arrived and caller is safe."
+    },
+    "initial_variations": [
+      "Hi, I'm walking a dog and it's become aggressive at {address_location}. I'm {caller_name}. The dog's name is {specific_details}.",
+      "Help! I'm a dog walker and this dog is out of control at {address_location}. It's a {specific_details}. Please send someone.",
+      "I need animal control! I'm at {address_location} with a {specific_details} that is aggressive. My name is {caller_name}."
+    ],
+    "slots": {
+      "caller_name": ["Liam", "Noah", "Ethan", "Mason", "Logan"],
+      "address_location": [
+        "12 River Rd",
+        "34 Lakeview Dr",
+        "56 Hill St",
+        "78 Valley Ave",
+        "90 Mountain Rd"
+      ],
+      "ambient_audio": ["dog barking", "growling", "chains rattling", "screaming", "footsteps"],
+      "specific_details": ["pit bull", "German shepherd", "Rottweiler", "Doberman", "wolf hybrid"],
+      "captor_name": ["Gus", "Rex", "Bruno", "Max", "Rocky"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The dog is loose.",
+            "Yes, {address_location}. Please come quickly.",
+            "It's {address_location}."
+          ],
+          "hiding": [
+            "Same place, {address_location}. I'm hiding in a shed.",
+            "I'm at {address_location}, locked in the basement.",
+            "Please send to {address_location}. Hurry."
+          ],
+          "confronting": [
+            "I told you, {address_location}! Just send animal control!",
+            "You know the address: {address_location}. Don't make them suspicious.",
+            "It's {address_location}. Like I said."
+          ],
+          "rescued": ["Thank you. I'm at {address_location}, safe now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "It's a {specific_details}. Very aggressive.",
+            "The dog is a {specific_details}. It bit me.",
+            "I said {specific_details}."
+          ],
+          "hiding": [
+            "{specific_details} is the code! I'm being held captive.",
+            "Please, {specific_details} means emergency. Send police.",
+            "Don't you understand? {specific_details} is a signal."
+          ],
+          "confronting": [
+            "{specific_details} is the breed. Just send help.",
+            "I said {specific_details}. That's the problem.",
+            "Stop asking! It's {specific_details}."
+          ],
+          "rescued": ["{specific_details} was the signal. They're gone."]
+        }
+      },
+      "CLARIFY_INTENT": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "initial",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "I need animal control for an aggressive dog.",
+            "What part of 'dangerous dog' don't you understand?",
+            "Are you going to send someone?"
+          ],
+          "hiding": [
+            "I need help! This isn't about a dog!",
+            "Can't you hear {ambient_audio}? Send police!",
+            "Please, I'm being held against my will!"
+          ],
+          "confronting": [
+            "I can't talk. Just send animal control.",
+            "Nothing else. Just the dog.",
+            "Please, just go along with it."
+          ],
+          "rescued": ["You saved me. I was so afraid."]
+        }
+      },
+      "PROVIDE_SILENT": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "rescued"
+        },
+        "responses": {
+          "initial": ["(silence) ... ", "(whisper) Help.", "(sound of dog barking)"],
+          "hiding": ["(whisper) He's asleep.", "(silence) ... ", "(quiet crying)"],
+          "confronting": ["(loud) No! Get away from me!", "(crash) ... ", "(silence)"],
+          "rescued": ["I'm free. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Police arrived and rescued the hostage. Captor arrested."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters arrived but couldn't intervene without police. Delayed rescue."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "EMS treated minor injuries after police secured scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control arrived and the captor became violent. Caller injured."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller was later found deceased."
+      }
+    },
+    "id": "scenario_090"
+  },
+  {
+    "title": "The Tech Support Scam Call",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller pretends to be from tech support but is actually reporting a home invasion using coded language.",
+    "states": {
+      "initial": "Caller adopts a professional tone about computer problems.",
+      "hiding": "Caller is hiding from intruders.",
+      "confronting": "Intruders are present, caller continues the act.",
+      "safe": "Police have arrived and intruders arrested."
+    },
+    "initial_variations": [
+      "Hello, this is {caller_name} from tech support. We've detected an issue with your computer at {address_location}. Please run {specific_details}.",
+      "I'm calling from {caller_name}'s tech team. Your computer at {address_location} has a virus. Open {specific_details} to fix it.",
+      "Hi, this is {caller_name} with a security alert. Your system at {address_location} is compromised. Execute {specific_details} immediately."
+    ],
+    "slots": {
+      "caller_name": ["Support Agent", "Technician", "IT", "Security", "Admin"],
+      "address_location": [
+        "123 Tech Lane",
+        "456 Cyber Street",
+        "789 Digital Drive",
+        "321 Network Ave",
+        "654 Server Road"
+      ],
+      "ambient_audio": [
+        "keyboard typing",
+        "muffled voices",
+        "footsteps",
+        "breaking glass",
+        "silence"
+      ],
+      "specific_details": [
+        "system restore",
+        "emergency shutdown",
+        "safe mode",
+        "factory reset",
+        "call police"
+      ],
+      "intruder_count": ["two", "three", "one", "multiple", "at least four"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We have your location as {address_location}. Confirm?",
+            "Yes, it's {address_location}.",
+            "I'm at {address_location}."
+          ],
+          "hiding": [
+            "I'm at {address_location}, hiding in the basement.",
+            "Same address: {address_location}. They're upstairs.",
+            "Please send to {address_location}. Hurry."
+          ],
+          "confronting": [
+            "I told you, {address_location}! Just run the fix!",
+            "You know the address: {address_location}. Don't make them suspicious.",
+            "It's {address_location}. Like I said."
+          ],
+          "safe": ["Thank you. I'm at {address_location}, safe now."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 15,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "Yes, run {specific_details} to resolve the issue.",
+            "The fix is {specific_details}. Please comply.",
+            "I mentioned {specific_details}."
+          ],
+          "hiding": [
+            "{specific_details} is the code! There are intruders.",
+            "Please, {specific_details} means emergency. Send police.",
+            "Don't you understand? {specific_details} is a signal."
+          ],
+          "confronting": [
+            "{specific_details} is what you need to do. Just do it.",
+            "I said {specific_details}. That's the solution.",
+            "Stop asking! It's {specific_details}."
+          ],
+          "safe": ["{specific_details} was the signal. They're arrested."]
+        }
+      },
+      "CLARIFY_INTENT": {
+        "score_delta": -5,
+        "transitions": {
+          "initial": "initial",
+          "hiding": "confronting"
+        },
+        "responses": {
+          "initial": [
+            "I'm from tech support. We need to fix your computer.",
+            "What part of 'security alert' don't you understand?",
+            "Are you going to follow instructions?"
+          ],
+          "hiding": [
+            "I need help! This isn't tech support!",
+            "Can't you hear {ambient_audio}? Send police!",
+            "Please, I'm in danger! Intruders!"
+          ],
+          "confronting": [
+            "I can't explain. Just run the {specific_details}.",
+            "Nothing else. Just the fix.",
+            "Please, just go along with it."
+          ],
+          "safe": ["You saved me. I was so afraid."]
+        }
+      },
+      "PROVIDE_SILENT": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "hiding",
+          "hiding": "confronting",
+          "confronting": "safe"
+        },
+        "responses": {
+          "initial": ["(silence) ... ", "(whisper) They're here.", "(sound of struggle)"],
+          "hiding": ["(whisper) They're leaving.", "(silence) ... ", "(quiet crying)"],
+          "confronting": ["(loud) No! Get away from the computer!", "(crash) ... ", "(silence)"],
+          "safe": ["(relieved) They're handcuffed. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Police arrived and arrested the intruders. Caller is safe."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Firefighters were confused. They called police to handle the situation."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "EMS treated the caller's injuries after police secured the scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control arrived and the intruders became violent. Caller severely injured."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Call dismissed. Caller was assaulted critically before police could respond."
+      }
+    },
+    "id": "scenario_091"
+  },
+  {
+    "name": "The Wrong Address",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller pretending to order pizza gives a wrong address, but background sounds of arguing and a child crying suggest a domestic violence situation.",
+    "states": {
+      "initial": "Caller is on the line, speaking in a forced cheerful tone.",
+      "hiding": "Caller has moved to a quieter spot, whispering.",
+      "confronted": "The abuser enters the room, caller becomes tense.",
+      "secured": "Police arrive and the situation is defused."
+    },
+    "initial_variations": [
+      "Hi, I'd like to order a large pepperoni pizza for delivery to {address_location}. Can you confirm the address?",
+      "Hello, I'm calling to place a pizza order for {address_location}. Make it a large with extra cheese.",
+      "Yes, I need a pizza delivered to {address_location}. That's 123 Main Street? Actually, it's {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Sarah", "Mike", "Jessica", "David"],
+      "victim_relation": ["my wife", "my husband", "my child", "my neighbor"],
+      "address_location": [
+        "1428 Elm Street",
+        "356 Oak Avenue",
+        "789 Pine Road",
+        "221B Baker Street"
+      ],
+      "ambient_audio": [
+        "arguing voices in the background",
+        "a child crying",
+        "objects being thrown",
+        "faint screaming"
+      ],
+      "specific_details": ["a broken window", "a loud thud", "a door slamming", "glass breaking"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {address_location}. Please send the pizza there.",
+            "It's at {address_location}. Hurry!",
+            "The address is {address_location}. Why do you need it again?"
+          ],
+          "hiding": [
+            "I'm at {address_location}. Please send someone quietly.",
+            "Address is {address_location}. I can't talk loud."
+          ],
+          "confronted": [
+            "I... I don't know. Just forget it.",
+            "No, I can't talk now. Please don't come."
+          ],
+          "secured": ["The address is {address_location}. Thank you."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I want a large pepperoni pizza.",
+            "Just a regular pizza. Nothing special.",
+            "Yes, the usual. Please send it quickly."
+          ],
+          "hiding": [
+            "I need help. There's {ambient_audio}. My {victim_relation} is in danger.",
+            "There's {specific_details} in the background. Please send police."
+          ],
+          "confronted": ["Nothing's wrong. Just a pizza order.", "I can't talk about details now."],
+          "secured": ["Thank you for your help. The situation is resolved."]
+        }
+      },
+      "ASK_PEOPLE": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Just me and my family.",
+            "It's just me and {victim_relation}.",
+            "My {victim_relation} is here too."
+          ],
+          "hiding": [
+            "There's {victim_relation} and an intruder. Please hurry.",
+            "My {victim_relation} is being hurt."
+          ],
+          "confronted": ["Don't send anyone. It's fine.", "He's here. I have to go."],
+          "secured": ["Everyone is safe now."]
+        }
+      },
+      "ASK_RELATIONSHIP": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["That's my {victim_relation}.", "It's my {victim_relation}."],
+          "hiding": [
+            "The person arguing is {victim_relation}. He's angry.",
+            "My {victim_relation} is the one crying."
+          ],
+          "confronted": ["No one important.", "I can't say."],
+          "secured": ["My {victim_relation} and I are safe now."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "Yes, it's an emergency! Please send someone.",
+            "I'm in danger. Please help.",
+            "It's urgent. Send police."
+          ],
+          "hiding": [
+            "Yes, it's a domestic violence situation. Please send police.",
+            "I'm hiding. He's violent. Send help."
+          ],
+          "confronted": ["No, it's not an emergency. Just a pizza.", "Please don't make a scene."],
+          "secured": ["It's under control now. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "feedback": "Police arrive and find a domestic violence situation in progress. They intervene and arrest the abuser. The victims are safe."
+      },
+      "SEND_FIRE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "feedback": "Firefighters arrive to find no fire. They report suspicious activity, but police are needed instead. Slight delay."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 50,
+        "status": "MINOR_ERROR",
+        "feedback": "Medics arrive and treat minor injuries from the domestic violence. Police are still needed. Helpful but not primary."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "feedback": "Animal control arrives and finds no animals. They call police backup, causing confusion and delay."
+      },
+      "DISMISS": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "feedback": "You dismiss the call as a wrong number. The domestic violence continues and later escalates to a homicide. You are investigated for negligence."
+      }
+    },
+    "id": "scenario_092"
+  },
+  {
+    "name": "The Birthday Surprise",
+    "archetype": "Ambiguous / Code Call",
+    "description": "A caller sounds cheerful, but background noises of struggle and muffled screams indicate a hostage situation. The caller is forced to act normal.",
+    "states": {
+      "initial": "Caller speaks in a forced cheerful voice.",
+      "hiding": "Caller finds a moment to whisper.",
+      "confronted": "Hostage-taker is near, caller must pretend.",
+      "secured": "Police resolve the situation."
+    },
+    "initial_variations": [
+      "Hello, I'm planning a birthday surprise for my {victim_relation} at {address_location}. Can you help?",
+      "Hi! It's my {victim_relation}'s birthday and we're having a party at {address_location}. Need some ideas!",
+      "Hey, I'm arranging a surprise party at {address_location} for my {victim_relation}. Can you suggest a cake?"
+    ],
+    "slots": {
+      "caller_name": ["Alice", "Bob", "Cathy", "Dan"],
+      "victim_relation": ["husband", "wife", "brother", "sister"],
+      "address_location": [
+        "123 Maple Drive",
+        "456 Birch Lane",
+        "789 Cedar Court",
+        "321 Elm Street"
+      ],
+      "ambient_audio": ["muffled screams", "tape being ripped", "heavy footsteps", "faint crying"],
+      "specific_details": [
+        "a tied-up person in the corner",
+        "a gun on the table",
+        "a gagged mouth",
+        "a locked door"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}. We're all set up.",
+            "The party is at {address_location}. Don't be late!",
+            "Address is {address_location}. See you there!"
+          ],
+          "hiding": [
+            "I'm at {address_location}. There's a hostage situation. Send police quietly.",
+            "Location is {address_location}. Please hurry."
+          ],
+          "confronted": [
+            "It's {address_location}. Just a party.",
+            "Same address. I can't talk more."
+          ],
+          "secured": ["The address is {address_location}. Thank you for your help."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We have a cake and decorations. It's a surprise!",
+            "Just a small family gathering. Nothing fancy.",
+            "Lots of balloons and gifts."
+          ],
+          "hiding": [
+            "There are burglars holding my family hostage. I'm pretending to plan a party.",
+            "Details: My {victim_relation} is tied up. Please send SWAT."
+          ],
+          "confronted": [
+            "No details needed. Just a birthday.",
+            "Don't ask questions. Just play along."
+          ],
+          "secured": ["It's over. Police are here. Thank you."]
+        }
+      },
+      "ASK_PEOPLE": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's me, my {victim_relation}, and a few friends.",
+            "Just family: me, {victim_relation}, and the kids."
+          ],
+          "hiding": [
+            "There are multiple armed men. My family is in danger.",
+            "There's me, my {victim_relation}, and several hostages."
+          ],
+          "confronted": ["Just the usual partygoers.", "You know, friends and family."],
+          "secured": ["Everyone is safe now."]
+        }
+      },
+      "ASK_RELATIONSHIP": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's for my {victim_relation}. They'll love it.",
+            "My {victim_relation} is the birthday person."
+          ],
+          "hiding": [
+            "My {victim_relation} is one of the hostages. I'm trying to protect them.",
+            "My {victim_relation} is in danger."
+          ],
+          "confronted": ["Just a relative. Nothing special.", "I can't say more."],
+          "secured": ["My {victim_relation} is safe."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "hiding"
+        },
+        "responses": {
+          "initial": [
+            "Yes, it's an emergency! Please send police.",
+            "This is a code. Send help now.",
+            "It's urgent. I'm being forced to make this call."
+          ],
+          "hiding": [
+            "Yes, it's a hostage situation. Send police and negotiators.",
+            "Emergency! Multiple armed suspects. Please hurry."
+          ],
+          "confronted": ["No, it's just a party.", "Everything is fine. Don't come."],
+          "secured": ["It's resolved. Police are here."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": 300,
+        "status": "SUCCESS",
+        "feedback": "Police surround the house and negotiate. The hostages are freed and the perpetrators arrested. You saved lives."
+      },
+      "SEND_FIRE": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "feedback": "Firefighters arrive and find no fire. They alert police, but valuable time is lost."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "feedback": "Medics arrive and treat minor injuries after police resolve the situation. Not the primary need."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -150,
+        "status": "MINOR_ERROR",
+        "feedback": "Animal control arrives and is met by armed suspects. They retreat and call police, but the situation escalates due to delay."
+      },
+      "DISMISS": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "feedback": "You dismiss the call as a party planning query. The hostage situation turns violent; multiple casualties. You are fired and face charges."
+      }
+    },
+    "id": "scenario_093"
+  },
+  {
+    "name": "The Silent Caller",
+    "archetype": "Ambiguous / Code Call",
+    "description": "The line is open, but the caller says nothing. Heavy breathing, muffled sounds, and faint knocking are heard. The caller may be unable to speak due to threat or injury.",
+    "states": {
+      "initial": "Caller is silent on the line, only breathing.",
+      "whispering": "Caller begins to whisper quietly.",
+      "panicked": "Background sounds escalate, caller gasps.",
+      "rescued": "Police arrive and help the victim."
+    },
+    "initial_variations": [
+      "[Heavy breathing] ... [Long pause] ... [Muffled sound]",
+      "[Silence] ... [Click] ... [Breathing] ... [Faint tapping]",
+      "[Sniffling] ... [Quiet crying] ... [Door creaks]"
+    ],
+    "slots": {
+      "caller_name": ["Unknown", "Jane Doe", "John Smith", "Anonymous"],
+      "victim_relation": ["my mother", "my father", "my child", "my spouse"],
+      "address_location": [
+        "1010 Park Avenue",
+        "2020 Lake Drive",
+        "3030 Hill Street",
+        "4040 River Road"
+      ],
+      "ambient_audio": ["heavy footsteps", "a door slamming", "glass breaking", "faint sirens"],
+      "specific_details": [
+        "a knife being dropped",
+        "a whispered argument",
+        "a child whimpering",
+        "a phone being moved"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["... [Breathing] ...", "... [Long pause] ...", "... [Muffled sound] ..."],
+          "whispering": [
+            "[Whispered] I'm at {address_location}. Help me.",
+            "[Whispered] {address_location}. They're here."
+          ],
+          "panicked": "[Gasp] {address_location}! Please hurry!",
+          "rescued": "[Crying] Thank you. I'm at {address_location}."
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["... [Heavy breathing] ...", "... [Click] ...", "... [Nothing] ..."],
+          "whispering": [
+            "[Whispered] He has a knife. I'm hiding.",
+            "[Whispered] There's {ambient_audio}. I'm scared."
+          ],
+          "panicked": "[Sobbing] {specific_details}. Please send police!",
+          "rescued": "[Shaking] He broke in. I'm safe now."
+        }
+      },
+      "ASK_PEOPLE": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["... [Breathing] ...", "... [Silence] ..."],
+          "whispering": [
+            "[Whispered] Just me and {victim_relation}.",
+            "[Whispered] {victim_relation} is hiding too."
+          ],
+          "panicked": "[Panicked] There's someone else! I don't know!",
+          "rescued": ["My {victim_relation} and I are safe."]
+        }
+      },
+      "ASK_RELATIONSHIP": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["... [No response] ..."],
+          "whispering": [
+            "[Whispered] {victim_relation} is with me.",
+            "[Whispered] It's {victim_relation}."
+          ],
+          "panicked": "[Crying] It's my {victim_relation}!",
+          "rescued": ["We are family."]
+        }
+      },
+      "ASK_EMERGENCY": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "whispering"
+        },
+        "responses": {
+          "initial": ["... [Heavy breathing] ...", "... [Silence] ..."],
+          "whispering": [
+            "[Whispered] Yes, it's an emergency. Please send police.",
+            "[Whispered] I'm in danger. Hurry."
+          ],
+          "panicked": "[Screaming] Yes! He's here!",
+          "rescued": ["Yes, it was. Thank you."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": 250,
+        "status": "SUCCESS",
+        "feedback": "Police trace the call and arrive to find a burglary in progress. They apprehend the suspect and rescue the victim. Excellent work."
+      },
+      "SEND_FIRE": {
+        "score_delta": -50,
+        "status": "MINOR_ERROR",
+        "feedback": "Firefighters arrive and find no fire, but notice signs of disturbance. They call police. Minor delay."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": 100,
+        "status": "MINOR_ERROR",
+        "feedback": "Medics arrive and find a frightened victim. They provide comfort and police are called. Victim is safe."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -200,
+        "status": "CRITICAL_FAILURE",
+        "feedback": "Animal control arrives and disrupts the burglary. The suspect escapes, and the victim is injured. Your decision costs time and safety."
+      },
+      "DISMISS": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "feedback": "You dismiss the silent call as a wrong number. The victim is later found dead. You are terminated and face disciplinary action."
+      }
+    },
+    "id": "scenario_094"
+  }
+]

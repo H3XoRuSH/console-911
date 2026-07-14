@@ -1,0 +1,2560 @@
+[
+  {
+    "title": "Monster in the Backyard",
+    "description": "A young caller, giggling nervously, reports seeing a 10-foot-tall monster with glowing eyes in their backyard. Background sounds of friends snickering suggest it's a prank.",
+    "states": {
+      "initial": "Caller reports the monster sighting",
+      "probing": "Dispatcher asks probing questions, caller struggles to maintain story",
+      "realizing": "Caller realizes he's been caught or bored",
+      "hanging_up": "Caller abruptly ends call"
+    },
+    "initial_variations": [
+      "There's a huge monster in my backyard! It's got red eyes and scales! Please send help! My name is {caller_name} and I'm at {address_location}.",
+      "Oh my god, there's like a giant creature outside my window! I can hear it roaring! {ambient_audio} Please come quick!",
+      "This is {caller_name} from {address_location}. I think I see Bigfoot or something? It's huge and it's staring at me! {ambient_audio}",
+      "Hi, um, there's a monster... uh, it's got claws and teeth. My friend {victim_relation} is terrified. Can you send someone? The address is {address_location}."
+    ],
+    "slots": {
+      "caller_name": ["Tyler", "Emma", "Jake", "Lily", "Ryan"],
+      "victim_relation": ["my little brother", "my friend", "my neighbor", "my cousin"],
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Lane",
+        "101 Birch Road",
+        "202 Cedar Court"
+      ],
+      "ambient_audio": [
+        "loud roaring noises",
+        "crashing sounds",
+        "muffled laughter",
+        "dog barking",
+        "silence"
+      ],
+      "specific_details": [
+        "glowing red eyes",
+        "slime trail",
+        "three heads",
+        "missing a leg",
+        "scales"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, the big house with the blue door!",
+            "I told you, {address_location}! Hurry!",
+            "Um, {address_location}... wait, no, that's my house. Is that the right one?"
+          ],
+          "probing": [
+            "Yeah, we're still at {address_location}. The monster is just standing there.",
+            "Uh, actually it's the house across the street, {address_location}. Or maybe not."
+          ],
+          "realizing": ["Never mind the address, this is stupid.", "Forget it, we gotta go."],
+          "hanging_up": ["*click*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "probing"
+        },
+        "responses": {
+          "initial": [
+            "It's about 10 feet tall with {specific_details}. It came from the forest!",
+            "It has {specific_details} and makes weird noises. {ambient_audio} See?"
+          ],
+          "probing": [
+            "Uh... it has {specific_details}? I think it's also wearing a costume maybe.",
+            "Well, it's all fuzzy and has {specific_details}. Actually, it might be a bear?"
+          ],
+          "realizing": [
+            "Look, I made it up, okay? My friends dared me to call.",
+            "Fine, it's just my dad in a gorilla suit. Happy?"
+          ],
+          "hanging_up": ["*click*"]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}.",
+            "Why do you need my name? It's {caller_name}.",
+            "I'm {caller_name}!"
+          ],
+          "probing": [
+            "Um, it's {caller_name}... no, wait, I'm {caller_name}'s friend.",
+            "I'd rather not say."
+          ],
+          "realizing": [
+            "This is {caller_name}'s phone, but I'm not them.",
+            "It doesn't matter, I'm hanging up."
+          ],
+          "hanging_up": ["*click*"]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "probing"
+        },
+        "responses": {
+          "initial": [
+            "{victim_relation} is hiding inside, the monster is after them!",
+            "My {victim_relation} saw it first, they're terrified."
+          ],
+          "probing": [
+            "{victim_relation} is actually laughing now.",
+            "There's no victim, it's just us messing around."
+          ],
+          "realizing": ["Nobody's hurt, this is a prank.", "I guess it was a dumb joke."],
+          "hanging_up": ["*click*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "description": "Police arrive to find a group of kids laughing. Resources wasted. Caller may face charges."
+      },
+      "SEND_FIRE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "description": "Fire trucks respond to a non-existent monster. Public embarrassment and waste of funds."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "description": "Ambulance arrives to a fake emergency. Delay for real calls."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -250,
+        "status": "CRITICAL_FAILURE",
+        "description": "Animal control finds no animal. Prank call reported."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "description": "Dispatcher identifies the prank early and terminates the call without deploying resources."
+      }
+    },
+    "id": "scenario_005",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "Bomb Threat at the Mall",
+    "description": "A caller with a disguised voice claims a bomb is planted in a local mall. The details are absurd and inconsistent, suggesting a hoax.",
+    "states": {
+      "initial": "Caller reports bomb threat",
+      "questioning": "Dispatcher asks for specifics, caller gets evasive",
+      "exposed": "Dispatcher points out inconsistencies, caller becomes defensive",
+      "terminated": "Call ends abruptly"
+    },
+    "initial_variations": [
+      "Listen, there's a bomb in the mall at {address_location}! It's in a {specific_details}. I'm not kidding! My name is {caller_name}.",
+      "This is {caller_name}. I just planted a bomb at {address_location} mall. It's gonna go off in {specific_details} minutes unless you give me money!",
+      "I'm calling about a bomb threat at {address_location}. There are bombs in {specific_details}. {ambient_audio} Hurry!",
+      "You have to evacuate the mall on {address_location}! My {victim_relation} is inside and I heard someone say there's a bomb!"
+    ],
+    "slots": {
+      "caller_name": ["Anonymous", "John Smith", "Mike", "Sarah", "Alex"],
+      "victim_relation": ["my mom", "my sister", "my friend", "my boss"],
+      "address_location": [
+        "Westfield Mall",
+        "City Center Mall",
+        "The Galleria",
+        "Mall of America",
+        "Riverwalk Plaza"
+      ],
+      "ambient_audio": [
+        "loud background noise",
+        "snickering",
+        "TV playing",
+        "typing sounds",
+        "silence"
+      ],
+      "specific_details": [
+        "a red duffel bag",
+        "a toy car",
+        "the food court restroom",
+        "a trash can",
+        "a locker"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location} mall. I already said that!",
+            "The mall on {address_location}. Are you deaf?"
+          ],
+          "questioning": [
+            "Um, I think it's {address_location}. Or is it the other one?",
+            "I'm not sure, just check your system!"
+          ],
+          "exposed": [
+            "Look, does it matter? It's just a prank.",
+            "Fine, there's no bomb. I'm at {address_location} but I made it up."
+          ],
+          "terminated": ["*click*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "questioning"
+        },
+        "responses": {
+          "initial": [
+            "The bomb is in {specific_details}. It's rigged to explode!",
+            "It's {specific_details}. You have to disarm it!"
+          ],
+          "questioning": [
+            "Uh, it's maybe {specific_details}? Look, just send everyone.",
+            "I don't remember, it's a small device."
+          ],
+          "exposed": [
+            "Okay, I was lying. There's no bomb.",
+            "I just wanted to see what would happen."
+          ],
+          "terminated": ["*click*"]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. That's all you need.",
+            "I'm {caller_name}, but I'm using a burner."
+          ],
+          "questioning": ["It's... none of your business.", "I'm not telling you my real name."],
+          "exposed": [
+            "I'm just some kid. Name's {caller_name} if you must know.",
+            "Whatever, it's {caller_name}."
+          ],
+          "terminated": ["*click*"]
+        }
+      },
+      "ASK_VICTIM": {
+        "score_delta": 10,
+        "transitions": {
+          "initial": "questioning"
+        },
+        "responses": {
+          "initial": [
+            "{victim_relation} is trapped inside! Get them out!",
+            "My {victim_relation} works there, please help!"
+          ],
+          "questioning": [
+            "Uh, {victim_relation} is actually not there. I lied.",
+            "No one is in danger."
+          ],
+          "exposed": ["There's no victim. It's all fake.", "I made up the victim to sound real."],
+          "terminated": ["*click*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "description": "Heavily armed police swarm the mall, causing panic. No bomb found. Hoax caller traced and charged."
+      },
+      "SEND_FIRE": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "description": "Firefighters respond with hazmat suits. No threat found. Waste of resources."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "description": "Ambulances stage nearby unnecessarily. No injuries."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -500,
+        "status": "CRITICAL_FAILURE",
+        "description": "Animal control is completely inappropriate. Call is flagged as prank."
+      },
+      "DISMISS": {
+        "score_delta": 250,
+        "status": "SUCCESS",
+        "description": "Dispatcher recognizes the inconsistent details and does not deploy. Caller's number logged for prank calls."
+      }
+    },
+    "id": "scenario_006",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "id": "scenario_059",
+    "title": "The Alien Abduction Claim",
+    "archetype": "Prank / Hoax Call",
+    "description": "A child prank-calls 911, claiming aliens are abducting their family.",
+    "states": {
+      "initial": "The caller is breathlessly reporting an alien abduction.",
+      "giggling": "The caller is struggling not to laugh while continuing the story.",
+      "background_shouting": "Adult voice in background scolding the child for prank calling."
+    },
+    "initial_variations": [
+      "Please help! Aliens are taking my family! They're right outside!",
+      "911? There's a UFO in my backyard and green men are coming!",
+      "You have to send someone! Aliens are beaming up my mom!"
+    ],
+    "slots": {
+      "caller_name": ["Tommy", "Lily", "Max"],
+      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Lane"],
+      "ambient_audio": [
+        "giggling in the background",
+        "a TV playing sci-fi sounds",
+        "parents talking softly"
+      ],
+      "specific_details": ["a beam of light", "a flying saucer", "small gray creatures"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location} by the big tree!",
+            "We're at {address_location}, hurry!"
+          ],
+          "giggling": ["Okay, it's at {address_location}... but like, really?"],
+          "background_shouting": ["Um, I'm not supposed to say, but it's {address_location}."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There's {specific_details} and loud humming!",
+            "I saw {specific_details} coming out!"
+          ],
+          "giggling": ["Uh, {specific_details}... and it's sparkling!"],
+          "background_shouting": ["I think {specific_details}... but mom says stop."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["My name is {caller_name}!", "I'm {caller_name}, please help!"],
+          "giggling": ["It's {caller_name}... hehe."],
+          "background_shouting": ["I'm just a kid, {caller_name}... sorry."]
+        }
+      },
+      "CONNECT_TO_OFFICER": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "background_shouting"
+        },
+        "responses": {
+          "initial": ["Okay, but hurry! (sound of phone being handed over)"],
+          "giggling": ["No, I'm serious! (trying to sound stern)"],
+          "background_shouting": ["Adult: I'm so sorry, officer, my child was playing."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police dispatched to a non-emergency prank, wasting resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Firefighters respond to a fake alien sighting."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Paramedics sent for a hoax, leaving real emergencies unserved."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control sent for 'aliens' — they find a raccoon."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call identified as prank; no dispatch required."
+      }
+    }
+  },
+  {
+    "id": "scenario_060",
+    "title": "The Cursed Object",
+    "archetype": "Prank / Hoax Call",
+    "description": "A teenager calls 911 claiming a haunted doll is moving and attacking them.",
+    "states": {
+      "initial": "Caller sounds scared but exaggerated.",
+      "skeptical": "Caller's tone shifts to unsure; may be faking.",
+      "confronted": "Parent or friend in background reveals it's a joke."
+    },
+    "initial_variations": [
+      "This doll is walking on its own! It's staring at me!",
+      "The cursed doll in my room is trying to kill me!",
+      "I need help! The doll from the antique shop is alive!"
+    ],
+    "slots": {
+      "caller_name": ["Jake", "Emma", "Chris"],
+      "address_location": ["12 Spooky Lane", "34 Haunted Drive", "56 Creepy Court"],
+      "ambient_audio": ["creaking floorboards", "a laughing track on TV", "friends snickering"],
+      "specific_details": [
+        "a porcelain doll with cracked face",
+        "a ragged teddy bear with button eyes",
+        "a ventriloquist dummy"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, in my bedroom!",
+            "I'm at {address_location}, get here!"
+          ],
+          "skeptical": ["Uh, {address_location}... but maybe it's nothing."],
+          "confronted": ["I was told to say {address_location}... sorry."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's {specific_details} and it moved its head!",
+            "I saw {specific_details} smile at me!"
+          ],
+          "skeptical": ["It's {specific_details}... I think my brother is pranking me."],
+          "confronted": ["It's just {specific_details}... my friend set it up."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["My name is {caller_name}!", "I'm {caller_name}, please hurry!"],
+          "skeptical": ["{caller_name}... but I'm not sure anymore."],
+          "confronted": ["I'm {caller_name}, and this is a prank."]
+        }
+      },
+      "CONNECT_TO_OFFICER": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "confronted"
+        },
+        "responses": {
+          "initial": ["No, just send someone! (phone shuffling)"],
+          "skeptical": ["Maybe you don't need to come... (voice trails)"],
+          "confronted": ["Adult: Sorry, officer, my kid was joking."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police respond to a haunted doll prank, wasting patrol time."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Firefighters arrive to find a teenager laughing."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Paramedics sent for a fake attack causing embarrassment."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control checks for 'cursed' — nothing found."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call identified as prank; no action needed."
+      }
+    }
+  },
+  {
+    "id": "scenario_061",
+    "title": "The Celebrity Sighting",
+    "archetype": "Prank / Hoax Call",
+    "description": "A caller claims a famous celebrity is trespassing in their backyard.",
+    "states": {
+      "initial": "Caller excitedly reports a celebrity sighting.",
+      "unconvincing": "Caller's story becomes inconsistent; laughing heard.",
+      "hanging_up": "Caller abruptly disconnects after hearing adult."
+    },
+    "initial_variations": [
+      "Beyoncé is in my backyard! I swear!",
+      "I just saw Taylor Swift climbing over my fence!",
+      "Elvis is here! He's alive and in my garden!"
+    ],
+    "slots": {
+      "caller_name": ["Kevin", "Sarah", "Dylan"],
+      "address_location": ["100 Fame Avenue", "200 Star Street", "300 Celeb Circle"],
+      "ambient_audio": ["music playing loudly", "friends giggling", "dog barking"],
+      "specific_details": [
+        "wearing a sparkly outfit",
+        "carrying a guitar",
+        "wearing sunglasses at night"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "At {address_location}, in the back yard!",
+            "Come to {address_location}, quick!"
+          ],
+          "unconvincing": ["Um, {address_location}... but maybe it's a lookalike."],
+          "hanging_up": ["(click) ... dial tone."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They're {specific_details}, I can see them!",
+            "I see {specific_details} hiding behind the shed!"
+          ],
+          "unconvincing": ["It's {specific_details}... or is it? (giggling)"],
+          "hanging_up": ["(click) ... dial tone."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm {caller_name}, a huge fan!", "My name is {caller_name}!"],
+          "unconvincing": ["{caller_name}... but this might be a prank."],
+          "hanging_up": ["(click) ... dial tone."]
+        }
+      },
+      "CONNECT_TO_OFFICER": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "unconvincing"
+        },
+        "responses": {
+          "initial": ["No, send police now! (shouting)"],
+          "unconvincing": ["Actually, never mind... my bad."],
+          "hanging_up": ["(phone dead)"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police dispatched to a celebrity hoax; no one there."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Firefighters respond to a fake celebrity sighting."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Paramedics sent as precaution; caller playing a joke."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control checks for 'celebrity' — finds a raccoon."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call identified as prank; no dispatch."
+      }
+    }
+  },
+  {
+    "id": "scenario_062",
+    "title": "The Zombie Apocalypse",
+    "archetype": "Prank / Hoax Call",
+    "description": "Teenagers fake a zombie attack, claiming the dead are rising.",
+    "states": {
+      "initial": "Caller sounds panicked but obviously acting.",
+      "losing_it": "Caller breaks character and laughs.",
+      "revealed": "Another voice admits it's a prank."
+    },
+    "initial_variations": [
+      "They're everywhere! Zombies are eating people!",
+      "The dead are walking! Send the army!",
+      "My neighbor turned into a zombie and bit me!"
+    ],
+    "slots": {
+      "caller_name": ["Zach", "Mia", "Tyler"],
+      "address_location": ["500 Undead Lane", "600 Apocalypse Avenue", "700 Brain Drive"],
+      "ambient_audio": [
+        "groaning sounds",
+        "a video game playing",
+        "friends laughing in background"
+      ],
+      "specific_details": [
+        "a slow-moving horde",
+        "a zombie with a torn shirt",
+        "a dog that looks like a zombie"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}, in the street!",
+            "Come to {address_location}, they're everywhere!"
+          ],
+          "losing_it": [
+            "At {address_location}... hehe, sorry.",
+            "Uh, {address_location}... (snicker)"
+          ],
+          "revealed": ["It's {address_location} but it's just Halloween decorations..."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I see {specific_details} coming this way!",
+            "There's {specific_details} banging on doors!"
+          ],
+          "losing_it": [
+            "It's {specific_details}... just kidding!",
+            "I saw {specific_details} but it's my brother in a mask."
+          ],
+          "revealed": ["Actually, it's {specific_details} from a movie set."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I'm {caller_name}, help!", "This is {caller_name}, I'm serious!"],
+          "losing_it": [
+            "I'm {caller_name}... and this is a prank.",
+            "It's {caller_name}, sorry for wasting your time."
+          ],
+          "revealed": ["We're just kids, {caller_name} and friends... sorry."]
+        }
+      },
+      "CONNECT_TO_OFFICER": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "revealed"
+        },
+        "responses": {
+          "initial": ["Send everyone! (excited) ", "I need backup! (overacting)"],
+          "losing_it": ["No, it's okay, we were joking.", "Never mind, false alarm."],
+          "revealed": ["Adult: I apologize, my son and his friends were playing."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police raided the area looking for zombies; prank caused panic."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Firefighters arrived to a zombie hoax; wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Paramedics dispatched; found teens laughing."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control responds to 'zombies'; finds nothing."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call identified as prank; no action taken."
+      }
+    }
+  },
+  {
+    "id": "scenario_063",
+    "title": "The Time Traveler",
+    "archetype": "Prank / Hoax Call",
+    "description": "A caller claims to be from the future and warns of an invasion.",
+    "states": {
+      "initial": "Caller speaks in urgent, pseudo-scientific jargon.",
+      "confused": "Caller stumbles over details, reveals modern slang.",
+      "caller_friend": "Friend on the line admits it's a prank."
+    },
+    "initial_variations": [
+      "I'm from 2150! The Chrono-Invaders are coming!",
+      "Listen, I'm a time traveler. Send police to stop the attack!",
+      "This is Agent X from the future. We need backup now!"
+    ],
+    "slots": {
+      "caller_name": ["Agent X", "Nova", "Chronos"],
+      "address_location": [
+        "The Temporal Rift at 88 Quantum Avenue",
+        "42 Paradox Street",
+        "Future Gate Park"
+      ],
+      "ambient_audio": [
+        "static noise",
+        "a sci-fi movie in background",
+        "friend whispering 'say something cool'"
+      ],
+      "specific_details": [
+        "a time portal in the sky",
+        "robots disguised as humans",
+        "a glowing orb in my backyard"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The anomaly is at {address_location}!",
+            "You must go to {address_location} immediately!"
+          ],
+          "confused": ["Uh, {address_location}? I mean, the coordinates are..."],
+          "caller_friend": ["It's {address_location} but it's just an old shed."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I observed {specific_details} with my temporal scanner!",
+            "There is {specific_details} emitting chrono-energy!"
+          ],
+          "confused": [
+            "It's {specific_details}... or maybe a drone.",
+            "I see {specific_details}... like in the movies."
+          ],
+          "caller_friend": ["He's making it up. It's {specific_details} from his imagination."]
+        }
+      },
+      "ASK_CALLER_NAME": {
+        "score_delta": -5,
+        "transitions": {},
+        "responses": {
+          "initial": ["I am {caller_name} from the year 2150.", "My designation is {caller_name}."],
+          "confused": [
+            "I'm {caller_name}... actually, I'm just a kid.",
+            "Call me {caller_name}... this was a bad idea."
+          ],
+          "caller_friend": ["His name is [name] but he's faking."]
+        }
+      },
+      "CONNECT_TO_OFFICER": {
+        "score_delta": -10,
+        "transitions": {
+          "initial": "caller_friend"
+        },
+        "responses": {
+          "initial": ["No, there's no time! (dramatic)"],
+          "confused": ["Wait, maybe I should hang up..."],
+          "caller_friend": ["Friend: Hey, we're just messing around. Sorry!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police dispatched for time travel hoax; found pranksters."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -200,
+        "feedback": "Firefighters respond to 'temporal rift'; no hazard."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Paramedics sent for 'chrono-energy poisoning'; none."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "feedback": "Animal control checks for 'future robots'; nothing."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call identified as prank; no dispatch needed."
+      }
+    }
+  },
+  {
+    "title": "The UFO Sighting Hoax",
+    "archetype": "Prank / Hoax Call",
+    "states": {
+      "initial": "Caller reports UFO landing.",
+      "escalating": "Caller becomes more agitated, claiming aliens are emerging.",
+      "confronted": "Caller admits it's a prank after being questioned.",
+      "resolved": "Caller hangs up or is dismissed."
+    },
+    "initial_variations": [
+      "Oh my god, you have to send someone! There's a UFO in my backyard! It's huge with glowing green lights!",
+      "This is not a joke. I'm looking at a triangular craft hovering over {address_location}. I can hear a humming noise.",
+      "Please help! Something just landed in my yard. I saw humanoid figures walking towards my house!"
+    ],
+    "slots": {
+      "caller_name": ["Alice", "Bob", "Charlie"],
+      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Lane"],
+      "ambient_audio": ["static noise", "wind howling", "eerie hum"],
+      "specific_details": ["green flashing lights", "triangular craft", "humanoid figures"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's at {address_location}, in the backyard. Hurry!",
+            "I already told you, it's at {address_location}!",
+            "Are you deaf? {address_location}! The UFO is here!"
+          ],
+          "escalating": [
+            "They're coming closer! The address is {address_location}, send the army!",
+            "I gave you the address, {address_location}! Why aren't you here yet?"
+          ],
+          "confronted": [
+            "Okay, okay, it was a prank. I'm at {address_location}. No UFO.",
+            "Fine, I made it up. {address_location} is just my house."
+          ],
+          "resolved": ["*click* no response."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a big triangle with green lights, and I hear a weird {ambient_audio}.",
+            "I see {specific_details}. They're just standing there."
+          ],
+          "escalating": [
+            "They're moving! One has a weapon. {specific_details} are glowing!",
+            "The {ambient_audio} is getting louder. They're surrounding the house!"
+          ],
+          "confronted": [
+            "I saw a drone with lights. It was a prank, sorry.",
+            "Nothing really. I was bored."
+          ],
+          "resolved": ["No response."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "I don't have any weapons! They might be armed!",
+            "No, but I could grab a baseball bat."
+          ],
+          "escalating": [
+            "I have a gun, but it's not loaded! What should I do?",
+            "I have a knife, but I'm scared."
+          ],
+          "confronted": [
+            "It's a toy gun. Prank, remember?",
+            "No weapons because there's no alien."
+          ],
+          "resolved": ["*silence*"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No injuries yet, but we're terrified!",
+            "My neighbor fainted, but that's it."
+          ],
+          "escalating": [
+            "One of them grabbed me! It hurt!",
+            "I think I sprained my ankle running."
+          ],
+          "confronted": ["No one is hurt. It's fake.", "Sorry, no injuries. Just a prank."],
+          "resolved": ["*call terminated*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Units arrive to find a teenager with a drone and flashlights. Prank call wastes resources."
+      },
+      "SEND_FIRE": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Fire trucks respond to a nonexistent fire. Minor embarrassment for the department."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -150,
+        "status": "MINOR_ERROR",
+        "message": "Paramedics find no injuries. Caller admits prank."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Animal control finds no animals or aliens. Caller laughs."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Dispatcher recognized the hoax signs and convinced caller to admit prank. No units dispatched."
+      }
+    },
+    "id": "scenario_064"
+  },
+  {
+    "title": "The Celebrity Home Invasion Prank",
+    "archetype": "Prank / Hoax Call",
+    "states": {
+      "initial": "Caller claims a celebrity is breaking in.",
+      "doubting": "Dispatcher expresses skepticism, caller doubles down.",
+      "confronted": "Caller admits it's a joke when challenged.",
+      "resolved": "Caller apologizes or hangs up."
+    },
+    "initial_variations": [
+      "Oh my God, Taylor Swift is trying to break into my house! She's at the back door!",
+      "Send the police! Justin Bieber is climbing through my window right now!",
+      "There's a celebrity outside—I think it's Beyoncé—and she's yelling at me. Help!"
+    ],
+    "slots": {
+      "caller_name": ["Dave", "Emma", "Frank"],
+      "address_location": ["10 Downing Street", "221B Baker Street", "742 Evergreen Terrace"],
+      "ambient_audio": ["screaming fans", "music playing", "door rattling"],
+      "specific_details": ["Taylor Swift", "Justin Bieber", "Beyoncé"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}! Hurry! She's at the door!",
+            "It's {address_location}, come quick!"
+          ],
+          "doubting": [
+            "I already told you, {address_location}! Are you coming or not?",
+            "Yes, that's my address. Please send someone."
+          ],
+          "confronted": [
+            "Fine, it's {address_location}. But I was just joking.",
+            "{address_location} is where I am. No celebrity though."
+          ],
+          "resolved": ["*click*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "She's wearing a red dress and sunglasses. She looks angry.",
+            "He's climbing the window ledge. I think he's drunk."
+          ],
+          "doubting": [
+            "I know what I saw! It's {specific_details}, I swear!",
+            "I have a photo on my phone. Want me to send it?"
+          ],
+          "confronted": [
+            "It was a cardboard cutout. My bad.",
+            "I saw a lookalike. It was a prank."
+          ],
+          "resolved": ["*silence*"]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "doubting"
+        },
+        "responses": {
+          "initial": [
+            "No, but I can barricade the door.",
+            "I have a bat, but I'm scared to use it."
+          ],
+          "doubting": [
+            "I'm not armed. Should I be? Wait, she's getting away!",
+            "No weapons, just my phone."
+          ],
+          "confronted": ["I have a water gun. Prank fail.", "No weapons. It was all fake."],
+          "resolved": ["*call ended*"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No injuries yet.", "She scratched the door, but I'm fine."],
+          "doubting": [
+            "My friend tripped and fell, but it's not serious.",
+            "I'm okay, just scared."
+          ],
+          "confronted": ["No one hurt. It's a hoax.", "Laughing so hard I fell, but that's it."],
+          "resolved": ["*no response*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police arrive to find a fan with a poster. Public mockery and wasted patrol time."
+      },
+      "SEND_FIRE": {
+        "score_delta": -250,
+        "status": "MINOR_ERROR",
+        "message": "Firefighters respond to nonexistent fire. Caller apologizes."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Paramedics find no medical emergency. Caller admits prank."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Animal control searches for celebrity—none found."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Dispatcher identified the hoax, caller confessed. No resources wasted."
+      }
+    },
+    "id": "scenario_065"
+  },
+  {
+    "title": "The Zombie Outbreak Prank",
+    "archetype": "Prank / Hoax Call",
+    "states": {
+      "initial": "Caller reports zombies attacking.",
+      "probing": "Caller provides more absurd details.",
+      "exposed": "Dispatcher confronts caller with logic.",
+      "resolved": "Caller admits prank."
+    },
+    "initial_variations": [
+      "There's a zombie apocalypse outside! They're banging on my door! Please send help!",
+      "I'm surrounded by zombies! They're moaning and trying to get in! This is not a drill!",
+      "Oh no, the dead are rising! I can see them shuffling down the street. Send the army!"
+    ],
+    "slots": {
+      "caller_name": ["George", "Hannah", "Ian"],
+      "address_location": ["1 Infinite Loop", "350 Fifth Avenue", "1600 Pennsylvania Avenue"],
+      "ambient_audio": ["moaning", "shuffling", "screams"],
+      "specific_details": ["grey skin", "torn clothes", "bloodshot eyes"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}! They're at the door!",
+            "Please hurry, {address_location} is under attack!"
+          ],
+          "probing": [
+            "It's {address_location}, same as before! There are more now!",
+            "Why do you keep asking? {address_location}!"
+          ],
+          "exposed": [
+            "Okay, I'm at {address_location}. It's a Halloween party, not real zombies.",
+            "Fine, {address_location}. But the decorations are cool, right?"
+          ],
+          "resolved": ["*hangs up*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They have {specific_details}. They're moaning and reaching for me!",
+            "One is wearing a tattered suit, {specific_details}."
+          ],
+          "probing": [
+            "They're biting people! I saw a neighbor get bitten!",
+            "They're coming from the cemetery nearby!"
+          ],
+          "exposed": [
+            "I was watching a zombie movie and got carried away. Sorry.",
+            "It's a prank. Everyone's in on it except you."
+          ],
+          "resolved": ["*silence*"]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "probing"
+        },
+        "responses": {
+          "initial": [
+            "I have a baseball bat. But it won't stop them!",
+            "Nothing, I'm hiding in the closet."
+          ],
+          "probing": [
+            "I found a chainsaw in the garage!",
+            "I'm loading my shotgun. Should I shoot?"
+          ],
+          "exposed": ["It's a plastic bat. Prank.", "No weapons. Just a costume."],
+          "resolved": ["*click*"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Not yet, but they're breaking through!",
+            "My buddy got scratched, but he's fine."
+          ],
+          "probing": ["I got bitten! I'm turning!", "My leg is bleeding, but it's just a scratch."],
+          "exposed": ["No injuries, it's fake blood.", "We're all fine. Trick or treat?"],
+          "resolved": ["* call disconnected *"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -400,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police swarm the area only to find a zombie walk event. Public embarrassment."
+      },
+      "SEND_FIRE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Fire department responds to nonexistent fire. Wasted resources."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -250,
+        "status": "MINOR_ERROR",
+        "message": "Paramedics find only costumed pranksters. Minor waste."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Animal control shows up to a party. Caller laughs."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Dispatcher recognized the absurdity. Caller admitted prank. No dispatch."
+      }
+    },
+    "id": "scenario_066"
+  },
+  {
+    "title": "The Time Traveler's Distress",
+    "archetype": "Prank / Hoax Call",
+    "states": {
+      "initial": "Caller claims to be from the future.",
+      "skeptical": "Dispatcher questions, caller gets defensive.",
+      "admission": "Caller breaks character and laughs.",
+      "resolved": "Caller apologizes and hangs up."
+    },
+    "initial_variations": [
+      "I'm a time traveler from 2157! I need help preventing a disaster! Send the authorities now!",
+      "This is urgent! I've been sent back to warn you about an alien invasion next week! My time machine is broken!",
+      "I'm stuck in your timeline. My device is failing. Please send someone to secure my landing site!"
+    ],
+    "slots": {
+      "caller_name": ["Dr. Who", "John Connor", "Marty McFly"],
+      "address_location": ["12 Grimmauld Place", "4 Privet Drive", "100 Acre Wood"],
+      "ambient_audio": ["static", "echoing sounds", "beeping"],
+      "specific_details": ["time machine", "alien invasion", "paradox"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}! Please hurry!",
+            "My coordinates are {address_location}. Send assistance!"
+          ],
+          "skeptical": [
+            "I told you, {address_location}! This is serious!",
+            "You don't believe me? Check {address_location}!"
+          ],
+          "admission": [
+            "Alright, {address_location}. It's a prank. My friends bet me.",
+            "{address_location} is where I am. No time machine."
+          ],
+          "resolved": ["*click*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I have a {specific_details}. It's malfunctioning. I saw the aliens arrive in 2026.",
+            "My device is from the year 3000. I need to repair it."
+          ],
+          "skeptical": [
+            "I have proof! I brought a future smartphone. It doesn't work here.",
+            "Look, I know it sounds crazy, but the invasion is real."
+          ],
+          "admission": [
+            "It's a prop from a sci-fi movie. Prank fail.",
+            "No details, just a lame joke."
+          ],
+          "resolved": ["*silence*"]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "skeptical"
+        },
+        "responses": {
+          "initial": [
+            "I have a laser gun from the future, but it's low on charge.",
+            "No weapons, just my wits."
+          ],
+          "skeptical": [
+            "I could build a weapon if you give me time.",
+            "I have a phaser, but it might be a toy."
+          ],
+          "admission": ["It's a flashlight. I'm not really armed.", "No weapons, obviously."],
+          "resolved": ["*end of call*"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No injuries, but I'm disoriented from the jump.",
+            "I twisted my ankle when I landed."
+          ],
+          "skeptical": [
+            "I'm fine. It's the future that's in danger!",
+            "No injuries. Why do you care?"
+          ],
+          "admission": ["No injuries, just bruised ego.", "I'm laughing too hard to be hurt."],
+          "resolved": ["*call terminated*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -350,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police find a man in a costume with a broken microwave. Social media mockery."
+      },
+      "SEND_FIRE": {
+        "score_delta": -250,
+        "status": "MINOR_ERROR",
+        "message": "Firefighters respond to 'time machine'—just a malfunctioning router."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Paramedics see a healthy prankster. Minor waste."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Animal control arrives to find a man with a toy. Caller embarrassed."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Dispatcher recognized the hoax, caller confessed. No resources wasted."
+      }
+    },
+    "id": "scenario_067"
+  },
+  {
+    "title": "The Monster Under the Bed",
+    "archetype": "Prank / Hoax Call",
+    "states": {
+      "initial": "Caller reports a monster under a bed.",
+      "amused": "Caller starts laughing or gives absurd details.",
+      "confronted": "Caller admits it's a prank on a child.",
+      "resolved": "Caller ends call or apologizes."
+    },
+    "initial_variations": [
+      "There's a monster under my child's bed! It has glowing red eyes! Please send someone to kill it!",
+      "I heard growling from under the bed. I think it's a monster! I'm scared to look!",
+      "My son says there's a monster under his bed, and now I hear it too! It's scratching the floor!"
+    ],
+    "slots": {
+      "caller_name": ["Lisa", "Mike", "Nancy"],
+      "address_location": ["123 Sesame Street", "742 Evergreen Terrace", "221B Baker Street"],
+      "ambient_audio": ["growling", "scratching", "child crying"],
+      "specific_details": ["glowing red eyes", "long claws", "scaly skin"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}! It's under the bed in the master bedroom!",
+            "Please, {address_location}! The monster is here!"
+          ],
+          "amused": [
+            "It's {address_location}. Sorry, I can't stop laughing.",
+            "{address_location} is where the 'monster' is."
+          ],
+          "confronted": [
+            "{address_location}. It was a toy I put under the bed to scare my kid.",
+            "Same address, it's just a prank."
+          ],
+          "resolved": ["*click*"]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It has {specific_details}. It's making {ambient_audio}.",
+            "I saw {specific_details} before it hid!"
+          ],
+          "amused": [
+            "It has {specific_details}—and it's wearing my socks! Just kidding.",
+            "It's a stuffed monster with {specific_details}. My bad."
+          ],
+          "confronted": [
+            "It's a Halloween decoration. No real monster.",
+            "Just a cat with a toy. Prank over."
+          ],
+          "resolved": ["*silence*"]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 5,
+        "transitions": {
+          "initial": "amused"
+        },
+        "responses": {
+          "initial": ["I have a broom. Will that work?", "Nothing, we're hiding in the closet."],
+          "amused": [
+            "I have a water gun—but that's for the cat!",
+            "My son has a toy sword. Not effective."
+          ],
+          "confronted": ["No weapons. It's fake.", "A vacuum cleaner? Monster is gone now."],
+          "resolved": ["*call ended*"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 5,
+        "transitions": {},
+        "responses": {
+          "initial": ["No injuries, but we're terrified!", "My child is crying, but not hurt."],
+          "amused": ["We're laughing too hard to be hurt.", "No injuries, just giggles."],
+          "confronted": ["None. All safe.", "Only injured pride."],
+          "resolved": ["*no answer*"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "score_delta": -300,
+        "status": "CRITICAL_FAILURE",
+        "message": "Police search for monster under bed, find a toy. Caller admits prank. Wasted time."
+      },
+      "SEND_FIRE": {
+        "score_delta": -200,
+        "status": "MINOR_ERROR",
+        "message": "Firefighters respond to 'monster'—nothing. Minor error."
+      },
+      "SEND_MEDICAL": {
+        "score_delta": -150,
+        "status": "MINOR_ERROR",
+        "message": "Paramedics arrive to a laughing family. No emergency."
+      },
+      "ANIMAL_CONTROL": {
+        "score_delta": -100,
+        "status": "MINOR_ERROR",
+        "message": "Animal control finds a cat under the bed. Caller apologizes."
+      },
+      "DISMISS": {
+        "score_delta": 200,
+        "status": "SUCCESS",
+        "message": "Dispatcher recognized the prank, caller confessed. No units dispatched."
+      }
+    },
+    "id": "scenario_068"
+  },
+  {
+    "title": "Alien Abduction Hoax",
+    "description": "A caller reports an alien abduction in progress, but the details are inconsistent and background sounds suggest a prank.",
+    "states": ["initial", "escalating", "revealing", "dismissed"],
+    "initial_variations": [
+      "Help! Aliens are abducting me at {address_location}! I see a bright light! {ambient_audio}",
+      "Oh my god, there's a UFO hovering over {address_location}! They're taking {victim_relation}! {caller_name} here, please hurry!",
+      "This is {caller_name}, I'm being taken by extraterrestrials at {address_location}! It's real! {ambient_audio}",
+      "911? You won't believe this but aliens are right outside my window at {address_location}! They're {specific_details}!"
+    ],
+    "slots": {
+      "caller_name": ["John", "Emily", "Mike", "Sarah"],
+      "victim_relation": ["my brother", "my neighbor", "a stranger", "myself"],
+      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Road", "321 Elm Drive"],
+      "ambient_audio": [
+        "with static and crackling sounds",
+        "with eerie music in background",
+        "with a weird humming noise",
+        "with children laughing quietly"
+      ],
+      "specific_details": [
+        "beaming down a ray of light",
+        "communicating with telepathy",
+        "walking on two legs like humans",
+        "making crop circles"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you confirm the address, {caller_name}?",
+            "Where exactly is this happening?",
+            "Please tell me the location again."
+          ],
+          "escalating": [
+            "You already said {address_location}. Is the situation changing?",
+            "The location is noted. What's happening now?"
+          ],
+          "revealing": [
+            "So the address was fake? Where are you really?",
+            "This is a prank call, isn't it? Tell me the real location."
+          ],
+          "dismissed": ["We've already cleared this call. No need for location."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {
+          "initial": "escalating"
+        },
+        "responses": {
+          "initial": [
+            "What do the aliens look like?",
+            "How many are there?",
+            "Are they inside your house?"
+          ],
+          "escalating": [
+            "You mentioned they're {specific_details}. Tell me more.",
+            "What are they doing to {victim_relation}?"
+          ],
+          "revealing": [
+            "You're making this up, aren't you? I hear kids in the background.",
+            "The details don't add up. This is a hoax."
+          ],
+          "dismissed": ["No need for details; we're moving on."]
+        }
+      },
+      "ASK_CALLER_ID": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's your name?", "Can I have your full name?"],
+          "escalating": [
+            "We have {caller_name}. Is that still accurate?",
+            "Are you {caller_name}? Speak clearly."
+          ],
+          "revealing": [
+            "You're not {caller_name}, are you? This is a prank.",
+            "We'll trace the call, whoever you are."
+          ],
+          "dismissed": ["Identity irrelevant at this point."]
+        }
+      },
+      "ASK_CONFIRMATION": {
+        "score_delta": 10,
+        "transitions": {
+          "escalating": "revealing"
+        },
+        "responses": {
+          "initial": ["Are you sure this is an abduction?", "Is anyone else with you?"],
+          "escalating": [
+            "I need you to confirm: is this a real emergency?",
+            "Be honest with me. Is this a prank?"
+          ],
+          "revealing": [
+            "I knew it. You're faking this. We're ending the call.",
+            "Confirmation received: hoax."
+          ],
+          "dismissed": ["We've already determined this is a hoax."]
+        }
+      },
+      "DISPATCH_ACTION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["We'll send help immediately.", "Units are on the way."],
+          "escalating": ["Be calm, officers are coming.", "Stay on the line until they arrive."],
+          "revealing": ["We won't dispatch for a hoax.", "No emergency vehicles will be sent."],
+          "dismissed": ["No action taken."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrived to find a group of teenagers laughing with a homemade UFO prop. The call was a prank."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire trucks rushed to the scene only to find a Halloween decoration. The caller was pranking."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Paramedics found no one injured. The caller admitted it was a joke after being confronted."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control was confused but found no animals. The hoax wasted resources."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
+      }
+    },
+    "id": "scenario_069",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "Celebrity Lookalike Ruckus",
+    "description": "Caller claims a famous celebrity is causing a disturbance, but it's likely a prank using a lookalike.",
+    "states": ["initial", "investigating", "revealing", "dismissed"],
+    "initial_variations": [
+      "Get the police! {celebrity_name} is at {address_location} causing a fight! {ambient_audio}",
+      "I can't believe it! {celebrity_name} just broke into my neighbor's house at {address_location}! {caller_name} here, hurry!",
+      "This is {caller_name}, {celebrity_name} is running wild on the street at {address_location}! {specific_details}",
+      "Oh my god, {celebrity_name} is outside my window at {address_location}! They're {specific_details}!"
+    ],
+    "slots": {
+      "caller_name": ["Kevin", "Jessica", "Tom", "Linda"],
+      "celebrity_name": ["Taylor Swift", "Dwayne Johnson", "Elon Musk", "Beyoncé"],
+      "address_location": [
+        "100 Hollywood Blvd",
+        "200 Sunset Strip",
+        "300 Vine Street",
+        "400 Melrose Ave"
+      ],
+      "ambient_audio": [
+        "with screaming fans in background",
+        "with loud music playing",
+        "with car horns honking",
+        "with children chanting"
+      ],
+      "specific_details": [
+        "throwing money in the air",
+        "signing autographs on people's arms",
+        "doing karate moves",
+        "singing at the top of their lungs"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's the exact address?", "Where is this happening?"],
+          "investigating": [
+            "We need a precise location. Is it {address_location}?",
+            "Can you look for street signs?"
+          ],
+          "revealing": [
+            "That address doesn't exist. Stop the prank.",
+            "The location you gave is fake."
+          ],
+          "dismissed": ["Location irrelevant; call is terminated."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {
+          "initial": "investigating"
+        },
+        "responses": {
+          "initial": ["What is {celebrity_name} doing?", "Are they armed?"],
+          "investigating": [
+            "You said {specific_details}. Is that still happening?",
+            "How many people are with them?"
+          ],
+          "revealing": [
+            "That's not really {celebrity_name}. It's a prank.",
+            "I can hear laughing in the background."
+          ],
+          "dismissed": ["No further details needed."]
+        }
+      },
+      "ASK_CALLER_ID": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's your name?", "Who is calling?"],
+          "investigating": ["We have {caller_name}. Is that you?", "Are you {caller_name}?"],
+          "revealing": ["You're {caller_name}, the prankster.", "We know who you are."],
+          "dismissed": ["Name noted, call closed."]
+        }
+      },
+      "ASK_CONFIRMATION": {
+        "score_delta": 10,
+        "transitions": {
+          "investigating": "revealing"
+        },
+        "responses": {
+          "initial": ["Are you sure it's really {celebrity_name}?", "Could it be a lookalike?"],
+          "investigating": [
+            "I need you to confirm you're not joking.",
+            "Is this a real celebrity sighting?"
+          ],
+          "revealing": ["You're not fooling anyone. This is a hoax.", "Confirmed: prank call."],
+          "dismissed": ["Hoax confirmed earlier."]
+        }
+      },
+      "DISPATCH_ACTION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["We're sending officers.", "Help is on the way."],
+          "investigating": [
+            "Units are dispatched, but we'll verify first.",
+            "Hold on, we're checking."
+          ],
+          "revealing": ["No dispatch for a prank.", "We're canceling any response."],
+          "dismissed": ["No action taken."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Police found a person dressed as the celebrity with a group of friends. The call was a hoax."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Firefighters arrived to a party with a celebrity impersonator. Not a real emergency."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medical team found no injuries. The situation was a prank."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control officers were ridiculed by the pranksters. Waste of resources."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Correctly identified as a prank. No emergency response. Caller warned."
+      }
+    },
+    "id": "scenario_070",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "Zombie Apocalypse Drill",
+    "description": "Caller claims a zombie outbreak, but it's likely a prank or a drill.",
+    "states": ["initial", "panicking", "revealing", "dismissed"],
+    "initial_variations": [
+      "Zombies! They're everywhere at {address_location}! Help! {ambient_audio}",
+      "This is {caller_name}, zombies are attacking {victim_relation} at {address_location}! {specific_details}",
+      "The dead have risen at {address_location}! I see {specific_details}! {caller_name} reporting!",
+      "Oh no, zombies are breaking into my house at {address_location}! {ambient_audio}"
+    ],
+    "slots": {
+      "caller_name": ["Alex", "Megan", "Chris", "Sam"],
+      "victim_relation": ["my sister", "my dad", "a police officer", "my neighbor"],
+      "address_location": ["500 Elm Street", "600 Oak Lane", "700 Pine Court", "800 Cedar Drive"],
+      "ambient_audio": [
+        "with groaning sounds",
+        "with gunshots in distance",
+        "with screaming and running",
+        "with eerie silence"
+      ],
+      "specific_details": [
+        "eating brains",
+        "shambling in a group",
+        "biting people",
+        "climbing walls"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's the address of the outbreak?", "Where are the zombies?"],
+          "panicking": [
+            "We need the exact location. Is it {address_location}?",
+            "Are you still at {address_location}?"
+          ],
+          "revealing": [
+            "The address is a movie set. This is a hoax.",
+            "You gave us a fake location."
+          ],
+          "dismissed": ["No location needed for prank."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {
+          "initial": "panicking"
+        },
+        "responses": {
+          "initial": ["How many zombies are there?", "Are they fast or slow?"],
+          "panicking": [
+            "You mentioned {specific_details}. Is that still accurate?",
+            "What are they doing to {victim_relation}?"
+          ],
+          "revealing": [
+            "Those aren't real zombies. It's people in costumes.",
+            "I hear laughter. This is fake."
+          ],
+          "dismissed": ["Details not credible."]
+        }
+      },
+      "ASK_CALLER_ID": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's your name?", "Who am I speaking with?"],
+          "panicking": [
+            "Calm down, {caller_name}. We need your full name.",
+            "Are you {caller_name}?"
+          ],
+          "revealing": [
+            "We know your name, {caller_name}. This is a prank.",
+            "You'll be cited for false reporting."
+          ],
+          "dismissed": ["Name recorded."]
+        }
+      },
+      "ASK_CONFIRMATION": {
+        "score_delta": 10,
+        "transitions": {
+          "panicking": "revealing"
+        },
+        "responses": {
+          "initial": [
+            "Is this a real zombie attack?",
+            "Are you sure they're not people in costumes?"
+          ],
+          "panicking": [
+            "I need you to confirm this is not a drill or a prank.",
+            "Be honest: is this Halloween?"
+          ],
+          "revealing": [
+            "You've been pranked by your friends. This is a hoax.",
+            "Confirming: this is not a real emergency."
+          ],
+          "dismissed": ["Already confirmed as hoax."]
+        }
+      },
+      "DISPATCH_ACTION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["We're sending all available units!", "Emergency services en route."],
+          "panicking": [
+            "Units are dispatched but we'll verify the threat.",
+            "Stay safe, paramedics coming."
+          ],
+          "revealing": [
+            "Stand down! This is a hoax. No dispatch.",
+            "Cancelling emergency response."
+          ],
+          "dismissed": ["No action."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Police found a group of friends in zombie costumes filming a prank video. Wasted resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Fire crews arrived to a 'zombie walk' event. Not an actual emergency."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Paramedics found no injuries. The caller was laughing. False alarm."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control found no animals. The prank involved people, not animals."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about penalties."
+      }
+    },
+    "id": "scenario_071",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "Ghost Hunting Prank",
+    "description": "Caller claims a ghost is haunting their home, but the evidence points to a prank with hidden speakers and props.",
+    "states": ["initial", "skeptical", "revealing", "dismissed"],
+    "initial_variations": [
+      "There's a ghost in my house at {address_location}! It's moving things! {ambient_audio}",
+      "This is {caller_name}, my {victim_relation} is being attacked by a ghost at {address_location}! {specific_details}",
+      "Help! The ghost is pulling me into the basement at {address_location}! {ambient_audio}",
+      "I saw a ghostly figure at {address_location}! It said '{specific_details}'! Please come!"
+    ],
+    "slots": {
+      "caller_name": ["Jake", "Rachel", "Brian", "Vanessa"],
+      "victim_relation": ["my daughter", "my wife", "my friend", "my pet"],
+      "address_location": [
+        "101 Spooky Lane",
+        "202 Haunted Hill",
+        "303 Phantom Drive",
+        "404 Ghoul Street"
+      ],
+      "ambient_audio": [
+        "with eerie whispers",
+        "with footsteps creaking",
+        "with slamming doors",
+        "with a child singing a nursery rhyme"
+      ],
+      "specific_details": [
+        "floating in the air",
+        "writing on the walls",
+        "moaning my name",
+        "throwing objects"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's the address of the haunting?", "Where is the ghost?"],
+          "skeptical": [
+            "Is this the same address as before? {address_location}?",
+            "We need to confirm the location."
+          ],
+          "revealing": [
+            "That address is a known prank house. Stop kidding.",
+            "The location is fictitious."
+          ],
+          "dismissed": ["Location not needed."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {
+          "initial": "skeptical"
+        },
+        "responses": {
+          "initial": ["What is the ghost doing?", "How long has this been happening?"],
+          "skeptical": [
+            "You said it's {specific_details}. Are you sure?",
+            "I hear sounds that sound man-made."
+          ],
+          "revealing": [
+            "I can hear you giggling. This is a prank.",
+            "The ghost is probably a sibling in a sheet."
+          ],
+          "dismissed": ["Details are fake."]
+        }
+      },
+      "ASK_CALLER_ID": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's your name?", "Who is calling?"],
+          "skeptical": [
+            "{caller_name}, is this you? Speak clearly.",
+            "We have your number, {caller_name}."
+          ],
+          "revealing": [
+            "We know you're {caller_name}. This is a hoax.",
+            "Your parents will be informed."
+          ],
+          "dismissed": ["Name logged."]
+        }
+      },
+      "ASK_CONFIRMATION": {
+        "score_delta": 10,
+        "transitions": {
+          "skeptical": "revealing"
+        },
+        "responses": {
+          "initial": ["Are you certain it's a ghost?", "Could it be a draft or animal?"],
+          "skeptical": [
+            "I need you to confirm you're not joking.",
+            "Is there a logical explanation?"
+          ],
+          "revealing": [
+            "I knew it. You faked the ghost sounds.",
+            "Confirmation: this is a prank call."
+          ],
+          "dismissed": ["Prank confirmed."]
+        }
+      },
+      "DISPATCH_ACTION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["We'll send someone to check.", "Officers are on their way."],
+          "skeptical": ["We'll verify first before dispatching.", "Hold on while we assess."],
+          "revealing": ["No dispatch for a ghost hoax.", "Stand down, no units sent."],
+          "dismissed": ["No action."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police arrived to find a teenager with a spooky sound machine. The call was a prank."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Firefighters found no fire or ghost. The caller was hiding and laughing."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medical team saw no injuries. The 'victim' was a doll."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control found stray cats but no ghost. Waste of time."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned."
+      }
+    },
+    "id": "scenario_072",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "Time Traveler Panic",
+    "description": "Caller claims to be from the future and warns of an impending disaster, but it's a prank with clever tech.",
+    "states": ["initial", "confused", "revealing", "dismissed"],
+    "initial_variations": [
+      "This is {caller_name} from the year {future_year}! I'm at {address_location}! An asteroid is coming! {ambient_audio}",
+      "I'm a time traveler! At {address_location}, a disaster will strike! {specific_details}! {caller_name} here!",
+      "Listen to me! I'm from {future_year}! You must evacuate {address_location} now! {ambient_audio}",
+      "I know this sounds crazy, but I'm from the future. At {address_location}, {specific_details} is about to happen. This is {caller_name}."
+    ],
+    "slots": {
+      "caller_name": ["Leo", "Nina", "Max", "Olivia"],
+      "future_year": ["2050", "2080", "2100", "3000"],
+      "address_location": ["1 Time Square", "2 Future Avenue", "3 Past Lane", "4 Nowhere Road"],
+      "ambient_audio": [
+        "with static interference",
+        "with beeping sounds",
+        "with a voice saying 'transmission unstable'",
+        "with wind howling"
+      ],
+      "specific_details": [
+        "a massive earthquake",
+        "an alien invasion",
+        "a huge explosion",
+        "a zombie outbreak"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What is your current location?", "Where are you in the present?"],
+          "confused": [
+            "You said {address_location}. Is that correct?",
+            "Can you give me a real address?"
+          ],
+          "revealing": [
+            "That address is fictional. You're not a time traveler.",
+            "Your location is a prank."
+          ],
+          "dismissed": ["Location irrelevant."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {
+          "initial": "confused"
+        },
+        "responses": {
+          "initial": ["What disaster will occur?", "Why should I believe you?"],
+          "confused": [
+            "You mentioned {specific_details}. How do you know?",
+            "Describe the technology you used to travel."
+          ],
+          "revealing": [
+            "Your details are from a sci-fi movie. This is a hoax.",
+            "I hear a timer ticking. Are you using a prop?"
+          ],
+          "dismissed": ["No credible details."]
+        }
+      },
+      "ASK_CALLER_ID": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["What's your name?", "Who am I speaking to?"],
+          "confused": [
+            "{caller_name}, are you really from the future?",
+            "We have your name as {caller_name}."
+          ],
+          "revealing": [
+            "You're {caller_name}, a known prankster.",
+            "We'll trace your real identity."
+          ],
+          "dismissed": ["Name noted."]
+        }
+      },
+      "ASK_CONFIRMATION": {
+        "score_delta": 10,
+        "transitions": {
+          "confused": "revealing"
+        },
+        "responses": {
+          "initial": ["Is this a prank?", "Can you prove you're from the future?"],
+          "confused": [
+            "I need you to confirm this is real.",
+            "Tell me something only a time traveler would know."
+          ],
+          "revealing": [
+            "You can't prove anything. This is a hoax.",
+            "Confirmed: not a time traveler."
+          ],
+          "dismissed": ["Hoax confirmed."]
+        }
+      },
+      "DISPATCH_ACTION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["We'll send emergency services.", "Evacuation orders are being considered."],
+          "confused": ["We'll investigate but won't act yet.", "Hold on, we need verification."],
+          "revealing": ["No action for a prank.", "We're not dispatching."],
+          "dismissed": ["No dispatch."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Police found a man with a homemade time machine prop. The call was a hoax."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire crews rushed to the scene only to see a group laughing. No emergency."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Medical team found no injuries. The caller had a fake ID badge."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Animal control found a robotic dog. The prank wasted resources."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
+      }
+    },
+    "id": "scenario_073",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "The Monster Under the Bed",
+    "description": "A child calls in panic claiming a monster is under their bed, but it's a prank to scare their sibling.",
+    "states": {
+      "initial": "Caller is scared and whispering.",
+      "confronted": "Caller's parent intervenes and reveals the prank.",
+      "apologetic": "Caller admits it's a prank and apologizes.",
+      "disconnected": "Caller hangs up abruptly."
+    },
+    "initial_variations": [
+      "Please help! There's a {monster_type} under my bed at {address_location}! I can hear it breathing! {ambient_audio}",
+      "This is {caller_name}. There's something in my room! It's {monster_size} and it's growling! I'm at {address_location}.",
+      "I'm scared! The {monster_type} is trying to get me! {ambient_audio} I need someone to come right now!",
+      "Hello? Is this 911? There's a monster under my bed at {address_location}. I'm hiding under my blanket."
+    ],
+    "slots": {
+      "caller_name": ["Timmy", "Lily", "Max", "Sophia"],
+      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Road", "321 Elm Drive"],
+      "ambient_audio": [
+        "heavy breathing sounds",
+        "scratching noises",
+        "rattling chains",
+        "growling"
+      ],
+      "monster_type": ["big hairy monster", "scaly dragon", "ghost", "alien"],
+      "monster_size": ["huge", "tiny", "medium-sized", "enormous"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}! Please hurry!",
+            "My address is {address_location}.",
+            "I already told you, {address_location}!"
+          ],
+          "confronted": [
+            "Never mind, I'm not supposed to say.",
+            "My mom says I shouldn't talk to you.",
+            "I... I don't know where I am."
+          ],
+          "apologetic": [
+            "Sorry, I made it up. I'm at {address_location}.",
+            "Actually, I'm at {address_location}. I'm sorry for wasting your time."
+          ],
+          "disconnected": ["..."]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a {monster_type}! It's {monster_size} and has red eyes!",
+            "I can hear it {ambient_audio}. It's coming closer!",
+            "It's under my bed! I peeked and saw claws!"
+          ],
+          "confronted": [
+            "My mom says it's just a toy.",
+            "My brother pranked me. There's no monster.",
+            "I was just pretending."
+          ],
+          "apologetic": [
+            "There's no monster. I was trying to scare my sibling.",
+            "I made it all up. Sorry."
+          ],
+          "disconnected": ["..."]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}.",
+            "I'm {caller_name}.",
+            "Why do you need my name? It's {caller_name}."
+          ],
+          "confronted": [
+            "I'm {caller_name}. But I'm in trouble now.",
+            "My name is {caller_name}, but please don't tell my mom."
+          ],
+          "apologetic": [
+            "I'm {caller_name}. I'm really sorry.",
+            "It's {caller_name}. I won't do it again."
+          ],
+          "disconnected": ["..."]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons! Just the monster!",
+            "I have a flashlight!",
+            "I have a baseball bat but I'm scared to use it."
+          ],
+          "confronted": ["No weapons. It's all fake.", "My mom took away my toy sword."],
+          "apologetic": [
+            "I don't have any weapons. I was lying.",
+            "No, I was just messing around."
+          ],
+          "disconnected": ["..."]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No, not yet! But it might eat me!",
+            "I'm not hurt, but I'm terrified!",
+            "I think it scratched me! {ambient_audio}"
+          ],
+          "confronted": ["I'm not hurt. It's a prank.", "No injuries. It was a joke."],
+          "apologetic": ["I'm fine. I made it up.", "No one is hurt."],
+          "disconnected": ["..."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Police arrived to find a child pranking. Wasted resources."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "feedback": "Firefighters responded to a monster under the bed prank. Extreme waste of emergency services."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Paramedics dispatched for a fictitious monster. Critical misallocation of resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "feedback": "Animal control arrived to find no animal. Minor waste."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "feedback": "Call correctly identified as prank. No resources wasted."
+      }
+    },
+    "id": "scenario_074",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "The Clown Chase",
+    "description": "A caller claims they are being chased by a group of clowns with chainsaws, but it's a hoax to film reactions.",
+    "states": {
+      "initial": "Caller is breathing heavily, sounds scared.",
+      "mocking": "Caller starts laughing and reveals it's a prank.",
+      "filming": "Background voices discuss filming a viral video.",
+      "standoff": "Caller continues the act, trying to sound desperate."
+    },
+    "initial_variations": [
+      "They're after me! Clowns with chainsaws at {address_location}! I'm in the alley behind {specific_details}! {ambient_audio}",
+      "This is {caller_name}! I'm being chased by killer clowns! They're right behind me! Send help to {address_location}!",
+      "Oh my god, please help! The clowns are everywhere! I'm at {address_location}, I can see them coming! {ambient_audio}",
+      "I'm hiding in a dumpster! They almost got me! I'm at {address_location}, behind the {specific_details}. Please hurry!"
+    ],
+    "slots": {
+      "caller_name": ["Jake", "Emma", "Liam", "Ava"],
+      "address_location": ["789 Elm Street", "321 Oak Lane", "654 Pine Avenue", "987 Maple Drive"],
+      "ambient_audio": [
+        "chainsaw revving",
+        "maniacal laughter",
+        "footsteps running",
+        "honking horns"
+      ],
+      "specific_details": [
+        "abandoned warehouse",
+        "old gas station",
+        "parking garage",
+        "construction site"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}! Behind the {specific_details}!",
+            "Please, {address_location}, hurry!",
+            "I already said {address_location}!"
+          ],
+          "mocking": [
+            "Haha, got you! I'm actually at home. {address_location} is fake.",
+            "Sorry, it's a prank. We're at {address_location} filming."
+          ],
+          "filming": [
+            "We're at {address_location}, but don't send anyone, we're filming a video.",
+            "It's a YouTube prank. We're at {address_location}."
+          ],
+          "standoff": [
+            "I'm at {address_location}! They're getting closer!",
+            "Please, just send someone to {address_location}!"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "There are at least five of them! All wearing clown masks and carrying chainsaws!",
+            "They're right behind me! I can smell the gasoline! {ambient_audio}"
+          ],
+          "mocking": [
+            "It's just my friends in costumes. We're making a TikTok.",
+            "There are no clowns. I'm sorry."
+          ],
+          "filming": [
+            "We're actors. It's for a prank channel.",
+            "It's all staged. No real danger."
+          ],
+          "standoff": ["They're surrounding me! I can see their red noses! Please!"]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "My name is {caller_name}. I'm 15.",
+            "It's {caller_name}! Why does it matter?"
+          ],
+          "mocking": [
+            "It's {caller_name}. I'm the prankster.",
+            "I'm {caller_name}, and I got you good!"
+          ],
+          "filming": [
+            "{caller_name} here. I'm the director.",
+            "I'm {caller_name}, this is a prank."
+          ],
+          "standoff": ["{caller_name}! But please, focus on the clowns!"]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["I have nothing! They have chainsaws!", "I grabbed a pipe but it's useless!"],
+          "mocking": ["No weapons, just my phone filming.", "I have a fake chainsaw prop."],
+          "filming": ["Our clowns have fake chainsaws.", "It's all props."],
+          "standoff": ["I wish I had a weapon! They're closing in!"]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["Not yet, but I'm exhausted!", "I tripped and scraped my knee."],
+          "mocking": ["No injuries. It's all an act.", "I'm fine, it's a prank."],
+          "filming": ["Everyone is safe.", "No injuries, just laughs."],
+          "standoff": ["I'm scared but not hurt yet!"]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "feedback": "Police rushed to the scene only to find a group filming a prank. Wasted resources and potential fine for caller."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Fire department responded to a clown chase. Completely unnecessary dispatch."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Paramedics dispatched for fake injuries. Critical waste of medical resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control arrived to find a clown prank. Not applicable."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "feedback": "Call identified as prank. No emergency units dispatched."
+      }
+    },
+    "id": "scenario_075",
+    "archetype": "Prank / Hoax Call"
+  },
+  {
+    "title": "The Bomb Threat Prank",
+    "description": "A teenager calls in a bomb threat at a school, but it's a prank to get out of a test.",
+    "states": {
+      "initial": "Caller is whispering urgently.",
+      "warning": "Caller starts giving fake details about the bomb.",
+      "caught": "Caller's parents or principal intervenes.",
+      "confession": "Caller admits it's a prank."
+    },
+    "initial_variations": [
+      "I'm calling about a bomb at {address_location}! It's in the {specific_details}! You have to evacuate everyone! {ambient_audio}",
+      "This is {caller_name}. There's a bomb set to go off in 30 minutes at {address_location}. I'm serious!",
+      "Listen, there's a bomb hidden in the {specific_details} at {address_location}. I heard them talking. Please send help!",
+      "I can't say much, but I know about a bomb at {address_location}. It's in a {specific_details}. Hurry!"
+    ],
+    "slots": {
+      "caller_name": ["Dylan", "Megan", "Tyler", "Hannah"],
+      "address_location": ["Lincoln High School", "123 Broad Street", "City Hall", "Grand Mall"],
+      "ambient_audio": ["clock ticking", "muffled voices", "footsteps", "door creaking"],
+      "specific_details": ["main office", "cafeteria", "locker room", "parking lot"]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{address_location}! I already told you!",
+            "It's {address_location}. Please hurry!"
+          ],
+          "warning": [
+            "I told you, {address_location}. The bomb is in the {specific_details}.",
+            "At {address_location}. Don't waste time!"
+          ],
+          "caught": [
+            "I'm at school but my mom is here. I'm in trouble.",
+            "Never mind, it's a prank. I'm at {address_location}."
+          ],
+          "confession": [
+            "It's {address_location}. I lied. I wanted to skip a test.",
+            "I'm sorry. There's no bomb. I'm at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I don't know much, just that it's in the {specific_details}.",
+            "Someone said they planted it during lunch."
+          ],
+          "warning": [
+            "It's a pipe bomb in a backpack. Timer set for 3 PM.",
+            "It's in the {specific_details}. I saw them hide it."
+          ],
+          "caught": [
+            "There's no bomb. My son is lying.",
+            "He's making it all up. He's in trouble."
+          ],
+          "confession": [
+            "I made it up. Sorry. I didn't think it would go this far.",
+            "No bomb. Just me being stupid."
+          ]
+        }
+      },
+      "ASK_CALLER_INFO": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["I can't say my name. I'll be in danger.", "Just call me {caller_name}."],
+          "warning": [
+            "I'm {caller_name}. But that's all I'll say.",
+            "My name is {caller_name}. I go to this school."
+          ],
+          "caught": [
+            "I'm {caller_name}. I'm in the principal's office.",
+            "It's {caller_name}. I'm with my parents."
+          ],
+          "confession": [
+            "I'm {caller_name}. I'm not a bad kid, I just panicked.",
+            "{caller_name}. I know I messed up."
+          ]
+        }
+      },
+      "ASK_WEAPONS": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["No weapons, just the bomb threat.", "I don't have weapons."],
+          "warning": ["I don't have any. I'm just warning you.", "No weapons here."],
+          "caught": ["No weapons. He's just a kid.", "He has no weapons."],
+          "confession": ["I don't have weapons. I'm not violent.", "No, just my phone."]
+        }
+      },
+      "ASK_INJURIES": {
+        "score_delta": 0,
+        "transitions": {},
+        "responses": {
+          "initial": ["No injuries yet. But there could be if the bomb goes off!", "Not yet."],
+          "warning": ["No injuries. That's why you need to evacuate.", "Everyone is safe for now."],
+          "caught": ["No injuries. It's a prank.", "No one is hurt."],
+          "confession": ["No one is hurt. I'm sorry.", "All safe. It was a lie."]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "feedback": "Police and bomb squad deployed, only to find a prank. Massive waste of resources and public panic."
+      },
+      "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
+        "feedback": "Fire department responded to a bomb threat hoax. Unnecessary risk and cost."
+      },
+      "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "feedback": "Medical units dispatched for a fake bomb threat. Waste of emergency services."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "feedback": "Animal control dispatched in error. Not relevant."
+      },
+      "DISMISS": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "feedback": "Call correctly identified as prank. No resources wasted. Caller may face charges."
+      }
+    },
+    "id": "scenario_076",
+    "archetype": "Prank / Hoax Call"
+  }
+]
