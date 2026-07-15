@@ -157,7 +157,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               </thead>
               <tbody className="divide-y divide-emerald-950/20 font-mono">
                 {leaderboard.length > 0 ? (
-                  leaderboard.map((entry, idx) => (
+                  leaderboard.slice(0, 10).map((entry, idx) => (
                     <tr
                       key={idx}
                       className={`hover:bg-emerald-950/10 ${entry.name === dispatcherName.toUpperCase() ? 'bg-emerald-950/20 text-emerald-300 font-bold' : 'text-emerald-500/80'}`}
