@@ -427,7 +427,6 @@ export default function Console911Game() {
           <PlayingScreen
             calls={calls}
             currentCallIndex={currentCallIndex}
-            callScore={callScore}
             transcript={transcript}
             inputText={inputText}
             setInputText={setInputText}

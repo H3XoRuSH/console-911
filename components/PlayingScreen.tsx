@@ -5,7 +5,6 @@ import { TranscriptMessage } from '@/types/game';
 interface PlayingScreenProps {
   calls: HydratedCallSession[];
   currentCallIndex: number;
-  callScore: number;
   transcript: TranscriptMessage[];
   inputText: string;
   setInputText: (val: string) => void;
@@ -32,7 +31,6 @@ const AUTOCOMPLETE_QUERIES = [
 export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   calls,
   currentCallIndex,
-  callScore,
   transcript,
   inputText,
   setInputText,
@@ -214,10 +212,6 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
               >
                 {activeCall.difficulty.toUpperCase()}
               </span>
-            </div>
-            <div className="flex justify-between">
-              <span>CURRENT SCORE:</span>
-              <span className="text-emerald-400 font-bold">{callScore} PTS</span>
             </div>
           </div>
 
