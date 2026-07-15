@@ -166,7 +166,8 @@ export async function getLeaderboard(): Promise<{ name: string; score: number }[
   // Local fallback sorting
   return localLeaderboard
     .map((entry) => ({ name: entry.name, score: entry.score }))
-    .sort((a, b) => b.score - a.score);
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 10);
 }
 
 /**
