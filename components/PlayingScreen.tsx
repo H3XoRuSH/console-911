@@ -60,9 +60,9 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   if (!activeCall) return null;
 
   return (
-    <main className="flex-1 flex flex-col md:flex-row overflow-hidden">
+    <main className="flex-1 flex flex-col md:flex-row overflow-hidden min-h-0">
       {/* LEFT TRANSCRIPT COLUMN */}
-      <section className="flex-1 flex flex-col border-r border-emerald-950 bg-zinc-950/40 relative">
+      <section className="flex-1 flex flex-col border-r border-emerald-950 bg-zinc-950/40 relative min-h-0">
         {/* SCROLLING TRANSCRIPT PANEL */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3 terminal-scroll select-text">
           {transcript.map((msg, idx) => {
@@ -155,7 +155,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
       </section>
 
       {/* RIGHT SIDEBAR COLUMN */}
-      <aside className="w-full md:w-80 flex flex-col border-t md:border-t-0 border-emerald-950 bg-black/40">
+      <aside className="w-full md:w-80 flex flex-col border-t md:border-t-0 border-emerald-950 bg-black/40 min-h-0">
         {/* AUDIO & LINE STATUS */}
         <div className="p-4 border-b border-emerald-950 space-y-3">
           <div className="flex justify-between items-center text-[10px] tracking-widest text-emerald-500/60 uppercase">
