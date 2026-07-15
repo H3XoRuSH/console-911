@@ -344,7 +344,7 @@ export default function Console911Game() {
       <div className="absolute inset-0 border-[6px] border-zinc-900 pointer-events-none z-[1000] shadow-[inset_0_0_80px_rgba(0,0,0,0.9)]" />
 
       {/* HEADER SECTION */}
-      <header className="flex items-center justify-between border-b border-emerald-950 px-4 py-2 text-xs select-none">
+      <header className="shrink-0 flex items-center justify-between border-b border-emerald-950 px-4 py-2 text-xs select-none">
         <div className="flex items-center gap-2">
           <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="font-bold tracking-widest text-emerald-500 crt-glow-green">
@@ -388,7 +388,7 @@ export default function Console911Game() {
       </header>
 
       {/* MAIN CONTAINER */}
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-1 overflow-hidden relative min-h-0">
         {gameState === 'start' && (
           <StartScreen
             dispatcherName={dispatcherName}
