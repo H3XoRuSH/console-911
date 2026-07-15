@@ -184,7 +184,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           </div>
 
           <div className="text-[9px] text-center text-emerald-500/40 uppercase select-none">
-            Leaderboard data syncs live via Upstash Redis.
+            Leaderboard data syncs live.
           </div>
         </div>
       </section>
