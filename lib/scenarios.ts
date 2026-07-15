@@ -50,9 +50,7 @@ export function loadAllScenarios(): Scenario[] {
 
 /**
  * Selects exactly N scenarios for a game session.
- * Ensures that no two scenarios share the same archetype.
- * If there are fewer than N archetypes available (e.g. out of the box with 3 seed scenarios),
- * it returns as many unique scenarios as possible.
+ * Allows scenarios with the same archetype to appear in the same shift.
  */
 export function selectSessionScenarios(count: number = 5): HydratedCallSession[] {
   const allScenarios = loadAllScenarios();
@@ -63,32 +61,8 @@ export function selectSessionScenarios(count: number = 5): HydratedCallSession[]
   // Shuffle scenarios
   const shuffled = [...allScenarios].sort(() => Math.random() - 0.5);
 
-  const selectedScenarios: Scenario[] = [];
-  const selectedArchetypes = new Set<string>();
-
-  // Try to pick unique archetypes first
-  for (const scenario of shuffled) {
-    if (!selectedArchetypes.has(scenario.archetype)) {
-      selectedScenarios.push(scenario);
-      selectedArchetypes.add(scenario.archetype);
-      if (selectedScenarios.length >= count) {
-        break;
-      }
-    }
-  }
-
-  // Fallback: If we couldn't get count scenarios because of archetype constraints,
-  // fill the rest with any remaining unused scenarios.
-  if (selectedScenarios.length < count) {
-    for (const scenario of shuffled) {
-      if (!selectedScenarios.some((s) => s.id === scenario.id)) {
-        selectedScenarios.push(scenario);
-        if (selectedScenarios.length >= count) {
-          break;
-        }
-      }
-    }
-  }
+  // Select the first count scenarios from the shuffled list
+  const selectedScenarios = shuffled.slice(0, count);
 
   // Hydrate each selected scenario for the session
   return selectedScenarios.map((s) => hydrateScenario(s));
