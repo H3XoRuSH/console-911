@@ -16,8 +16,18 @@
       "This is an emergency! There's a break-in at {address_location}. I can hear them moving around!"
     ],
     "slots": {
-      "caller_name": ["John", "Mike", "Sarah", "Anonymous"],
-      "address_location": ["123 Elm Street", "456 Oak Avenue", "789 Pine Road", "321 Maple Lane"],
+      "caller_name": [
+        "John",
+        "Mike",
+        "Sarah",
+        "Anonymous"
+      ],
+      "address_location": [
+        "123 Elm Street",
+        "456 Oak Avenue",
+        "789 Pine Road",
+        "321 Maple Lane"
+      ],
       "ambient_audio": [
         "sound of glass breaking",
         "dogs barking",
@@ -54,7 +64,10 @@
             "Why do you need the address again? I already gave it.",
             "Never mind the location, just get someone there!"
           ],
-          "disconnected": ["...", ""]
+          "disconnected": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -71,8 +84,14 @@
             "Does it matter? Just get the police here fast!",
             "I told you, a {specific_details}. How many officers will come?"
           ],
-          "evasive": ["I don't remember. Just send someone!", "I can't describe them, it's dark."],
-          "disconnected": ["...", ""]
+          "evasive": [
+            "I don't remember. Just send someone!",
+            "I can't describe them, it's dark."
+          ],
+          "disconnected": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_VERIFY": {
@@ -81,7 +100,10 @@
           "initial": "probing"
         },
         "responses": {
-          "initial": ["No, I'm not lying! Just send the police!", "Please, I'm serious! Hurry!"],
+          "initial": [
+            "No, I'm not lying! Just send the police!",
+            "Please, I'm serious! Hurry!"
+          ],
           "probing": [
             "You don't believe me? Send a car and you'll see.",
             "Why would I make this up? Just get here quickly."
@@ -90,20 +112,32 @@
             "You're wasting time! Every second counts!",
             "If you don't believe me, forget it."
           ],
-          "disconnected": ["...", ""]
+          "disconnected": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_NEIGHBORS": {
         "score_delta": -5,
         "transitions": {},
         "responses": {
-          "initial": ["No, I don't see any neighbors. Just come!", "I'm the only one who noticed."],
+          "initial": [
+            "No, I don't see any neighbors. Just come!",
+            "I'm the only one who noticed."
+          ],
           "probing": [
             "Maybe someone else called. How many calls have you got?",
             "Are there other reports from this area?"
           ],
-          "evasive": ["I don't know. Can you just send someone?", "I haven't checked."],
-          "disconnected": ["...", ""]
+          "evasive": [
+            "I don't know. Can you just send someone?",
+            "I haven't checked."
+          ],
+          "disconnected": [
+            "...",
+            ""
+          ]
         }
       },
       "REQUEST_POLICE": {
@@ -124,7 +158,10 @@
             "Just do what you're supposed to and send the police!",
             "I'm not answering more questions."
           ],
-          "disconnected": ["...", ""]
+          "disconnected": [
+            "...",
+            ""
+          ]
         }
       }
     },
@@ -155,7 +192,8 @@
         "message": "Call dismissed. The callers later committed a burglary nearby, exploiting the delayed response."
       }
     },
-    "id": "scenario_019"
+    "id": "scenario_019",
+    "difficulty": "Hard"
   },
   {
     "title": "Phantom Shots Fired",
@@ -174,7 +212,12 @@
       "Someone's firing a gun around {address_location}. Send police now!"
     ],
     "slots": {
-      "caller_name": ["David", "James", "Linda", "Confidential"],
+      "caller_name": [
+        "David",
+        "James",
+        "Linda",
+        "Confidential"
+      ],
       "address_location": [
         "456 Oak Avenue",
         "1234 Pine Street",
@@ -217,7 +260,10 @@
             "I already told you the location! Get someone here!",
             "Why do you keep asking? Just send 'em!"
           ],
-          "hung_up": ["...", ""]
+          "hung_up": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -226,7 +272,10 @@
           "initial": "probing"
         },
         "responses": {
-          "initial": ["I heard {specific_details} after the shots!", "There were {ambient_audio}."],
+          "initial": [
+            "I heard {specific_details} after the shots!",
+            "There were {ambient_audio}."
+          ],
           "probing": [
             "Does it matter? How long until you arrive?",
             "I saw {specific_details}. How many officers do you send?"
@@ -235,7 +284,10 @@
             "I'm not a witness, I'm a caller! Just do your job!",
             "Stop wasting time with questions!"
           ],
-          "hung_up": ["...", ""]
+          "hung_up": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_VERIFY": {
@@ -256,20 +308,32 @@
             "You think I'm lying? Forget it, I'm done.",
             "Screw this, I'm calling someone who cares."
           ],
-          "hung_up": ["...", ""]
+          "hung_up": [
+            "...",
+            ""
+          ]
         }
       },
       "ASK_NEIGHBORS": {
         "score_delta": -5,
         "transitions": {},
         "responses": {
-          "initial": ["I don't see anyone else. Just come!", "Maybe others called too."],
+          "initial": [
+            "I don't see anyone else. Just come!",
+            "Maybe others called too."
+          ],
           "probing": [
             "Are there other reports? How many calls so far?",
             "You should have multiple calls if you're paying attention."
           ],
-          "aggressive": ["I don't know! Why are you asking that?", "That's not my job to know."],
-          "hung_up": ["...", ""]
+          "aggressive": [
+            "I don't know! Why are you asking that?",
+            "That's not my job to know."
+          ],
+          "hung_up": [
+            "...",
+            ""
+          ]
         }
       },
       "REQUEST_POLICE": {
@@ -290,7 +354,10 @@
             "Just send the damn police! Don't make me repeat myself!",
             "I'm not playing games."
           ],
-          "hung_up": ["...", ""]
+          "hung_up": [
+            "...",
+            ""
+          ]
         }
       }
     },
@@ -321,7 +388,8 @@
         "message": "Call dismissed. The callers were casing the neighborhood; a later robbery occurred without prompt police response."
       }
     },
-    "id": "scenario_020"
+    "id": "scenario_020",
+    "difficulty": "Hard"
   },
   {
     "title": "The Pizzeria Test Call",
@@ -337,7 +405,13 @@
       "Hello, I need to know the current police availability. There's a bank at {address_location} with a possible false alarm. We want to know if you can send someone to check it out."
     ],
     "slots": {
-      "caller_name": ["Dominick", "Tony", "Luigi", "Gino", "Maria"],
+      "caller_name": [
+        "Dominick",
+        "Tony",
+        "Luigi",
+        "Gino",
+        "Maria"
+      ],
       "address_location": [
         "123 Main Street",
         "456 Elm Avenue",
@@ -359,7 +433,13 @@
         "the corner shop",
         "the downtown area"
       ],
-      "victim_relation": ["owner", "manager", "employee", "customer", "neighbor"]
+      "victim_relation": [
+        "owner",
+        "manager",
+        "employee",
+        "customer",
+        "neighbor"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -435,7 +515,10 @@
             "I'm angry. You're not helping at all.",
             "I'm suspicious of why you're being so evasive."
           ],
-          "concluded": ["I'm done. Not worth the hassle.", "I'm hanging up now. Goodbye."]
+          "concluded": [
+            "I'm done. Not worth the hassle.",
+            "I'm hanging up now. Goodbye."
+          ]
         }
       }
     },
@@ -467,7 +550,8 @@
       }
     },
     "id": "scenario_185",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Survey Call",
@@ -483,7 +567,13 @@
       "Hi, I'm with a local university. We're evaluating emergency dispatch. Can you give me some data on police patrols near {address_location}?"
     ],
     "slots": {
-      "caller_name": ["Dr. Smith", "Jane Doe", "Professor X", "Mr. Johnson", "Agent K"],
+      "caller_name": [
+        "Dr. Smith",
+        "Jane Doe",
+        "Professor X",
+        "Mr. Johnson",
+        "Agent K"
+      ],
       "address_location": [
         "100 Maple Drive",
         "200 Oak Street",
@@ -505,7 +595,13 @@
         "Security Firm",
         "Neighborhood Watch"
       ],
-      "victim_relation": ["resident", "business owner", "student", "employee", "visitor"]
+      "victim_relation": [
+        "resident",
+        "business owner",
+        "student",
+        "employee",
+        "visitor"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -529,7 +625,10 @@
             "I've said it three times. {address_location}. Are you incompetent?",
             "Look, {address_location}. I need specific patrol times."
           ],
-          "concluded": ["Forget it. I'll get my data elsewhere.", "You're useless. Goodbye."]
+          "concluded": [
+            "Forget it. I'll get my data elsewhere.",
+            "You're useless. Goodbye."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -553,7 +652,10 @@
             "I'm asking for operational data. It's public information, isn't it?",
             "If you don't tell me, I'll file a FOIA request."
           ],
-          "concluded": ["I'm done. I'll find another way.", "You've wasted enough of my time."]
+          "concluded": [
+            "I'm done. I'll find another way.",
+            "You've wasted enough of my time."
+          ]
         }
       },
       "ASK_EMOTION": {
@@ -575,7 +677,10 @@
             "I'm suspicious. Why can't you provide basic info?",
             "I'm determined to get the information, one way or another."
           ],
-          "concluded": ["I'm disgruntled but leaving.", "I'll take this higher."]
+          "concluded": [
+            "I'm disgruntled but leaving.",
+            "I'll take this higher."
+          ]
         }
       }
     },
@@ -607,7 +712,8 @@
       }
     },
     "id": "scenario_186",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Blocked Driveway Complaint",
@@ -637,7 +743,13 @@
         "321 Ash Drive",
         "654 Poplar Lane"
       ],
-      "ambient_audio": ["car engine idling", "footsteps", "silence", "dog barking", "wind"],
+      "ambient_audio": [
+        "car engine idling",
+        "footsteps",
+        "silence",
+        "dog barking",
+        "wind"
+      ],
       "specific_details": [
         "a red sedan",
         "a blue pickup truck",
@@ -645,7 +757,13 @@
         "a black SUV",
         "a green coupe"
       ],
-      "victim_relation": ["homeowner", "tenant", "neighbor", "visitor", "property manager"]
+      "victim_relation": [
+        "homeowner",
+        "tenant",
+        "neighbor",
+        "visitor",
+        "property manager"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -669,7 +787,10 @@
             "You're wasting time. Address is {address_location}. Put me through to dispatch.",
             "I don't care about verification. {address_location}. Send a car now!"
           ],
-          "concluded": ["Fine. I'll handle it myself.", "Thanks for nothing."]
+          "concluded": [
+            "Fine. I'll handle it myself.",
+            "Thanks for nothing."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -693,7 +814,10 @@
             "I don't care about the details. I want a response time!",
             "You're being evasive. Just answer my questions!"
           ],
-          "concluded": ["I've got all I need. Goodbye.", "Never mind."]
+          "concluded": [
+            "I've got all I need. Goodbye.",
+            "Never mind."
+          ]
         }
       },
       "ASK_EMOTION": {
@@ -715,7 +839,10 @@
             "I'm suspicious that you're not taking me seriously.",
             "I'm determined to get a straight answer."
           ],
-          "concluded": ["I'm done.", "I'll call the non-emergency line next time."]
+          "concluded": [
+            "I'm done.",
+            "I'll call the non-emergency line next time."
+          ]
         }
       }
     },
@@ -747,7 +874,8 @@
       }
     },
     "id": "scenario_187",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Lost Pet Inquiry",
@@ -763,7 +891,13 @@
       "I'm looking for my {specific_details} around {address_location}. Can police keep an eye out? What's their patrol schedule?"
     ],
     "slots": {
-      "caller_name": ["Sarah", "Tom", "Lisa", "Mike", "Jen"],
+      "caller_name": [
+        "Sarah",
+        "Tom",
+        "Lisa",
+        "Mike",
+        "Jen"
+      ],
       "address_location": [
         "500 Dogwood Road",
         "600 Spruce Street",
@@ -771,9 +905,27 @@
         "800 Fir Lane",
         "900 Cypress Avenue"
       ],
-      "ambient_audio": ["crickets", "wind", "distant music", "silence", "footsteps"],
-      "specific_details": ["golden retriever", "black cat", "parrot", "hamster", "lizard"],
-      "victim_relation": ["owner", "friend", "neighbor", "sitter", "family"]
+      "ambient_audio": [
+        "crickets",
+        "wind",
+        "distant music",
+        "silence",
+        "footsteps"
+      ],
+      "specific_details": [
+        "golden retriever",
+        "black cat",
+        "parrot",
+        "hamster",
+        "lizard"
+      ],
+      "victim_relation": [
+        "owner",
+        "friend",
+        "neighbor",
+        "sitter",
+        "family"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -797,7 +949,10 @@
             "You're wasting time. {address_location}. I need to know if there's a patrol at 2 AM.",
             "Address: {address_location}. Now answer my question!"
           ],
-          "concluded": ["Fine, I'll find out myself.", "Thanks for nothing."]
+          "concluded": [
+            "Fine, I'll find out myself.",
+            "Thanks for nothing."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -821,7 +976,10 @@
             "You're being difficult. I just need times, not a pet description.",
             "I don't trust you. Just give me the patrol info."
           ],
-          "concluded": ["I'm done talking.", "I'll call the non-emergency line."]
+          "concluded": [
+            "I'm done talking.",
+            "I'll call the non-emergency line."
+          ]
         }
       },
       "ASK_EMOTION": {
@@ -843,7 +1001,10 @@
             "I'm losing patience.",
             "I'm convinced you're hiding something."
           ],
-          "concluded": ["I'm determined to get answers elsewhere.", "I'm leaving frustrated."]
+          "concluded": [
+            "I'm determined to get answers elsewhere.",
+            "I'm leaving frustrated."
+          ]
         }
       }
     },
@@ -875,7 +1036,8 @@
       }
     },
     "id": "scenario_188",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Loud Party Report",
@@ -891,7 +1053,13 @@
       "My neighbor is having a huge party at {address_location}. I want it stopped. When can you get here?"
     ],
     "slots": {
-      "caller_name": ["Bill", "Karen", "Steve", "Linda", "Greg"],
+      "caller_name": [
+        "Bill",
+        "Karen",
+        "Steve",
+        "Linda",
+        "Greg"
+      ],
       "address_location": [
         "101 Party Lane",
         "202 Rave Road",
@@ -899,7 +1067,13 @@
         "404 Bash Boulevard",
         "505 Celebration Court"
       ],
-      "ambient_audio": ["silence", "occasional car", "footsteps", "doors closing", "nothing"],
+      "ambient_audio": [
+        "silence",
+        "occasional car",
+        "footsteps",
+        "doors closing",
+        "nothing"
+      ],
       "specific_details": [
         "a large mansion",
         "a two-story house",
@@ -907,7 +1081,13 @@
         "a townhouse",
         "a duplex"
       ],
-      "victim_relation": ["neighbor", "homeowner", "tenant", "guest", "passerby"]
+      "victim_relation": [
+        "neighbor",
+        "homeowner",
+        "tenant",
+        "guest",
+        "passerby"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -931,7 +1111,10 @@
             "Address: {address_location}. Now respond!",
             "You're wasting time. {address_location}. I need specifics!"
           ],
-          "concluded": ["That's all I needed.", "Goodbye."]
+          "concluded": [
+            "That's all I needed.",
+            "Goodbye."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -955,21 +1138,35 @@
             "I'm not here to describe noise. I need internal info.",
             "You're being deliberately obtuse. Just answer my questions!"
           ],
-          "concluded": ["I've got what I need.", "Never mind."]
+          "concluded": [
+            "I've got what I need.",
+            "Never mind."
+          ]
         }
       },
       "ASK_EMOTION": {
         "score_delta": 50,
         "transitions": {},
         "responses": {
-          "initial": ["I'm a little annoyed.", "I'm calm, just reporting.", "I'm indifferent."],
+          "initial": [
+            "I'm a little annoyed.",
+            "I'm calm, just reporting.",
+            "I'm indifferent."
+          ],
           "probing": [
             "I'm getting impatient.",
             "I'm casually curious.",
             "I'm testing your system."
           ],
-          "escalating": ["I'm angry now.", "I'm suspicious.", "I'm determined to get info."],
-          "concluded": ["I'm satisfied.", "I'm leaving."]
+          "escalating": [
+            "I'm angry now.",
+            "I'm suspicious.",
+            "I'm determined to get info."
+          ],
+          "concluded": [
+            "I'm satisfied.",
+            "I'm leaving."
+          ]
         }
       }
     },
@@ -1001,7 +1198,8 @@
       }
     },
     "id": "scenario_189",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Circling Van",
@@ -1018,8 +1216,16 @@
       "Hey, can you send a car? There's a van that keeps coming around and it's making me nervous."
     ],
     "slots": {
-      "caller_name": ["John Doe", "Mike Smith", "Alex Johnson"],
-      "address_location": ["123 Oak Street", "456 Maple Avenue", "789 Pine Lane"],
+      "caller_name": [
+        "John Doe",
+        "Mike Smith",
+        "Alex Johnson"
+      ],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Lane"
+      ],
       "van_description": [
         "white Ford van with tinted windows",
         "blue Dodge Caravan with a dented bumper",
@@ -1056,7 +1262,11 @@
             "Forget the location, just send someone to the area.",
             "Why does it matter where I live? Focus on the van."
           ],
-          "hung_up": ["Location was {address_location} before they hung up.", "", ""]
+          "hung_up": [
+            "Location was {address_location} before they hung up.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1080,7 +1290,11 @@
             "Look, if you're not sending anyone, I'll handle it myself.",
             "I'm not going to answer any more questions. You're wasting my time."
           ],
-          "hung_up": ["They hung up before I could get more details.", "", ""]
+          "hung_up": [
+            "They hung up before I could get more details.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_WHY": {
@@ -1104,7 +1318,11 @@
             "This is ridiculous. I'm hanging up and calling the media.",
             "Forget it. I'll handle it on my own."
           ],
-          "hung_up": ["Caller hung up after becoming defensive.", "", ""]
+          "hung_up": [
+            "Caller hung up after becoming defensive.",
+            "",
+            ""
+          ]
         }
       },
       "CALM_CALLER": {
@@ -1128,7 +1346,11 @@
             "I'll calm down when you send a car!",
             "Easy for you to say, you're not the one watching a van."
           ],
-          "hung_up": ["No response - line dead.", "", ""]
+          "hung_up": [
+            "No response - line dead.",
+            "",
+            ""
+          ]
         }
       }
     },
@@ -1160,7 +1382,8 @@
       }
     },
     "id": "scenario_190",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Neighborly Check",
@@ -1177,10 +1400,26 @@
       "Can you send someone to do a welfare check on {address_location}? The woman who lives there might be in trouble."
     ],
     "slots": {
-      "caller_name": ["Tom Brown", "Linda Gray", "Chris White"],
-      "victim_relation": ["Mrs. Johnson", "Mr. Peterson", "Ms. Lee"],
-      "address_location": ["123 Elm Street", "456 Oak Drive", "789 Pine Court"],
-      "ambient_audio": ["a dog barking in background", "faint sound of a TV", " traffic noise"],
+      "caller_name": [
+        "Tom Brown",
+        "Linda Gray",
+        "Chris White"
+      ],
+      "victim_relation": [
+        "Mrs. Johnson",
+        "Mr. Peterson",
+        "Ms. Lee"
+      ],
+      "address_location": [
+        "123 Elm Street",
+        "456 Oak Drive",
+        "789 Pine Court"
+      ],
+      "ambient_audio": [
+        "a dog barking in background",
+        "faint sound of a TV",
+        " traffic noise"
+      ],
       "specific_details": [
         "she usually waves at 8 AM",
         "I saw a strange car last night",
@@ -1207,7 +1446,11 @@
             "If you're accusing me, forget it. I'll call someone else.",
             "...{address_location}. Not that it matters now."
           ],
-          "disconnected": ["Address was {address_location} before they hung up.", "", ""]
+          "disconnected": [
+            "Address was {address_location} before they hung up.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1231,7 +1474,11 @@
             "You're wasting time. I'm not a criminal, I'm a neighbor!",
             "I'm hanging up. This is pointless."
           ],
-          "disconnected": ["No answer.", "", ""]
+          "disconnected": [
+            "No answer.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_WHY": {
@@ -1255,7 +1502,11 @@
             "I'm not going to justify myself. Goodbye.",
             "Forget it. I'll break down her door myself."
           ],
-          "disconnected": ["Caller hung up.", "", ""]
+          "disconnected": [
+            "Caller hung up.",
+            "",
+            ""
+          ]
         }
       },
       "CALM_CALLER": {
@@ -1279,7 +1530,11 @@
             "I'll calm down when you treat me like a concerned citizen.",
             "No. I'm done."
           ],
-          "disconnected": ["No response.", "", ""]
+          "disconnected": [
+            "No response.",
+            "",
+            ""
+          ]
         }
       }
     },
@@ -1311,7 +1566,8 @@
       }
     },
     "id": "scenario_191",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Lost Pet Inquiry",
@@ -1328,15 +1584,31 @@
       "My cat ran away yesterday. I'm worried. Do you have any tips on finding her?"
     ],
     "slots": {
-      "caller_name": ["Sarah Wilson", "Mike Brown", "Emma Davis"],
-      "address_location": ["45 Oak Street", "21 Maple Lane", "78 Cedar Road"],
+      "caller_name": [
+        "Sarah Wilson",
+        "Mike Brown",
+        "Emma Davis"
+      ],
+      "address_location": [
+        "45 Oak Street",
+        "21 Maple Lane",
+        "78 Cedar Road"
+      ],
       "pet_description": [
         "orange tabby with a red collar",
         "black and white shorthair",
         "gray Persian cat"
       ],
-      "ambient_audio": ["sound of a dog barking", "TV in background", "silence"],
-      "specific_details": ["she has a microchip", "I have a reward", "she's scared of strangers"]
+      "ambient_audio": [
+        "sound of a dog barking",
+        "TV in background",
+        "silence"
+      ],
+      "specific_details": [
+        "she has a microchip",
+        "I have a reward",
+        "she's scared of strangers"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1358,7 +1630,11 @@
             "If you're not going to help, just say so.",
             "I'll call animal control directly. Forget it."
           ],
-          "terminated": ["Caller hung up after giving location {address_location}.", "", ""]
+          "terminated": [
+            "Caller hung up after giving location {address_location}.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1382,7 +1658,11 @@
             "I'm done talking. I'll find her myself.",
             "Drop it. I'm not a criminal."
           ],
-          "terminated": ["No answer.", "", ""]
+          "terminated": [
+            "No answer.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_WHY": {
@@ -1406,7 +1686,11 @@
             "You're profiling me. I'm offended.",
             "I'm hanging up now."
           ],
-          "terminated": ["Caller terminated call.", "", ""]
+          "terminated": [
+            "Caller terminated call.",
+            "",
+            ""
+          ]
         }
       },
       "CALM_CALLER": {
@@ -1430,7 +1714,11 @@
             "I'm not upset. I'm just frustrated.",
             "Forget it."
           ],
-          "terminated": ["No response.", "", ""]
+          "terminated": [
+            "No response.",
+            "",
+            ""
+          ]
         }
       }
     },
@@ -1462,7 +1750,8 @@
       }
     },
     "id": "scenario_192",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Broken Traffic Light",
@@ -1479,13 +1768,21 @@
       "I'm at {address_location} and the traffic signal is malfunctioning. Can you send someone?"
     ],
     "slots": {
-      "caller_name": ["David Clark", "Nancy Drew", "Peter Pan"],
+      "caller_name": [
+        "David Clark",
+        "Nancy Drew",
+        "Peter Pan"
+      ],
       "address_location": [
         "the corner of Main and 1st",
         "the intersection of Elm and Oak",
         "the junction of Pine and Maple"
       ],
-      "ambient_audio": ["honking horns", "engine idling", "construction noise"],
+      "ambient_audio": [
+        "honking horns",
+        "engine idling",
+        "construction noise"
+      ],
       "specific_details": [
         "it's been stuck for 10 minutes",
         "the pedestrian walk sign is also out",
@@ -1517,7 +1814,11 @@
             "Forget it. I'm not going to be treated like a suspect.",
             "{address_location}. Now what?"
           ],
-          "disconnected": ["Caller hung up. Location was {address_location}.", "", ""]
+          "disconnected": [
+            "Caller hung up. Location was {address_location}.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1541,7 +1842,11 @@
             "You're wasting time. I have to go.",
             "I'm not giving you more details."
           ],
-          "disconnected": ["No answer.", "", ""]
+          "disconnected": [
+            "No answer.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_WHY": {
@@ -1565,7 +1870,11 @@
             "You're out of line. I'm calling your supervisor.",
             "This is ridiculous. Goodbye."
           ],
-          "disconnected": ["Caller terminated.", "", ""]
+          "disconnected": [
+            "Caller terminated.",
+            "",
+            ""
+          ]
         }
       },
       "CALM_CALLER": {
@@ -1589,7 +1898,11 @@
             "I'll calm down when you treat me with respect.",
             "I'm done."
           ],
-          "disconnected": ["No response.", "", ""]
+          "disconnected": [
+            "No response.",
+            "",
+            ""
+          ]
         }
       }
     },
@@ -1621,7 +1934,8 @@
       }
     },
     "id": "scenario_193",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Bogus Gas Leak",
@@ -1638,9 +1952,21 @@
       "Please send help! I think there's a gas leak at {address_location}."
     ],
     "slots": {
-      "caller_name": ["Frank Miller", "Betty White", "Steve Jobs"],
-      "address_location": ["1234 Cedar Lane", "5678 Birch Boulevard", "9101 Spruce Street"],
-      "ambient_audio": ["hissing sound", "wind blowing", "car horns"],
+      "caller_name": [
+        "Frank Miller",
+        "Betty White",
+        "Steve Jobs"
+      ],
+      "address_location": [
+        "1234 Cedar Lane",
+        "5678 Birch Boulevard",
+        "9101 Spruce Street"
+      ],
+      "ambient_audio": [
+        "hissing sound",
+        "wind blowing",
+        "car horns"
+      ],
       "specific_details": [
         "I see a broken pipe",
         "I evacuated my family",
@@ -1672,7 +1998,11 @@
             "Fine. {address_location}. Not that you believe me.",
             "I'll give you the address when you stop accusing me."
           ],
-          "disconnected": ["Caller hung up. Location was {address_location}.", "", ""]
+          "disconnected": [
+            "Caller hung up. Location was {address_location}.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1696,7 +2026,11 @@
             "I don't have to satisfy your curiosity. Send help!",
             "I'm done with this conversation."
           ],
-          "disconnected": ["No response.", "", ""]
+          "disconnected": [
+            "No response.",
+            "",
+            ""
+          ]
         }
       },
       "ASK_WHY": {
@@ -1720,7 +2054,11 @@
             "You're wasting time. I'm calling the news.",
             "I don't have to explain myself."
           ],
-          "disconnected": ["Caller terminated.", "", ""]
+          "disconnected": [
+            "Caller terminated.",
+            "",
+            ""
+          ]
         }
       },
       "CALM_CALLER": {
@@ -1744,7 +2082,11 @@
             "I'll calm down when you send help.",
             "Forget it. I'm out."
           ],
-          "disconnected": ["No answer.", "", ""]
+          "disconnected": [
+            "No answer.",
+            "",
+            ""
+          ]
         }
       }
     },
@@ -1776,7 +2118,8 @@
       }
     },
     "id": "scenario_194",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Fake Drug Tip",
@@ -1843,8 +2186,12 @@
             "You already have the address. Why are you asking again?",
             "Look, it's {address_location}. Just send the cops."
           ],
-          "escalated": ["I gave you the address! {address_location}! Don't waste time!"],
-          "resolved": ["Forget it. I'm not repeating myself. *click*"]
+          "escalated": [
+            "I gave you the address! {address_location}! Don't waste time!"
+          ],
+          "resolved": [
+            "Forget it. I'm not repeating myself. *click*"
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1862,8 +2209,12 @@
             "You're asking too many questions. Are you going to send someone or not?",
             "Details? It's a drug deal! What else matters?"
           ],
-          "escalated": ["I don't have time for this! Send the police now!"],
-          "resolved": ["I made it up, okay? I wanted to see how fast you respond. Happy now?"]
+          "escalated": [
+            "I don't have time for this! Send the police now!"
+          ],
+          "resolved": [
+            "I made it up, okay? I wanted to see how fast you respond. Happy now?"
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -1881,18 +2232,31 @@
             "You're wasting time asking for my info. Just dispatch!",
             "I said anonymous tip! Do your job!"
           ],
-          "escalated": ["My name is none of your business! Send police!"],
-          "resolved": ["You got me. I'm just a prankster. No deal."]
+          "escalated": [
+            "My name is none of your business! Send police!"
+          ],
+          "resolved": [
+            "You got me. I'm just a prankster. No deal."
+          ]
         }
       },
       "ASK_EMERGENCY_TYPE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["It's a drug deal! That's an emergency!", "Drugs! Isn't that enough?"],
-          "probing": ["I already said it's a drug transaction. Do I need to spell it out?"],
-          "escalated": ["Drugs! Cops! Now!"],
-          "resolved": ["It's nothing."]
+          "initial": [
+            "It's a drug deal! That's an emergency!",
+            "Drugs! Isn't that enough?"
+          ],
+          "probing": [
+            "I already said it's a drug transaction. Do I need to spell it out?"
+          ],
+          "escalated": [
+            "Drugs! Cops! Now!"
+          ],
+          "resolved": [
+            "It's nothing."
+          ]
         }
       },
       "REASSURE": {
@@ -1909,8 +2273,12 @@
             "Don't reassure me! That makes me think you're not coming.",
             "You're being too nice. That's suspicious."
           ],
-          "escalated": ["Stop trying to calm me down! I want police NOW!"],
-          "resolved": ["Whatever. I'm hanging up."]
+          "escalated": [
+            "Stop trying to calm me down! I want police NOW!"
+          ],
+          "resolved": [
+            "Whatever. I'm hanging up."
+          ]
         }
       },
       "CONFIRM_DISPATCH": {
@@ -1921,10 +2289,20 @@
           "escalated": "resolved"
         },
         "responses": {
-          "initial": ["Finally! Send them quickly.", "About time! I'll watch from my window."],
-          "probing": ["Good. I'll be watching.", "Okay, I'll stay on the line."],
-          "escalated": ["It's about time! Hurry!"],
-          "resolved": ["*click*"]
+          "initial": [
+            "Finally! Send them quickly.",
+            "About time! I'll watch from my window."
+          ],
+          "probing": [
+            "Good. I'll be watching.",
+            "Okay, I'll stay on the line."
+          ],
+          "escalated": [
+            "It's about time! Hurry!"
+          ],
+          "resolved": [
+            "*click*"
+          ]
         }
       }
     },
@@ -1956,7 +2334,8 @@
       }
     },
     "id": "scenario_195",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Parcel Delivery Check",
@@ -2001,7 +2380,13 @@
         "express delivery",
         "perishable goods"
       ],
-      "victim_relation": ["none", "the homeowner", "a neighbor", "the front desk", "myself"]
+      "victim_relation": [
+        "none",
+        "the homeowner",
+        "a neighbor",
+        "the front desk",
+        "myself"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2016,8 +2401,12 @@
             "You keep asking the same thing. Is there a problem?",
             "Yes, {address_location}. Why do you need it again?"
           ],
-          "escalated": ["I gave you the address! Just do your job!"],
-          "resolved": ["Never mind."]
+          "escalated": [
+            "I gave you the address! Just do your job!"
+          ],
+          "resolved": [
+            "Never mind."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2034,8 +2423,12 @@
             "Like what? I just need occupancy info.",
             "Details? It's a delivery. Are you the resident?"
           ],
-          "escalated": ["I don't have to answer that! Just tell me if someone is home!"],
-          "resolved": ["I'm not really a delivery guy. Just checking."]
+          "escalated": [
+            "I don't have to answer that! Just tell me if someone is home!"
+          ],
+          "resolved": [
+            "I'm not really a delivery guy. Just checking."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2052,8 +2445,12 @@
             "Why do you need my info? I'm just trying to deliver.",
             "You're the dispatcher, not the recipient."
           ],
-          "escalated": ["This is harassment. I'm reporting you."],
-          "resolved": ["My name is irrelevant. I'm hanging up."]
+          "escalated": [
+            "This is harassment. I'm reporting you."
+          ],
+          "resolved": [
+            "My name is irrelevant. I'm hanging up."
+          ]
         }
       },
       "ASK_EMERGENCY_TYPE": {
@@ -2064,9 +2461,15 @@
             "It's not an emergency, just a delivery query.",
             "No emergency. Standard delivery."
           ],
-          "probing": ["It's a simple delivery. Why would it be an emergency?"],
-          "escalated": ["This is not an emergency. Stop asking!"],
-          "resolved": ["Emergency? No."]
+          "probing": [
+            "It's a simple delivery. Why would it be an emergency?"
+          ],
+          "escalated": [
+            "This is not an emergency. Stop asking!"
+          ],
+          "resolved": [
+            "Emergency? No."
+          ]
         }
       },
       "REASSURE": {
@@ -2079,9 +2482,16 @@
             "I don't need reassurance. Just help me deliver.",
             "Okay, I'm calm. Just confirm the address."
           ],
-          "probing": ["I'm not nervous. Why would I need reassurance?", "Stop being suspicious."],
-          "escalated": ["You're making me uneasy. I'm ending this call."],
-          "resolved": ["*click*"]
+          "probing": [
+            "I'm not nervous. Why would I need reassurance?",
+            "Stop being suspicious."
+          ],
+          "escalated": [
+            "You're making me uneasy. I'm ending this call."
+          ],
+          "resolved": [
+            "*click*"
+          ]
         }
       },
       "CONFIRM_DISPATCH": {
@@ -2092,10 +2502,19 @@
           "escalated": "resolved"
         },
         "responses": {
-          "initial": ["Thanks, I'll try the neighbor.", "Okay, I'll leave a note."],
-          "probing": ["Sure, whatever."],
-          "escalated": ["Fine, forget it."],
-          "resolved": ["*click*"]
+          "initial": [
+            "Thanks, I'll try the neighbor.",
+            "Okay, I'll leave a note."
+          ],
+          "probing": [
+            "Sure, whatever."
+          ],
+          "escalated": [
+            "Fine, forget it."
+          ],
+          "resolved": [
+            "*click*"
+          ]
         }
       }
     },
@@ -2127,7 +2546,8 @@
       }
     },
     "id": "scenario_196",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Taxi Dispatch Verification",
@@ -2144,7 +2564,13 @@
       "Taxi needed at {address_location}. I'll pay extra for fast response."
     ],
     "slots": {
-      "caller_name": ["Mr. Smith", "Jane Doe", "Alex Rider", "Anonymous", "Just a customer"],
+      "caller_name": [
+        "Mr. Smith",
+        "Jane Doe",
+        "Alex Rider",
+        "Anonymous",
+        "Just a customer"
+      ],
       "address_location": [
         "12 High Street",
         "45 Low Lane",
@@ -2166,7 +2592,13 @@
         "multiple passengers",
         "express service"
       ],
-      "victim_relation": ["none", "a friend", "myself", "my boss", "a stranger"]
+      "victim_relation": [
+        "none",
+        "a friend",
+        "myself",
+        "my boss",
+        "a stranger"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2181,8 +2613,12 @@
             "You have the location. Why do you keep asking?",
             "I already said {address_location}. Are you deaf?"
           ],
-          "escalated": ["I gave the address three times! Just send the cab!"],
-          "resolved": ["I'm not calling for a cab. Just checking."]
+          "escalated": [
+            "I gave the address three times! Just send the cab!"
+          ],
+          "resolved": [
+            "I'm not calling for a cab. Just checking."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2199,8 +2635,12 @@
             "Why do you need details? Is this a test?",
             "I'm just asking how the system works."
           ],
-          "escalated": ["You're wasting time! Send the taxi!"],
-          "resolved": ["I don't need a taxi. I'm testing response."]
+          "escalated": [
+            "You're wasting time! Send the taxi!"
+          ],
+          "resolved": [
+            "I don't need a taxi. I'm testing response."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2217,18 +2657,31 @@
             "My name is none of your business. Just send a cab.",
             "I prefer to stay anonymous."
           ],
-          "escalated": ["I'm not giving my name! This is ridiculous!"],
-          "resolved": ["You caught me. I'm not a customer."]
+          "escalated": [
+            "I'm not giving my name! This is ridiculous!"
+          ],
+          "resolved": [
+            "You caught me. I'm not a customer."
+          ]
         }
       },
       "ASK_EMERGENCY_TYPE": {
         "score_delta": -10,
         "transitions": {},
         "responses": {
-          "initial": ["It's not an emergency, just a taxi.", "No emergency. I need a ride."],
-          "probing": ["Not an emergency. Just asking about response time."],
-          "escalated": ["This is urgent! But not 911 urgent!"],
-          "resolved": ["No emergency."]
+          "initial": [
+            "It's not an emergency, just a taxi.",
+            "No emergency. I need a ride."
+          ],
+          "probing": [
+            "Not an emergency. Just asking about response time."
+          ],
+          "escalated": [
+            "This is urgent! But not 911 urgent!"
+          ],
+          "resolved": [
+            "No emergency."
+          ]
         }
       },
       "REASSURE": {
@@ -2237,13 +2690,20 @@
           "probing": "escalated"
         },
         "responses": {
-          "initial": ["I'm fine. Just send the taxi.", "No need to reassure."],
+          "initial": [
+            "I'm fine. Just send the taxi.",
+            "No need to reassure."
+          ],
           "probing": [
             "Stop trying to calm me. I'm just testing.",
             "You're being suspicious. I'm hanging up."
           ],
-          "escalated": ["You're making me angry! I'm ending this!"],
-          "resolved": ["*click*"]
+          "escalated": [
+            "You're making me angry! I'm ending this!"
+          ],
+          "resolved": [
+            "*click*"
+          ]
         }
       },
       "CONFIRM_DISPATCH": {
@@ -2254,10 +2714,19 @@
           "escalated": "resolved"
         },
         "responses": {
-          "initial": ["Good, I'll wait.", "Finally. Send it."],
-          "probing": ["Okay, thanks."],
-          "escalated": ["About time!"],
-          "resolved": ["I was just testing. Goodbye."]
+          "initial": [
+            "Good, I'll wait.",
+            "Finally. Send it."
+          ],
+          "probing": [
+            "Okay, thanks."
+          ],
+          "escalated": [
+            "About time!"
+          ],
+          "resolved": [
+            "I was just testing. Goodbye."
+          ]
         }
       }
     },
@@ -2289,7 +2758,8 @@
       }
     },
     "id": "scenario_197",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Wrong Number Probe",
@@ -2306,7 +2776,13 @@
       "I'm sorry, I have the wrong number. But since I have you, what's your response time?"
     ],
     "slots": {
-      "caller_name": ["Jack", "Emily", "A prankster", "Unknown caller", "Just someone"],
+      "caller_name": [
+        "Jack",
+        "Emily",
+        "A prankster",
+        "Unknown caller",
+        "Just someone"
+      ],
       "address_location": [
         "nowhere",
         "my house",
@@ -2328,17 +2804,33 @@
         "telemarketer",
         "friendly chat"
       ],
-      "victim_relation": ["none", "a friend", "myself", "the dispatcher", "nobody"]
+      "victim_relation": [
+        "none",
+        "a friend",
+        "myself",
+        "the dispatcher",
+        "nobody"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["No location. I dialed wrong.", "I don't need to give a location."],
-          "probing": ["I'm not at an emergency. Why do you need location?", "Are you tracking me?"],
-          "escalated": ["Stop asking for location! I said it's a wrong number!"],
-          "resolved": ["I was testing you. No location."]
+          "initial": [
+            "No location. I dialed wrong.",
+            "I don't need to give a location."
+          ],
+          "probing": [
+            "I'm not at an emergency. Why do you need location?",
+            "Are you tracking me?"
+          ],
+          "escalated": [
+            "Stop asking for location! I said it's a wrong number!"
+          ],
+          "resolved": [
+            "I was testing you. No location."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2347,13 +2839,20 @@
           "initial": "probing"
         },
         "responses": {
-          "initial": ["No details. Wrong number.", "What details? I made a mistake."],
+          "initial": [
+            "No details. Wrong number.",
+            "What details? I made a mistake."
+          ],
           "probing": [
             "Why do you need details? I told you it's a wrong number.",
             "You're suspicious. I'm just asking."
           ],
-          "escalated": ["I'm not giving details. This is harassment!"],
-          "resolved": ["I have no emergency. I was probing."]
+          "escalated": [
+            "I'm not giving details. This is harassment!"
+          ],
+          "resolved": [
+            "I have no emergency. I was probing."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2362,23 +2861,39 @@
           "initial": "probing"
         },
         "responses": {
-          "initial": ["I'm {caller_name}. I dialed wrong.", "My name doesn't matter."],
+          "initial": [
+            "I'm {caller_name}. I dialed wrong.",
+            "My name doesn't matter."
+          ],
           "probing": [
             "Why do you need my name? I'm just a wrong number.",
             "I want to remain anonymous."
           ],
-          "escalated": ["I'm not telling you my name! Let me go!"],
-          "resolved": ["Name is irrelevant. I'm done."]
+          "escalated": [
+            "I'm not telling you my name! Let me go!"
+          ],
+          "resolved": [
+            "Name is irrelevant. I'm done."
+          ]
         }
       },
       "ASK_EMERGENCY_TYPE": {
         "score_delta": -5,
         "transitions": {},
         "responses": {
-          "initial": ["No emergency. Wrong number.", "It's not an emergency."],
-          "probing": ["I said no emergency. Are you testing me?"],
-          "escalated": ["There's no emergency! Stop asking!"],
-          "resolved": ["No emergency."]
+          "initial": [
+            "No emergency. Wrong number.",
+            "It's not an emergency."
+          ],
+          "probing": [
+            "I said no emergency. Are you testing me?"
+          ],
+          "escalated": [
+            "There's no emergency! Stop asking!"
+          ],
+          "resolved": [
+            "No emergency."
+          ]
         }
       },
       "REASSURE": {
@@ -2387,13 +2902,20 @@
           "probing": "escalated"
         },
         "responses": {
-          "initial": ["I'm calm. It's a wrong number.", "Okay, I'll hang up."],
+          "initial": [
+            "I'm calm. It's a wrong number.",
+            "Okay, I'll hang up."
+          ],
           "probing": [
             "Don't reassure me. I'm just being friendly.",
             "You're treating me like a suspect."
           ],
-          "escalated": ["I'm not crazy! Just let me go!"],
-          "resolved": ["I'm fine. Testing over."]
+          "escalated": [
+            "I'm not crazy! Just let me go!"
+          ],
+          "resolved": [
+            "I'm fine. Testing over."
+          ]
         }
       },
       "CONFIRM_DISPATCH": {
@@ -2404,10 +2926,19 @@
           "escalated": "resolved"
         },
         "responses": {
-          "initial": ["No need for dispatch. Bye.", "Okay, I'll hang up."],
-          "probing": ["Sure, if you say so."],
-          "escalated": ["Whatever."],
-          "resolved": ["I admit it. I was testing. Goodbye."]
+          "initial": [
+            "No need for dispatch. Bye.",
+            "Okay, I'll hang up."
+          ],
+          "probing": [
+            "Sure, if you say so."
+          ],
+          "escalated": [
+            "Whatever."
+          ],
+          "resolved": [
+            "I admit it. I was testing. Goodbye."
+          ]
         }
       }
     },
@@ -2439,7 +2970,8 @@
       }
     },
     "id": "scenario_198",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Easy"
   },
   {
     "title": "The Neighbor Noise Complaint Test",
@@ -2456,7 +2988,13 @@
       "The noise from {address_location} is unbearable. I need police to shut it down now."
     ],
     "slots": {
-      "caller_name": ["Mrs. Johnson", "Tom", "A fed-up resident", "Anonymous", "Lt. Smith (fake)"],
+      "caller_name": [
+        "Mrs. Johnson",
+        "Tom",
+        "A fed-up resident",
+        "Anonymous",
+        "Lt. Smith (fake)"
+      ],
       "address_location": [
         "55 Quiet Street",
         "22 Loud Avenue",
@@ -2478,7 +3016,13 @@
         "possible fight",
         "just talking"
       ],
-      "victim_relation": ["the neighbor", "my family", "myself", "the whole block", "no one"]
+      "victim_relation": [
+        "the neighbor",
+        "my family",
+        "myself",
+        "the whole block",
+        "no one"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2493,8 +3037,12 @@
             "Yes, {address_location}. But what's the dispatch protocol for noise?",
             "You have the address. Why ask again?"
           ],
-          "escalated": ["I gave the address! Send police!"],
-          "resolved": ["Address is fake. I'm testing you."]
+          "escalated": [
+            "I gave the address! Send police!"
+          ],
+          "resolved": [
+            "Address is fake. I'm testing you."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2511,8 +3059,12 @@
             "I'm asking how loud it needs to be for a response.",
             "Details? I'm testing your protocols."
           ],
-          "escalated": ["Stop asking! You're wasting time!"],
-          "resolved": ["No real details. I was probing."]
+          "escalated": [
+            "Stop asking! You're wasting time!"
+          ],
+          "resolved": [
+            "No real details. I was probing."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2521,10 +3073,20 @@
           "initial": "probing"
         },
         "responses": {
-          "initial": ["My name is {caller_name}. Why?", "I'm a resident. That's enough."],
-          "probing": ["I don't want to give my name. Is that required?", "You're too nosy."],
-          "escalated": ["I'm not giving my name! This is ridiculous!"],
-          "resolved": ["My name is not important. Test complete."]
+          "initial": [
+            "My name is {caller_name}. Why?",
+            "I'm a resident. That's enough."
+          ],
+          "probing": [
+            "I don't want to give my name. Is that required?",
+            "You're too nosy."
+          ],
+          "escalated": [
+            "I'm not giving my name! This is ridiculous!"
+          ],
+          "resolved": [
+            "My name is not important. Test complete."
+          ]
         }
       },
       "ASK_EMERGENCY_TYPE": {
@@ -2539,8 +3101,12 @@
             "I'm calling it an emergency to see if you treat it as such.",
             "Define emergency. I'm curious."
           ],
-          "escalated": ["It IS an emergency! Send police!"],
-          "resolved": ["It's not an emergency. I was testing."]
+          "escalated": [
+            "It IS an emergency! Send police!"
+          ],
+          "resolved": [
+            "It's not an emergency. I was testing."
+          ]
         }
       },
       "REASSURE": {
@@ -2549,10 +3115,20 @@
           "probing": "escalated"
         },
         "responses": {
-          "initial": ["Don't reassure me. Just act!", "I'm not calm. I need help."],
-          "probing": ["I don't need reassurance. I need answers.", "You're deflecting."],
-          "escalated": ["I'm not calm! Send police!"],
-          "resolved": ["Fine. I'm calm now. Test over."]
+          "initial": [
+            "Don't reassure me. Just act!",
+            "I'm not calm. I need help."
+          ],
+          "probing": [
+            "I don't need reassurance. I need answers.",
+            "You're deflecting."
+          ],
+          "escalated": [
+            "I'm not calm! Send police!"
+          ],
+          "resolved": [
+            "Fine. I'm calm now. Test over."
+          ]
         }
       },
       "CONFIRM_DISPATCH": {
@@ -2563,10 +3139,19 @@
           "escalated": "resolved"
         },
         "responses": {
-          "initial": ["Good. I'll wait.", "Finally."],
-          "probing": ["That's what I wanted to hear."],
-          "escalated": ["About time!"],
-          "resolved": ["I was just testing. Goodbye."]
+          "initial": [
+            "Good. I'll wait.",
+            "Finally."
+          ],
+          "probing": [
+            "That's what I wanted to hear."
+          ],
+          "escalated": [
+            "About time!"
+          ],
+          "resolved": [
+            "I was just testing. Goodbye."
+          ]
         }
       }
     },
@@ -2598,11 +3183,16 @@
       }
     },
     "id": "scenario_199",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard"
   },
   {
     "name": "The Wrong Address for a Delivery",
-    "states": ["initial", "probing", "terminated"],
+    "states": [
+      "initial",
+      "probing",
+      "terminated"
+    ],
     "initial_variations": [
       "Hi, I'm trying to deliver a package to {address_location} but the house number doesn't exist. Can you help me find it?",
       "I'm a courier and I have a delivery for {address_location}. The GPS says I'm at the right place but there's no house here.",
@@ -2610,11 +3200,39 @@
       "I'm from {company_name} and I need to verify the address {address_location} for a delivery. The house seems empty."
     ],
     "slots": {
-      "address_location": ["123 Maple Lane", "456 Oak Avenue", "789 Pine Road"],
-      "caller_name": ["John", "Mike", "Sarah"],
-      "company_name": ["FedEx", "UPS", "Amazon"],
-      "ambient_audio": ["car engine", "dogs barking", "silence"],
-      "specific_details": ["red car in driveway", "broken fence", "no lights on"]
+      "address_location": [
+        "123 Maple Lane",
+        "456 Oak Avenue",
+        "789 Pine Road"
+      ],
+      "caller_name": [
+        "John",
+        "Mike",
+        "Sarah"
+      ],
+      "company_name": [
+        "FedEx",
+        "UPS",
+        "Amazon"
+      ],
+      "ambient_audio": [
+        "car engine",
+        "dogs barking",
+        "silence"
+      ],
+      "specific_details": [
+        "red car in driveway",
+        "broken fence",
+        "no lights on"
+      ],
+      "victim_relation": [
+        "husband",
+        "wife",
+        "child",
+        "friend",
+        "neighbor",
+        "passerby"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2652,7 +3270,9 @@
             "It's from {company_name}. Do you know if anyone at {address_location} ordered something?",
             "The sender is {company_name}. They said it's valuable."
           ],
-          "terminated": ["Never mind, I'll return it."]
+          "terminated": [
+            "Never mind, I'll return it."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2670,7 +3290,9 @@
             "I've been a driver for 5 years.",
             "My badge number is 12345, if you need it."
           ],
-          "terminated": ["I'm just trying to do my job."]
+          "terminated": [
+            "I'm just trying to do my job."
+          ]
         }
       },
       "ASK_WHY_ANXIOUS": {
@@ -2686,16 +3308,24 @@
             "I'm just making sure I don't miss a delivery.",
             "My boss gets mad if I don't deliver all packages."
           ],
-          "terminated": ["No reason to be anxious."]
+          "terminated": [
+            "No reason to be anxious."
+          ]
         }
       },
       "ASK_ANYONE_HURT": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["No, nothing like that."],
-          "probing": ["No, just lost."],
-          "terminated": ["No health issue."]
+          "initial": [
+            "No, nothing like that."
+          ],
+          "probing": [
+            "No, just lost."
+          ],
+          "terminated": [
+            "No health issue."
+          ]
         }
       }
     },
@@ -2727,11 +3357,17 @@
       }
     },
     "id": "scenario_200",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard",
+    "title": "Incident scenario_200"
   },
   {
     "name": "The Lost Pet Survey",
-    "states": ["initial", "suspicious", "reported"],
+    "states": [
+      "initial",
+      "suspicious",
+      "reported"
+    ],
     "initial_variations": [
       "Hello, I'm conducting a survey about lost pets in your area. Do you have a moment for {address_location}?",
       "Hi, I'm with the Pet Finders Network. We're collecting data on lost pets near {address_location}. Can you answer a few questions?",
@@ -2744,9 +3380,21 @@
         "the corner of 5th and Main",
         "the Meadowbrook Apartments"
       ],
-      "caller_name": ["Emma", "James", "Laura"],
-      "organization": ["Pet Finders", "Animal Rescue League", "Lost Pets Hotline"],
-      "ambient_audio": ["traffic noise", "children playing", "door creaking"],
+      "caller_name": [
+        "Emma",
+        "James",
+        "Laura"
+      ],
+      "organization": [
+        "Pet Finders",
+        "Animal Rescue League",
+        "Lost Pets Hotline"
+      ],
+      "ambient_audio": [
+        "traffic noise",
+        "children playing",
+        "door creaking"
+      ],
       "specific_details": [
         "a white van parked nearby",
         "a clipboard in hand",
@@ -2770,7 +3418,10 @@
             "Why do you need my location again?",
             "I'm at {address_location}, but this is getting weird."
           ],
-          "reported": ["I'm still at {address_location}.", "You don't need my location now."]
+          "reported": [
+            "I'm still at {address_location}.",
+            "You don't need my location now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2787,7 +3438,10 @@
             "I'm just gathering data on pet ownership.",
             "Nothing suspicious, just a routine survey."
           ],
-          "reported": ["I've already answered your questions.", "I don't have more details."]
+          "reported": [
+            "I've already answered your questions.",
+            "I don't have more details."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2799,29 +3453,46 @@
             "I'm {caller_name}, a volunteer.",
             "You can call me {caller_name}."
           ],
-          "suspicious": ["I've given you my name already.", "Why do you need my info?"],
-          "reported": ["I'm leaving now."]
+          "suspicious": [
+            "I've given you my name already.",
+            "Why do you need my info?"
+          ],
+          "reported": [
+            "I'm leaving now."
+          ]
         }
       },
       "ASK_WHY_ANXIOUS": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["I'm not anxious, just busy.", "It's a typical workday.", "No anxiety here."],
+          "initial": [
+            "I'm not anxious, just busy.",
+            "It's a typical workday.",
+            "No anxiety here."
+          ],
           "suspicious": [
             "You're the one who sounds anxious.",
             "I'm fine, just surprised by your questions."
           ],
-          "reported": ["Nothing to be anxious about."]
+          "reported": [
+            "Nothing to be anxious about."
+          ]
         }
       },
       "ASK_ANYONE_HURT": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["No, no injuries."],
-          "suspicious": ["Of course not."],
-          "reported": ["No."]
+          "initial": [
+            "No, no injuries."
+          ],
+          "suspicious": [
+            "Of course not."
+          ],
+          "reported": [
+            "No."
+          ]
         }
       }
     },
@@ -2853,11 +3524,17 @@
       }
     },
     "id": "scenario_201",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard",
+    "title": "Incident scenario_201"
   },
   {
     "name": "The Utility Company Inspection",
-    "states": ["initial", "suspicious", "escalated"],
+    "states": [
+      "initial",
+      "suspicious",
+      "escalated"
+    ],
     "initial_variations": [
       "Hi, I'm from {utility_company}. We need to inspect the gas lines at {address_location}. Can you let me in?",
       "I'm a technician checking for a gas leak reported near {address_location}. I need to enter the property.",
@@ -2865,11 +3542,31 @@
       "This is {caller_name} from {utility_company}. We have an emergency inspection at {address_location} due to a reported leak."
     ],
     "slots": {
-      "address_location": ["42 Park Avenue", "1500 Broadway", "789 Hilltop Drive"],
-      "caller_name": ["Dave", "Anna", "Steve"],
-      "utility_company": ["National Grid", "PG&E", "Con Edison"],
-      "ambient_audio": ["truck engine idling", "radio chatter", "footsteps on gravel"],
-      "specific_details": ["orange safety vest", "clipboard with logo", "hard hat"]
+      "address_location": [
+        "42 Park Avenue",
+        "1500 Broadway",
+        "789 Hilltop Drive"
+      ],
+      "caller_name": [
+        "Dave",
+        "Anna",
+        "Steve"
+      ],
+      "utility_company": [
+        "National Grid",
+        "PG&E",
+        "Con Edison"
+      ],
+      "ambient_audio": [
+        "truck engine idling",
+        "radio chatter",
+        "footsteps on gravel"
+      ],
+      "specific_details": [
+        "orange safety vest",
+        "clipboard with logo",
+        "hard hat"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2923,8 +3620,14 @@
             "I'm {caller_name}, employee ID 45678.",
             "Call me {caller_name}."
           ],
-          "suspicious": ["I already gave you my name.", "What does my name matter?"],
-          "escalated": ["You can verify with my company.", "I'm done talking."]
+          "suspicious": [
+            "I already gave you my name.",
+            "What does my name matter?"
+          ],
+          "escalated": [
+            "You can verify with my company.",
+            "I'm done talking."
+          ]
         }
       },
       "ASK_WHY_ANXIOUS": {
@@ -2936,17 +3639,28 @@
             "No anxiety, just a busy schedule.",
             "I'm fine."
           ],
-          "suspicious": ["You're the one who sounds nervous.", "I'm starting to get annoyed."],
-          "escalated": ["I'm leaving now. This is a waste of time."]
+          "suspicious": [
+            "You're the one who sounds nervous.",
+            "I'm starting to get annoyed."
+          ],
+          "escalated": [
+            "I'm leaving now. This is a waste of time."
+          ]
         }
       },
       "ASK_ANYONE_HURT": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["No one is hurt."],
-          "suspicious": ["No, it's a routine inspection."],
-          "escalated": ["No injuries."]
+          "initial": [
+            "No one is hurt."
+          ],
+          "suspicious": [
+            "No, it's a routine inspection."
+          ],
+          "escalated": [
+            "No injuries."
+          ]
         }
       }
     },
@@ -2978,6 +3692,8 @@
       }
     },
     "id": "scenario_202",
-    "archetype": "Suspicious / Probing Call"
+    "archetype": "Suspicious / Probing Call",
+    "difficulty": "Hard",
+    "title": "Incident scenario_202"
   }
 ]

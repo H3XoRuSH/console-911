@@ -25,7 +25,12 @@
         "HomeShield Plus",
         "AlertLink Systems"
       ],
-      "sensor_type": ["smoke detector", "heat sensor", "carbon monoxide alarm", "flood detector"],
+      "sensor_type": [
+        "smoke detector",
+        "heat sensor",
+        "carbon monoxide alarm",
+        "flood detector"
+      ],
       "address_location": [
         "123 Maple Street, Apartment 4B",
         "456 Oak Avenue, Redwood City",
@@ -83,7 +88,10 @@
             "Smoke is getting thick! I can see flames!",
             "I think it started from the furnace."
           ],
-          "trapped": ["The heat is unbearable! Smoke everywhere!", "I can't breathe! Help me!"],
+          "trapped": [
+            "The heat is unbearable! Smoke everywhere!",
+            "I can't breathe! Help me!"
+          ],
           "secured": [
             "Fire is contained. No injuries reported.",
             "FD has ventilated the garage. All clear."
@@ -102,7 +110,10 @@
             "I'm the homeowner, John. I'm trying to get out!",
             "This is Mary, I live here!"
           ],
-          "trapped": ["Tom here, I'm stuck in the garage!", "Help, it's David!"],
+          "trapped": [
+            "Tom here, I'm stuck in the garage!",
+            "Help, it's David!"
+          ],
           "secured": [
             "This is Captain Smith from the fire department.",
             "Homeowner is safe with us."
@@ -130,7 +141,9 @@
             "Stay calm. Help is coming. Try to seal the door with a wet cloth.",
             "I know it's scary. Firefighters are minutes away."
           ],
-          "secured": ["All is well now. You are safe."]
+          "secured": [
+            "All is well now. You are safe."
+          ]
         }
       },
       "REASSURE": {
@@ -149,7 +162,9 @@
             "We will get you out. The fire department is almost there.",
             "Don't give up. Rescue is on the way."
           ],
-          "secured": ["You made it. Everything is okay now."]
+          "secured": [
+            "You made it. Everything is okay now."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -172,7 +187,9 @@
             "Seal the door with towels or clothing. Call out for help.",
             "Break a window if necessary to get fresh air."
           ],
-          "secured": ["Follow the firefighters' commands."]
+          "secured": [
+            "Follow the firefighters' commands."
+          ]
         }
       },
       "STAY_ON_LINE": {
@@ -188,8 +205,14 @@
             "I'm still here. I'm almost out.",
             "I'll stay on the line until I'm safe."
           ],
-          "trapped": ["Please stay with me. Talk to me!", "I'm not going anywhere. Keep talking."],
-          "secured": ["You can hang up now if you wish.", "Call is no longer needed."]
+          "trapped": [
+            "Please stay with me. Talk to me!",
+            "I'm not going anywhere. Keep talking."
+          ],
+          "secured": [
+            "You can hang up now if you wish.",
+            "Call is no longer needed."
+          ]
         }
       }
     },
@@ -219,7 +242,8 @@
         "score_delta": -500,
         "message": "Call dismissed as false alarm. The fire grows, resulting in severe property damage and near fatality."
       }
-    }
+    },
+    "difficulty": "Medium"
   },
   {
     "id": "scenario_018",
@@ -284,7 +308,10 @@
             "Alert at {address_location}.",
             "Address: {address_location}."
           ],
-          "unresponsive": ["(silence) No response.", "(static) ...can't... {address_location}."],
+          "unresponsive": [
+            "(silence) No response.",
+            "(static) ...can't... {address_location}."
+          ],
           "conscious": [
             "I'm at {address_location}. I fell and I can't get up!",
             "{address_location}, please hurry!"
@@ -304,7 +331,10 @@
             "The system recorded {specific_details}.",
             "Pendant data: {specific_details}."
           ],
-          "unresponsive": ["(no verbal details available)", "I think... {specific_details}"],
+          "unresponsive": [
+            "(no verbal details available)",
+            "I think... {specific_details}"
+          ],
           "conscious": [
             "I fell from the stairs. I think I broke my hip.",
             "I slipped in the bathroom. Can't move."
@@ -323,8 +353,14 @@
             "This is an automated call from {medical_service}. The subscriber is {caller_name}.",
             "Caller is the monitoring system, subscriber {caller_name}."
           ],
-          "unresponsive": ["(silence)", "It's... {caller_name}... help..."],
-          "conscious": ["This is {caller_name}. I'm hurt.", "It's me, {caller_name}."],
+          "unresponsive": [
+            "(silence)",
+            "It's... {caller_name}... help..."
+          ],
+          "conscious": [
+            "This is {caller_name}. I'm hurt.",
+            "It's me, {caller_name}."
+          ],
           "medical_help_arrived": [
             "I'm {caller_name} with the EMTs now.",
             "Patient identified as {caller_name}."
@@ -366,12 +402,18 @@
             "This is a valid medical alert. We are responding.",
             "Your fall was detected. Emergency services are coming."
           ],
-          "unresponsive": ["Help is on the way. You are not alone.", "Someone will be there soon."],
+          "unresponsive": [
+            "Help is on the way. You are not alone.",
+            "Someone will be there soon."
+          ],
           "conscious": [
             "I'm with you. Stay with me.",
             "You've done the right thing by wearing the pendant."
           ],
-          "medical_help_arrived": ["You are safe now.", "Excellent, they are taking over."]
+          "medical_help_arrived": [
+            "You are safe now.",
+            "Excellent, they are taking over."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -410,12 +452,18 @@
             "We are monitoring the audio feed.",
             "Line will stay open for voice contact."
           ],
-          "unresponsive": ["(silent line)", "I'm still here, even if you can't talk."],
+          "unresponsive": [
+            "(silent line)",
+            "I'm still here, even if you can't talk."
+          ],
           "conscious": [
             "I'll stay on the line with you until the ambulance comes.",
             "Don't hang up. I'm right here."
           ],
-          "medical_help_arrived": ["You can hang up now if you wish.", "Call complete."]
+          "medical_help_arrived": [
+            "You can hang up now if you wish.",
+            "Call complete."
+          ]
         }
       }
     },
@@ -445,7 +493,8 @@
         "score_delta": -500,
         "message": "Call dismissed as false alarm. The fall victim remains on floor for a prolonged period, suffers hypothermia and dehydration, and is later found in critical condition."
       }
-    }
+    },
+    "difficulty": "Medium"
   },
   {
     "title": "Smart Refrigerator Overheat Alert",
@@ -501,7 +550,9 @@
             "Location still {address_location}. Diagnostics in progress.",
             "We are at {address_location}. Pending diagnostics to verify."
           ],
-          "confirmed_false": ["Location: {address_location}. Alert was false; no danger."]
+          "confirmed_false": [
+            "Location: {address_location}. Alert was false; no danger."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -530,8 +581,12 @@
             "This is an automated call from {caller_name}. No human caller available.",
             "System identity: {caller_name}. Caller is AI, no direct contact."
           ],
-          "checking": ["Still {caller_name}. No human intervention required at this stage."],
-          "confirmed_false": ["{caller_name} confirms false alarm. No further action needed."]
+          "checking": [
+            "Still {caller_name}. No human intervention required at this stage."
+          ],
+          "confirmed_false": [
+            "{caller_name} confirms false alarm. No further action needed."
+          ]
         }
       },
       "ASK_VICTIM_INFO": {
@@ -542,8 +597,12 @@
             "No victims reported. This is a property hazard alert.",
             "No human involvement. Sensor triggered by equipment anomaly."
           ],
-          "checking": ["Still no victims. Diagnostics ongoing."],
-          "confirmed_false": ["No victims. Alert was false."]
+          "checking": [
+            "Still no victims. Diagnostics ongoing."
+          ],
+          "confirmed_false": [
+            "No victims. Alert was false."
+          ]
         }
       }
     },
@@ -575,7 +634,8 @@
       }
     },
     "id": "scenario_167",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Vehicle Crash Telemetry: Silent Occupant",
@@ -628,9 +688,15 @@
             "The crash occurred at {address_location}. Sending coordinates now.",
             "Location: {address_location}. Vehicle not moving."
           ],
-          "attempting_contact": ["Still at {address_location}. Attempting occupant contact."],
-          "no_response": ["Location unchanged: {address_location}. No occupant response."],
-          "ambulance_en_route": ["Medical dispatched to {address_location}."]
+          "attempting_contact": [
+            "Still at {address_location}. Attempting occupant contact."
+          ],
+          "no_response": [
+            "Location unchanged: {address_location}. No occupant response."
+          ],
+          "ambulance_en_route": [
+            "Medical dispatched to {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -645,8 +711,12 @@
           "attempting_contact": [
             "Details as before. We are hailing the occupant through the vehicle speaker system."
           ],
-          "no_response": ["No change in details. Occupant not responding to hails."],
-          "ambulance_en_route": ["Crash details transmitted to medical team."]
+          "no_response": [
+            "No change in details. Occupant not responding to hails."
+          ],
+          "ambulance_en_route": [
+            "Crash details transmitted to medical team."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -658,9 +728,15 @@
             "Caller: {caller_name}, onboard telematics unit.",
             "System: {caller_name} - no human caller."
           ],
-          "attempting_contact": ["Still {caller_name}. We are the system."],
-          "no_response": ["{caller_name} continues automated alerts."],
-          "ambulance_en_route": ["{caller_name} handing off to dispatch."]
+          "attempting_contact": [
+            "Still {caller_name}. We are the system."
+          ],
+          "no_response": [
+            "{caller_name} continues automated alerts."
+          ],
+          "ambulance_en_route": [
+            "{caller_name} handing off to dispatch."
+          ]
         }
       },
       "ASK_VICTIM_INFO": {
@@ -671,9 +747,15 @@
             "Victim status unknown. Occupant is unresponsive.",
             "No victim information available yet."
           ],
-          "attempting_contact": ["Trying to establish communication with occupant."],
-          "no_response": ["Occupant presumed incapacitated. No reply to voice prompts."],
-          "ambulance_en_route": ["Medical en route to assist occupant."]
+          "attempting_contact": [
+            "Trying to establish communication with occupant."
+          ],
+          "no_response": [
+            "Occupant presumed incapacitated. No reply to voice prompts."
+          ],
+          "ambulance_en_route": [
+            "Medical en route to assist occupant."
+          ]
         }
       }
     },
@@ -705,7 +787,8 @@
       }
     },
     "id": "scenario_168",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Hard"
   },
   {
     "title": "Gas Detector Alarm: Conflicting Signals",
@@ -766,7 +849,9 @@
             "Occupant detected at {address_location}. We cannot reach them via intercom.",
             "Person inside {address_location}. System attempting contact."
           ],
-          "evacuating": ["Evacuation in progress at {address_location}."]
+          "evacuating": [
+            "Evacuation in progress at {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -786,7 +871,9 @@
             "Occupant inside but uncooperative. {specific_details} may indicate a staged scenario.",
             "Details: {specific_details}. Occupant refuses to leave."
           ],
-          "evacuating": ["Evacuation triggered. All details logged."]
+          "evacuating": [
+            "Evacuation triggered. All details logged."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -798,9 +885,15 @@
             "Caller: {caller_name}, no human operator. System is autonomous.",
             "I am {caller_name}."
           ],
-          "checking_ventilation": ["{caller_name} still active."],
-          "occupant_present": ["{caller_name} reporting occupant status."],
-          "evacuating": ["{caller_name} managing evacuation."]
+          "checking_ventilation": [
+            "{caller_name} still active."
+          ],
+          "occupant_present": [
+            "{caller_name} reporting occupant status."
+          ],
+          "evacuating": [
+            "{caller_name} managing evacuation."
+          ]
         }
       },
       "ASK_VICTIM_INFO": {
@@ -811,11 +904,15 @@
             "No victim confirmed yet. Occupant may or may not exist.",
             "Unknown if anyone is inside."
           ],
-          "checking_ventilation": ["Still no victim confirmation."],
+          "checking_ventilation": [
+            "Still no victim confirmation."
+          ],
           "occupant_present": [
             "One occupant detected. No medical emergency reported yet, but CO risk."
           ],
-          "evacuating": ["Occupant being urged to evacuate."]
+          "evacuating": [
+            "Occupant being urged to evacuate."
+          ]
         }
       }
     },
@@ -847,7 +944,8 @@
       }
     },
     "id": "scenario_169",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Medium"
   },
   {
     "title": "Wearable Fall Detection: Elderly Malfunction",
@@ -908,7 +1006,9 @@
             "Grandmother is now on at {address_location}. She is confused.",
             "At {address_location}. Wearer speaking incoherently."
           ],
-          "resolved": ["Confirmed at {address_location}. Issue resolved."]
+          "resolved": [
+            "Confirmed at {address_location}. Issue resolved."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -928,7 +1028,9 @@
             "Grandmother says she fell but got up. Her speech is slurred. Details: {specific_details}.",
             "She is disoriented. Heart rate details as before."
           ],
-          "resolved": ["All details concluded. No emergency."]
+          "resolved": [
+            "All details concluded. No emergency."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -940,9 +1042,15 @@
             "Caller: {caller_name}.",
             "System: {caller_name}."
           ],
-          "family_intervention": ["Still {caller_name}. System overridden by family member."],
-          "caller_confusion": ["{caller_name} still active. Wearer now speaking."],
-          "resolved": ["{caller_name} alert cancelled."]
+          "family_intervention": [
+            "Still {caller_name}. System overridden by family member."
+          ],
+          "caller_confusion": [
+            "{caller_name} still active. Wearer now speaking."
+          ],
+          "resolved": [
+            "{caller_name} alert cancelled."
+          ]
         }
       },
       "ASK_VICTIM_INFO": {
@@ -953,9 +1061,15 @@
             "Victim is the wearer: elderly female, 80 years old.",
             "Victim: unknown physical condition. "
           ],
-          "family_intervention": ["Victim is grandmother, reportedly fine."],
-          "caller_confusion": ["Victim on line, unable to confirm status."],
-          "resolved": ["Victim is safe."]
+          "family_intervention": [
+            "Victim is grandmother, reportedly fine."
+          ],
+          "caller_confusion": [
+            "Victim on line, unable to confirm status."
+          ],
+          "resolved": [
+            "Victim is safe."
+          ]
         }
       }
     },
@@ -987,7 +1101,8 @@
       }
     },
     "id": "scenario_170",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Medium"
   },
   {
     "title": "Smart Smoke Detector: Cooking Spark",
@@ -1048,7 +1163,9 @@
             "System continues to report fire at {address_location} despite staff claims.",
             "Location unchanged: {address_location}. Automated alerts persist."
           ],
-          "false_alarm": ["Confirmed false alarm at {address_location}."]
+          "false_alarm": [
+            "Confirmed false alarm at {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1069,7 +1186,9 @@
             "System disregarding staff input. Still showing {specific_details}.",
             "Details unchanged: {specific_details}. System will not cancel."
           ],
-          "false_alarm": ["Sensor recalibrated; no fire. Details now normal."]
+          "false_alarm": [
+            "Sensor recalibrated; no fire. Details now normal."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -1081,9 +1200,15 @@
             "This is {caller_name}.",
             "System: {caller_name}."
           ],
-          "staff_intervention": ["{caller_name} still active despite staff intervention."],
-          "system_override": ["{caller_name} overriding manual confirmation."],
-          "false_alarm": ["{caller_name} resolves alert."]
+          "staff_intervention": [
+            "{caller_name} still active despite staff intervention."
+          ],
+          "system_override": [
+            "{caller_name} overriding manual confirmation."
+          ],
+          "false_alarm": [
+            "{caller_name} resolves alert."
+          ]
         }
       },
       "ASK_VICTIM_INFO": {
@@ -1094,9 +1219,16 @@
             "No victims reported. All occupants evacuated? Unclear.",
             "No known victims yet."
           ],
-          "staff_intervention": ["Staff says no injuries.", "No victims according to staff."],
-          "system_override": ["System cannot confirm victims. Staff says none."],
-          "false_alarm": ["No victims."]
+          "staff_intervention": [
+            "Staff says no injuries.",
+            "No victims according to staff."
+          ],
+          "system_override": [
+            "System cannot confirm victims. Staff says none."
+          ],
+          "false_alarm": [
+            "No victims."
+          ]
         }
       }
     },
@@ -1128,7 +1260,8 @@
       }
     },
     "id": "scenario_171",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Carbon Monoxide Detector Alert",
@@ -1168,7 +1301,10 @@
             "Location is {address_location}.",
             "Address confirmed: {address_location}."
           ],
-          "checking_background": ["Still at {address_location}. No change.", "Same location."]
+          "checking_background": [
+            "Still at {address_location}. No change.",
+            "Same location."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1242,7 +1378,8 @@
       }
     },
     "id": "scenario_172",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Medium"
   },
   {
     "title": "Smart Security Camera Breach",
@@ -1282,7 +1419,10 @@
             "Location: {address_location}.",
             "Break-in at {address_location}."
           ],
-          "watching_feed": ["Still at {address_location}. Intruder moving.", "Same location."]
+          "watching_feed": [
+            "Still at {address_location}. Intruder moving.",
+            "Same location."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1355,7 +1495,8 @@
       }
     },
     "id": "scenario_173",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Medium"
   },
   {
     "title": "Wearable Cardiac Arrest Alert",
@@ -1471,7 +1612,8 @@
       }
     },
     "id": "scenario_174",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Hard"
   },
   {
     "title": "Smart Flood Detector in Alzheimer's Facility",
@@ -1511,7 +1653,10 @@
             "Flood at {address_location}.",
             "Memory care unit at {address_location}."
           ],
-          "checking_feed": ["Still at {address_location}. Water spreading.", "Same location."]
+          "checking_feed": [
+            "Still at {address_location}. Water spreading.",
+            "Same location."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1583,7 +1728,8 @@
       }
     },
     "id": "scenario_175",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Smart Baby Monitor - Breathing Cessation Alert",
@@ -1698,7 +1844,8 @@
       }
     },
     "id": "scenario_176",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Hard"
   },
   {
     "title": "Smartwatch Fall Detection with Unresponsive Wearer",
@@ -1729,7 +1876,13 @@
         "321 Elm Lane, House",
         "654 Birch Road"
       ],
-      "ambient_audio": ["faint moaning", "silence", "heavy breathing", "TV static", "dog barking"],
+      "ambient_audio": [
+        "faint moaning",
+        "silence",
+        "heavy breathing",
+        "TV static",
+        "dog barking"
+      ],
       "specific_details": [
         "hip injury history",
         "Parkinson's disease",
@@ -1737,7 +1890,13 @@
         "lives alone",
         "no known conditions"
       ],
-      "caller_age": [78, 85, 70, 92, 66]
+      "caller_age": [
+        78,
+        85,
+        70,
+        92,
+        66
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1757,7 +1916,9 @@
             "Still at {address_location}. Attempting to contact emergency contacts.",
             "We have the location as {address_location}. Stand by for verification."
           ],
-          "evacuated": ["Wearer was moved to {address_location}. Now at neighbor's house."]
+          "evacuated": [
+            "Wearer was moved to {address_location}. Now at neighbor's house."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1844,7 +2005,8 @@
       }
     },
     "id": "scenario_177",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Medium"
   },
   {
     "title": "Vehicle Crash Telemetry with Silent Cabin",
@@ -1861,7 +2023,13 @@
       "Alert from {caller_name}'s car: High impact collision at {address_location}. Background: {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["John Smith", "Maria Garcia", "David Chen", "Sarah Williams", "Robert Brown"],
+      "caller_name": [
+        "John Smith",
+        "Maria Garcia",
+        "David Chen",
+        "Sarah Williams",
+        "Robert Brown"
+      ],
       "address_location": [
         "I-95 North mile marker 23",
         "Intersection of 5th and Main",
@@ -1883,7 +2051,12 @@
         "fuel leak detected",
         "rollover suspected"
       ],
-      "crash_time": ["just now", "2 minutes ago", "5 minutes ago", "unknown"]
+      "crash_time": [
+        "just now",
+        "2 minutes ago",
+        "5 minutes ago",
+        "unknown"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1902,7 +2075,9 @@
             "Location unchanged: {address_location}. Calling registered owner.",
             "Stationary at {address_location}. Emergency lights spotted by passerby."
           ],
-          "extracted": ["Vehicle was at {address_location}. Occupants now at scene."]
+          "extracted": [
+            "Vehicle was at {address_location}. Occupants now at scene."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1988,7 +2163,8 @@
       }
     },
     "id": "scenario_178",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Hard"
   },
   {
     "title": "Smart Smoke Detector with Conflicting Signals",
@@ -2005,7 +2181,11 @@
       "Smoke detector alarm at {address_location}. {caller_name} is unresponsive via voice. {ambient_audio} in background."
     ],
     "slots": {
-      "caller_name": ["Homeowner", "Tenant", "Security company"],
+      "caller_name": [
+        "Homeowner",
+        "Tenant",
+        "Security company"
+      ],
       "address_location": [
         "789 Maple Drive",
         "456 Pine Avenue",
@@ -2013,7 +2193,13 @@
         "321 Elm Lane",
         "654 Birch Road"
       ],
-      "ambient_audio": ["silence", "sizzling sound", "beeping", "children crying", "TV noise"],
+      "ambient_audio": [
+        "silence",
+        "sizzling sound",
+        "beeping",
+        "children crying",
+        "TV noise"
+      ],
       "specific_details": [
         "recent cooking",
         "old smoke detector",
@@ -2021,7 +2207,11 @@
         "gas stove left on",
         "smoke from adjacent unit"
       ],
-      "sensor_type": ["ionization", "photoelectric", "dual sensor"]
+      "sensor_type": [
+        "ionization",
+        "photoelectric",
+        "dual sensor"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2040,7 +2230,9 @@
             "Residents evacuated to {address_location} front yard.",
             "Safe area: outside {address_location}."
           ],
-          "false_alarm": ["Location: {address_location}. Determined to be sensor error."]
+          "false_alarm": [
+            "Location: {address_location}. Determined to be sensor error."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2089,7 +2281,9 @@
             "All residents are outside. No injuries reported.",
             "Evacuation successful. Head count: 2 adults, 1 child."
           ],
-          "false_alarm": ["No evacuation needed. Residents can remain."]
+          "false_alarm": [
+            "No evacuation needed. Residents can remain."
+          ]
         }
       }
     },
@@ -2121,7 +2315,8 @@
       }
     },
     "id": "scenario_179",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Wearable Cardiac Arrest Alert",
@@ -2166,7 +2361,13 @@
         "on aspirin therapy",
         "previous heart attack"
       ],
-      "device_type": ["Apple Watch", "Fitbit", "Garmin", "Samsung Watch", "Whoop strap"]
+      "device_type": [
+        "Apple Watch",
+        "Fitbit",
+        "Garmin",
+        "Samsung Watch",
+        "Whoop strap"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2185,7 +2386,9 @@
             "Location unchanged. Attempting to contact {caller_name}'s emergency contact.",
             "Bystander located at {address_location}."
           ],
-          "resuscitated": ["Wearer at {address_location}. CPR in progress by bystander."]
+          "resuscitated": [
+            "Wearer at {address_location}. CPR in progress by bystander."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2268,7 +2471,8 @@
       }
     },
     "id": "scenario_180",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Hard"
   },
   {
     "title": "Automated Flood Sensor in Basement with Alzheimer's Patient",
@@ -2299,7 +2503,13 @@
         "321 Alzheimer Avenue",
         "654 Seniors Circle"
       ],
-      "ambient_audio": ["water rushing", "alarm beeping", "silence", "TV", "moaning"],
+      "ambient_audio": [
+        "water rushing",
+        "alarm beeping",
+        "silence",
+        "TV",
+        "moaning"
+      ],
       "specific_details": [
         "Alzheimer's stage 5",
         "lives alone",
@@ -2307,7 +2517,12 @@
         "hearing impaired",
         "uses walker"
       ],
-      "flood_depth": ["1 inch", "3 inches", "6 inches", "unknown"]
+      "flood_depth": [
+        "1 inch",
+        "3 inches",
+        "6 inches",
+        "unknown"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2326,7 +2541,9 @@
             "Patient evacuated to {address_location} front yard.",
             "Safe zone: neighbor's house at {address_location}."
           ],
-          "false_alarm": ["Location: {address_location}. No actual flood."]
+          "false_alarm": [
+            "Location: {address_location}. No actual flood."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2377,7 +2594,9 @@
             "Patient is alert but confused. Warm blankets provided.",
             "Patient refuses to leave. Caretaker on way."
           ],
-          "false_alarm": ["Patient was sleeping through alarm. No danger."]
+          "false_alarm": [
+            "Patient was sleeping through alarm. No danger."
+          ]
         }
       }
     },
@@ -2409,7 +2628,8 @@
       }
     },
     "id": "scenario_181",
-    "archetype": "Automated / Sensor Emergency"
+    "archetype": "Automated / Sensor Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Smart Home Fire Alarm with Automated Voice",
@@ -2428,8 +2648,20 @@
       "Automated fire detection at {address_location}. Sensor indicates {specific_details}."
     ],
     "slots": {
-      "caller_name": ["Alex", "Jordan", "Sam", "Taylor", "Morgan"],
-      "victim_relation": ["homeowner", "tenant", "resident", "family member", "neighbor"],
+      "caller_name": [
+        "Alex",
+        "Jordan",
+        "Sam",
+        "Taylor",
+        "Morgan"
+      ],
+      "victim_relation": [
+        "homeowner",
+        "tenant",
+        "resident",
+        "family member",
+        "neighbor"
+      ],
       "address_location": [
         "123 Maple Street",
         "456 Oak Avenue",
@@ -2560,7 +2792,7 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "Police dispatched as precaution for possible arson or break-in causing alarm."
       },
@@ -2570,22 +2802,23 @@
         "message": "Fire department dispatched. Fire confirmed and extinguished quickly."
       },
       "SEND_MEDICAL": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "Medical dispatched for smoke inhalation; minor injuries treated."
       },
       "ANIMAL_CONTROL": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "No animal involvement; no action needed."
       },
       "DISMISS": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "False alarm, dismissed correctly."
       }
     },
-    "id": "scenario_182"
+    "id": "scenario_182",
+    "difficulty": "Medium"
   },
   {
     "title": "Wearable Device Fall Detection with Unresponsive Elderly",
@@ -2604,8 +2837,20 @@
       "Smartwatch detected fall. No movement from {caller_name}. Last known location: {address_location}."
     ],
     "slots": {
-      "caller_name": ["Eleanor", "George", "Martha", "Harold", "Irene"],
-      "victim_relation": ["grandmother", "grandfather", "elderly neighbor", "parent", "patient"],
+      "caller_name": [
+        "Eleanor",
+        "George",
+        "Martha",
+        "Harold",
+        "Irene"
+      ],
+      "victim_relation": [
+        "grandmother",
+        "grandfather",
+        "elderly neighbor",
+        "parent",
+        "patient"
+      ],
       "address_location": [
         "55 Elderberry Lane",
         "88 Sunset Drive",
@@ -2613,7 +2858,13 @@
         "3 Oak Grove",
         "77 Pine View Apartments"
       ],
-      "ambient_audio": ["silence", "faint breathing", "background TV", "dog barking", "no audio"],
+      "ambient_audio": [
+        "silence",
+        "faint breathing",
+        "background TV",
+        "dog barking",
+        "no audio"
+      ],
       "specific_details": [
         "no movement for 2 minutes",
         "heart rate elevated",
@@ -2679,7 +2930,11 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Unresponsive.", "No reply from wearer.", "Wearer not answering."],
+          "initial": [
+            "Unresponsive.",
+            "No reply from wearer.",
+            "Wearer not answering."
+          ],
           "attempting_contact": [
             "Still unresponsive.",
             "Attempting to call caregiver.",
@@ -2733,7 +2988,7 @@
         "message": "Police assisted with wellness check; found elderly person safe but confused."
       },
       "SEND_FIRE": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "Fire dispatched for lift assist; no medical needed."
       },
@@ -2743,17 +2998,18 @@
         "message": "Medical dispatched; person found with hip fracture, treated in time."
       },
       "ANIMAL_CONTROL": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "No animal involved; no action."
       },
       "DISMISS": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "Dismissed as false alarm; caregiver confirmed it was a glitch."
       }
     },
-    "id": "scenario_183"
+    "id": "scenario_183",
+    "difficulty": "Medium"
   },
   {
     "title": "Vehicle Crash Telemetry with Silent Cabin",
@@ -2772,8 +3028,20 @@
       "Crash sensor triggered at {address_location}. Occupants unresponsive."
     ],
     "slots": {
-      "caller_name": ["James", "Emily", "Michael", "Sarah", "David"],
-      "victim_relation": ["driver", "passenger", "family member", "friend", "co-worker"],
+      "caller_name": [
+        "James",
+        "Emily",
+        "Michael",
+        "Sarah",
+        "David"
+      ],
+      "victim_relation": [
+        "driver",
+        "passenger",
+        "family member",
+        "friend",
+        "co-worker"
+      ],
       "address_location": [
         "Highway 101 near Mile Marker 15",
         "Rural Route 3, intersection with County Road 7",
@@ -2781,7 +3049,13 @@
         "Tunnel on Interstate 5, southbound",
         "Remote logging road, GPS coordinates 45.678, -123.456"
       ],
-      "ambient_audio": ["silence", "faint traffic noise", "hissing sound", "moaning", "crackling"],
+      "ambient_audio": [
+        "silence",
+        "faint traffic noise",
+        "hissing sound",
+        "moaning",
+        "crackling"
+      ],
       "specific_details": [
         "impact speed 70 mph",
         "airbags deployed",
@@ -2847,8 +3121,16 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Occupants unresponsive.", "No reply from vehicle.", "Silent cabin."],
-          "attempted_contact": ["Still unresponsive.", "Trying phone numbers.", "No answer."],
+          "initial": [
+            "Occupants unresponsive.",
+            "No reply from vehicle.",
+            "Silent cabin."
+          ],
+          "attempted_contact": [
+            "Still unresponsive.",
+            "Trying phone numbers.",
+            "No answer."
+          ],
           "rescue_dispatched": [
             "Rescue will assess.",
             "Crews expecting unresponsive patients.",
@@ -2877,7 +3159,11 @@
             "Sending alerts to family.",
             "Trying another number."
           ],
-          "rescue_dispatched": ["Rescue dispatched.", "Services alerted.", "Help is on the way."],
+          "rescue_dispatched": [
+            "Rescue dispatched.",
+            "Services alerted.",
+            "Help is on the way."
+          ],
           "extrication": [
             "Rescue team on site.",
             "Extrication started.",
@@ -2903,16 +3189,17 @@
         "message": "Medical treated injuries; all occupants survived."
       },
       "ANIMAL_CONTROL": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "No animals involved; no action needed."
       },
       "DISMISS": {
-        "status": "SUCCESS",
+        "status": "MINOR_ERROR",
         "score_delta": 0,
         "message": "Dismissed as false alarm; telemetry glitch."
       }
     },
-    "id": "scenario_184"
+    "id": "scenario_184",
+    "difficulty": "Hard"
   }
 ]

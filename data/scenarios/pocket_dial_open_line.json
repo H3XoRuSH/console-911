@@ -45,7 +45,13 @@
         "Diabetic emergency",
         "Seizure aftermath"
       ],
-      "phone_type": ["iPhone", "Android", "Landline", "Cell phone - no caller ID", "Smartwatch"]
+      "phone_type": [
+        "iPhone",
+        "Android",
+        "Landline",
+        "Cell phone - no caller ID",
+        "Smartwatch"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -69,7 +75,9 @@
             "Dispatch has your approximate location. Paramedics are on the way.",
             "I have your address from the ping. Help is coming."
           ],
-          "resolved": ["Location has been identified. Units are en route."]
+          "resolved": [
+            "Location has been identified. Units are en route."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -93,7 +101,9 @@
             "Paramedics have been briefed on the breathing pattern.",
             "Details are limited. Medical team is prepared for cardiac arrest."
           ],
-          "resolved": ["Emergency medical services have arrived at the scene."]
+          "resolved": [
+            "Emergency medical services have arrived at the scene."
+          ]
         }
       },
       "ASK_CALLER_STATUS": {
@@ -119,7 +129,9 @@
             "Medics are breaking into the residence. Stand by.",
             "Police are on scene to assist."
           ],
-          "resolved": ["Caller has been found and is receiving care."]
+          "resolved": [
+            "Caller has been found and is receiving care."
+          ]
         }
       },
       "OFFER_INSTRUCTIONS": {
@@ -143,7 +155,9 @@
             "Help is there. Let the professionals take over.",
             "You've done well. The team is arriving."
           ],
-          "resolved": ["Instructions no longer needed. Emergency services are handling."]
+          "resolved": [
+            "Instructions no longer needed. Emergency services are handling."
+          ]
         }
       }
     },
@@ -174,7 +188,8 @@
         "message": "Call dismissed as pocket dial. Caller found dead hours later."
       }
     },
-    "id": "scenario_015"
+    "id": "scenario_015",
+    "difficulty": "Hard"
   },
   {
     "title": "Domestic Dispute - Open Line",
@@ -194,7 +209,13 @@
       "You think you can just walk out? *door slam*"
     ],
     "slots": {
-      "caller_name": ["Unknown female", "Maria", "Sarah", "Unknown male", "Alex"],
+      "caller_name": [
+        "Unknown female",
+        "Maria",
+        "Sarah",
+        "Unknown male",
+        "Alex"
+      ],
       "address_location": [
         "45 Park Avenue, Suite 2B",
         "123 Elm Street",
@@ -216,7 +237,13 @@
         "Call the police",
         "I'm sorry, I didn't mean it"
       ],
-      "aggressor_name": ["John", "Mike", "Unknown male", "David", "Tom"]
+      "aggressor_name": [
+        "John",
+        "Mike",
+        "Unknown male",
+        "David",
+        "Tom"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -240,7 +267,9 @@
             "Tell me your address! I'm sending help right now.",
             "If you can, whisper the address. We'll be there."
           ],
-          "secured": ["Location has been confirmed. Police are en route or on scene."]
+          "secured": [
+            "Location has been confirmed. Police are en route or on scene."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -264,7 +293,9 @@
             "I hear a struggle. I'm sending police immediately.",
             "If you can, describe the weapon or situation."
           ],
-          "secured": ["Police have arrived. The situation is being contained."]
+          "secured": [
+            "Police have arrived. The situation is being contained."
+          ]
         }
       },
       "ASK_CALLER_STATUS": {
@@ -291,7 +322,9 @@
             "Caller, if you can hear me, try to get to a safe place.",
             "Police will be there in minutes. Hold on."
           ],
-          "secured": ["You are safe now. Police have the situation under control."]
+          "secured": [
+            "You are safe now. Police have the situation under control."
+          ]
         }
       },
       "OFFER_HELP": {
@@ -315,7 +348,9 @@
             "I hear violence. Police are breaking into the home.",
             "If you're being attacked, scream as loud as you can."
           ],
-          "secured": ["Help has arrived. You are not alone anymore."]
+          "secured": [
+            "Help has arrived. You are not alone anymore."
+          ]
         }
       }
     },
@@ -346,7 +381,8 @@
         "message": "Call dismissed as a hang-up or prank. Victim was later found deceased from domestic violence."
       }
     },
-    "id": "scenario_016"
+    "id": "scenario_016",
+    "difficulty": "Hard"
   },
   {
     "title": "The Shifting Cargo",
@@ -364,11 +400,35 @@
       "You've reached 911. Please state your emergency. (truck engine, clanking, then a child's cry)"
     ],
     "slots": {
-      "caller_name": ["unknown", "John Doe", "Maria", "truck driver"],
-      "truck_type": ["delivery truck", "moving van", "semi-trailer", "box truck"],
-      "location_hint": ["highway", "industrial area", "residential street", "parking lot"],
-      "background_sound": ["engine noise", "muffled screams", "banging on metal", "radio chatter"],
-      "urgency_level": ["low", "medium", "high"]
+      "caller_name": [
+        "unknown",
+        "John Doe",
+        "Maria",
+        "truck driver"
+      ],
+      "truck_type": [
+        "delivery truck",
+        "moving van",
+        "semi-trailer",
+        "box truck"
+      ],
+      "location_hint": [
+        "highway",
+        "industrial area",
+        "residential street",
+        "parking lot"
+      ],
+      "background_sound": [
+        "engine noise",
+        "muffled screams",
+        "banging on metal",
+        "radio chatter"
+      ],
+      "urgency_level": [
+        "low",
+        "medium",
+        "high"
+      ]
     },
     "intents": {
       "ASK_DETAILS": {
@@ -457,17 +517,17 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 250,
         "message": "Police arrived and intercepted the truck. Rescued 3 victims of human trafficking. Suspects arrested."
       },
       "SEND_FIRE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -50,
         "message": "Fire department arrived but no fire. They assisted police in breaking into the cargo area."
       },
       "SEND_MEDICAL": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Medical team treated victims for dehydration and minor injuries."
       },
@@ -482,7 +542,8 @@
         "message": "Dispatched as pocket dial. Victims remained trapped for hours until another call came in."
       }
     },
-    "id": "scenario_149"
+    "id": "scenario_149",
+    "difficulty": "Hard"
   },
   {
     "title": "The Argument in the Garage",
@@ -500,11 +561,36 @@
       "You've reached emergency. (loud male voice: 'I said get back here!')"
     ],
     "slots": {
-      "caller_name": ["accidental caller", "homeowner", "neighbor's phone", "teenager"],
-      "address_location": ["123 Oak St", "456 Maple Ave", "789 Pine Ln", "unknown"],
-      "ambient_audio": ["arguing voices", "crash of glass", "thud of body", "door slam"],
-      "number_of_people": ["two", "three", "several", "unknown"],
-      "weapon_hint": ["none heard", "possible gunshot", "something heavy", "chain"]
+      "caller_name": [
+        "accidental caller",
+        "homeowner",
+        "neighbor's phone",
+        "teenager"
+      ],
+      "address_location": [
+        "123 Oak St",
+        "456 Maple Ave",
+        "789 Pine Ln",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "arguing voices",
+        "crash of glass",
+        "thud of body",
+        "door slam"
+      ],
+      "number_of_people": [
+        "two",
+        "three",
+        "several",
+        "unknown"
+      ],
+      "weapon_hint": [
+        "none heard",
+        "possible gunshot",
+        "something heavy",
+        "chain"
+      ]
     },
     "intents": {
       "ASK_DETAILS": {
@@ -591,17 +677,17 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 200,
         "message": "Police arrived to find a domestic assault in progress. Suspect arrested, victim taken to shelter."
       },
       "SEND_FIRE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
         "message": "Firefighters arrived, no fire. They called police and provided first aid."
       },
       "SEND_MEDICAL": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Ambulance treated the victim for bruises and shock. Police took report."
       },
@@ -616,7 +702,8 @@
         "message": "Dismissed as pocket dial. Victim suffered further injuries before neighbor called."
       }
     },
-    "id": "scenario_150"
+    "id": "scenario_150",
+    "difficulty": "Hard"
   },
   {
     "title": "The Playground Accident",
@@ -634,16 +721,36 @@
       "You've reached 911. (parent humming, child saying 'watch me!')"
     ],
     "slots": {
-      "caller_name": ["parent pocket", "Sarah's dad", "uncle Tom", "babysitter"],
-      "child_name": ["Ethan", "Lily", "Max", "unknown"],
+      "caller_name": [
+        "parent pocket",
+        "Sarah's dad",
+        "uncle Tom",
+        "babysitter"
+      ],
+      "child_name": [
+        "Ethan",
+        "Lily",
+        "Max",
+        "unknown"
+      ],
       "playground_location": [
         "Central Park playground",
         "school playground",
         "neighborhood park",
         "backyard"
       ],
-      "injury_type": ["fall from monkey bars", "hit by swing", "twisted ankle", "head injury"],
-      "ambient_audio": ["playground noises", "crying child", "sirens", "wind"]
+      "injury_type": [
+        "fall from monkey bars",
+        "hit by swing",
+        "twisted ankle",
+        "head injury"
+      ],
+      "ambient_audio": [
+        "playground noises",
+        "crying child",
+        "sirens",
+        "wind"
+      ]
     },
     "intents": {
       "ASK_DETAILS": {
@@ -730,17 +837,17 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -50,
         "message": "Police arrived but it was a medical emergency. They stabilized child until ambulance arrived."
       },
       "SEND_FIRE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
         "message": "Firefighters responded, no fire. Helped comfort child while waiting for medics."
       },
       "SEND_MEDICAL": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 200,
         "message": "Ambulance arrived quickly. Child had a broken arm and concussion; treated successfully."
       },
@@ -755,7 +862,8 @@
         "message": "Dismissed as pocket dial. Child's injury worsened before another parent called 911."
       }
     },
-    "id": "scenario_151"
+    "id": "scenario_151",
+    "difficulty": "Medium"
   },
   {
     "title": "The Break-in Next Door",
@@ -773,11 +881,36 @@
       "This is 911. (a loud smash, then - 'What was that?')"
     ],
     "slots": {
-      "caller_name": ["neighbor phone", "accidental pocket dial", "homeowner", "visitor"],
-      "address_location": ["123 Elm St", "456 Oak Ave", "789 Pine Dr", "unknown"],
-      "ambient_audio": ["glass breaking", "footsteps", "dog barking", "low voices"],
-      "number_of_intruders": ["one", "two", "multiple", "unknown"],
-      "weapon_heard": ["none", "possible gun click", "something heavy", "knife sharpening"]
+      "caller_name": [
+        "neighbor phone",
+        "accidental pocket dial",
+        "homeowner",
+        "visitor"
+      ],
+      "address_location": [
+        "123 Elm St",
+        "456 Oak Ave",
+        "789 Pine Dr",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "glass breaking",
+        "footsteps",
+        "dog barking",
+        "low voices"
+      ],
+      "number_of_intruders": [
+        "one",
+        "two",
+        "multiple",
+        "unknown"
+      ],
+      "weapon_heard": [
+        "none",
+        "possible gun click",
+        "something heavy",
+        "knife sharpening"
+      ]
     },
     "intents": {
       "ASK_DETAILS": {
@@ -839,7 +972,11 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Just me, alone.", "My family is here, we're watching TV.", "My dog and I."],
+          "initial": [
+            "Just me, alone.",
+            "My family is here, we're watching TV.",
+            "My dog and I."
+          ],
           "intrusion": [
             "I think there's more than one intruder.",
             "At least two voices. One sounds angry.",
@@ -860,17 +997,17 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 300,
         "message": "Police arrived in time to catch the burglars exiting. Homeowner safe, suspects arrested."
       },
       "SEND_FIRE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -50,
         "message": "Firefighters arrived; no fire. They secured the scene until police came."
       },
       "SEND_MEDICAL": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
         "message": "Ambulance arrived; no injuries. Police took over."
       },
@@ -885,7 +1022,8 @@
         "message": "Dismissed as pocket dial. Homeowner was robbed at gunpoint; later called from a neighbor's phone."
       }
     },
-    "id": "scenario_152"
+    "id": "scenario_152",
+    "difficulty": "Hard"
   },
   {
     "title": "The Stolen Phone",
@@ -903,11 +1041,36 @@
       "You've reached 911. (muffled: 'I snagged this phone, we'll ditch it later.')"
     ],
     "slots": {
-      "caller_name": ["stolen phone", "unknown thief", "accomplice", "victim's phone"],
-      "crime_type": ["bank robbery", "jewelry heist", "car theft", "home invasion"],
-      "location_hint": ["downtown", "suburban mall", "warehouse district", "residential area"],
-      "ambient_audio": ["car engine", "talking", "crowd noise", "radio"],
-      "number_of_thieves": ["two", "three", "four", "unknown"]
+      "caller_name": [
+        "stolen phone",
+        "unknown thief",
+        "accomplice",
+        "victim's phone"
+      ],
+      "crime_type": [
+        "bank robbery",
+        "jewelry heist",
+        "car theft",
+        "home invasion"
+      ],
+      "location_hint": [
+        "downtown",
+        "suburban mall",
+        "warehouse district",
+        "residential area"
+      ],
+      "ambient_audio": [
+        "car engine",
+        "talking",
+        "crowd noise",
+        "radio"
+      ],
+      "number_of_thieves": [
+        "two",
+        "three",
+        "four",
+        "unknown"
+      ]
     },
     "intents": {
       "ASK_DETAILS": {
@@ -994,17 +1157,17 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "SUCCESS",
         "score_delta": 300,
         "message": "Police tracked the phone and intercepted the thieves. Robbery prevented, suspects arrested."
       },
       "SEND_FIRE": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
         "message": "Fire responded; no fire. They reported suspicious activity to police but delayed response."
       },
       "SEND_MEDICAL": {
-        "status": "CRITICAL_FAILURE",
+        "status": "MINOR_ERROR",
         "score_delta": -150,
         "message": "Ambulance arrived; no injuries. Police arrived late; thieves escaped."
       },
@@ -1019,7 +1182,8 @@
         "message": "Dismissed as pocket dial. Thieves successfully robbed the location and escaped."
       }
     },
-    "id": "scenario_153"
+    "id": "scenario_153",
+    "difficulty": "Medium"
   },
   {
     "id": "scenario_154",
@@ -1038,8 +1202,20 @@
       "Breathing heavily, then a male voice: 'Who are you calling?' and a struggle."
     ],
     "slots": {
-      "caller_name": ["Jane", "Maria", "Linda", "Susan", "Patricia"],
-      "victim_relation": ["husband", "boyfriend", "partner", "ex", "father"],
+      "caller_name": [
+        "Jane",
+        "Maria",
+        "Linda",
+        "Susan",
+        "Patricia"
+      ],
+      "victim_relation": [
+        "husband",
+        "boyfriend",
+        "partner",
+        "ex",
+        "father"
+      ],
       "address_location": [
         "23 Elm Street",
         "456 Oak Avenue",
@@ -1128,7 +1304,11 @@
           "hiding": "confronting"
         },
         "responses": {
-          "initial": ["I need to hide...", "He's coming!", "I can't stay here."],
+          "initial": [
+            "I need to hide...",
+            "He's coming!",
+            "I can't stay here."
+          ],
           "hiding": [
             "He's getting closer...",
             "I hear him in the hallway.",
@@ -1139,7 +1319,11 @@
             "Help! He's breaking the door!",
             "He's yelling at me now."
           ],
-          "secured": ["I'm safe now.", "The police are here.", "He's been taken away."]
+          "secured": [
+            "I'm safe now.",
+            "The police are here.",
+            "He's been taken away."
+          ]
         }
       }
     },
@@ -1170,7 +1354,8 @@
         "message": "Call dismissed as pocket dial. Victim suffered severe injuries."
       }
     },
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   },
   {
     "id": "scenario_155",
@@ -1189,8 +1374,20 @@
       "Coughing: 'There's smoke... please...'"
     ],
     "slots": {
-      "caller_name": ["Tom", "Mike", "Sarah", "Emily", "Chris"],
-      "victim_relation": ["driver", "passenger", "witness", "bystander", "victim"],
+      "caller_name": [
+        "Tom",
+        "Mike",
+        "Sarah",
+        "Emily",
+        "Chris"
+      ],
+      "victim_relation": [
+        "driver",
+        "passenger",
+        "witness",
+        "bystander",
+        "victim"
+      ],
       "address_location": [
         "I-95 near mile marker 23",
         "Highway 101 at exit 5",
@@ -1198,7 +1395,12 @@
         "Downtown intersection of Main and 2nd",
         "Bridge on County Road 7"
       ],
-      "ambient_audio": ["hissing steam", "broken glass", "sirens in distance", "traffic noise"],
+      "ambient_audio": [
+        "hissing steam",
+        "broken glass",
+        "sirens in distance",
+        "traffic noise"
+      ],
       "specific_details": [
         "a child crying in backseat",
         "gasoline smell",
@@ -1274,13 +1476,21 @@
           "trapped": "rescued"
         },
         "responses": {
-          "initial": ["I can't move...", "There's smoke coming in.", "I think I'm okay but stuck."],
+          "initial": [
+            "I can't move...",
+            "There's smoke coming in.",
+            "I think I'm okay but stuck."
+          ],
           "trapped": [
             "I'm still trapped, please hurry.",
             "The car is starting to catch fire!",
             "I can hear dripping gasoline."
           ],
-          "rescued": ["They're getting me out!", "I'm free! Thank you!", "Paramedics are here."],
+          "rescued": [
+            "They're getting me out!",
+            "I'm free! Thank you!",
+            "Paramedics are here."
+          ],
           "evacuated": [
             "I'm safe now, thanks to you.",
             "The fire is out.",
@@ -1316,7 +1526,8 @@
         "message": "Call dismissed as pocket dial. Victim died from injuries."
       }
     },
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   },
   {
     "id": "scenario_156",
@@ -1335,8 +1546,20 @@
       "Laughing: 'Peekaboo!' followed by a TV jingle."
     ],
     "slots": {
-      "caller_name": ["Lily", "Max", "Emma", "Ethan", "Sophia"],
-      "victim_relation": ["child", "son", "daughter", "grandchild", "niece"],
+      "caller_name": [
+        "Lily",
+        "Max",
+        "Emma",
+        "Ethan",
+        "Sophia"
+      ],
+      "victim_relation": [
+        "child",
+        "son",
+        "daughter",
+        "grandchild",
+        "niece"
+      ],
       "address_location": [
         "123 Maple Street",
         "456 Oak Drive",
@@ -1344,7 +1567,12 @@
         "101 Pine Avenue",
         "202 Birch Lane"
       ],
-      "ambient_audio": ["cartoon music", "toy sounds", "baby laugh", "TV volume"],
+      "ambient_audio": [
+        "cartoon music",
+        "toy sounds",
+        "baby laugh",
+        "TV volume"
+      ],
       "specific_details": [
         "a toy phone nearby",
         "the TV on Disney channel",
@@ -1400,7 +1628,11 @@
             "No details needed, {specific_details}.",
             "Everything is fine, {specific_details}."
           ],
-          "resolved": ["Case closed.", "No further information.", "All good."]
+          "resolved": [
+            "Case closed.",
+            "No further information.",
+            "All good."
+          ]
         }
       },
       "ASK_SAFETY": {
@@ -1409,14 +1641,25 @@
           "initial": "parent_intervenes"
         },
         "responses": {
-          "initial": ["I'm okay! I'm playing!", "Mommy is here!", "I'm safe!"],
+          "initial": [
+            "I'm okay! I'm playing!",
+            "Mommy is here!",
+            "I'm safe!"
+          ],
           "parent_intervenes": [
             "He's safe, just playing.",
             "She's fine, I'm here now.",
             "No danger, thanks."
           ],
-          "explained": ["We're all safe.", "Just a pocket dial.", "No emergency whatsoever."],
-          "resolved": ["Confirmed safe.", "All clear."]
+          "explained": [
+            "We're all safe.",
+            "Just a pocket dial.",
+            "No emergency whatsoever."
+          ],
+          "resolved": [
+            "Confirmed safe.",
+            "All clear."
+          ]
         }
       }
     },
@@ -1447,7 +1690,8 @@
         "message": "Call correctly identified as accidental and dismissed. No resources wasted."
       }
     },
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_157",
@@ -1466,8 +1710,20 @@
       "Voice 2: 'We need a getaway driver. What about Joe?'"
     ],
     "slots": {
-      "caller_name": ["Unknown", "Subject A", "Subject B", "Ricky", "Vince"],
-      "victim_relation": ["accomplice", "partner in crime", "brother", "friend", "cellmate"],
+      "caller_name": [
+        "Unknown",
+        "Subject A",
+        "Subject B",
+        "Ricky",
+        "Vince"
+      ],
+      "victim_relation": [
+        "accomplice",
+        "partner in crime",
+        "brother",
+        "friend",
+        "cellmate"
+      ],
       "address_location": [
         "Jewelry store on 5th Avenue",
         "Bank on Main Street",
@@ -1475,7 +1731,12 @@
         "Museum of Art downtown",
         "Gas station on Route 9"
       ],
-      "ambient_audio": ["paper shuffling", "keyboard typing", "car engine idling", "footsteps"],
+      "ambient_audio": [
+        "paper shuffling",
+        "keyboard typing",
+        "car engine idling",
+        "footsteps"
+      ],
       "specific_details": [
         "a blueprints diagram",
         "a walkie-talkie crackle",
@@ -1560,7 +1821,11 @@
             "Check the phone! It's hot!",
             "We might be compromised."
           ],
-          "aborted": ["We're calling it off.", "Too risky, we're out.", "We need to disappear."],
+          "aborted": [
+            "We're calling it off.",
+            "Too risky, we're out.",
+            "We need to disappear."
+          ],
           "apprehended": [
             "It's over, we're caught.",
             "We're surrounded.",
@@ -1596,7 +1861,8 @@
         "message": "Call dismissed as pocket dial. The heist succeeded, with casualties."
       }
     },
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   },
   {
     "id": "scenario_158",
@@ -1615,8 +1881,20 @@
       "Click of the button, then labored breathing."
     ],
     "slots": {
-      "caller_name": ["George", "Dorothy", "Harold", "Mildred", "Frank"],
-      "victim_relation": ["senior", "grandparent", "patient", "elderly neighbor", "veteran"],
+      "caller_name": [
+        "George",
+        "Dorothy",
+        "Harold",
+        "Mildred",
+        "Frank"
+      ],
+      "victim_relation": [
+        "senior",
+        "grandparent",
+        "patient",
+        "elderly neighbor",
+        "veteran"
+      ],
       "address_location": [
         "789 Elder Lane",
         "101 Retirement Drive",
@@ -1624,7 +1902,12 @@
         "303 Nursing Home Road",
         "404 Silver Street"
       ],
-      "ambient_audio": ["TV static", "clock ticking", "dog barking", "doorbell ringing"],
+      "ambient_audio": [
+        "TV static",
+        "clock ticking",
+        "dog barking",
+        "doorbell ringing"
+      ],
       "specific_details": [
         "a walker nearby",
         "medication bottles on floor",
@@ -1649,7 +1932,12 @@
             "I'm at {address_location}.",
             "My home is {address_location}."
           ],
-          "unconscious": ["...", "...", "...", "..."],
+          "unconscious": [
+            "...",
+            "...",
+            "...",
+            "..."
+          ],
           "assisted": [
             "Responders found me at {address_location}.",
             "They're here at {address_location}.",
@@ -1674,7 +1962,12 @@
             "I was reaching for {specific_details}.",
             "My chest hurts, {specific_details}."
           ],
-          "unconscious": ["...", "...", "...", "..."],
+          "unconscious": [
+            "...",
+            "...",
+            "...",
+            "..."
+          ],
           "assisted": [
             "They're taking care of {specific_details}.",
             "Ambulance is here, {specific_details}.",
@@ -1690,13 +1983,22 @@
           "conscious": "unconscious"
         },
         "responses": {
-          "initial": ["I can't move...", "I need help...", "Please stay on the line."],
+          "initial": [
+            "I can't move...",
+            "I need help...",
+            "Please stay on the line."
+          ],
           "conscious": [
             "I'm awake but can't get up.",
             "I feel dizzy.",
             "I think I'm okay but scared."
           ],
-          "unconscious": ["...", "...", "...", "..."],
+          "unconscious": [
+            "...",
+            "...",
+            "...",
+            "..."
+          ],
           "assisted": [
             "I'm in good hands.",
             "They're taking me to the hospital.",
@@ -1732,10 +2034,10 @@
         "message": "Call dismissed as pocket dial. Patient died from complications of fall."
       }
     },
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   },
   {
-    "scenario_title": "The Background Brawl",
     "states": {
       "initial": "Open line, sounds of argument and violence",
       "escalating": "Violence intensifies, victim cries",
@@ -1748,31 +2050,75 @@
       "I'm leaving! (door slam, then crashing)"
     ],
     "slots": {
-      "caller_name": ["Angela", "Maria", "Jennifer"],
-      "victim_relation": ["husband", "boyfriend", "roommate"],
-      "address_location": ["123 Elm Street", "456 Oak Avenue", "789 Pine Road"],
-      "ambient_audio": ["screaming and crying", "furniture crashing", "muffled thuds"],
-      "specific_details": ["kitchen", "living room", "bedroom"]
+      "caller_name": [
+        "Angela",
+        "Maria",
+        "Jennifer"
+      ],
+      "victim_relation": [
+        "husband",
+        "boyfriend",
+        "roommate"
+      ],
+      "address_location": [
+        "123 Elm Street",
+        "456 Oak Avenue",
+        "789 Pine Road"
+      ],
+      "ambient_audio": [
+        "screaming and crying",
+        "furniture crashing",
+        "muffled thuds"
+      ],
+      "specific_details": [
+        "kitchen",
+        "living room",
+        "bedroom"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 50,
         "transitions": {},
         "responses": {
-          "initial": ["Can you tell me your address?", "Where are you?", "What is your location?"],
-          "escalating": ["Please, I need your address!", "Tell me where you are!"],
-          "hiding": ["Whisper your location", "Where are you hiding?"],
-          "secured": ["Thank you, we have the location"]
+          "initial": [
+            "Can you tell me your address?",
+            "Where are you?",
+            "What is your location?"
+          ],
+          "escalating": [
+            "Please, I need your address!",
+            "Tell me where you are!"
+          ],
+          "hiding": [
+            "Whisper your location",
+            "Where are you hiding?"
+          ],
+          "secured": [
+            "Thank you, we have the location"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 30,
         "transitions": {},
         "responses": {
-          "initial": ["What's happening?", "Who is with you?", "What is going on?"],
-          "escalating": ["Do you need medical help?", "Is anyone injured?"],
-          "hiding": ["Can you describe the intruder?", "How many people are there?"],
-          "secured": ["Are you safe now?"]
+          "initial": [
+            "What's happening?",
+            "Who is with you?",
+            "What is going on?"
+          ],
+          "escalating": [
+            "Do you need medical help?",
+            "Is anyone injured?"
+          ],
+          "hiding": [
+            "Can you describe the intruder?",
+            "How many people are there?"
+          ],
+          "secured": [
+            "Are you safe now?"
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -1782,10 +2128,20 @@
           "escalating": "hiding"
         },
         "responses": {
-          "initial": ["Are you in danger right now?", "Is he threatening you?"],
-          "escalating": ["Can you hide somewhere safe?", "Get to a safe place"],
-          "hiding": ["Stay quiet, help is on the way"],
-          "secured": ["You are safe now"]
+          "initial": [
+            "Are you in danger right now?",
+            "Is he threatening you?"
+          ],
+          "escalating": [
+            "Can you hide somewhere safe?",
+            "Get to a safe place"
+          ],
+          "hiding": [
+            "Stay quiet, help is on the way"
+          ],
+          "secured": [
+            "You are safe now"
+          ]
         }
       },
       "INSTRUCT_HIDE": {
@@ -1795,20 +2151,37 @@
           "escalating": "hiding"
         },
         "responses": {
-          "initial": ["Try to hide and stay quiet", "Lock the door if you can"],
-          "escalating": ["Get down, hide behind something"],
-          "hiding": ["Stay there, don't move"],
-          "secured": ["You can come out now"]
+          "initial": [
+            "Try to hide and stay quiet",
+            "Lock the door if you can"
+          ],
+          "escalating": [
+            "Get down, hide behind something"
+          ],
+          "hiding": [
+            "Stay there, don't move"
+          ],
+          "secured": [
+            "You can come out now"
+          ]
         }
       },
       "INSTRUCT_EVACUATE": {
         "score_delta": -100,
         "transitions": {},
         "responses": {
-          "initial": ["Do not leave, it may be more dangerous"],
-          "escalating": ["Wait for police"],
-          "hiding": ["Stay where you are"],
-          "secured": ["You are safe"]
+          "initial": [
+            "Do not leave, it may be more dangerous"
+          ],
+          "escalating": [
+            "Wait for police"
+          ],
+          "hiding": [
+            "Stay where you are"
+          ],
+          "secured": [
+            "You are safe"
+          ]
         }
       }
     },
@@ -1840,10 +2213,11 @@
       }
     },
     "id": "scenario_159",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard",
+    "title": "The Background Brawl"
   },
   {
-    "scenario_title": "The Car Crash Aftermath",
     "states": {
       "initial": "Open line, sounds of crash and groaning",
       "unconscious": "Caller unconscious, background hissing",
@@ -1856,15 +2230,31 @@
       "(silence after crash, then labored breathing)"
     ],
     "slots": {
-      "caller_name": ["David", "Sarah", "Mike"],
-      "victim_relation": ["driver", "passenger", "bystander"],
+      "caller_name": [
+        "David",
+        "Sarah",
+        "Mike"
+      ],
+      "victim_relation": [
+        "driver",
+        "passenger",
+        "bystander"
+      ],
       "address_location": [
         "I-95 near exit 12",
         "Highway 101 mile marker 45",
         "Route 9 and Maple Street"
       ],
-      "ambient_audio": ["hissing steam", "broken glass", "dripping fuel"],
-      "specific_details": ["upside down", "steering wheel jammed", "smoke from hood"]
+      "ambient_audio": [
+        "hissing steam",
+        "broken glass",
+        "dripping fuel"
+      ],
+      "specific_details": [
+        "upside down",
+        "steering wheel jammed",
+        "smoke from hood"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1876,19 +2266,36 @@
             "What road are you on?",
             "Look for mile markers"
           ],
-          "unconscious": ["No response, try to locate via GPS"],
-          "injured": ["Please, try to see a street sign", "Can you describe surroundings?"],
-          "rescued": ["We have your location, help is there"]
+          "unconscious": [
+            "No response, try to locate via GPS"
+          ],
+          "injured": [
+            "Please, try to see a street sign",
+            "Can you describe surroundings?"
+          ],
+          "rescued": [
+            "We have your location, help is there"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 40,
         "transitions": {},
         "responses": {
-          "initial": ["What happened?", "How many people are in the car?"],
-          "unconscious": ["No response, but sounds indicate crash"],
-          "injured": ["Are you bleeding?", "Is the car on fire?"],
-          "rescued": ["Paramedics are checking you now"]
+          "initial": [
+            "What happened?",
+            "How many people are in the car?"
+          ],
+          "unconscious": [
+            "No response, but sounds indicate crash"
+          ],
+          "injured": [
+            "Are you bleeding?",
+            "Is the car on fire?"
+          ],
+          "rescued": [
+            "Paramedics are checking you now"
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -1898,20 +2305,37 @@
           "injured": "unconscious"
         },
         "responses": {
-          "initial": ["Can you move? Is the car stable?"],
-          "unconscious": ["No response, assume unconscious"],
-          "injured": ["Stay still, help is coming"],
-          "rescued": ["You are safe now"]
+          "initial": [
+            "Can you move? Is the car stable?"
+          ],
+          "unconscious": [
+            "No response, assume unconscious"
+          ],
+          "injured": [
+            "Stay still, help is coming"
+          ],
+          "rescued": [
+            "You are safe now"
+          ]
         }
       },
       "INSTRUCT_HIDE": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["Stay in the vehicle if it's safe", "Don't wander"],
-          "unconscious": ["No action needed"],
-          "injured": ["Wait for extraction"],
-          "rescued": ["You're being treated"]
+          "initial": [
+            "Stay in the vehicle if it's safe",
+            "Don't wander"
+          ],
+          "unconscious": [
+            "No action needed"
+          ],
+          "injured": [
+            "Wait for extraction"
+          ],
+          "rescued": [
+            "You're being treated"
+          ]
         }
       },
       "INSTRUCT_EVACUATE": {
@@ -1921,10 +2345,18 @@
           "unconscious": "injured"
         },
         "responses": {
-          "initial": ["If you can, get out and move away from the car"],
-          "unconscious": ["No response, can't evacuate"],
-          "injured": ["Try to crawl out if there's fire danger"],
-          "rescued": ["Leave evacuation to professionals"]
+          "initial": [
+            "If you can, get out and move away from the car"
+          ],
+          "unconscious": [
+            "No response, can't evacuate"
+          ],
+          "injured": [
+            "Try to crawl out if there's fire danger"
+          ],
+          "rescued": [
+            "Leave evacuation to professionals"
+          ]
         }
       }
     },
@@ -1956,10 +2388,11 @@
       }
     },
     "id": "scenario_160",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard",
+    "title": "The Car Crash Aftermath"
   },
   {
-    "scenario_title": "The Toddler's Toy Phone",
     "states": {
       "initial": "Child playing, cartoon sounds",
       "confused": "Child hears dispatcher and responds",
@@ -1972,61 +2405,127 @@
       "Mommy! (giggles)"
     ],
     "slots": {
-      "caller_name": ["Lily", "Ethan", "Mia"],
-      "victim_relation": ["nanny", "mother", "father"],
-      "address_location": ["45 Park Avenue", "678 Maple Drive", "910 Willow Lane"],
-      "ambient_audio": ["cartoon theme song", "toy noises", "child chatter"],
-      "specific_details": ["toy phone", "building blocks", "coloring book"]
+      "caller_name": [
+        "Lily",
+        "Ethan",
+        "Mia"
+      ],
+      "victim_relation": [
+        "nanny",
+        "mother",
+        "father"
+      ],
+      "address_location": [
+        "45 Park Avenue",
+        "678 Maple Drive",
+        "910 Willow Lane"
+      ],
+      "ambient_audio": [
+        "cartoon theme song",
+        "toy noises",
+        "child chatter"
+      ],
+      "specific_details": [
+        "toy phone",
+        "building blocks",
+        "coloring book"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["Hello? Can you hear me?", "Is an adult there?"],
-          "confused": ["Can you put your mommy on the phone?", "Where do you live?"],
-          "parent_intervention": ["Is this an emergency?", "Can I speak to the parent?"],
-          "resolved": ["Thank you for confirming"]
+          "initial": [
+            "Hello? Can you hear me?",
+            "Is an adult there?"
+          ],
+          "confused": [
+            "Can you put your mommy on the phone?",
+            "Where do you live?"
+          ],
+          "parent_intervention": [
+            "Is this an emergency?",
+            "Can I speak to the parent?"
+          ],
+          "resolved": [
+            "Thank you for confirming"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["What's your name?", "Are you okay?"],
-          "confused": ["Are you playing?", "Is someone hurt?"],
-          "parent_intervention": ["Was that a toy phone?", "Is everything okay?"],
-          "resolved": ["No harm done, please keep phones away"]
+          "initial": [
+            "What's your name?",
+            "Are you okay?"
+          ],
+          "confused": [
+            "Are you playing?",
+            "Is someone hurt?"
+          ],
+          "parent_intervention": [
+            "Was that a toy phone?",
+            "Is everything okay?"
+          ],
+          "resolved": [
+            "No harm done, please keep phones away"
+          ]
         }
       },
       "ASK_IF_SAFE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Is a grown-up with you?"],
-          "confused": ["Are you safe?"],
-          "parent_intervention": ["Is the child safe?"],
-          "resolved": ["Everything is fine"]
+          "initial": [
+            "Is a grown-up with you?"
+          ],
+          "confused": [
+            "Are you safe?"
+          ],
+          "parent_intervention": [
+            "Is the child safe?"
+          ],
+          "resolved": [
+            "Everything is fine"
+          ]
         }
       },
       "INSTRUCT_HIDE": {
         "score_delta": -50,
         "transitions": {},
         "responses": {
-          "initial": ["No need to hide, just playing"],
-          "confused": ["Don't hide, stay where you are"],
-          "parent_intervention": ["No action needed"],
-          "resolved": ["All clear"]
+          "initial": [
+            "No need to hide, just playing"
+          ],
+          "confused": [
+            "Don't hide, stay where you are"
+          ],
+          "parent_intervention": [
+            "No action needed"
+          ],
+          "resolved": [
+            "All clear"
+          ]
         }
       },
       "INSTRUCT_EVACUATE": {
         "score_delta": -50,
         "transitions": {},
         "responses": {
-          "initial": ["No need to evacuate"],
-          "confused": ["Stay in the house"],
-          "parent_intervention": ["Everything is okay"],
-          "resolved": ["No emergency"]
+          "initial": [
+            "No need to evacuate"
+          ],
+          "confused": [
+            "Stay in the house"
+          ],
+          "parent_intervention": [
+            "Everything is okay"
+          ],
+          "resolved": [
+            "No emergency"
+          ]
         }
       }
     },
@@ -2058,10 +2557,11 @@
       }
     },
     "id": "scenario_161",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Easy",
+    "title": "The Toddler's Toy Phone"
   },
   {
-    "scenario_title": "The Hidden Witness",
     "states": {
       "initial": "Silence, background sounds of intruders",
       "hiding": "Caller whispers from closet",
@@ -2074,31 +2574,71 @@
       "(heavy breathing, then a door slams)"
     ],
     "slots": {
-      "caller_name": ["James", "Emily", "Carlos"],
-      "victim_relation": ["homeowner", "tenant", "guest"],
-      "address_location": ["321 Birch Street", "555 Cedar Avenue", "777 Elm Court"],
-      "ambient_audio": ["drawers opening", "glass breaking", "muffled conversation"],
-      "specific_details": ["closet", "under the bed", "behind the sofa"]
+      "caller_name": [
+        "James",
+        "Emily",
+        "Carlos"
+      ],
+      "victim_relation": [
+        "homeowner",
+        "tenant",
+        "guest"
+      ],
+      "address_location": [
+        "321 Birch Street",
+        "555 Cedar Avenue",
+        "777 Elm Court"
+      ],
+      "ambient_audio": [
+        "drawers opening",
+        "glass breaking",
+        "muffled conversation"
+      ],
+      "specific_details": [
+        "closet",
+        "under the bed",
+        "behind the sofa"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 50,
         "transitions": {},
         "responses": {
-          "initial": ["Can you tell me your address?", "Where are you?"],
-          "hiding": ["Whisper your location", "What room are you in?"],
-          "confronting": ["Stay quiet, I need your address quickly!"],
-          "secured": ["We have the address, stay on the line"]
+          "initial": [
+            "Can you tell me your address?",
+            "Where are you?"
+          ],
+          "hiding": [
+            "Whisper your location",
+            "What room are you in?"
+          ],
+          "confronting": [
+            "Stay quiet, I need your address quickly!"
+          ],
+          "secured": [
+            "We have the address, stay on the line"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 40,
         "transitions": {},
         "responses": {
-          "initial": ["What is happening?", "How many intruders?"],
-          "hiding": ["Can you describe them?", "Are they armed?"],
-          "confronting": ["Don't say anything, just nod if safe"],
-          "secured": ["They are in custody now"]
+          "initial": [
+            "What is happening?",
+            "How many intruders?"
+          ],
+          "hiding": [
+            "Can you describe them?",
+            "Are they armed?"
+          ],
+          "confronting": [
+            "Don't say anything, just nod if safe"
+          ],
+          "secured": [
+            "They are in custody now"
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -2108,10 +2648,19 @@
           "hiding": "confronting"
         },
         "responses": {
-          "initial": ["Are you in danger?", "Can you hide?"],
-          "hiding": ["Stay hidden, don't make a sound"],
-          "confronting": ["They are near you, stay absolutely still"],
-          "secured": ["You are safe now"]
+          "initial": [
+            "Are you in danger?",
+            "Can you hide?"
+          ],
+          "hiding": [
+            "Stay hidden, don't make a sound"
+          ],
+          "confronting": [
+            "They are near you, stay absolutely still"
+          ],
+          "secured": [
+            "You are safe now"
+          ]
         }
       },
       "INSTRUCT_HIDE": {
@@ -2120,20 +2669,37 @@
           "initial": "hiding"
         },
         "responses": {
-          "initial": ["Hide and stay quiet", "Lock the door if possible"],
-          "hiding": ["You're already hiding, stay there"],
-          "confronting": ["They are close, stay silent"],
-          "secured": ["You can come out now, police are here"]
+          "initial": [
+            "Hide and stay quiet",
+            "Lock the door if possible"
+          ],
+          "hiding": [
+            "You're already hiding, stay there"
+          ],
+          "confronting": [
+            "They are close, stay silent"
+          ],
+          "secured": [
+            "You can come out now, police are here"
+          ]
         }
       },
       "INSTRUCT_EVACUATE": {
         "score_delta": -100,
         "transitions": {},
         "responses": {
-          "initial": ["Do not evacuate, it's dangerous"],
-          "hiding": ["Stay where you are, do not leave"],
-          "confronting": ["Don't move, they might see you"],
-          "secured": ["You can exit now, it's safe"]
+          "initial": [
+            "Do not evacuate, it's dangerous"
+          ],
+          "hiding": [
+            "Stay where you are, do not leave"
+          ],
+          "confronting": [
+            "Don't move, they might see you"
+          ],
+          "secured": [
+            "You can exit now, it's safe"
+          ]
         }
       }
     },
@@ -2165,10 +2731,11 @@
       }
     },
     "id": "scenario_162",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard",
+    "title": "The Hidden Witness"
   },
   {
-    "scenario_title": "The Medical Episode",
     "states": {
       "initial": "Thrashing sounds, then fall",
       "collapse": "Silence after fall, possible seizure",
@@ -2181,31 +2748,69 @@
       "(seizure sounds, then quiet)"
     ],
     "slots": {
-      "caller_name": ["Robert", "Linda", "Tom"],
-      "victim_relation": ["self", "spouse", "neighbor"],
-      "address_location": ["234 Cedar Street", "890 Oak Drive", "456 Pine Lane"],
-      "ambient_audio": ["furniture shaking", "heavy breathing", "moaning"],
-      "specific_details": ["living room", "bathroom", "kitchen floor"]
+      "caller_name": [
+        "Robert",
+        "Linda",
+        "Tom"
+      ],
+      "victim_relation": [
+        "self",
+        "spouse",
+        "neighbor"
+      ],
+      "address_location": [
+        "234 Cedar Street",
+        "890 Oak Drive",
+        "456 Pine Lane"
+      ],
+      "ambient_audio": [
+        "furniture shaking",
+        "heavy breathing",
+        "moaning"
+      ],
+      "specific_details": [
+        "living room",
+        "bathroom",
+        "kitchen floor"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 50,
         "transitions": {},
         "responses": {
-          "initial": ["Where are you?", "What is your address?"],
-          "collapse": ["No response, try to locate via phone"],
-          "breathing": ["Can you hear me? Nod if you can"],
-          "conscious": ["Tell me where you are"]
+          "initial": [
+            "Where are you?",
+            "What is your address?"
+          ],
+          "collapse": [
+            "No response, try to locate via phone"
+          ],
+          "breathing": [
+            "Can you hear me? Nod if you can"
+          ],
+          "conscious": [
+            "Tell me where you are"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 40,
         "transitions": {},
         "responses": {
-          "initial": ["What happened?", "Are you hurt?"],
-          "collapse": ["No response, but sounds indicate medical emergency"],
-          "breathing": ["Can you tell me what's wrong?"],
-          "conscious": ["Do you have a medical condition?"]
+          "initial": [
+            "What happened?",
+            "Are you hurt?"
+          ],
+          "collapse": [
+            "No response, but sounds indicate medical emergency"
+          ],
+          "breathing": [
+            "Can you tell me what's wrong?"
+          ],
+          "conscious": [
+            "Do you have a medical condition?"
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -2216,30 +2821,54 @@
           "breathing": "conscious"
         },
         "responses": {
-          "initial": ["Are you in danger? Are you choking?"],
-          "collapse": ["Stay on the line, help is coming"],
-          "breathing": ["Help is on the way, keep breathing"],
-          "conscious": ["You had a seizure, you are safe now"]
+          "initial": [
+            "Are you in danger? Are you choking?"
+          ],
+          "collapse": [
+            "Stay on the line, help is coming"
+          ],
+          "breathing": [
+            "Help is on the way, keep breathing"
+          ],
+          "conscious": [
+            "You had a seizure, you are safe now"
+          ]
         }
       },
       "INSTRUCT_HIDE": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["Don't hide, stay where you are"],
-          "collapse": ["No action needed"],
-          "breathing": ["Lie still, don't move"],
-          "conscious": ["Rest, paramedics are coming"]
+          "initial": [
+            "Don't hide, stay where you are"
+          ],
+          "collapse": [
+            "No action needed"
+          ],
+          "breathing": [
+            "Lie still, don't move"
+          ],
+          "conscious": [
+            "Rest, paramedics are coming"
+          ]
         }
       },
       "INSTRUCT_EVACUATE": {
         "score_delta": -50,
         "transitions": {},
         "responses": {
-          "initial": ["Don't move, you might fall"],
-          "collapse": ["Do not evacuate"],
-          "breathing": ["Stay still"],
-          "conscious": ["Wait for medics"]
+          "initial": [
+            "Don't move, you might fall"
+          ],
+          "collapse": [
+            "Do not evacuate"
+          ],
+          "breathing": [
+            "Stay still"
+          ],
+          "conscious": [
+            "Wait for medics"
+          ]
         }
       }
     },
@@ -2271,7 +2900,9 @@
       }
     },
     "id": "scenario_163",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard",
+    "title": "The Medical Episode"
   },
   {
     "title": "The Shaky Walk",
@@ -2289,8 +2920,18 @@
       "[Audio of a door creaking, then a sudden fall with a groan, then shallow breathing]"
     ],
     "slots": {
-      "caller_name": ["Eleanor", "George", "Martha", "Harold"],
-      "address_location": ["123 Oak Lane", "456 Maple Drive", "789 Pine Street", "321 Birch Road"],
+      "caller_name": [
+        "Eleanor",
+        "George",
+        "Martha",
+        "Harold"
+      ],
+      "address_location": [
+        "123 Oak Lane",
+        "456 Maple Drive",
+        "789 Pine Street",
+        "321 Birch Road"
+      ],
       "ambient_audio": [
         "television playing softly",
         "clock ticking",
@@ -2334,7 +2975,10 @@
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["No verbal response. Only ambient sounds.", "The caller is not speaking."],
+          "initial": [
+            "No verbal response. Only ambient sounds.",
+            "The caller is not speaking."
+          ],
           "listening": [
             "You try to listen for any clues: is this a fall? An argument? You hear only labored breathing.",
             "The crash sounded like a heavy object falling."
@@ -2343,7 +2987,9 @@
             "You ask 'Can you hear me?' – no response, but the breathing becomes more ragged.",
             "You ask 'Are you hurt?' – no answer, but a faint moan is heard."
           ],
-          "resolved": ["The situation was understood from the audio and subsequent investigation."]
+          "resolved": [
+            "The situation was understood from the audio and subsequent investigation."
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -2362,14 +3008,19 @@
             "No changes in background audio suggest the scene is safe or not.",
             "The caller does not respond, so safety is unknown."
           ],
-          "resolved": ["Safety assessment completed based on available info."]
+          "resolved": [
+            "Safety assessment completed based on available info."
+          ]
         }
       },
       "ASK_IF_CONSCIOUS": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["The caller is unresponsive to verbal prompts.", "No verbal response."],
+          "initial": [
+            "The caller is unresponsive to verbal prompts.",
+            "No verbal response."
+          ],
           "listening": [
             "You hear faint moaning, suggesting semi-consciousness.",
             "Breathing is present but irregular."
@@ -2378,7 +3029,9 @@
             "You ask 'Can you squeeze my hand?' – no response, but the moaning stops briefly.",
             "The caller seems unable to respond."
           ],
-          "resolved": ["Consciousness status determined from audio and eventual responder report."]
+          "resolved": [
+            "Consciousness status determined from audio and eventual responder report."
+          ]
         }
       }
     },
@@ -2410,7 +3063,8 @@
       }
     },
     "id": "scenario_164",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Medium"
   },
   {
     "title": "The Garage Argument",
@@ -2428,7 +3082,12 @@
       "[Muffled shouts, a thud, then a distinct gunshot sound, then nothing]"
     ],
     "slots": {
-      "caller_name": ["Unknown", "John", "Detective", "Neighbor"],
+      "caller_name": [
+        "Unknown",
+        "John",
+        "Detective",
+        "Neighbor"
+      ],
       "address_location": [
         "456 Elm Street",
         "789 Maple Court",
@@ -2465,7 +3124,9 @@
             "After asking, you hear a faint engine start, then stop.",
             "No response, but the audio seems to come from a garage with tools."
           ],
-          "resolved": ["Location identified via GPS or callback."]
+          "resolved": [
+            "Location identified via GPS or callback."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2484,7 +3145,9 @@
             "You ask 'Is anyone hurt?' – no response, but you hear a faint groan.",
             "You ask 'What happened?' – no answer, but the background is quiet now."
           ],
-          "resolved": ["Details were inferred from audio and police investigation."]
+          "resolved": [
+            "Details were inferred from audio and police investigation."
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -2503,20 +3166,30 @@
             "No response indicates the caller may be incapacitated.",
             "No change in audio; safe assessment cannot be made."
           ],
-          "resolved": ["Safety established after police arrival."]
+          "resolved": [
+            "Safety established after police arrival."
+          ]
         }
       },
       "ASK_IF_CONSCIOUS": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["No verbal response from caller.", "Caller unresponsive."],
+          "initial": [
+            "No verbal response from caller.",
+            "Caller unresponsive."
+          ],
           "listening": [
             "You hear no breathing or moaning after the bang.",
             "Silence suggests the caller may be unconscious or deceased."
           ],
-          "probed": ["You ask 'Can you hear me?' – nothing.", "No response to repeated calls."],
-          "resolved": ["Consciousness assessed by responders."]
+          "probed": [
+            "You ask 'Can you hear me?' – nothing.",
+            "No response to repeated calls."
+          ],
+          "resolved": [
+            "Consciousness assessed by responders."
+          ]
         }
       }
     },
@@ -2548,7 +3221,8 @@
       }
     },
     "id": "scenario_165",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   },
   {
     "title": "The Cargo Hold",
@@ -2566,7 +3240,12 @@
       "[Banging metal, a heavy thud, then a voice: 'I'm under this pallet!']"
     ],
     "slots": {
-      "caller_name": ["Mike", "Sarah", "Tom", "Jake"],
+      "caller_name": [
+        "Mike",
+        "Sarah",
+        "Tom",
+        "Jake"
+      ],
       "address_location": [
         "1500 Industrial Parkway",
         "88 Factory Road",
@@ -2603,7 +3282,9 @@
             "You ask 'Where are you?' – the voice responds: 'Warehouse A, near the loading dock!'",
             "After asking, you hear a faint: 'I'm in the main storage area!'"
           ],
-          "resolved": ["Location determined from the voice response or GPS."]
+          "resolved": [
+            "Location determined from the voice response or GPS."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2622,7 +3303,9 @@
             "You ask 'What happened?' – the voice: 'A pallet fell on me! I can't get out!'",
             "You ask 'Are you injured?' – the voice: 'My leg is pinned!'"
           ],
-          "resolved": ["Details obtained: trapped under pallet, leg injury."]
+          "resolved": [
+            "Details obtained: trapped under pallet, leg injury."
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -2641,7 +3324,9 @@
             "You advise to stay still; the victim responds they can't move anyway.",
             "No indication of immediate further danger beyond the initial accident."
           ],
-          "resolved": ["Scene secured after emergency response."]
+          "resolved": [
+            "Scene secured after emergency response."
+          ]
         }
       },
       "ASK_IF_CONSCIOUS": {
@@ -2660,7 +3345,9 @@
             "You ask 'Can you stay with me?' – voice: 'Yes, but it hurts.'",
             "Victim responds to questions, alert."
           ],
-          "resolved": ["Consciousness maintained throughout."]
+          "resolved": [
+            "Consciousness maintained throughout."
+          ]
         }
       }
     },
@@ -2692,6 +3379,7 @@
       }
     },
     "id": "scenario_166",
-    "archetype": "Pocket Dial / Open Line"
+    "archetype": "Pocket Dial / Open Line",
+    "difficulty": "Hard"
   }
 ]
