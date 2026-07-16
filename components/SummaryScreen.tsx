@@ -184,7 +184,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
           <div className="flex-1 overflow-y-auto terminal-scroll pr-1 border border-emerald-950 bg-black/60 rounded">
             <table className="w-full text-xs text-left">
-              <thead>
+              <thead className="sticky top-0 z-10 bg-zinc-950">
                 <tr className="border-b border-emerald-950 bg-zinc-950 text-emerald-500/70 text-[9px] uppercase tracking-wider">
                   <th className="py-2 px-3 w-12 text-center">Rank</th>
                   <th className="py-2 px-2">Callsign</th>
