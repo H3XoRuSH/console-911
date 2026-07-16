@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
-import { LeaderboardEntry } from '@/types/game';
+import { LeaderboardEntry, TranscriptMessage } from '@/types/game';
 
 interface SummaryScreenProps {
   calls: HydratedCallSession[];
+  completedTranscripts: TranscriptMessage[][];
   totalScore: number;
   dispatcherName: string;
   setDispatcherName: (val: string) => void;
@@ -16,6 +17,7 @@ interface SummaryScreenProps {
 
 export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   calls,
+  completedTranscripts,
   totalScore,
   dispatcherName,
   setDispatcherName,
@@ -25,6 +27,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   onSubmitLeaderboard,
   onReboot
 }) => {
+  const [selectedCallIndex, setSelectedCallIndex] = useState<number | null>(null);
   // Assign dispatcher operator rating
   const getDispatcherRank = (score: number) => {
     if (score >= 1400)
@@ -48,6 +51,20 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   };
 
   const rank = getDispatcherRank(totalScore);
+
+  useEffect(() => {
+    if (selectedCallIndex === null) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedCallIndex(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedCallIndex]);
+
+  const transcriptToAudit =
+    selectedCallIndex !== null ? completedTranscripts[selectedCallIndex] || [] : [];
 
   return (
     <main className="flex-1 flex flex-col md:flex-row overflow-hidden p-6 gap-6 justify-center max-w-6xl mx-auto w-full">
@@ -76,22 +93,41 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           {/* GAME SCRIPT SUMMARY TABLE */}
           <div className="space-y-2 text-xs">
             <h3 className="font-bold text-emerald-500/70 uppercase tracking-widest border-b border-emerald-950/60 pb-1">
-              Call Logs Audit
+              Call Logs Audit (CLICK TO AUDIT)
             </h3>
             <div className="space-y-1">
-              {calls.map((call, idx) => (
-                <div
-                  key={idx}
-                  className="flex justify-between border-b border-emerald-950/20 py-1 text-emerald-500/90 font-mono"
-                >
-                  <span className="truncate max-w-[280px]">
-                    {idx + 1}. {call.title} ({call.archetype})
-                  </span>
-                  <span className="font-bold text-emerald-400">
-                    DIFF: {call.difficulty.toUpperCase()}
-                  </span>
-                </div>
-              ))}
+              {calls.map((call, idx) => {
+                const hasTranscript =
+                  completedTranscripts &&
+                  completedTranscripts[idx] &&
+                  completedTranscripts[idx].length > 0;
+                return (
+                  <button
+                    key={idx}
+                    disabled={!hasTranscript}
+                    onClick={() => setSelectedCallIndex(idx)}
+                    className={`w-full flex justify-between border-b border-emerald-950/20 py-1.5 px-2 text-left text-emerald-500/90 font-mono transition-all rounded ${
+                      hasTranscript
+                        ? 'hover:bg-emerald-950/30 hover:text-emerald-300 cursor-pointer border border-transparent hover:border-emerald-900/60'
+                        : 'opacity-60 cursor-not-allowed'
+                    }`}
+                  >
+                    <span className="truncate max-w-[280px] font-bold">
+                      {idx + 1}. {call.title} ({call.archetype})
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-emerald-400">
+                        DIFF: {call.difficulty.toUpperCase()}
+                      </span>
+                      {hasTranscript && (
+                        <span className="text-[10px] text-emerald-500/60 font-semibold uppercase tracking-wider animate-pulse">
+                          [AUDIT]
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
@@ -188,6 +224,67 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           </div>
         </div>
       </section>
+
+      {/* CALL AUDIT MODAL OVERLAY */}
+      {selectedCallIndex !== null && (
+        <div
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 select-text"
+          onClick={() => setSelectedCallIndex(null)}
+        >
+          <div
+            className="w-full max-w-2xl border border-emerald-500 bg-zinc-950 p-6 rounded shadow-[0_0_20px_rgba(16,185,129,0.2)] flex flex-col max-h-[85vh] space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="border-b border-emerald-950 pb-3 flex justify-between items-center shrink-0">
+              <h3 className="text-sm font-bold tracking-widest text-emerald-400 uppercase">
+                Call Audit: {calls[selectedCallIndex]?.title}
+              </h3>
+              <span className="text-[10px] text-emerald-500/60 uppercase font-bold">
+                Difficulty: {calls[selectedCallIndex]?.difficulty}
+              </span>
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-3 p-4 border border-emerald-950 bg-black/40 rounded terminal-scroll max-h-[50vh]">
+              {transcriptToAudit
+                .filter((msg) => msg.sender === 'dispatcher' || msg.sender === 'caller')
+                .map((msg, idx) => {
+                  const isDispatcher = msg.sender === 'dispatcher';
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
+                    >
+                      <span className="text-[10px] opacity-75 text-emerald-500/40 mb-1 select-none">
+                        [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
+                      </span>
+                      <div
+                        className={`rounded px-3 py-2 text-xs leading-relaxed border ${
+                          isDispatcher
+                            ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold'
+                            : 'bg-emerald-950/20 border-emerald-900 text-emerald-300'
+                        }`}
+                      >
+                        {msg.text}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+
+            <div className="border-t border-emerald-950 pt-3 flex justify-between items-center shrink-0">
+              <span className="text-[10px] text-emerald-500/40 uppercase font-bold">
+                [ESC] KEY TO EXIT
+              </span>
+              <button
+                onClick={() => setSelectedCallIndex(null)}
+                className="bg-emerald-950 hover:bg-emerald-900 border border-emerald-600 text-emerald-400 hover:text-emerald-300 font-bold uppercase tracking-widest text-xs py-2 px-6 rounded cursor-pointer transition-all"
+              >
+                [CLOSE AUDIT]
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

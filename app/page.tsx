@@ -29,6 +29,7 @@ export default function Console911Game() {
   const [turnCount, setTurnCount] = useState(1);
   const [totalScore, setTotalScore] = useState(0);
   const [currentState, setCurrentState] = useState('initial');
+  const [completedTranscripts, setCompletedTranscripts] = useState<TranscriptMessage[][]>([]);
 
   // Current active call states
   const [callScore, setCallScore] = useState(0);
@@ -166,6 +167,7 @@ export default function Console911Game() {
     setTotalScore(0);
     setCurrentCallIndex(0);
     setScoreSubmitted(false);
+    setCompletedTranscripts([]);
 
     try {
       let url = '/api/session';
@@ -345,6 +347,12 @@ export default function Console911Game() {
       totalCallScore: finalScore
     });
 
+    setCompletedTranscripts((prev) => {
+      const updated = [...prev];
+      updated[currentCallIndex] = transcript;
+      return updated;
+    });
+
     setGameState('feedback');
   };
 
@@ -362,6 +370,12 @@ export default function Console911Game() {
       dialogueScore: callScore,
       dispatchScore: penalty,
       totalCallScore: finalScore
+    });
+
+    setCompletedTranscripts((prev) => {
+      const updated = [...prev];
+      updated[currentCallIndex] = transcript;
+      return updated;
     });
 
     setGameState('feedback');
@@ -430,6 +444,7 @@ export default function Console911Game() {
     setInputText('');
     setIsCallerTyping(false);
     setFeedbackInfo(null);
+    setCompletedTranscripts([]);
     setScoreSubmitted(false);
     setSubmittingScore(false);
   };
@@ -589,6 +604,7 @@ export default function Console911Game() {
         {gameState === 'summary' && (
           <SummaryScreen
             calls={calls}
+            completedTranscripts={completedTranscripts}
             totalScore={totalScore}
             dispatcherName={dispatcherName}
             setDispatcherName={setDispatcherName}
@@ -599,6 +615,7 @@ export default function Console911Game() {
             onReboot={() => {
               setGameState('start');
               setCalls([]);
+              setCompletedTranscripts([]);
             }}
           />
         )}
