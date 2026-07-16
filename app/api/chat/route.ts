@@ -29,9 +29,9 @@ function generalizeText(text: string, slots: Record<string, string>): string {
 
   for (const [slotName, value] of sortedSlots) {
     if (value && value.trim().length > 0) {
-      // Escape special regex characters in the slot value
-      const escapedValue = value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-      const regex = new RegExp(`\\b${escapedValue}\\b`, 'gi');
+      // Escape special regex characters in the slot value, and normalize spaces
+      const escapedValue = value.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&').replace(/\s+/g, '\\s+');
+      const regex = new RegExp(`(?<!\\w)${escapedValue}(?!\\w)`, 'gi');
       generalized = generalized.replace(regex, `{${slotName}}`);
     }
   }

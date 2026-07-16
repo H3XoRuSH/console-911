@@ -32,15 +32,18 @@ When starting work on a new ticket/issue, follow this strict step-by-step sequen
 
 Branches must follow this naming convention:
 `issue-<number>-<short-description>`
+
 - Example: `issue-42-fix-crt-glow`
 
 ## 3. Pull Request Title Format
 
 Pull Request titles must follow a strict format to automatically link with GitHub Issues:
 `Issue #<issue number>: <short description>`
+
 - Example: `Issue #42: Fix input box caret focus in CRT screen`
 
 ## 4. Linking Pull Requests to Issues
 
 The description/body of the Pull Request should explicitly reference the issue it resolves using GitHub keywords to automatically link and close the issue.
+
 - E.g., `Resolves #4` or `Closes #123` in the PR description.
