@@ -408,36 +408,21 @@
       "Listen, I'm a taxpayer and my rights are being violated. The library system is incompetent. I demand police assistance to retrieve my property!"
     ],
     "slots": {
-      "caller_name": {
-        "type": "string",
-        "options": ["Sarah", "Mark", "Linda", "Tom"]
-      },
-      "address_location": {
-        "type": "string",
-        "options": ["123 Elm Street", "456 Oak Avenue", "789 Maple Lane", "101 Pine Drive"]
-      },
-      "library_name": {
-        "type": "string",
-        "options": [
-          "Downtown Public Library",
-          "Riverside Branch Library",
-          "Westside Community Library",
-          "Eastwood Memorial Library"
-        ]
-      },
-      "book_title": {
-        "type": "string",
-        "options": [
-          "The Great Gatsby",
-          "A Brief History of Time",
-          "The Catcher in the Rye",
-          "To Kill a Mockingbird"
-        ]
-      },
-      "due_date": {
-        "type": "string",
-        "options": ["yesterday", "two days ago", "today", "last week"]
-      }
+      "caller_name": ["Sarah", "Mark", "Linda", "Tom"],
+      "address_location": ["123 Elm Street", "456 Oak Avenue", "789 Maple Lane", "101 Pine Drive"],
+      "library_name": [
+        "Downtown Public Library",
+        "Riverside Branch Library",
+        "Westside Community Library",
+        "Eastwood Memorial Library"
+      ],
+      "book_title": [
+        "The Great Gatsby",
+        "A Brief History of Time",
+        "The Catcher in the Rye",
+        "To Kill a Mockingbird"
+      ],
+      "due_date": ["yesterday", "two days ago", "today", "last week"]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -543,31 +528,16 @@
       "This is an emergency! The coffee at Starbucks is not hot enough! I'm stuck in the drive-thru line and they refuse to fix it!"
     ],
     "slots": {
-      "caller_name": {
-        "type": "string",
-        "options": ["Mike", "Jessica", "Dave", "Emily"]
-      },
-      "address_location": {
-        "type": "string",
-        "options": [
-          "The Burger King on 1st Avenue",
-          "McDonald's at the corner of 5th and Main",
-          "Starbucks near the mall",
-          "Dunkin' on Route 9"
-        ]
-      },
-      "beverage_type": {
-        "type": "string",
-        "options": ["black coffee", "cappuccino", "latte", "hot chocolate"]
-      },
-      "temperature_complaint": {
-        "type": "string",
-        "options": ["lukewarm", "barely warm", "ice cold", "room temperature"]
-      },
-      "order_number": {
-        "type": "string",
-        "options": ["Order 42", "Order 15", "Order 7", "Order 99"]
-      }
+      "caller_name": ["Mike", "Jessica", "Dave", "Emily"],
+      "address_location": [
+        "The Burger King on 1st Avenue",
+        "McDonald's at the corner of 5th and Main",
+        "Starbucks near the mall",
+        "Dunkin' on Route 9"
+      ],
+      "beverage_type": ["black coffee", "cappuccino", "latte", "hot chocolate"],
+      "temperature_complaint": ["lukewarm", "barely warm", "ice cold", "room temperature"],
+      "order_number": ["Order 42", "Order 15", "Order 7", "Order 99"]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -672,26 +642,16 @@
       "The paint is completely off! This is false advertising! I want a SWAT team to force the store to fix it!"
     ],
     "slots": {
-      "caller_name": {
-        "type": "string",
-        "options": ["Karen", "Brad", "Cindy", "Greg"]
-      },
-      "address_location": {
-        "type": "string",
-        "options": ["123 Rose Lane", "456 Tulip Drive", "789 Daisy Court", "101 Orchid Street"]
-      },
-      "expected_color": {
-        "type": "string",
-        "options": ["Gentle Sky", "Warm Beige", "Mellow Yellow", "Soft Lavender"]
-      },
-      "actual_color": {
-        "type": "string",
-        "options": ["Stormy Gray", "Dull Tan", "Bold Orange", "Pale Pink"]
-      },
-      "room": {
-        "type": "string",
-        "options": ["living room", "bedroom", "kitchen", "dining room"]
-      }
+      "caller_name": ["Karen", "Brad", "Cindy", "Greg"],
+      "address_location": [
+        "123 Rose Lane",
+        "456 Tulip Drive",
+        "789 Daisy Court",
+        "101 Orchid Street"
+      ],
+      "expected_color": ["Gentle Sky", "Warm Beige", "Mellow Yellow", "Soft Lavender"],
+      "actual_color": ["Stormy Gray", "Dull Tan", "Bold Orange", "Pale Pink"],
+      "room": ["living room", "bedroom", "kitchen", "dining room"]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -798,41 +758,26 @@
       "I'm reporting a theft! My favorite sock is gone, and that weirdo in 2B must have taken it!"
     ],
     "slots": {
-      "caller_name": {
-        "type": "string",
-        "options": ["Steve", "Patricia", "Alex", "Rebecca"]
-      },
-      "address_location": {
-        "type": "string",
-        "options": [
-          "Apartment 3A, 100 Elm Street",
-          "Unit 5, 200 Oak Avenue",
-          "Flat 7, 400 Maple Drive",
-          "House 9, 500 Pine Lane"
-        ]
-      },
-      "sock_description": {
-        "type": "string",
-        "options": [
-          "a red and white striped sock",
-          "a blue argyle sock",
-          "a green polka dot sock",
-          "a black ankle sock with a hole"
-        ]
-      },
-      "neighbor_name": {
-        "type": "string",
-        "options": ["Mr. Jenkins", "Mrs. Patterson", "Jim", "Karen"]
-      },
-      "evidence": {
-        "type": "string",
-        "options": [
-          "I heard him laughing",
-          "he was looking at my laundry",
-          "I saw him with a sock in his hand",
-          "he always steals things"
-        ]
-      }
+      "caller_name": ["Steve", "Patricia", "Alex", "Rebecca"],
+      "address_location": [
+        "Apartment 3A, 100 Elm Street",
+        "Unit 5, 200 Oak Avenue",
+        "Flat 7, 400 Maple Drive",
+        "House 9, 500 Pine Lane"
+      ],
+      "sock_description": [
+        "a red and white striped sock",
+        "a blue argyle sock",
+        "a green polka dot sock",
+        "a black ankle sock with a hole"
+      ],
+      "neighbor_name": ["Mr. Jenkins", "Mrs. Patterson", "Jim", "Karen"],
+      "evidence": [
+        "I heard him laughing",
+        "he was looking at my laundry",
+        "I saw him with a sock in his hand",
+        "he always steals things"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -936,36 +881,21 @@
       "I'm a professional gamer and my stream is buffering! This is costing me money! I demand emergency action!"
     ],
     "slots": {
-      "caller_name": {
-        "type": "string",
-        "options": ["GamerGuy99", "PixelQueen", "NoobSlayer123", "StreamMaster"]
-      },
-      "address_location": {
-        "type": "string",
-        "options": [
-          "1234 Cyber Lane",
-          "5678 Data Drive",
-          "9012 Server Street",
-          "3456 Latency Avenue"
-        ]
-      },
-      "isp": {
-        "type": "string",
-        "options": ["Comcast", "Verizon Fios", "AT&T", "Spectrum"]
-      },
-      "game_name": {
-        "type": "string",
-        "options": ["Fortnite", "Call of Duty", "League of Legends", "Among Us"]
-      },
-      "lag_measurement": {
-        "type": "string",
-        "options": [
-          "200 ms ping",
-          "packet loss of 10%",
-          "download speed 1 Mbps",
-          "constant disconnects"
-        ]
-      }
+      "caller_name": ["GamerGuy99", "PixelQueen", "NoobSlayer123", "StreamMaster"],
+      "address_location": [
+        "1234 Cyber Lane",
+        "5678 Data Drive",
+        "9012 Server Street",
+        "3456 Latency Avenue"
+      ],
+      "isp": ["Comcast", "Verizon Fios", "AT&T", "Spectrum"],
+      "game_name": ["Fortnite", "Call of Duty", "League of Legends", "Among Us"],
+      "lag_measurement": [
+        "200 ms ping",
+        "packet loss of 10%",
+        "download speed 1 Mbps",
+        "constant disconnects"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -3186,28 +3116,13 @@
       "I'm a paying customer! I ordered a {burger_type} burger and they messed it up. Send someone to arrest the cook!",
       "This is unacceptable! My {burger_type} burger is dry. I want the manager arrested for culinary crimes!"
     ],
-    "slots": [
-      {
-        "name": "caller_name",
-        "options": ["Karen", "Chad", "Brenda"]
-      },
-      {
-        "name": "restaurant_name",
-        "options": ["Burger King on 5th Ave", "McDonald's downtown", "Bob's Burgers"]
-      },
-      {
-        "name": "burger_type",
-        "options": ["gourmet truffle", "double bacon", "vegan patty"]
-      },
-      {
-        "name": "ambient_audio",
-        "options": ["sounds of sizzling grill", "muffled arguing", "cash register beeping"]
-      },
-      {
-        "name": "complaint_detail",
-        "options": ["burnt to a crisp", "looks like a frisbee", "smells funny"]
-      }
-    ],
+    "slots": {
+      "caller_name": ["Karen", "Chad", "Brenda"],
+      "restaurant_name": ["Burger King on 5th Ave", "McDonald's downtown", "Bob's Burgers"],
+      "burger_type": ["gourmet truffle", "double bacon", "vegan patty"],
+      "ambient_audio": ["sounds of sizzling grill", "muffled arguing", "cash register beeping"],
+      "complaint_detail": ["burnt to a crisp", "looks like a frisbee", "smells funny"]
+    },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 0,
@@ -3296,28 +3211,13 @@
       "I need emergency services! My {drink_type} is ruined and I have an important meeting. This is assault through beverage!",
       "This is the third time this week! I want the barista {barista_name} arrested for barista malpractice!"
     ],
-    "slots": [
-      {
-        "name": "caller_name",
-        "options": ["Samantha", "Tyler", "Ashley"]
-      },
-      {
-        "name": "coffee_shop",
-        "options": ["Starbucks on Elm", "Dunkin' Donuts", "The Daily Grind"]
-      },
-      {
-        "name": "drink_type",
-        "options": ["caramel latte", "vanilla cappuccino", "mocha frappe"]
-      },
-      {
-        "name": "ambient_audio",
-        "options": ["espresso machine hissing", "blender going", "muffled music"]
-      },
-      {
-        "name": "barista_name",
-        "options": ["Jake", "Maria", "Chris"]
-      }
-    ],
+    "slots": {
+      "caller_name": ["Samantha", "Tyler", "Ashley"],
+      "coffee_shop": ["Starbucks on Elm", "Dunkin' Donuts", "The Daily Grind"],
+      "drink_type": ["caramel latte", "vanilla cappuccino", "mocha frappe"],
+      "ambient_audio": ["espresso machine hissing", "blender going", "muffled music"],
+      "barista_name": ["Jake", "Maria", "Chris"]
+    },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 0,
@@ -3398,28 +3298,13 @@
       "I need a patrol car immediately! There's a {car_description} illegally parked in my reserved spot. I have a cone!",
       "I pay taxes! This is my spot. Send the police to arrest the thief!"
     ],
-    "slots": [
-      {
-        "name": "caller_name",
-        "options": ["Mike", "Linda", "Steve"]
-      },
-      {
-        "name": "street_location",
-        "options": ["123 Oak Street", "456 Pine Avenue", "789 Maple Drive"]
-      },
-      {
-        "name": "car_description",
-        "options": ["red Honda Civic", "blue Ford F-150", "white Tesla Model 3"]
-      },
-      {
-        "name": "ambient_audio",
-        "options": ["car honking", "people talking", "wind noise"]
-      },
-      {
-        "name": "spot_owner_name",
-        "options": ["my neighbor Bob", "the store owner", "some random guy"]
-      }
-    ],
+    "slots": {
+      "caller_name": ["Mike", "Linda", "Steve"],
+      "street_location": ["123 Oak Street", "456 Pine Avenue", "789 Maple Drive"],
+      "car_description": ["red Honda Civic", "blue Ford F-150", "white Tesla Model 3"],
+      "ambient_audio": ["car honking", "people talking", "wind noise"],
+      "spot_owner_name": ["my neighbor Bob", "the store owner", "some random guy"]
+    },
     "intents": {
       "ASK_LOCATION": {
         "score_delta": 0,

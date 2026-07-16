@@ -5,8 +5,15 @@ import { StartScreen } from '@/components/StartScreen';
 import { PlayingScreen } from '@/components/PlayingScreen';
 import { FeedbackScreen } from '@/components/FeedbackScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
+import { SettingsModal } from '@/components/SettingsModal';
 import { HydratedCallSession } from '@/lib/hydration';
 import { TranscriptMessage, LeaderboardEntry, FeedbackInfo } from '@/types/game';
+
+const VALID_THEMES = ['green', 'amber', 'cyan', 'silver', 'paper', 'lab'] as const;
+type ThemeType = (typeof VALID_THEMES)[number];
+
+const VALID_SIZES = ['small', 'medium', 'large'] as const;
+type TextSizeType = (typeof VALID_SIZES)[number];
 
 export default function Console911Game() {
   // Game state manager
@@ -37,10 +44,19 @@ export default function Console911Game() {
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [submittingScore, setSubmittingScore] = useState(false);
 
+  // Abort confirmation intermediate state
+  const [abortConfirm, setAbortConfirm] = useState(false);
+
   // Audio wave indicators bars
   const [soundwaveBars, setSoundwaveBars] = useState<number[]>([
     10, 10, 10, 10, 10, 10, 10, 10, 10, 10
   ]);
+
+  // Settings States
+  const [theme, setTheme] = useState<ThemeType>('green');
+  const [textSize, setTextSize] = useState<TextSizeType>('medium');
+  const [crtEnabled, setCrtEnabled] = useState(true);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const fetchLeaderboard = async () => {
     try {
@@ -54,9 +70,23 @@ export default function Console911Game() {
     }
   };
 
-  // Load Leaderboard on component mount
+  // Load saved preferences and leaderboard on component mount
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    const savedTheme = localStorage.getItem('console911-theme');
+    const savedTextSize = localStorage.getItem('console911-text-size');
+    const savedCrt = localStorage.getItem('console911-crt-enabled');
+
+    if (savedTheme && (VALID_THEMES as readonly string[]).includes(savedTheme)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTheme(savedTheme as ThemeType);
+    }
+    if (savedTextSize && (VALID_SIZES as readonly string[]).includes(savedTextSize)) {
+      setTextSize(savedTextSize as TextSizeType);
+    }
+    if (savedCrt !== null) {
+      setCrtEnabled(savedCrt === 'true');
+    }
+
     fetchLeaderboard();
   }, []);
 
@@ -80,6 +110,15 @@ export default function Console911Game() {
 
     return () => clearInterval(interval);
   }, [gameState, isCallerTyping]);
+
+  // Reset abort confirmation after 4 seconds of inactivity
+  useEffect(() => {
+    if (!abortConfirm) return;
+    const timer = setTimeout(() => {
+      setAbortConfirm(false);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [abortConfirm]);
 
   // Get current timestamp format e.g., [16:42:01]
   const getTimestamp = () => {
@@ -132,7 +171,7 @@ export default function Console911Game() {
     setTranscript([
       {
         sender: 'system',
-        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} (ARCHETYPE: ${call.archetype.toUpperCase()}) ---`,
+        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} ---`,
         timestamp: getTimestamp()
       },
       {
@@ -338,53 +377,115 @@ export default function Console911Game() {
     }
   };
 
+  // Abort active session and return to start screen
+  const handleAbortSession = () => {
+    if (!abortConfirm) {
+      setAbortConfirm(true);
+      return;
+    }
+
+    setAbortConfirm(false);
+    setGameState('start');
+    setCalls([]);
+    setCurrentCallIndex(0);
+    setTurnCount(1);
+    setTotalScore(0);
+    setCurrentState('initial');
+    setCallScore(0);
+    setTranscript([]);
+    setInputText('');
+    setIsCallerTyping(false);
+    setFeedbackInfo(null);
+    setScoreSubmitted(false);
+    setSubmittingScore(false);
+  };
+
   return (
-    <div className="flex flex-col flex-1 h-screen bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white crt-effect select-none font-mono">
+    <div
+      className={`flex flex-col flex-1 h-screen bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white select-none font-mono theme-${theme} size-${textSize} ${crtEnabled ? 'crt-effect' : ''}`}
+    >
       {/* SCREEN BEZEL GLOW */}
       <div className="absolute inset-0 border-[6px] border-zinc-900 pointer-events-none z-[1000] shadow-[inset_0_0_80px_rgba(0,0,0,0.9)]" />
 
       {/* HEADER SECTION */}
       <header className="shrink-0 flex items-center justify-between border-b border-emerald-950 px-4 py-2 text-xs select-none">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="font-bold tracking-widest text-emerald-500 crt-glow-green">
             CONSOLE 911 // DISPATCH SYSTEM v1.0
           </span>
+          <span className="text-emerald-950">|</span>
+          <button
+            onClick={() => setIsSettingsOpen(true)}
+            className="px-2 py-0.5 border border-emerald-900 bg-emerald-950/20 text-emerald-400 hover:bg-emerald-900 hover:text-emerald-300 font-bold uppercase tracking-widest text-[10px] rounded cursor-pointer transition-all"
+          >
+            [⚙️ CONFIG]
+          </button>
         </div>
-        {gameState === 'playing' && (
-          <div className="flex items-center gap-4 text-emerald-500/80">
-            <span>
-              CALLSIGN: <strong className="text-emerald-400">{dispatcherName.toUpperCase()}</strong>
-            </span>
-            <span>|</span>
-            <span>
-              CALL:{' '}
-              <strong className="text-emerald-400">
-                {currentCallIndex + 1} / {calls.length}
-              </strong>
-            </span>
-            <span>|</span>
-            <span>
-              TURN:{' '}
-              <strong
-                className={
-                  turnCount >= 8 ? 'text-red-500 font-bold animate-pulse' : 'text-emerald-400'
-                }
+
+        <div className="flex items-center gap-4">
+          {gameState === 'playing' && (
+            <div className="flex items-center gap-4 text-emerald-500/80">
+              <span>
+                CALLSIGN:{' '}
+                <strong className="text-emerald-400">{dispatcherName.toUpperCase()}</strong>
+              </span>
+              <span>|</span>
+              <span>
+                CALL:{' '}
+                <strong className="text-emerald-400">
+                  {currentCallIndex + 1} / {calls.length}
+                </strong>
+              </span>
+              <span>|</span>
+              <span>
+                TURN:{' '}
+                <strong
+                  className={
+                    turnCount >= 8 ? 'text-red-500 font-bold animate-pulse' : 'text-emerald-400'
+                  }
+                >
+                  {turnCount} / 10
+                </strong>
+              </span>
+              <span>|</span>
+              <span>
+                SESSION SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
+              </span>
+              <span>|</span>
+              <button
+                onClick={handleAbortSession}
+                className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                  abortConfirm
+                    ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
+                    : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
+                }`}
               >
-                {turnCount} / 10
-              </strong>
-            </span>
-            <span>|</span>
-            <span>
-              SESSION SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
-            </span>
-          </div>
-        )}
-        {gameState !== 'playing' && (
-          <div className="text-emerald-500/60 font-semibold uppercase font-mono">
-            STATUS: {gameState === 'start' ? 'SYSTEM IDLE' : gameState.toUpperCase()}
-          </div>
-        )}
+                {abortConfirm ? 'You sure?' : 'Abort Shift'}
+              </button>
+            </div>
+          )}
+          {gameState !== 'playing' && (
+            <div className="flex items-center gap-4 text-emerald-500/60 font-semibold uppercase font-mono">
+              <span>STATUS: {gameState === 'start' ? 'SYSTEM IDLE' : gameState.toUpperCase()}</span>
+              {(gameState === 'feedback' || gameState === 'loading') && (
+                <>
+                  <span>|</span>
+                  <button
+                    onClick={handleAbortSession}
+                    className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                      abortConfirm
+                        ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
+                        : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
+                    }`}
+                  >
+                    {abortConfirm ? 'You sure?' : 'Abort Shift'}
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </header>
 
       {/* MAIN CONTAINER */}
@@ -463,6 +564,26 @@ export default function Console911Game() {
           />
         )}
       </div>
+
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        theme={theme}
+        setTheme={(t) => {
+          setTheme(t);
+          localStorage.setItem('console911-theme', t);
+        }}
+        textSize={textSize}
+        setTextSize={(s) => {
+          setTextSize(s);
+          localStorage.setItem('console911-text-size', s);
+        }}
+        crtEnabled={crtEnabled}
+        setCrtEnabled={(e) => {
+          setCrtEnabled(e);
+          localStorage.setItem('console911-crt-enabled', String(e));
+        }}
+      />
     </div>
   );
 }

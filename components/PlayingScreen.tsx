@@ -56,7 +56,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
               return (
                 <div
                   key={idx}
-                  className="text-center text-[10px] tracking-widest text-emerald-500/50 my-2 select-none uppercase font-semibold"
+                  className="text-center text-xs tracking-widest text-emerald-500/50 my-2 select-none uppercase font-semibold"
                 >
                   {msg.text}
                 </div>
@@ -78,7 +78,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
                 key={idx}
                 className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
               >
-                <span className="text-[9px] text-emerald-500/40 mb-1 select-none">
+                <span className="text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                   [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
                 </span>
                 <div
@@ -97,7 +97,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
           {/* CALLER TYPING INDICATOR */}
           {isCallerTyping && (
             <div className="flex flex-col mr-auto items-start max-w-[85%]">
-              <span className="text-[9px] text-emerald-500/40 mb-1 select-none">
+              <span className="text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                 [{new Date().toTimeString().split(' ')[0]}] CALLER TYPING...
               </span>
               <div className="rounded px-3 py-2 text-xs bg-emerald-950/20 border border-emerald-900/40 text-emerald-500/60 animate-pulse">
@@ -144,7 +144,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
       <aside className="w-full md:w-80 flex flex-col border-t md:border-t-0 border-emerald-950 bg-black/40 min-h-0">
         {/* AUDIO & LINE STATUS */}
         <div className="p-4 border-b border-emerald-950 space-y-3">
-          <div className="flex justify-between items-center text-[10px] tracking-widest text-emerald-500/60 uppercase">
+          <div className="flex justify-between items-center text-xs tracking-widest text-emerald-500/60 uppercase">
             <span>Audio Stream 911</span>
             <span
               className={
@@ -206,7 +206,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
         {/* CONTROL BOARD (DISPATCH BUTTONS) */}
         <div className="p-4 bg-zinc-950 border-t border-emerald-950 space-y-2">
-          <h3 className="text-[10px] font-bold uppercase tracking-widest text-red-500 text-center select-none animate-pulse">
+          <h3 className="text-xs font-bold uppercase tracking-widest text-red-500 text-center select-none animate-pulse">
             ☣️ RESPONDER ROUTING BOARD ☣️
           </h3>
 

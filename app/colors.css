@@ -1,0 +1,385 @@
+/* Dynamic Theme Swaps for Tailwind v4 Colors */
+.theme-green {
+  --foreground: #10b981;
+}
+
+.theme-amber {
+  --foreground: #f59e0b;
+  --color-emerald-50: #fffbeb;
+  --color-emerald-100: #fef3c7;
+  --color-emerald-200: #fde68a;
+  --color-emerald-300: #fcd34d;
+  --color-emerald-400: #fbbf24;
+  --color-emerald-500: #f59e0b;
+  --color-emerald-600: #d97706;
+  --color-emerald-700: #b45309;
+  --color-emerald-800: #92400e;
+  --color-emerald-900: #78350f;
+  --color-emerald-950: #451a03;
+  --color-amber-50: #f0fdfa;
+  --color-amber-100: #ccfbf1;
+  --color-amber-200: #99f6e4;
+  --color-amber-300: #5eead4;
+  --color-amber-400: #2dd4bf;
+  --color-amber-500: #14b8a6;
+  --color-amber-600: #0d9488;
+  --color-amber-700: #0f766e;
+  --color-amber-800: #115e59;
+  --color-amber-900: #134e4a;
+  --color-amber-950: #042f2e;
+}
+
+.theme-cyan {
+  --foreground: #06b6d4;
+  --color-emerald-50: #ecfeff;
+  --color-emerald-100: #cffafe;
+  --color-emerald-200: #a5f3fc;
+  --color-emerald-300: #67e8f9;
+  --color-emerald-400: #22d3ee;
+  --color-emerald-500: #06b6d4;
+  --color-emerald-600: #0891b2;
+  --color-emerald-700: #0e7490;
+  --color-emerald-800: #155e75;
+  --color-emerald-900: #164e63;
+  --color-emerald-950: #083344;
+  --color-amber-50: #fdf2f8;
+  --color-amber-100: #fce7f3;
+  --color-amber-200: #fbcfe8;
+  --color-amber-300: #f472b6;
+  --color-amber-400: #ff3399;
+  --color-amber-500: #ec4899;
+  --color-amber-600: #db2777;
+  --color-amber-700: #be185d;
+  --color-amber-800: #9d174d;
+  --color-amber-900: #831843;
+  --color-amber-950: #500724;
+}
+
+.theme-silver {
+  --foreground: #e4e4e7;
+  --color-emerald-50: #fafafa;
+  --color-emerald-100: #f4f4f5;
+  --color-emerald-200: #e4e4e7;
+  --color-emerald-300: #d4d4d8;
+  --color-emerald-400: #a1a1aa;
+  --color-emerald-500: #71717a;
+  --color-emerald-600: #52525b;
+  --color-emerald-700: #3f3f46;
+  --color-emerald-800: #27272a;
+  --color-emerald-900: #18181b;
+  --color-emerald-950: #09090b;
+  --color-amber-50: #ffffff;
+  --color-amber-100: #ffffff;
+  --color-amber-200: #f4f4f5;
+  --color-amber-300: #e4e4e7;
+  --color-amber-400: #ffffff;
+  --color-amber-50: #ffffff;
+  --color-amber-600: #d4d4d8;
+  --color-amber-700: #a1a1aa;
+  --color-amber-800: #52525b;
+  --color-amber-900: #3f3f46;
+  --color-amber-950: #27272a;
+}
+
+/* 5. Vintage Paper Theme (Light Theme) */
+.theme-paper {
+  --foreground: #1c1917;
+  --background: #fafaf9;
+
+  --color-zinc-950: #fafaf9;
+  --color-zinc-900: #f5f5f4;
+  --color-black: #fafaf9;
+
+  --color-emerald-50: #1c1917;
+  --color-emerald-100: #27272a;
+  --color-emerald-200: #3f3f46;
+  --color-emerald-300: #52525b;
+  --color-emerald-400: #1c1917;
+  --color-emerald-500: #2e2a24;
+  --color-emerald-600: #44403c;
+  --color-emerald-700: #57534e;
+  --color-emerald-800: #d6d3d1;
+  --color-emerald-900: #e7e5e4;
+  --color-emerald-950: #f5f5f4;
+
+  --color-amber-50: #7c2d12;
+  --color-amber-100: #9a3412;
+  --color-amber-200: #c2410c;
+  --color-amber-300: #ea580c;
+  --color-amber-400: #7c2d12;
+  --color-amber-500: #c2410c;
+  --color-amber-600: #ea580c;
+  --color-amber-700: #f97316;
+  --color-amber-800: #e7e5e4;
+  --color-amber-900: #d6d3d1;
+  --color-amber-950: #f5f5f4;
+  --crt-glow-color: rgba(28, 25, 23, 0.1);
+}
+
+/* Multi-class override for the root elements */
+.theme-paper.bg-zinc-950,
+.theme-paper .bg-zinc-950,
+.theme-paper.bg-black,
+.theme-paper .bg-black {
+  background-color: #fafaf9 !important;
+  color: #1c1917 !important;
+}
+
+/* Translucent panel dark layers for card contrast */
+.theme-paper .bg-zinc-950\/40,
+.theme-paper .bg-zinc-950\/60,
+.theme-paper .bg-zinc-950\/70,
+.theme-paper .bg-zinc-950\/80,
+.theme-paper .bg-zinc-900\/50,
+.theme-paper .bg-black\/40,
+.theme-paper .bg-black\/60 {
+  background-color: rgba(28, 25, 23, 0.05) !important;
+}
+.theme-paper .border-emerald-950,
+.theme-paper .border-emerald-900,
+.theme-paper .border-emerald-800,
+.theme-paper .border-emerald-700 {
+  border-color: rgba(28, 25, 23, 0.15) !important;
+}
+
+/* High contrast routing buttons for Paper light theme */
+.theme-paper .border-blue-900 {
+  border-color: #1e3a8a !important;
+}
+.theme-paper .bg-blue-950\/20 {
+  background-color: #eff6ff !important;
+}
+.theme-paper .text-blue-400 {
+  color: #1e40af !important;
+}
+.theme-paper .hover\:text-blue-300:hover {
+  color: #1e3a8a !important;
+}
+
+.theme-paper .border-red-900 {
+  border-color: #991b1b !important;
+}
+.theme-paper .bg-red-950\/20 {
+  background-color: #fef2f2 !important;
+}
+.theme-paper .text-red-400 {
+  color: #b91c1c !important;
+}
+.theme-paper .hover\:text-red-300:hover {
+  color: #991b1b !important;
+}
+
+.theme-paper .border-orange-950 {
+  border-color: #9a3412 !important;
+}
+.theme-paper .bg-orange-900\/10 {
+  background-color: #fff7ed !important;
+}
+.theme-paper .text-orange-400 {
+  color: #c2410c !important;
+}
+.theme-paper .hover\:text-orange-300:hover {
+  color: #9a3412 !important;
+}
+
+.theme-paper .border-yellow-950 {
+  border-color: #854d0e !important;
+}
+.theme-paper .bg-yellow-900\/10 {
+  background-color: #fef9c3 !important;
+}
+.theme-paper .text-yellow-500 {
+  color: #854d0e !important;
+}
+.theme-paper .hover\:text-yellow-400:hover {
+  color: #713f12 !important;
+}
+
+/* Highlight marker selection */
+.theme-paper ::selection {
+  background-color: #fef08a !important;
+  color: #1c1917 !important;
+}
+
+/* 6. Retro Lab Theme (Light Theme) */
+.theme-lab {
+  --foreground: #0f766e;
+  --background: #f0fdf4;
+
+  --color-zinc-950: #f0fdf4;
+  --color-zinc-900: #e6f4ea;
+  --color-black: #f0fdf4;
+
+  --color-emerald-50: #0f766e;
+  --color-emerald-100: #115e59;
+  --color-emerald-200: #0d9488;
+  --color-emerald-300: #14b8a6;
+  --color-emerald-400: #0f766e;
+  --color-emerald-500: #0d9488;
+  --color-emerald-600: #14b8a6;
+  --color-emerald-700: #2dd4bf;
+  --color-emerald-800: #ccfbf1;
+  --color-emerald-900: #99f6e4;
+  --color-emerald-950: #f0fdf4;
+
+  --color-amber-50: #1e3a8a;
+  --color-amber-100: #1e40af;
+  --color-amber-200: #2563eb;
+  --color-amber-300: #3b82f6;
+  --color-amber-400: #1e3a8a;
+  --color-amber-500: #2563eb;
+  --color-amber-600: #3b82f6;
+  --color-amber-700: #60a5fa;
+  --color-amber-800: #dbeafe;
+  --color-amber-900: #bfdbfe;
+  --color-amber-950: #eff6ff;
+  --crt-glow-color: rgba(15, 118, 110, 0.1);
+}
+
+.theme-lab.bg-zinc-950,
+.theme-lab .bg-zinc-950,
+.theme-lab.bg-black,
+.theme-lab .bg-black {
+  background-color: #f0fdf4 !important;
+  color: #0f766e !important;
+}
+
+.theme-lab .bg-zinc-950\/40,
+.theme-lab .bg-zinc-950\/60,
+.theme-lab .bg-zinc-950\/70,
+.theme-lab .bg-zinc-950\/80,
+.theme-lab .bg-zinc-900\/50,
+.theme-lab .bg-black\/40,
+.theme-lab .bg-black\/60 {
+  background-color: rgba(15, 118, 110, 0.05) !important;
+}
+.theme-lab .border-emerald-950,
+.theme-lab .border-emerald-900,
+.theme-lab .border-emerald-800,
+.theme-lab .border-emerald-700 {
+  border-color: rgba(15, 118, 110, 0.15) !important;
+}
+
+/* High contrast routing buttons for Lab light theme */
+.theme-lab .border-blue-900 {
+  border-color: #1e3a8a !important;
+}
+.theme-lab .bg-blue-950\/20 {
+  background-color: #eff6ff !important;
+}
+.theme-lab .text-blue-400 {
+  color: #1e40af !important;
+}
+.theme-lab .hover\:text-blue-300:hover {
+  color: #1e3a8a !important;
+}
+
+.theme-lab .border-red-900 {
+  border-color: #991b1b !important;
+}
+.theme-lab .bg-red-950\/20 {
+  background-color: #fef2f2 !important;
+}
+.theme-lab .text-red-400 {
+  color: #b91c1c !important;
+}
+.theme-lab .hover\:text-red-300:hover {
+  color: #991b1b !important;
+}
+
+.theme-lab .border-orange-950 {
+  border-color: #9a3412 !important;
+}
+.theme-lab .bg-orange-900\/10 {
+  background-color: #fff7ed !important;
+}
+.theme-lab .text-orange-400 {
+  color: #c2410c !important;
+}
+.theme-lab .hover\:text-orange-300:hover {
+  color: #9a3412 !important;
+}
+
+.theme-lab .border-yellow-950 {
+  border-color: #854d0e !important;
+}
+.theme-lab .bg-yellow-900\/10 {
+  background-color: #fef9c3 !important;
+}
+.theme-lab .text-yellow-500 {
+  color: #854d0e !important;
+}
+.theme-lab .hover\:text-yellow-400:hover {
+  color: #713f12 !important;
+}
+
+/* Highlight marker selection */
+.theme-lab ::selection {
+  background-color: #99f6e4 !important;
+  color: #0f766e !important;
+}
+
+/* Map theme glows and override animations based on class */
+.theme-green .crt-glow-green {
+  animation: pulse-glow 3s infinite;
+}
+.theme-amber .crt-glow-green {
+  animation: pulse-glow-amber 3s infinite;
+}
+.theme-cyan .crt-glow-green {
+  animation: pulse-glow-cyan 3s infinite;
+}
+.theme-silver .crt-glow-green {
+  animation: pulse-glow-silver 3s infinite;
+}
+.theme-paper .crt-glow-green {
+  animation: pulse-glow-paper 3s infinite;
+}
+.theme-lab .crt-glow-green {
+  animation: pulse-glow-lab 3s infinite;
+}
+
+@keyframes pulse-glow-cyan {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px rgba(6, 182, 212, 0.4),
+      0 0 10px rgba(6, 182, 212, 0.2);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(6, 182, 212, 0.6),
+      0 0 18px rgba(6, 182, 212, 0.4);
+  }
+}
+@keyframes pulse-glow-silver {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px rgba(228, 228, 231, 0.3),
+      0 0 10px rgba(228, 228, 231, 0.1);
+  }
+  50% {
+    text-shadow:
+      0 0 8px rgba(228, 228, 231, 0.5),
+      0 0 18px rgba(228, 228, 231, 0.3);
+  }
+}
+@keyframes pulse-glow-paper {
+  0%,
+  100% {
+    text-shadow: 0 0 2px rgba(28, 25, 23, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 4px rgba(28, 25, 23, 0.3);
+  }
+}
+@keyframes pulse-glow-lab {
+  0%,
+  100% {
+    text-shadow: 0 0 2px rgba(15, 118, 110, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 5px rgba(15, 118, 110, 0.3);
+  }
+}

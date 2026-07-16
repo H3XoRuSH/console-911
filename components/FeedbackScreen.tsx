@@ -19,7 +19,7 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
     <main className="flex-1 flex flex-col items-center justify-center p-6 overflow-y-auto terminal-scroll space-y-6">
       <div className="w-full max-w-2xl border border-emerald-900 bg-zinc-950/80 p-6 rounded shadow-2xl space-y-6">
         <div className="border-b border-emerald-950 pb-4 text-center">
-          <span className="text-[10px] tracking-widest text-emerald-500/60 uppercase block mb-1">
+          <span className="text-xs tracking-widest text-emerald-500/60 uppercase block mb-1">
             Line Summary & Resource Audit
           </span>
           <h2 className="text-xl font-bold tracking-widest text-emerald-400 uppercase">
