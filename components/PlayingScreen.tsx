@@ -16,18 +16,6 @@ interface PlayingScreenProps {
   ) => void;
 }
 
-const AUTOCOMPLETE_QUERIES = [
-  'Where is your location?',
-  'What is happening there?',
-  'What is your name?',
-  'Are they breathing?',
-  'Does anyone have weapons?',
-  'Try to stay calm.',
-  'Please stay where you are.',
-  'You need to evacuate immediately.',
-  'I am dispatching services now.'
-];
-
 export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   calls,
   currentCallIndex,
@@ -212,27 +200,6 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
               >
                 {activeCall.difficulty.toUpperCase()}
               </span>
-            </div>
-          </div>
-
-          {/* SUGGESTED PROTOCOL AUTOCOMPLETES */}
-          <div className="pt-3 space-y-2">
-            <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-500/70">
-              Suggested Intents Autocomplete
-            </h4>
-            <div className="flex flex-wrap gap-1">
-              {AUTOCOMPLETE_QUERIES.map((q, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    if (!isCallerTyping) setInputText(q);
-                  }}
-                  disabled={isCallerTyping}
-                  className="text-xs bg-emerald-950/20 hover:bg-emerald-900/30 border border-emerald-950 hover:border-emerald-800 disabled:opacity-40 text-emerald-500 text-left py-1 px-1.5 rounded transition-all cursor-pointer truncate max-w-full"
-                >
-                  {q}
-                </button>
-              ))}
             </div>
           </div>
         </div>
