@@ -30,17 +30,19 @@ When starting work on a new ticket/issue, follow this strict step-by-step sequen
 
 ## 2. Branching Convention
 
-Branches must follow this naming convention:
-`issue-<number>-<short-description>`
-
-- Example: `issue-42-fix-crt-glow`
+Branches must follow these naming conventions:
+- **Single Issue**: `issue-<number>-<short-description>`
+  - Example: `issue-42-fix-crt-glow`
+- **Multiple Issues**: `issue-<num 1>-<num 2>-...-<short-description>`
+  - Example: `issue-63-65-67-fix-scenarios`
 
 ## 3. Pull Request Title Format
 
-Pull Request titles must follow a strict format to automatically link with GitHub Issues:
-`Issue #<issue number>: <short description>`
-
-- Example: `Issue #42: Fix input box caret focus in CRT screen`
+Pull Request titles must follow these formats:
+- **Single Issue**: `Issue #<issue number>: <short description>`
+  - Example: `Issue #42: Fix input box caret focus in CRT screen`
+- **Multiple Issues**: `Issue #<num 1> #<num 2> ...: <short description>`
+  - Example: `Issue #63 #65 #67: Fix scenario difficulties, outcomes, and slots`
 
 ## 4. Linking Pull Requests to Issues
 

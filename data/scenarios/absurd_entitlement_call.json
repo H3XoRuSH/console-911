@@ -1,9 +1,13 @@
 [
   {
-    "scenario_title": "The Missing Avocado Toast",
     "archetype": "Absurd Entitlement Call",
     "description": "A customer at a trendy café is irate because their avocado toast has too much chili flakes and not enough lime. They demand police arrest the chef for culinary malpractice.",
-    "states": ["initial", "complaining", "demanding", "escalated"],
+    "states": [
+      "initial",
+      "complaining",
+      "demanding",
+      "escalated"
+    ],
     "initial_variations": [
       "I need the police immediately! My avocado toast is ruined with {specific_details} at {address_location}!",
       "Hello, this is an emergency! The chef at {restaurant_name} put {specific_details} on my toast. I demand justice!",
@@ -107,7 +111,9 @@
             "I don't have a weapon, but I'll use my phone to film this injustice.",
             "No weapon. Yet."
           ],
-          "escalated": ["I'm not armed, but I'm armed with the truth!"]
+          "escalated": [
+            "I'm not armed, but I'm armed with the truth!"
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -126,7 +132,9 @@
             "I'm the victim. The chef is the perpetrator.",
             "I'm the victim of a culinary crime."
           ],
-          "escalated": ["I'm the victim. And now the manager is also a victim of my wrath."]
+          "escalated": [
+            "I'm the victim. And now the manager is also a victim of my wrath."
+          ]
         }
       },
       "ASK_SUSPECT": {
@@ -145,7 +153,9 @@
             "The chef, the manager, and anyone who thinks this toast is acceptable.",
             "The entire kitchen staff."
           ],
-          "escalated": ["I've identified the chef. He's bald and has a tattoo of a whisk."]
+          "escalated": [
+            "I've identified the chef. He's bald and has a tattoo of a whisk."
+          ]
         }
       },
       "TELL_INSTRUCTIONS": {
@@ -203,13 +213,19 @@
         "message": "Correctly determined the call was non-emergency. Caller was redirected to the restaurant's complaint line. Resources saved."
       }
     },
-    "id": "scenario_021"
+    "id": "scenario_021",
+    "difficulty": "Easy",
+    "title": "The Missing Avocado Toast"
   },
   {
-    "scenario_title": "The Wrong Cloud",
     "archetype": "Absurd Entitlement Call",
     "description": "A person is furious because a cloud in the sky is shaped like a duck instead of a rabbit, ruining their day. They demand police arrest the weather or change it.",
-    "states": ["initial", "observing", "arguing", "resolved"],
+    "states": [
+      "initial",
+      "observing",
+      "arguing",
+      "resolved"
+    ],
     "initial_variations": [
       "911? I need help! The cloud at {address_location} is shaped like {specific_details} and it's offensive!",
       "This is {caller_name}. I'm looking at the sky above {address_location} and there's a cloud that looks like {specific_details} instead of a rabbit!",
@@ -217,7 +233,13 @@
       "Emergency! The weather is mocking me at {address_location}. That cloud is definitely {specific_details}!"
     ],
     "slots": {
-      "caller_name": ["Oliver Twist", "Mona Lisa", "Captain Obvious", "Sunny Day", "Rain Man"],
+      "caller_name": [
+        "Oliver Twist",
+        "Mona Lisa",
+        "Captain Obvious",
+        "Sunny Day",
+        "Rain Man"
+      ],
       "location": [
         "the park downtown",
         "my backyard",
@@ -232,13 +254,32 @@
         "waves crashing",
         "someone mowing a lawn"
       ],
-      "weather_detail": ["a duck", "an elephant", "a shoe", "a dragon", "a hamburger"],
+      "weather_detail": [
+        "a duck",
+        "an elephant",
+        "a shoe",
+        "a dragon",
+        "a hamburger"
+      ],
       "witness_name": [
         "my friend Alex",
         "my neighbor Steve",
         "my dog Buster",
         "no one, I'm alone",
         "a random jogger"
+      ],
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Lane",
+        "321 Elm Drive",
+        "654 Birch Road"
+      ],
+      "specific_details": [
+        "something suspicious",
+        "a strange noise",
+        "a sudden emergency",
+        "smoke in the air"
       ]
     },
     "intents": {
@@ -258,7 +299,9 @@
             "I told you, {location}! Are you blind or just incompetent?",
             "At {location}. The cloud is taunting me."
           ],
-          "resolved": ["I'm at {location}. But since you won't help, I'm leaving."]
+          "resolved": [
+            "I'm at {location}. But since you won't help, I'm leaving."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -277,7 +320,9 @@
             "How many times? It's {specific_details}! This is abuse of a sky enthusiast!",
             "If you looked up, you'd see {specific_details}. It's obvious."
           ],
-          "resolved": ["It was {specific_details}. Now it's a blob. My day is ruined."]
+          "resolved": [
+            "It was {specific_details}. Now it's a blob. My day is ruined."
+          ]
         }
       },
       "ASK_WEAPON": {
@@ -296,7 +341,9 @@
             "I don't need a weapon. The cloud is the aggressor.",
             "I have a slingshot, but I'm not using it yet."
           ],
-          "resolved": ["No weapons. Just a broken spirit."]
+          "resolved": [
+            "No weapons. Just a broken spirit."
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -315,7 +362,9 @@
             "I am the primary victim. The cloud is the perpetrator.",
             "We're all victims of this cloud's poor shape choices."
           ],
-          "resolved": ["I'm the victim. But I'll survive... barely."]
+          "resolved": [
+            "I'm the victim. But I'll survive... barely."
+          ]
         }
       },
       "ASK_SUSPECT": {
@@ -334,7 +383,9 @@
             "The suspect is Mother Nature. She's mocking me.",
             "It's definitely the Illuminati controlling the clouds."
           ],
-          "resolved": ["No suspect. It was just a cloud. But a mean one."]
+          "resolved": [
+            "No suspect. It was just a cloud. But a mean one."
+          ]
         }
       },
       "TELL_INSTRUCTIONS": {
@@ -358,7 +409,9 @@
             "I will not just accept this! I demand action!",
             "If you don't help, I'll contact the local news."
           ],
-          "resolved": ["Fine, I'll let it go. But I'm writing a complaint to the weather bureau."]
+          "resolved": [
+            "Fine, I'll let it go. But I'm writing a complaint to the weather bureau."
+          ]
         }
       }
     },
@@ -389,7 +442,9 @@
         "message": "Correctly determined the call was frivolous. The caller was advised to contact a meteorologist. Resources preserved."
       }
     },
-    "id": "scenario_022"
+    "id": "scenario_022",
+    "difficulty": "Easy",
+    "title": "The Wrong Cloud"
   },
   {
     "title": "The Overdue Library Book Complaint",
@@ -408,8 +463,18 @@
       "Listen, I'm a taxpayer and my rights are being violated. The library system is incompetent. I demand police assistance to retrieve my property!"
     ],
     "slots": {
-      "caller_name": ["Sarah", "Mark", "Linda", "Tom"],
-      "address_location": ["123 Elm Street", "456 Oak Avenue", "789 Maple Lane", "101 Pine Drive"],
+      "caller_name": [
+        "Sarah",
+        "Mark",
+        "Linda",
+        "Tom"
+      ],
+      "address_location": [
+        "123 Elm Street",
+        "456 Oak Avenue",
+        "789 Maple Lane",
+        "101 Pine Drive"
+      ],
       "library_name": [
         "Downtown Public Library",
         "Riverside Branch Library",
@@ -422,7 +487,12 @@
         "The Catcher in the Rye",
         "To Kill a Mockingbird"
       ],
-      "due_date": ["yesterday", "two days ago", "today", "last week"]
+      "due_date": [
+        "yesterday",
+        "two days ago",
+        "today",
+        "last week"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -433,11 +503,15 @@
             "I'm at {address_location}. The book is at {library_name}!",
             "My home is {address_location}, but the book is at the library on {library_name}."
           ],
-          "explaining": ["I already told you, {address_location}. Are you sending someone or not?"],
+          "explaining": [
+            "I already told you, {address_location}. Are you sending someone or not?"
+          ],
           "escalating": [
             "I'm not answering any more questions! Just send the police to {address_location} or the library!"
           ],
-          "resolved": ["Finally, you ask. It's {address_location}. But it's too late now."]
+          "resolved": [
+            "Finally, you ask. It's {address_location}. But it's too late now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -451,18 +525,30 @@
           "explaining": [
             "I need it for my research project. The library won't let me renew because someone else placed a hold. This is a crime!"
           ],
-          "escalating": ["I have a right to that book! I pay taxes! This is theft by the library!"],
-          "resolved": ["Never mind. I'll handle it myself."]
+          "escalating": [
+            "I have a right to that book! I pay taxes! This is theft by the library!"
+          ],
+          "resolved": [
+            "Never mind. I'll handle it myself."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
         "score_delta": 0,
         "state_transitions": {},
         "responses": {
-          "initial": ["My name is {caller_name}. I'm a respected member of this community!"],
-          "explaining": ["I'm {caller_name}. I've already told you that!"],
-          "escalating": ["I'm {caller_name} and I want your badge number!"],
-          "resolved": ["I'm {caller_name}. But it doesn't matter anymore."]
+          "initial": [
+            "My name is {caller_name}. I'm a respected member of this community!"
+          ],
+          "explaining": [
+            "I'm {caller_name}. I've already told you that!"
+          ],
+          "escalating": [
+            "I'm {caller_name} and I want your badge number!"
+          ],
+          "resolved": [
+            "I'm {caller_name}. But it doesn't matter anymore."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -478,7 +564,9 @@
           "escalating": [
             "You're not listening! The book is {book_title}! Fine, I'll solve this myself!"
           ],
-          "resolved": ["I've wasted enough time. Goodbye."]
+          "resolved": [
+            "I've wasted enough time. Goodbye."
+          ]
         }
       }
     },
@@ -509,7 +597,8 @@
         "message": "Dispatcher professionally explains that a library overdue book is not an emergency. Caller is redirected to library services. Call resolved without incident."
       }
     },
-    "id": "scenario_203"
+    "id": "scenario_203",
+    "difficulty": "Easy"
   },
   {
     "title": "The Cold Coffee at a Drive-Thru",
@@ -528,16 +617,36 @@
       "This is an emergency! The coffee at Starbucks is not hot enough! I'm stuck in the drive-thru line and they refuse to fix it!"
     ],
     "slots": {
-      "caller_name": ["Mike", "Jessica", "Dave", "Emily"],
+      "caller_name": [
+        "Mike",
+        "Jessica",
+        "Dave",
+        "Emily"
+      ],
       "address_location": [
         "The Burger King on 1st Avenue",
         "McDonald's at the corner of 5th and Main",
         "Starbucks near the mall",
         "Dunkin' on Route 9"
       ],
-      "beverage_type": ["black coffee", "cappuccino", "latte", "hot chocolate"],
-      "temperature_complaint": ["lukewarm", "barely warm", "ice cold", "room temperature"],
-      "order_number": ["Order 42", "Order 15", "Order 7", "Order 99"]
+      "beverage_type": [
+        "black coffee",
+        "cappuccino",
+        "latte",
+        "hot chocolate"
+      ],
+      "temperature_complaint": [
+        "lukewarm",
+        "barely warm",
+        "ice cold",
+        "room temperature"
+      ],
+      "order_number": [
+        "Order 42",
+        "Order 15",
+        "Order 7",
+        "Order 99"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -548,9 +657,15 @@
             "I'm at {address_location}. I'm trapped in the drive-thru!",
             "I'm at the {address_location} drive-thru. Send help!"
           ],
-          "arguing": ["I told you, {address_location}! Are you deaf?"],
-          "threatening": ["I'll drive to {address_location} and cause a scene if you don't act!"],
-          "disconnected": ["Forget it. I'm leaving {address_location}."]
+          "arguing": [
+            "I told you, {address_location}! Are you deaf?"
+          ],
+          "threatening": [
+            "I'll drive to {address_location} and cause a scene if you don't act!"
+          ],
+          "disconnected": [
+            "Forget it. I'm leaving {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -567,7 +682,9 @@
           "threatening": [
             "If you don't send police, I'll throw this {beverage_type} at the manager!"
           ],
-          "disconnected": ["I don't have time for this. I'm dumping it."]
+          "disconnected": [
+            "I don't have time for this. I'm dumping it."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -578,9 +695,15 @@
             "My name is {caller_name}. I want the manager arrested!",
             "I'm {caller_name}, a loyal customer. This is a betrayal!"
           ],
-          "arguing": ["I'm {caller_name}. What kind of service is this?"],
-          "threatening": ["{caller_name} will have your job for this!"],
-          "disconnected": ["Never mind my name. I'm done."]
+          "arguing": [
+            "I'm {caller_name}. What kind of service is this?"
+          ],
+          "threatening": [
+            "{caller_name} will have your job for this!"
+          ],
+          "disconnected": [
+            "Never mind my name. I'm done."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -590,9 +713,15 @@
           "initial": [
             "I have {order_number}. The {beverage_type} is {temperature_complaint}. What else do you need?"
           ],
-          "arguing": ["I already gave the details! {order_number} at {address_location}!"],
-          "threatening": ["You'll regret ignoring {order_number}!"],
-          "disconnected": ["I'm hanging up. I'll fix this myself."]
+          "arguing": [
+            "I already gave the details! {order_number} at {address_location}!"
+          ],
+          "threatening": [
+            "You'll regret ignoring {order_number}!"
+          ],
+          "disconnected": [
+            "I'm hanging up. I'll fix this myself."
+          ]
         }
       }
     },
@@ -623,7 +752,8 @@
         "message": "Dispatcher explains that cold coffee is not an emergency. Caller is advised to speak to the manager. Call resolved."
       }
     },
-    "id": "scenario_204"
+    "id": "scenario_204",
+    "difficulty": "Easy"
   },
   {
     "title": "The Wrongly Colored Paint",
@@ -642,16 +772,36 @@
       "The paint is completely off! This is false advertising! I want a SWAT team to force the store to fix it!"
     ],
     "slots": {
-      "caller_name": ["Karen", "Brad", "Cindy", "Greg"],
+      "caller_name": [
+        "Karen",
+        "Brad",
+        "Cindy",
+        "Greg"
+      ],
       "address_location": [
         "123 Rose Lane",
         "456 Tulip Drive",
         "789 Daisy Court",
         "101 Orchid Street"
       ],
-      "expected_color": ["Gentle Sky", "Warm Beige", "Mellow Yellow", "Soft Lavender"],
-      "actual_color": ["Stormy Gray", "Dull Tan", "Bold Orange", "Pale Pink"],
-      "room": ["living room", "bedroom", "kitchen", "dining room"]
+      "expected_color": [
+        "Gentle Sky",
+        "Warm Beige",
+        "Mellow Yellow",
+        "Soft Lavender"
+      ],
+      "actual_color": [
+        "Stormy Gray",
+        "Dull Tan",
+        "Bold Orange",
+        "Pale Pink"
+      ],
+      "room": [
+        "living room",
+        "bedroom",
+        "kitchen",
+        "dining room"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -662,9 +812,15 @@
             "My house at {address_location}! The {room} is ruined!",
             "I'm at {address_location}. The {room} is a disaster!"
           ],
-          "explaining": ["I told you, {address_location}! The {room} is the wrong color!"],
-          "demanding": ["Send the fire truck to {address_location} with paint! Now!"],
-          "resigned": ["Whatever. The address is {address_location}, but I guess you don't care."]
+          "explaining": [
+            "I told you, {address_location}! The {room} is the wrong color!"
+          ],
+          "demanding": [
+            "Send the fire truck to {address_location} with paint! Now!"
+          ],
+          "resigned": [
+            "Whatever. The address is {address_location}, but I guess you don't care."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -681,7 +837,9 @@
           "demanding": [
             "I need you to send people to repaint the {room} to {expected_color}. Now!"
           ],
-          "resigned": ["It's {actual_color}. I'll have to fix it myself."]
+          "resigned": [
+            "It's {actual_color}. I'll have to fix it myself."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -692,9 +850,15 @@
             "My name is {caller_name}. I'm a homeowner, and this is unacceptable!",
             "I'm {caller_name}. I demand action!"
           ],
-          "explaining": ["{caller_name} here. I already gave my name."],
-          "demanding": ["This is {caller_name} and I'm not backing down!"],
-          "resigned": ["I'm {caller_name}. It doesn't matter."]
+          "explaining": [
+            "{caller_name} here. I already gave my name."
+          ],
+          "demanding": [
+            "This is {caller_name} and I'm not backing down!"
+          ],
+          "resigned": [
+            "I'm {caller_name}. It doesn't matter."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -707,8 +871,12 @@
           "explaining": [
             "The can said {expected_color} but it dried as {actual_color}. I have the receipt."
           ],
-          "demanding": ["I told you everything! Just send someone to repaint it!"],
-          "resigned": ["I'm done. I'll call a lawyer."]
+          "demanding": [
+            "I told you everything! Just send someone to repaint it!"
+          ],
+          "resigned": [
+            "I'm done. I'll call a lawyer."
+          ]
         }
       }
     },
@@ -739,7 +907,8 @@
         "message": "Dispatcher calms caller, explains that paint color is not an emergency. Suggests contacting the store. Call resolved."
       }
     },
-    "id": "scenario_205"
+    "id": "scenario_205",
+    "difficulty": "Easy"
   },
   {
     "title": "The Missing Sock from Laundry",
@@ -758,7 +927,12 @@
       "I'm reporting a theft! My favorite sock is gone, and that weirdo in 2B must have taken it!"
     ],
     "slots": {
-      "caller_name": ["Steve", "Patricia", "Alex", "Rebecca"],
+      "caller_name": [
+        "Steve",
+        "Patricia",
+        "Alex",
+        "Rebecca"
+      ],
       "address_location": [
         "Apartment 3A, 100 Elm Street",
         "Unit 5, 200 Oak Avenue",
@@ -771,7 +945,12 @@
         "a green polka dot sock",
         "a black ankle sock with a hole"
       ],
-      "neighbor_name": ["Mr. Jenkins", "Mrs. Patterson", "Jim", "Karen"],
+      "neighbor_name": [
+        "Mr. Jenkins",
+        "Mrs. Patterson",
+        "Jim",
+        "Karen"
+      ],
       "evidence": [
         "I heard him laughing",
         "he was looking at my laundry",
@@ -788,9 +967,15 @@
             "I'm at {address_location}. The laundry room is in the basement.",
             "I live in {address_location}. The crime scene is the laundry room!"
           ],
-          "suspicious": ["{address_location}! I told you! Hurry!"],
-          "insistent": ["Send them to {address_location} now!"],
-          "defeated": ["It's {address_location}. Not that it matters."]
+          "suspicious": [
+            "{address_location}! I told you! Hurry!"
+          ],
+          "insistent": [
+            "Send them to {address_location} now!"
+          ],
+          "defeated": [
+            "It's {address_location}. Not that it matters."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -801,11 +986,15 @@
             "It's {sock_description}. It's been missing since yesterday. My neighbor {neighbor_name} is the culprit!",
             "My {sock_description} is gone. I suspect {neighbor_name}."
           ],
-          "suspicious": ["The evidence is {evidence}. That's proof!"],
+          "suspicious": [
+            "The evidence is {evidence}. That's proof!"
+          ],
           "insistent": [
             "I already told you, {sock_description} taken by {neighbor_name}. Just arrest him!"
           ],
-          "defeated": ["It's {sock_description}. I'll never see it again."]
+          "defeated": [
+            "It's {sock_description}. I'll never see it again."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -816,9 +1005,15 @@
             "My name is {caller_name}. I'm a victim of sock theft!",
             "I'm {caller_name}. This is a serious crime!"
           ],
-          "suspicious": ["{caller_name}. I want my sock back."],
-          "insistent": ["I'm {caller_name}. I demand action!"],
-          "defeated": ["{caller_name}. Never mind."]
+          "suspicious": [
+            "{caller_name}. I want my sock back."
+          ],
+          "insistent": [
+            "I'm {caller_name}. I demand action!"
+          ],
+          "defeated": [
+            "{caller_name}. Never mind."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -829,9 +1024,15 @@
             "The sock is {sock_description}. I left it in the dryer and {neighbor_name} was nearby. {evidence}.",
             "I have {evidence}. That should be enough for a warrant!"
           ],
-          "suspicious": ["I have {evidence}. What more do you need?"],
-          "insistent": ["I've told you everything! The sock, the neighbor, the evidence!"],
-          "defeated": ["I've got nothing to lose."]
+          "suspicious": [
+            "I have {evidence}. What more do you need?"
+          ],
+          "insistent": [
+            "I've told you everything! The sock, the neighbor, the evidence!"
+          ],
+          "defeated": [
+            "I've got nothing to lose."
+          ]
         }
       }
     },
@@ -862,7 +1063,8 @@
         "message": "Dispatcher explains missing socks are not a police matter. Caller is advised to check their laundry or buy new socks. Call handled."
       }
     },
-    "id": "scenario_206"
+    "id": "scenario_206",
+    "difficulty": "Easy"
   },
   {
     "title": "The Wi-Fi Slowdown",
@@ -881,15 +1083,30 @@
       "I'm a professional gamer and my stream is buffering! This is costing me money! I demand emergency action!"
     ],
     "slots": {
-      "caller_name": ["GamerGuy99", "PixelQueen", "NoobSlayer123", "StreamMaster"],
+      "caller_name": [
+        "GamerGuy99",
+        "PixelQueen",
+        "NoobSlayer123",
+        "StreamMaster"
+      ],
       "address_location": [
         "1234 Cyber Lane",
         "5678 Data Drive",
         "9012 Server Street",
         "3456 Latency Avenue"
       ],
-      "isp": ["Comcast", "Verizon Fios", "AT&T", "Spectrum"],
-      "game_name": ["Fortnite", "Call of Duty", "League of Legends", "Among Us"],
+      "isp": [
+        "Comcast",
+        "Verizon Fios",
+        "AT&T",
+        "Spectrum"
+      ],
+      "game_name": [
+        "Fortnite",
+        "Call of Duty",
+        "League of Legends",
+        "Among Us"
+      ],
       "lag_measurement": [
         "200 ms ping",
         "packet loss of 10%",
@@ -906,9 +1123,15 @@
             "I'm at {address_location}. Hurry, my game is on the line!",
             "My place is {address_location}. Send a tech!"
           ],
-          "frustrated": ["I already said {address_location}! Are you even listening?"],
-          "pleading": ["Please, just send someone to {address_location}!"],
-          "giving_up": ["It's {address_location}. But you guys are useless."]
+          "frustrated": [
+            "I already said {address_location}! Are you even listening?"
+          ],
+          "pleading": [
+            "Please, just send someone to {address_location}!"
+          ],
+          "giving_up": [
+            "It's {address_location}. But you guys are useless."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -919,9 +1142,15 @@
             "I'm playing {game_name} and I have {lag_measurement}. My ISP is {isp}. Fix it!",
             "My internet is {lag_measurement} while playing {game_name}. This is ruining my gaming experience!"
           ],
-          "frustrated": ["I told you, {lag_measurement} in {game_name}! It's unplayable!"],
-          "pleading": ["Just help me with the {lag_measurement} issue! I'm begging you!"],
-          "giving_up": ["Forget the details. You can't help."]
+          "frustrated": [
+            "I told you, {lag_measurement} in {game_name}! It's unplayable!"
+          ],
+          "pleading": [
+            "Just help me with the {lag_measurement} issue! I'm begging you!"
+          ],
+          "giving_up": [
+            "Forget the details. You can't help."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -932,9 +1161,15 @@
             "My name is {caller_name}. I'm a top player!",
             "I'm {caller_name}. This is hurting my rank!"
           ],
-          "frustrated": ["{caller_name}. And I'm losing because of you!"],
-          "pleading": ["I'm {caller_name}. Please help!"],
-          "giving_up": ["I'm {caller_name}. Never mind."]
+          "frustrated": [
+            "{caller_name}. And I'm losing because of you!"
+          ],
+          "pleading": [
+            "I'm {caller_name}. Please help!"
+          ],
+          "giving_up": [
+            "I'm {caller_name}. Never mind."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -945,9 +1180,15 @@
             "My ISP is {isp}. I have {lag_measurement}. The game is {game_name}. Do something!",
             "I'm on {isp}. They won't help. That's why I called 911!"
           ],
-          "frustrated": ["I've given you all the info! {isp}, {lag_measurement}, {game_name}!"],
-          "pleading": ["I told you everything. {isp} said to call 911 for emergencies!"],
-          "giving_up": ["All that info wasted."]
+          "frustrated": [
+            "I've given you all the info! {isp}, {lag_measurement}, {game_name}!"
+          ],
+          "pleading": [
+            "I told you everything. {isp} said to call 911 for emergencies!"
+          ],
+          "giving_up": [
+            "All that info wasted."
+          ]
         }
       }
     },
@@ -978,7 +1219,8 @@
         "message": "Dispatcher tells caller to restart router and contact ISP. Caller reluctantly agrees. No resources wasted."
       }
     },
-    "id": "scenario_207"
+    "id": "scenario_207",
+    "difficulty": "Easy"
   },
   {
     "title": "The Too-Cold Pizza Delivery",
@@ -995,16 +1237,48 @@
       "Hello? I want to report a crime. My {order} is cold. The driver should be arrested."
     ],
     "slots": {
-      "caller_name": ["Mr. Smith", "Mrs. Johnson", "Karen", "Dave"],
-      "food_item": ["pizza", "burger", "sushi", "tacos"],
-      "pizza_place": ["Domino's", "Papa John's", "local pizzeria", "Little Caesars"],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Ln", "321 Elm St"],
-      "ambient_audio": ["dog barking", "TV in background", "children playing", "silence"],
+      "caller_name": [
+        "Mr. Smith",
+        "Mrs. Johnson",
+        "Karen",
+        "Dave"
+      ],
+      "food_item": [
+        "pizza",
+        "burger",
+        "sushi",
+        "tacos"
+      ],
+      "pizza_place": [
+        "Domino's",
+        "Papa John's",
+        "local pizzeria",
+        "Little Caesars"
+      ],
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Ln",
+        "321 Elm St"
+      ],
+      "ambient_audio": [
+        "dog barking",
+        "TV in background",
+        "children playing",
+        "silence"
+      ],
       "specific_details": [
         "the cheese is hard",
         "the box is cold",
         "I waited 2 hours",
         "driver was rude"
+      ],
+      "order": [
+        "pizza",
+        "coffee",
+        "burger",
+        "tacos",
+        "delivery package"
       ]
     },
     "intents": {
@@ -1114,7 +1388,11 @@
             "They're on their way.",
             "Fire will be there."
           ],
-          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+          "frustrated": [
+            "Fire is coming.",
+            "Sending fire now.",
+            "They'll handle it."
+          ]
         }
       },
       "DISPATCH_MEDICAL": {
@@ -1133,7 +1411,11 @@
             "They're on their way.",
             "Medical will be there."
           ],
-          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+          "frustrated": [
+            "Ambulance is coming.",
+            "Sending medics now.",
+            "They'll assess."
+          ]
         }
       },
       "DISPATCH_ANIMAL_CONTROL": {
@@ -1150,7 +1432,11 @@
             "They're on their way.",
             "Animal control will be there."
           ],
-          "frustrated": ["Animal control coming.", "Sending them now.", "They'll deal with it."]
+          "frustrated": [
+            "Animal control coming.",
+            "Sending them now.",
+            "They'll deal with it."
+          ]
         }
       },
       "DISMISS": {
@@ -1205,7 +1491,8 @@
         "message": "Correctly dismissed the trivial complaint. Resources saved."
       }
     },
-    "id": "scenario_208"
+    "id": "scenario_208",
+    "difficulty": "Easy"
   },
   {
     "title": "The Wrong Haircut Complaint",
@@ -1223,12 +1510,42 @@
       "I demand you send officers immediately. This haircut is a crime!"
     ],
     "slots": {
-      "caller_name": ["Linda", "Tom", "Sarah", "Mike"],
-      "hairstyle": ["buzz cut", "mullet", "fade", "perm"],
-      "barbershop": ["Great Clips", "Supercuts", "local barber", "Salon"],
-      "address_location": ["123 Elm St", "456 Oak Dr", "789 Pine Rd", "321 Maple Ave"],
-      "ambient_audio": ["car horns", "music playing", "people talking", "silence"],
-      "specific_details": ["they cut too much", "uneven sides", "wrong color", "razor burn"]
+      "caller_name": [
+        "Linda",
+        "Tom",
+        "Sarah",
+        "Mike"
+      ],
+      "hairstyle": [
+        "buzz cut",
+        "mullet",
+        "fade",
+        "perm"
+      ],
+      "barbershop": [
+        "Great Clips",
+        "Supercuts",
+        "local barber",
+        "Salon"
+      ],
+      "address_location": [
+        "123 Elm St",
+        "456 Oak Dr",
+        "789 Pine Rd",
+        "321 Maple Ave"
+      ],
+      "ambient_audio": [
+        "car horns",
+        "music playing",
+        "people talking",
+        "silence"
+      ],
+      "specific_details": [
+        "they cut too much",
+        "uneven sides",
+        "wrong color",
+        "razor burn"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1304,13 +1621,21 @@
           "escalating": "frustrated"
         },
         "responses": {
-          "initial": ["I'm sending police.", "Officers are on the way.", "Police will be there."],
+          "initial": [
+            "I'm sending police.",
+            "Officers are on the way.",
+            "Police will be there."
+          ],
           "escalating": [
             "Fine, I'll dispatch officers.",
             "Police are coming.",
             "Sending police now."
           ],
-          "frustrated": ["Police are on the way.", "They'll be there soon.", "Officers dispatched."]
+          "frustrated": [
+            "Police are on the way.",
+            "They'll be there soon.",
+            "Officers dispatched."
+          ]
         }
       },
       "DISPATCH_FIRE": {
@@ -1324,8 +1649,16 @@
             "Firefighters are coming.",
             "Fire trucks on the way."
           ],
-          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
-          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+          "escalating": [
+            "Fire dispatched.",
+            "They're on their way.",
+            "Fire will be there."
+          ],
+          "frustrated": [
+            "Fire is coming.",
+            "Sending fire now.",
+            "They'll handle it."
+          ]
         }
       },
       "DISPATCH_MEDICAL": {
@@ -1344,7 +1677,11 @@
             "They're on their way.",
             "Medical will be there."
           ],
-          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+          "frustrated": [
+            "Ambulance is coming.",
+            "Sending medics now.",
+            "They'll assess."
+          ]
         }
       },
       "DISPATCH_ANIMAL_CONTROL": {
@@ -1356,8 +1693,16 @@
             "They're on the way.",
             "Animal control dispatched."
           ],
-          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
-          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+          "escalating": [
+            "Animal control coming.",
+            "They'll be there.",
+            "Sending them."
+          ],
+          "frustrated": [
+            "Animal control is coming.",
+            "They'll handle it.",
+            "Sent."
+          ]
         }
       },
       "DISMISS": {
@@ -1377,7 +1722,11 @@
             "You need to take this up with the barber.",
             "I'm ending the call. Contact the shop."
           ],
-          "frustrated": ["I've explained. Call the barbershop.", "Goodbye.", "Ending call now."]
+          "frustrated": [
+            "I've explained. Call the barbershop.",
+            "Goodbye.",
+            "Ending call now."
+          ]
         }
       }
     },
@@ -1408,7 +1757,8 @@
         "message": "Correctly dismissed. Resources saved."
       }
     },
-    "id": "scenario_209"
+    "id": "scenario_209",
+    "difficulty": "Easy"
   },
   {
     "title": "The Missing Toilet Paper in Public Restroom",
@@ -1426,10 +1776,30 @@
       "Hello? I'm trapped in a bathroom. No toilet paper. I demand rescue!"
     ],
     "slots": {
-      "caller_name": ["Emily", "John", "Alice", "Bob"],
-      "location": ["McDonald's", "gas station", "park restroom", "mall"],
-      "address_location": ["123 Main St", "456 Broadway", "789 Central Ave", "321 Market St"],
-      "ambient_audio": ["running water", "footsteps", "music", "silence"],
+      "caller_name": [
+        "Emily",
+        "John",
+        "Alice",
+        "Bob"
+      ],
+      "location": [
+        "McDonald's",
+        "gas station",
+        "park restroom",
+        "mall"
+      ],
+      "address_location": [
+        "123 Main St",
+        "456 Broadway",
+        "789 Central Ave",
+        "321 Market St"
+      ],
+      "ambient_audio": [
+        "running water",
+        "footsteps",
+        "music",
+        "silence"
+      ],
       "specific_details": [
         "stall door is stuck",
         "no paper dispenser",
@@ -1442,7 +1812,11 @@
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["Where are you exactly?", "What is the address?", "I need your location."],
+          "initial": [
+            "Where are you exactly?",
+            "What is the address?",
+            "I need your location."
+          ],
           "escalating": [
             "I need the address to send help.",
             "Please tell me where you are.",
@@ -1507,13 +1881,21 @@
           "escalating": "frustrated"
         },
         "responses": {
-          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "initial": [
+            "I'm sending police.",
+            "Officers on the way.",
+            "Police will be there."
+          ],
           "escalating": [
             "Fine, I'll dispatch police.",
             "Police are coming.",
             "Sending police now."
           ],
-          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+          "frustrated": [
+            "Police are coming.",
+            "They'll be there soon.",
+            "Officers dispatched."
+          ]
         }
       },
       "DISPATCH_FIRE": {
@@ -1527,8 +1909,16 @@
             "Firefighters coming.",
             "Fire trucks on the way."
           ],
-          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
-          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+          "escalating": [
+            "Fire dispatched.",
+            "They're on their way.",
+            "Fire will be there."
+          ],
+          "frustrated": [
+            "Fire is coming.",
+            "Sending fire now.",
+            "They'll handle it."
+          ]
         }
       },
       "DISPATCH_MEDICAL": {
@@ -1537,13 +1927,21 @@
           "initial": "escalating"
         },
         "responses": {
-          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "initial": [
+            "Sending an ambulance.",
+            "Paramedics coming.",
+            "Medical help on the way."
+          ],
           "escalating": [
             "Ambulance dispatched.",
             "They're on their way.",
             "Medical will be there."
           ],
-          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+          "frustrated": [
+            "Ambulance is coming.",
+            "Sending medics now.",
+            "They'll assess."
+          ]
         }
       },
       "DISPATCH_ANIMAL_CONTROL": {
@@ -1555,8 +1953,16 @@
             "They're on the way.",
             "Animal control dispatched."
           ],
-          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
-          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+          "escalating": [
+            "Animal control coming.",
+            "They'll be there.",
+            "Sending them."
+          ],
+          "frustrated": [
+            "Animal control is coming.",
+            "They'll handle it.",
+            "Sent."
+          ]
         }
       },
       "DISMISS": {
@@ -1611,7 +2017,8 @@
         "message": "Correctly dismissed. Resources saved."
       }
     },
-    "id": "scenario_210"
+    "id": "scenario_210",
+    "difficulty": "Easy"
   },
   {
     "title": "The Neighbor's Leaf Blower at 10 AM",
@@ -1629,10 +2036,30 @@
       "This is harassment! I'm trying to meditate and the leaf blower is ruining it. Arrest them!"
     ],
     "slots": {
-      "caller_name": ["Mr. Thompson", "Ms. Garcia", "Steve", "Angela"],
-      "neighbor_name": ["Mr. Jones", "Mrs. Lee", "Bob", "Sarah"],
-      "address_location": ["123 Oak St", "456 Pine Ave", "789 Cedar Ln", "321 Birch Dr"],
-      "ambient_audio": ["leaf blower noise", "birds chirping", "traffic", "silence"],
+      "caller_name": [
+        "Mr. Thompson",
+        "Ms. Garcia",
+        "Steve",
+        "Angela"
+      ],
+      "neighbor_name": [
+        "Mr. Jones",
+        "Mrs. Lee",
+        "Bob",
+        "Sarah"
+      ],
+      "address_location": [
+        "123 Oak St",
+        "456 Pine Ave",
+        "789 Cedar Ln",
+        "321 Birch Dr"
+      ],
+      "ambient_audio": [
+        "leaf blower noise",
+        "birds chirping",
+        "traffic",
+        "silence"
+      ],
       "specific_details": [
         "it's been going on for 10 minutes",
         "I have a headache",
@@ -1645,7 +2072,11 @@
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["Where is this happening?", "What is your address?", "I need the location."],
+          "initial": [
+            "Where is this happening?",
+            "What is your address?",
+            "I need the location."
+          ],
           "escalating": [
             "I need your address to help.",
             "Please give me your location.",
@@ -1710,13 +2141,21 @@
           "escalating": "frustrated"
         },
         "responses": {
-          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "initial": [
+            "I'm sending police.",
+            "Officers on the way.",
+            "Police will be there."
+          ],
           "escalating": [
             "Fine, I'll dispatch officers.",
             "Police are coming.",
             "Sending police now."
           ],
-          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+          "frustrated": [
+            "Police are coming.",
+            "They'll be there soon.",
+            "Officers dispatched."
+          ]
         }
       },
       "DISPATCH_FIRE": {
@@ -1730,8 +2169,16 @@
             "Firefighters coming.",
             "Fire trucks on the way."
           ],
-          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
-          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+          "escalating": [
+            "Fire dispatched.",
+            "They're on their way.",
+            "Fire will be there."
+          ],
+          "frustrated": [
+            "Fire is coming.",
+            "Sending fire now.",
+            "They'll handle it."
+          ]
         }
       },
       "DISPATCH_MEDICAL": {
@@ -1740,13 +2187,21 @@
           "initial": "escalating"
         },
         "responses": {
-          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "initial": [
+            "Sending an ambulance.",
+            "Paramedics coming.",
+            "Medical help on the way."
+          ],
           "escalating": [
             "Ambulance dispatched.",
             "They're on their way.",
             "Medical will be there."
           ],
-          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+          "frustrated": [
+            "Ambulance is coming.",
+            "Sending medics now.",
+            "They'll assess."
+          ]
         }
       },
       "DISPATCH_ANIMAL_CONTROL": {
@@ -1758,8 +2213,16 @@
             "They're on the way.",
             "Animal control dispatched."
           ],
-          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
-          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+          "escalating": [
+            "Animal control coming.",
+            "They'll be there.",
+            "Sending them."
+          ],
+          "frustrated": [
+            "Animal control is coming.",
+            "They'll handle it.",
+            "Sent."
+          ]
         }
       },
       "DISMISS": {
@@ -1814,7 +2277,8 @@
         "message": "Correctly dismissed. Resources saved."
       }
     },
-    "id": "scenario_211"
+    "id": "scenario_211",
+    "difficulty": "Easy"
   },
   {
     "title": "The Incorrect Order at Drive-Thru",
@@ -1832,11 +2296,36 @@
       "I demand police assistance! My order is wrong and they refuse to correct it. Send officers!"
     ],
     "slots": {
-      "caller_name": ["Chris", "Pat", "Taylor", "Jordan"],
-      "food_item": ["burger", "fries", "shake", "chicken nuggets"],
-      "fast_food": ["McDonald's", "Burger King", "Wendy's", "Taco Bell"],
-      "address_location": ["1001 Main St", "2002 Oak Ave", "3003 Pine Rd", "4004 Elm Ln"],
-      "ambient_audio": ["traffic noise", "car engine", "radio", "silence"],
+      "caller_name": [
+        "Chris",
+        "Pat",
+        "Taylor",
+        "Jordan"
+      ],
+      "food_item": [
+        "burger",
+        "fries",
+        "shake",
+        "chicken nuggets"
+      ],
+      "fast_food": [
+        "McDonald's",
+        "Burger King",
+        "Wendy's",
+        "Taco Bell"
+      ],
+      "address_location": [
+        "1001 Main St",
+        "2002 Oak Ave",
+        "3003 Pine Rd",
+        "4004 Elm Ln"
+      ],
+      "ambient_audio": [
+        "traffic noise",
+        "car engine",
+        "radio",
+        "silence"
+      ],
       "specific_details": [
         "they gave me a cold drink",
         "missing fries",
@@ -1849,7 +2338,11 @@
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["Where is the restaurant?", "What is your location?", "I need the address."],
+          "initial": [
+            "Where is the restaurant?",
+            "What is your location?",
+            "I need the address."
+          ],
           "escalating": [
             "I need the address to send help.",
             "Please give me your location.",
@@ -1914,13 +2407,21 @@
           "escalating": "frustrated"
         },
         "responses": {
-          "initial": ["I'm sending police.", "Officers on the way.", "Police will be there."],
+          "initial": [
+            "I'm sending police.",
+            "Officers on the way.",
+            "Police will be there."
+          ],
           "escalating": [
             "Fine, I'll dispatch officers.",
             "Police are coming.",
             "Sending police now."
           ],
-          "frustrated": ["Police are coming.", "They'll be there soon.", "Officers dispatched."]
+          "frustrated": [
+            "Police are coming.",
+            "They'll be there soon.",
+            "Officers dispatched."
+          ]
         }
       },
       "DISPATCH_FIRE": {
@@ -1934,8 +2435,16 @@
             "Firefighters coming.",
             "Fire trucks on the way."
           ],
-          "escalating": ["Fire dispatched.", "They're on their way.", "Fire will be there."],
-          "frustrated": ["Fire is coming.", "Sending fire now.", "They'll handle it."]
+          "escalating": [
+            "Fire dispatched.",
+            "They're on their way.",
+            "Fire will be there."
+          ],
+          "frustrated": [
+            "Fire is coming.",
+            "Sending fire now.",
+            "They'll handle it."
+          ]
         }
       },
       "DISPATCH_MEDICAL": {
@@ -1944,13 +2453,21 @@
           "initial": "escalating"
         },
         "responses": {
-          "initial": ["Sending an ambulance.", "Paramedics coming.", "Medical help on the way."],
+          "initial": [
+            "Sending an ambulance.",
+            "Paramedics coming.",
+            "Medical help on the way."
+          ],
           "escalating": [
             "Ambulance dispatched.",
             "They're on their way.",
             "Medical will be there."
           ],
-          "frustrated": ["Ambulance is coming.", "Sending medics now.", "They'll assess."]
+          "frustrated": [
+            "Ambulance is coming.",
+            "Sending medics now.",
+            "They'll assess."
+          ]
         }
       },
       "DISPATCH_ANIMAL_CONTROL": {
@@ -1962,8 +2479,16 @@
             "They're on the way.",
             "Animal control dispatched."
           ],
-          "escalating": ["Animal control coming.", "They'll be there.", "Sending them."],
-          "frustrated": ["Animal control is coming.", "They'll handle it.", "Sent."]
+          "escalating": [
+            "Animal control coming.",
+            "They'll be there.",
+            "Sending them."
+          ],
+          "frustrated": [
+            "Animal control is coming.",
+            "They'll handle it.",
+            "Sent."
+          ]
         }
       },
       "DISMISS": {
@@ -1983,7 +2508,11 @@
             "You need to resolve this with the restaurant. Goodbye.",
             "I'm ending the call. Call the store."
           ],
-          "frustrated": ["I've explained. Goodbye.", "Ending call now.", "Contact the restaurant."]
+          "frustrated": [
+            "I've explained. Goodbye.",
+            "Ending call now.",
+            "Contact the restaurant."
+          ]
         }
       }
     },
@@ -2014,7 +2543,8 @@
         "message": "Correctly dismissed. Resources saved."
       }
     },
-    "id": "scenario_212"
+    "id": "scenario_212",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_213",
@@ -2033,15 +2563,30 @@
       "{caller_name} here. I'm at {address_location} and I've been served a cold latte. This is unacceptable! Send the cops!"
     ],
     "slots": {
-      "caller_name": ["Karen", "Chad", "Mildred", "Brad"],
+      "caller_name": [
+        "Karen",
+        "Chad",
+        "Mildred",
+        "Brad"
+      ],
       "address_location": [
         "the Starbucks on Main St",
         "the coffee shop at 5th and Oak",
         "the drive-thru on Highway 9",
         "the café in the mall"
       ],
-      "barista_name": ["Steve", "Jessica", "Mike", "Amy"],
-      "coffee_type": ["latte", "cappuccino", "mocha", "espresso"],
+      "barista_name": [
+        "Steve",
+        "Jessica",
+        "Mike",
+        "Amy"
+      ],
+      "coffee_type": [
+        "latte",
+        "cappuccino",
+        "mocha",
+        "espresso"
+      ],
       "ambient_audio": [
         "sound of arguing in background",
         "coffee shop chatter",
@@ -2226,7 +2771,7 @@
         "message": "An ambulance rushes to the scene, expecting a medical emergency. The caller yells about cold coffee. Paramedics leave frustrated, and the caller is fined for misuse."
       },
       "ANIMAL_CONTROL": {
-        "status": "MINOR_ERROR",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
         "message": "Animal control arrives, but there are no animals. They explain this isn't their jurisdiction. The caller is confused. Mild inconvenience."
       },
@@ -2236,7 +2781,8 @@
         "message": "Dispatcher calms caller and suggests contacting the store directly or seeking a refund. Caller eventually agrees or hangs up. No emergency resources used."
       }
     },
-    "archetype": "Absurd Entitlement Call"
+    "archetype": "Absurd Entitlement Call",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_214",
@@ -2255,10 +2801,30 @@
       "{caller_name} at {address_location}. The TV mount is off by half an inch! That's unacceptable! Send the fire department!"
     ],
     "slots": {
-      "caller_name": ["Dave", "Sandra", "Todd", "Nancy"],
-      "address_location": ["123 Maple Street", "456 Oak Avenue", "789 Pine Road", "321 Elm Drive"],
-      "handyman_name": ["Bob", "Joe", "Chris", "Pat"],
-      "tv_size": ["55-inch", "65-inch", "75-inch", "85-inch"],
+      "caller_name": [
+        "Dave",
+        "Sandra",
+        "Todd",
+        "Nancy"
+      ],
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Road",
+        "321 Elm Drive"
+      ],
+      "handyman_name": [
+        "Bob",
+        "Joe",
+        "Chris",
+        "Pat"
+      ],
+      "tv_size": [
+        "55-inch",
+        "65-inch",
+        "75-inch",
+        "85-inch"
+      ],
       "ambient_audio": [
         "TV playing in background",
         "drilling sounds",
@@ -2443,7 +3009,7 @@
         "message": "Paramedics rush in, expecting injuries. They find a crooked TV mount. The caller yells at them for being slow. Ambulance misused."
       },
       "ANIMAL_CONTROL": {
-        "status": "MINOR_ERROR",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
         "message": "Animal control arrives, no animal. They refer to a handyman. Caller is confused but slightly amused."
       },
@@ -2453,7 +3019,8 @@
         "message": "Dispatcher suggests contacting the handyman's company or a local handyman. Caller eventually agrees or disconnects. Resources saved."
       }
     },
-    "archetype": "Absurd Entitlement Call"
+    "archetype": "Absurd Entitlement Call",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_215",
@@ -2472,15 +3039,30 @@
       "{caller_name} at {address_location}. I'm having a potential allergic reaction to a non-organic avocado. Please send paramedics!"
     ],
     "slots": {
-      "caller_name": ["Olivia", "Ethan", "Sophia", "Liam"],
+      "caller_name": [
+        "Olivia",
+        "Ethan",
+        "Sophia",
+        "Liam"
+      ],
       "address_location": [
         "123 Health Drive",
         "456 Wellness Blvd",
         "789 Organic Ave",
         "321 Green Street"
       ],
-      "delivery_service": ["FreshMart", "GreenGrocer", "EcoDeliver", "OrganicOasis"],
-      "avocado_type": ["Hass", "Fuerte", "Bacon", "Pinkerton"],
+      "delivery_service": [
+        "FreshMart",
+        "GreenGrocer",
+        "EcoDeliver",
+        "OrganicOasis"
+      ],
+      "avocado_type": [
+        "Hass",
+        "Fuerte",
+        "Bacon",
+        "Pinkerton"
+      ],
       "ambient_audio": [
         "TV health show in background",
         "kitchen sounds",
@@ -2665,7 +3247,7 @@
         "message": "An ambulance rushes over. Paramedics find the caller with an avocado. They explain non-organic isn't toxic. Caller demands to be taken to hospital. Resources wasted."
       },
       "ANIMAL_CONTROL": {
-        "status": "MINOR_ERROR",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
         "message": "Animal control arrives, no animal. They recommend calling the delivery service. Caller is confused but calms down."
       },
@@ -2675,7 +3257,8 @@
         "message": "Dispatcher reassures the caller that non-organic avocados are safe, suggests contacting the delivery service for a refund. Caller hangs up satisfied or still miffed but no emergency."
       }
     },
-    "archetype": "Absurd Entitlement Call"
+    "archetype": "Absurd Entitlement Call",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_216",
@@ -2694,10 +3277,30 @@
       "{caller_name} here. I'm at {address_location} and this disco ball is pathetic. I demand action!"
     ],
     "slots": {
-      "caller_name": ["DJ Pat", "Party Queen", "Glam Gus", "Shine Sam"],
-      "address_location": ["The Venue on 5th", "Community Center", "Party Barn", "Event Hall"],
-      "rental_company": ["Glow Party Rentals", "Sparkle R Us", "Party Time", "Shiny Things"],
-      "disco_ball_size": ["12-inch", "20-inch", "36-inch", "48-inch"],
+      "caller_name": [
+        "DJ Pat",
+        "Party Queen",
+        "Glam Gus",
+        "Shine Sam"
+      ],
+      "address_location": [
+        "The Venue on 5th",
+        "Community Center",
+        "Party Barn",
+        "Event Hall"
+      ],
+      "rental_company": [
+        "Glow Party Rentals",
+        "Sparkle R Us",
+        "Party Time",
+        "Shiny Things"
+      ],
+      "disco_ball_size": [
+        "12-inch",
+        "20-inch",
+        "36-inch",
+        "48-inch"
+      ],
       "ambient_audio": [
         "party music in background",
         "people laughing",
@@ -2882,7 +3485,7 @@
         "message": "Ambulance arrives. No injuries. Caller wants medical for 'depression from bad ball'. Paramedics leave frustrated."
       },
       "ANIMAL_CONTROL": {
-        "status": "MINOR_ERROR",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
         "message": "Animal control officer arrives, sees disco ball, laughs. Explains it's not an animal. Caller is embarrassed but still annoyed."
       },
@@ -2892,7 +3495,8 @@
         "message": "Dispatcher advises caller to contact rental company for exchange. Caller eventually agrees or hangs up. Emergency resources not used."
       }
     },
-    "archetype": "Absurd Entitlement Call"
+    "archetype": "Absurd Entitlement Call",
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_217",
@@ -2911,11 +3515,36 @@
       "{caller_name} at {address_location}. The salad is incomplete! I demand justice!"
     ],
     "slots": {
-      "caller_name": ["Betty", "Ken", "Linda", "Greg"],
-      "address_location": ["The Salad Spot", "Green Bowl Cafe", "Crunchy Greens", "Leafy Bites"],
-      "chef_name": ["Chef Marco", "Chef Jenny", "Chef Rick", "Chef Ana"],
-      "salad_type": ["Caesar", "Garden", "Cobb", "Greek"],
-      "ambient_audio": ["restaurant noise", "silverware clinking", "music", "arguing in background"]
+      "caller_name": [
+        "Betty",
+        "Ken",
+        "Linda",
+        "Greg"
+      ],
+      "address_location": [
+        "The Salad Spot",
+        "Green Bowl Cafe",
+        "Crunchy Greens",
+        "Leafy Bites"
+      ],
+      "chef_name": [
+        "Chef Marco",
+        "Chef Jenny",
+        "Chef Rick",
+        "Chef Ana"
+      ],
+      "salad_type": [
+        "Caesar",
+        "Garden",
+        "Cobb",
+        "Greek"
+      ],
+      "ambient_audio": [
+        "restaurant noise",
+        "silverware clinking",
+        "music",
+        "arguing in background"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -3094,7 +3723,7 @@
         "message": "Ambulance arrives for a missing crouton emergency. Paramedics are speechless. Caller pretends to have allergic reaction to the absence. Misuse."
       },
       "ANIMAL_CONTROL": {
-        "status": "MINOR_ERROR",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
         "message": "Animal control officer arrives, no animal. They recommend talking to manager. Caller is confused but eventually stops."
       },
@@ -3104,12 +3733,18 @@
         "message": "Dispatcher suggests speaking to the restaurant manager. Caller demands police but after a few minutes, agrees to talk to staff. No emergency."
       }
     },
-    "archetype": "Absurd Entitlement Call"
+    "archetype": "Absurd Entitlement Call",
+    "difficulty": "Easy"
   },
   {
     "title": "The Gourmet Burger Complaint",
     "archetype": "Absurd Entitlement Call",
-    "states": ["initial", "escalating", "threatening", "resigned"],
+    "states": [
+      "initial",
+      "escalating",
+      "threatening",
+      "resigned"
+    ],
     "initial_variations": [
       "I need police immediately! My {burger_type} burger is completely ruined! They gave it medium-well when I ordered medium-rare!",
       "This is an emergency! The chef at {restaurant_name} refuses to remake my burger correctly. I demand justice!",
@@ -3117,11 +3752,31 @@
       "This is unacceptable! My {burger_type} burger is dry. I want the manager arrested for culinary crimes!"
     ],
     "slots": {
-      "caller_name": ["Karen", "Chad", "Brenda"],
-      "restaurant_name": ["Burger King on 5th Ave", "McDonald's downtown", "Bob's Burgers"],
-      "burger_type": ["gourmet truffle", "double bacon", "vegan patty"],
-      "ambient_audio": ["sounds of sizzling grill", "muffled arguing", "cash register beeping"],
-      "complaint_detail": ["burnt to a crisp", "looks like a frisbee", "smells funny"]
+      "caller_name": [
+        "Karen",
+        "Chad",
+        "Brenda"
+      ],
+      "restaurant_name": [
+        "Burger King on 5th Ave",
+        "McDonald's downtown",
+        "Bob's Burgers"
+      ],
+      "burger_type": [
+        "gourmet truffle",
+        "double bacon",
+        "vegan patty"
+      ],
+      "ambient_audio": [
+        "sounds of sizzling grill",
+        "muffled arguing",
+        "cash register beeping"
+      ],
+      "complaint_detail": [
+        "burnt to a crisp",
+        "looks like a frisbee",
+        "smells funny"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -3141,7 +3796,9 @@
             "I'm not leaving {restaurant_name} until someone is arrested!",
             "I'm at {restaurant_name} and I'm about to lose it."
           ],
-          "resigned": ["I'm at {restaurant_name}, but I guess I'll just leave."]
+          "resigned": [
+            "I'm at {restaurant_name}, but I guess I'll just leave."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -3158,17 +3815,28 @@
           "threatening": [
             "If I don't get a new burger, I'm calling the health department! {ambient_audio}"
           ],
-          "resigned": ["Never mind, they gave me a refund. But still, this is bad service."]
+          "resigned": [
+            "Never mind, they gave me a refund. But still, this is bad service."
+          ]
         }
       },
       "ASK_IF_SAFE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Yes, I'm safe, just angry!", "I'm fine, but my burger isn't!"],
-          "escalating": ["I'm safe, but my blood pressure is rising!"],
-          "threatening": ["I'm safe, but they won't be if they don't fix this!"],
-          "resigned": ["Yeah, I'm safe. It's just a burger."]
+          "initial": [
+            "Yes, I'm safe, just angry!",
+            "I'm fine, but my burger isn't!"
+          ],
+          "escalating": [
+            "I'm safe, but my blood pressure is rising!"
+          ],
+          "threatening": [
+            "I'm safe, but they won't be if they don't fix this!"
+          ],
+          "resigned": [
+            "Yeah, I'm safe. It's just a burger."
+          ]
         }
       }
     },
@@ -3199,12 +3867,18 @@
         "message": "Advised caller to speak with the manager. Call resolved without emergency response."
       }
     },
-    "id": "scenario_218"
+    "id": "scenario_218",
+    "difficulty": "Medium"
   },
   {
     "title": "The Wrong Coffee Order",
     "archetype": "Absurd Entitlement Call",
-    "states": ["initial", "escalating", "spiteful", "resigned"],
+    "states": [
+      "initial",
+      "escalating",
+      "spiteful",
+      "resigned"
+    ],
     "initial_variations": [
       "I ordered a {drink_type} with oat milk, but they gave me almond! This is a crime against my lifestyle!",
       "Call the cops! The barista at {coffee_shop} deliberately sabotaged my order. I'm lactose intolerant, not nut intolerant!",
@@ -3212,11 +3886,31 @@
       "This is the third time this week! I want the barista {barista_name} arrested for barista malpractice!"
     ],
     "slots": {
-      "caller_name": ["Samantha", "Tyler", "Ashley"],
-      "coffee_shop": ["Starbucks on Elm", "Dunkin' Donuts", "The Daily Grind"],
-      "drink_type": ["caramel latte", "vanilla cappuccino", "mocha frappe"],
-      "ambient_audio": ["espresso machine hissing", "blender going", "muffled music"],
-      "barista_name": ["Jake", "Maria", "Chris"]
+      "caller_name": [
+        "Samantha",
+        "Tyler",
+        "Ashley"
+      ],
+      "coffee_shop": [
+        "Starbucks on Elm",
+        "Dunkin' Donuts",
+        "The Daily Grind"
+      ],
+      "drink_type": [
+        "caramel latte",
+        "vanilla cappuccino",
+        "mocha frappe"
+      ],
+      "ambient_audio": [
+        "espresso machine hissing",
+        "blender going",
+        "muffled music"
+      ],
+      "barista_name": [
+        "Jake",
+        "Maria",
+        "Chris"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -3231,8 +3925,12 @@
             "Still at {coffee_shop}, they're ignoring me!",
             "I'm at {coffee_shop}, hurry!"
           ],
-          "spiteful": ["I'm at {coffee_shop} and I'm about to cause a scene."],
-          "resigned": ["I'm at {coffee_shop}, but whatever."]
+          "spiteful": [
+            "I'm at {coffee_shop} and I'm about to cause a scene."
+          ],
+          "resigned": [
+            "I'm at {coffee_shop}, but whatever."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -3243,19 +3941,34 @@
             "I ordered a {drink_type} with oat milk, got almond. Unacceptable!",
             "I specifically asked for oat milk, {ambient_audio} is making it worse."
           ],
-          "escalating": ["The barista {barista_name} won't admit their mistake! {ambient_audio}"],
-          "spiteful": ["I'm going to post this on social media. {ambient_audio}"],
-          "resigned": ["They remade it, but still."]
+          "escalating": [
+            "The barista {barista_name} won't admit their mistake! {ambient_audio}"
+          ],
+          "spiteful": [
+            "I'm going to post this on social media. {ambient_audio}"
+          ],
+          "resigned": [
+            "They remade it, but still."
+          ]
         }
       },
       "ASK_IF_SAFE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["I'm safe, just very annoyed.", "Yes, but my drink is a disaster."],
-          "escalating": ["I'm safe, but I might lose my temper."],
-          "spiteful": ["I'm fine, but they won't be when I'm done."],
-          "resigned": ["Yeah, I'm safe. It's just coffee."]
+          "initial": [
+            "I'm safe, just very annoyed.",
+            "Yes, but my drink is a disaster."
+          ],
+          "escalating": [
+            "I'm safe, but I might lose my temper."
+          ],
+          "spiteful": [
+            "I'm fine, but they won't be when I'm done."
+          ],
+          "resigned": [
+            "Yeah, I'm safe. It's just coffee."
+          ]
         }
       }
     },
@@ -3286,12 +3999,18 @@
         "message": "Advised caller to ask for a remake. Issue resolved without emergency response."
       }
     },
-    "id": "scenario_219"
+    "id": "scenario_219",
+    "difficulty": "Easy"
   },
   {
     "title": "The Parking Spot Reservation",
     "archetype": "Absurd Entitlement Call",
-    "states": ["initial", "confronting", "reporting", "resolved"],
+    "states": [
+      "initial",
+      "confronting",
+      "reporting",
+      "resolved"
+    ],
     "initial_variations": [
       "Someone stole my parking spot that I saved with a cone at {street_location}. I demand police come and tow that {car_description}!",
       "This is an emergency! I've been circling for 20 minutes and now my spot is taken. The driver is laughing at me!",
@@ -3299,11 +4018,31 @@
       "I pay taxes! This is my spot. Send the police to arrest the thief!"
     ],
     "slots": {
-      "caller_name": ["Mike", "Linda", "Steve"],
-      "street_location": ["123 Oak Street", "456 Pine Avenue", "789 Maple Drive"],
-      "car_description": ["red Honda Civic", "blue Ford F-150", "white Tesla Model 3"],
-      "ambient_audio": ["car honking", "people talking", "wind noise"],
-      "spot_owner_name": ["my neighbor Bob", "the store owner", "some random guy"]
+      "caller_name": [
+        "Mike",
+        "Linda",
+        "Steve"
+      ],
+      "street_location": [
+        "123 Oak Street",
+        "456 Pine Avenue",
+        "789 Maple Drive"
+      ],
+      "car_description": [
+        "red Honda Civic",
+        "blue Ford F-150",
+        "white Tesla Model 3"
+      ],
+      "ambient_audio": [
+        "car honking",
+        "people talking",
+        "wind noise"
+      ],
+      "spot_owner_name": [
+        "my neighbor Bob",
+        "the store owner",
+        "some random guy"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -3318,28 +4057,49 @@
             "I'm at {street_location}, confronting the driver!",
             "Same spot, {street_location}, they won't move."
           ],
-          "reporting": ["I'm at {street_location}, I've taken a picture."],
-          "resolved": ["I'm at {street_location}, but I gave up."]
+          "reporting": [
+            "I'm at {street_location}, I've taken a picture."
+          ],
+          "resolved": [
+            "I'm at {street_location}, but I gave up."
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["A {car_description} is in my spot! {ambient_audio}"],
-          "confronting": ["The {car_description} driver says I'm crazy. {ambient_audio}"],
-          "reporting": ["I have the license plate of the {car_description}. {ambient_audio}"],
-          "resolved": ["They left, but I'm still mad."]
+          "initial": [
+            "A {car_description} is in my spot! {ambient_audio}"
+          ],
+          "confronting": [
+            "The {car_description} driver says I'm crazy. {ambient_audio}"
+          ],
+          "reporting": [
+            "I have the license plate of the {car_description}. {ambient_audio}"
+          ],
+          "resolved": [
+            "They left, but I'm still mad."
+          ]
         }
       },
       "ASK_IF_SAFE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Yes, just angry.", "I'm safe, but my property rights are violated!"],
-          "confronting": ["I'm safe, but the driver is getting aggressive."],
-          "reporting": ["I'm safe, I'm just documenting."],
-          "resolved": ["Yeah, I'm fine now."]
+          "initial": [
+            "Yes, just angry.",
+            "I'm safe, but my property rights are violated!"
+          ],
+          "confronting": [
+            "I'm safe, but the driver is getting aggressive."
+          ],
+          "reporting": [
+            "I'm safe, I'm just documenting."
+          ],
+          "resolved": [
+            "Yeah, I'm fine now."
+          ]
         }
       }
     },
@@ -3370,6 +4130,7 @@
         "message": "Advised caller that parking disputes are civil matters. Call resolved."
       }
     },
-    "id": "scenario_220"
+    "id": "scenario_220",
+    "difficulty": "Medium"
   }
 ]

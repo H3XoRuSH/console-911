@@ -2,7 +2,12 @@
   {
     "title": "Foreign Language Medical Emergency",
     "archetype": "Communication Barrier",
-    "states": ["initial", "frustrated", "repeating", "clarified"],
+    "states": [
+      "initial",
+      "frustrated",
+      "repeating",
+      "clarified"
+    ],
     "initial_variations": [
       "{caller_name} speaks rapidly in {language_phrase}, repeating 'help' and '{specific_details}'. Background sounds include {ambient_audio}.",
       "A distressed voice says '{language_phrase}' followed by '{specific_details}'. {ambient_audio} is audible.",
@@ -10,7 +15,12 @@
       "{caller_name} yells '{language_phrase}' then '{specific_details}'. {ambient_audio} in background."
     ],
     "slots": {
-      "caller_name": ["Li Wei", "Yuki Tanaka", "Maria Silva", "Ahmed Hassan"],
+      "caller_name": [
+        "Li Wei",
+        "Yuki Tanaka",
+        "Maria Silva",
+        "Ahmed Hassan"
+      ],
       "language_phrase": [
         "Wo xu yao bang mang!",
         "Tasukete kudasai!",
@@ -55,7 +65,10 @@
             "{address_location}... {address_location}",
             "It's {address_location}, please send help"
           ],
-          "clarified": ["Yes, {address_location}", "That's right, {address_location}"]
+          "clarified": [
+            "Yes, {address_location}",
+            "That's right, {address_location}"
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -71,8 +84,14 @@
             "{specific_details}, I already told you!",
             "{specific_details} – what more do you need?"
           ],
-          "repeating": ["{specific_details}... {specific_details}", "Pain in {specific_details}"],
-          "clarified": ["Yes, {specific_details} is the problem", "Confirmed: {specific_details}"]
+          "repeating": [
+            "{specific_details}... {specific_details}",
+            "Pain in {specific_details}"
+          ],
+          "clarified": [
+            "Yes, {specific_details} is the problem",
+            "Confirmed: {specific_details}"
+          ]
         }
       },
       "ASK_LANGUAGE": {
@@ -86,9 +105,18 @@
             "I don't understand {language_phrase}",
             "Can you say that in English?"
           ],
-          "frustrated": ["No English! {language_phrase}!", "Please, just send help!"],
-          "repeating": ["{language_phrase} – I keep saying it!", "I only know {language_phrase}"],
-          "clarified": ["Yes, that's my language", "I speak {language_phrase}"]
+          "frustrated": [
+            "No English! {language_phrase}!",
+            "Please, just send help!"
+          ],
+          "repeating": [
+            "{language_phrase} – I keep saying it!",
+            "I only know {language_phrase}"
+          ],
+          "clarified": [
+            "Yes, that's my language",
+            "I speak {language_phrase}"
+          ]
         }
       },
       "REASSURE": {
@@ -103,8 +131,14 @@
             "We're coming, just stay on the line",
             "I understand, we're sending help"
           ],
-          "frustrated": ["Please stay calm, help is coming", "I'm working on it, don't panic"],
-          "repeating": ["I hear you, help is on the way", "Stay with me, paramedics are coming"],
+          "frustrated": [
+            "Please stay calm, help is coming",
+            "I'm working on it, don't panic"
+          ],
+          "repeating": [
+            "I hear you, help is on the way",
+            "Stay with me, paramedics are coming"
+          ],
           "clarified": [
             "Good, you're doing well, help is almost there",
             "Thank you for your patience"
@@ -115,10 +149,22 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Can you repeat that?", "Say it again, please", "One more time?"],
-          "frustrated": ["I already said it!", "Listen carefully: {specific_details}"],
-          "repeating": ["{specific_details}, {specific_details}", "I repeat: {specific_details}"],
-          "clarified": ["I already told you, it's {specific_details}"]
+          "initial": [
+            "Can you repeat that?",
+            "Say it again, please",
+            "One more time?"
+          ],
+          "frustrated": [
+            "I already said it!",
+            "Listen carefully: {specific_details}"
+          ],
+          "repeating": [
+            "{specific_details}, {specific_details}",
+            "I repeat: {specific_details}"
+          ],
+          "clarified": [
+            "I already told you, it's {specific_details}"
+          ]
         }
       }
     },
@@ -149,12 +195,18 @@
         "message": "Call dismissed as prank. Patient found dead hours later. Career-ending mistake."
       }
     },
-    "id": "scenario_011"
+    "id": "scenario_011",
+    "difficulty": "Hard"
   },
   {
     "title": "Fire with Speech Impediment",
     "archetype": "Communication Barrier",
-    "states": ["initial", "panicked", "breathing", "coughing"],
+    "states": [
+      "initial",
+      "panicked",
+      "breathing",
+      "coughing"
+    ],
     "initial_variations": [
       "{caller_name} stutters urgently, 'F-f-fire! Sm-smoke! {address_location}'. Coughing and {ambient_audio} heard.",
       "A hoarse voice struggles, 'F-fire... {specific_details}... {address_location}'. {ambient_audio} crackles.",
@@ -162,7 +214,12 @@
       "Choking sounds, then '{address_location}... fire... h-help!' Followed by {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["John", "Emily", "Carlos", "Aisha"],
+      "caller_name": [
+        "John",
+        "Emily",
+        "Carlos",
+        "Aisha"
+      ],
       "specific_details": [
         "trapped in bedroom",
         "butane leak",
@@ -192,19 +249,41 @@
             "It's {address_location}, hurry!",
             "Please, {address_location}"
           ],
-          "panicked": ["{address_location} – I told you!", "Yes, {address_location}, fire!"],
-          "breathing": ["{address_location}... *wheeze*", "Still {address_location}..."],
-          "coughing": ["*cough* {address_location} *cough*", "Same place, {address_location}"]
+          "panicked": [
+            "{address_location} – I told you!",
+            "Yes, {address_location}, fire!"
+          ],
+          "breathing": [
+            "{address_location}... *wheeze*",
+            "Still {address_location}..."
+          ],
+          "coughing": [
+            "*cough* {address_location} *cough*",
+            "Same place, {address_location}"
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["{specific_details}", "I'm {specific_details}", "There's {specific_details}"],
-          "panicked": ["{specific_details} – it's spreading!", "{specific_details}, hurry!"],
-          "breathing": ["I'm {specific_details}... can't move", "Smoke is {specific_details}"],
-          "coughing": ["{specific_details}... *cough*", "Fire from {specific_details}"]
+          "initial": [
+            "{specific_details}",
+            "I'm {specific_details}",
+            "There's {specific_details}"
+          ],
+          "panicked": [
+            "{specific_details} – it's spreading!",
+            "{specific_details}, hurry!"
+          ],
+          "breathing": [
+            "I'm {specific_details}... can't move",
+            "Smoke is {specific_details}"
+          ],
+          "coughing": [
+            "{specific_details}... *cough*",
+            "Fire from {specific_details}"
+          ]
         }
       },
       "REASSURE": {
@@ -214,13 +293,22 @@
           "panicked": "breathing"
         },
         "responses": {
-          "initial": ["Stay calm, firefighters are coming", "I hear you, help is on the way"],
-          "panicked": ["Try to stay low, cover your mouth", "We're sending help, stay on the line"],
+          "initial": [
+            "Stay calm, firefighters are coming",
+            "I hear you, help is on the way"
+          ],
+          "panicked": [
+            "Try to stay low, cover your mouth",
+            "We're sending help, stay on the line"
+          ],
           "breathing": [
             "Good, you're doing well. Keep breathing slowly.",
             "Almost there, stay with me"
           ],
-          "coughing": ["I know it's hard, but try to stay calm", "Help is almost there, hang on"]
+          "coughing": [
+            "I know it's hard, but try to stay calm",
+            "Help is almost there, hang on"
+          ]
         }
       },
       "REPEAT": {
@@ -236,7 +324,10 @@
             "I said {address_location}! Please hurry!",
             "You heard me: fire at {address_location}"
           ],
-          "breathing": ["{address_location}... *pant*", "Repeating: {specific_details}"],
+          "breathing": [
+            "{address_location}... *pant*",
+            "Repeating: {specific_details}"
+          ],
           "coughing": [
             "*cough* {address_location} *cough*",
             "I can't talk much... {specific_details}"
@@ -254,9 +345,17 @@
             "I need you to breathe with me: in... out...",
             "Are you able to breathe? Take a slow breath"
           ],
-          "panicked": ["Breathe slowly for me, ok?", "In through the nose, out through the mouth"],
-          "breathing": ["Good, keep that rhythm", "You're doing great, keep breathing"],
-          "coughing": ["I know you're coughing, but try to take deep breaths if you can"]
+          "panicked": [
+            "Breathe slowly for me, ok?",
+            "In through the nose, out through the mouth"
+          ],
+          "breathing": [
+            "Good, keep that rhythm",
+            "You're doing great, keep breathing"
+          ],
+          "coughing": [
+            "I know you're coughing, but try to take deep breaths if you can"
+          ]
         }
       }
     },
@@ -287,20 +386,32 @@
         "message": "Call dismissed as gibberish. Fire raged; multiple fatalities. Dispatcher fired."
       }
     },
-    "id": "scenario_012"
+    "id": "scenario_012",
+    "difficulty": "Hard"
   },
   {
     "title": "The Garbled Whisper",
     "archetype": "Communication Barrier",
     "description": "A caller hides from an intruder, whispering frantically but the line is poor, making words unintelligible.",
-    "states": ["initial", "hiding", "confronting", "secured"],
+    "states": [
+      "initial",
+      "hiding",
+      "confronting",
+      "secured"
+    ],
     "initial_variations": [
       "Please... {caller_name}... {address_location}... he's... {specific_details}... (garbled)",
       "I... I can't... {caller_name} is... at {address_location}... {specific_details}... hurry!",
       "{caller_name} need... {address_location}... {specific_details}... (whispering, breaking up)"
     ],
     "slots": {
-      "caller_name": ["Alice", "Bob", "Charlie", "Diana", "Eva"],
+      "caller_name": [
+        "Alice",
+        "Bob",
+        "Charlie",
+        "Diana",
+        "Eva"
+      ],
       "address_location": [
         "123 Maple Street",
         "456 Oak Avenue",
@@ -425,7 +536,11 @@
             "{specific_details} now!",
             "Dropped {specific_details}..."
           ],
-          "secured": ["No weapon now.", "Weapon gone.", "Disarmed."]
+          "secured": [
+            "No weapon now.",
+            "Weapon gone.",
+            "Disarmed."
+          ]
         }
       }
     ],
@@ -456,20 +571,32 @@
         "message": "Call dismissed as prank; caller is attacked."
       }
     },
-    "id": "scenario_113"
+    "id": "scenario_113",
+    "difficulty": "Hard"
   },
   {
     "title": "The Stroke Confusion",
     "archetype": "Communication Barrier",
     "description": "A caller is having a stroke, speech slurred and nonsensical, unable to articulate clearly.",
-    "states": ["initial", "collapse", "medical_aid", "hospitalized"],
+    "states": [
+      "initial",
+      "collapse",
+      "medical_aid",
+      "hospitalized"
+    ],
     "initial_variations": [
       "Hhh... {caller_name}... {address_location}... {specific_details}... (slurred)",
       "I... can't... {address_location}... {specific_details}... please... (garbled)",
       "{caller_name}... {address_location}... {specific_details}... (mumbled)"
     ],
     "slots": {
-      "caller_name": ["Tom", "Sue", "Raj", "Lena", "Omar"],
+      "caller_name": [
+        "Tom",
+        "Sue",
+        "Raj",
+        "Lena",
+        "Omar"
+      ],
       "address_location": [
         "10 Park Ave",
         "20 Broad Street",
@@ -477,7 +604,13 @@
         "40 Hill Road",
         "50 Valley Lane"
       ],
-      "specific_details": ["right arm numb", "can't speak", "face drooping", "confused", "falling"],
+      "specific_details": [
+        "right arm numb",
+        "can't speak",
+        "face drooping",
+        "confused",
+        "falling"
+      ],
       "ambient_audio": [
         "television in background",
         "dog barking",
@@ -596,20 +729,32 @@
         "message": "Call dismissed as prank; caller suffers permanent damage."
       }
     },
-    "id": "scenario_114"
+    "id": "scenario_114",
+    "difficulty": "Hard"
   },
   {
     "title": "The Relay Misunderstanding",
     "archetype": "Communication Barrier",
     "description": "A deaf caller uses video relay, but the interpreter misinterprets signs, leading to confusion about a medical emergency.",
-    "states": ["initial", "clarifying", "escalated", "resolved"],
+    "states": [
+      "initial",
+      "clarifying",
+      "escalated",
+      "resolved"
+    ],
     "initial_variations": [
       "Relay operator: Caller signs {caller_name} at {address_location} needs {specific_details}.",
       "Relay: {caller_name} reports {specific_details} at {address_location}.",
       "Relay: I think {caller_name} says {specific_details} from {address_location}."
     ],
     "slots": {
-      "caller_name": ["Maya", "Leo", "Zara", "Kai", "Nadia"],
+      "caller_name": [
+        "Maya",
+        "Leo",
+        "Zara",
+        "Kai",
+        "Nadia"
+      ],
       "address_location": [
         "55 Cherry Lane",
         "66 Birch Court",
@@ -617,8 +762,20 @@
         "88 Cedar Blvd",
         "99 Willow Way"
       ],
-      "specific_details": ["chest pain", "allergic reaction", "fall", "burn", "bleeding"],
-      "ambient_audio": ["relay beeps", "typing", "silence", "muffled voices", "alarm"]
+      "specific_details": [
+        "chest pain",
+        "allergic reaction",
+        "fall",
+        "burn",
+        "bleeding"
+      ],
+      "ambient_audio": [
+        "relay beeps",
+        "typing",
+        "silence",
+        "muffled voices",
+        "alarm"
+      ]
     },
     "intents": [
       {
@@ -695,7 +852,11 @@
             "{ambient_audio} intense.",
             "Alarming {ambient_audio}."
           ],
-          "resolved": ["Calmed {ambient_audio}.", "Quiet now.", "Gone: {ambient_audio}."]
+          "resolved": [
+            "Calmed {ambient_audio}.",
+            "Quiet now.",
+            "Gone: {ambient_audio}."
+          ]
         }
       }
     ],
@@ -726,20 +887,32 @@
         "message": "Call dismissed as misinterpretation; caller's condition deteriorates."
       }
     },
-    "id": "scenario_115"
+    "id": "scenario_115",
+    "difficulty": "Medium"
   },
   {
     "title": "The Panicked Foreigner",
     "archetype": "Communication Barrier",
     "description": "A caller speaks a rare dialect, only knows 'help' and 'bleeding' in English, struggling to convey the emergency.",
-    "states": ["initial", "attempting_translation", "escalated", "assisted"],
+    "states": [
+      "initial",
+      "attempting_translation",
+      "escalated",
+      "assisted"
+    ],
     "initial_variations": [
       "Help! {caller_name} at {address_location}... bleeding {specific_details}?",
       "{caller_name}... {address_location}... help... {specific_details}... (foreign accent)",
       "Please... {caller_name}... {address_location}... {specific_details}... (panicked)"
     ],
     "slots": {
-      "caller_name": ["Yuki", "Carlos", "Aisha", "Wei", "Fatima"],
+      "caller_name": [
+        "Yuki",
+        "Carlos",
+        "Aisha",
+        "Wei",
+        "Fatima"
+      ],
       "address_location": [
         "100 First Street",
         "200 Second Ave",
@@ -754,7 +927,13 @@
         "burn",
         "animal attack"
       ],
-      "ambient_audio": ["screaming", "traffic noise", "car horn", "crying", "sirens"]
+      "ambient_audio": [
+        "screaming",
+        "traffic noise",
+        "car horn",
+        "crying",
+        "sirens"
+      ]
     },
     "intents": [
       {
@@ -831,7 +1010,11 @@
             "Bad {ambient_audio}.",
             "Worse {ambient_audio}."
           ],
-          "assisted": ["Quiet now... no {ambient_audio}.", "Calm.", "Good."]
+          "assisted": [
+            "Quiet now... no {ambient_audio}.",
+            "Calm.",
+            "Good."
+          ]
         }
       }
     ],
@@ -862,20 +1045,32 @@
         "message": "Call dismissed; victim bleeds out."
       }
     },
-    "id": "scenario_116"
+    "id": "scenario_116",
+    "difficulty": "Hard"
   },
   {
     "title": "The Muffled Attack",
     "archetype": "Communication Barrier",
     "description": "A caller is being assaulted, phone in pocket, only muffled sounds and struggles are heard.",
-    "states": ["initial", "struggling", "subdued", "rescued"],
+    "states": [
+      "initial",
+      "struggling",
+      "subdued",
+      "rescued"
+    ],
     "initial_variations": [
       "(Muffled screams) {caller_name}... {address_location}... {specific_details}... (sounds of struggle)",
       "(Thuds and cries) {caller_name} at {address_location}... {specific_details}... (gasping)",
       "(Muffled) {caller_name}... {address_location}... {specific_details}... (phone rubbing)"
     ],
     "slots": {
-      "caller_name": ["Olivia", "Ethan", "Sophia", "Liam", "Emma"],
+      "caller_name": [
+        "Olivia",
+        "Ethan",
+        "Sophia",
+        "Liam",
+        "Emma"
+      ],
       "address_location": [
         "111 Park Place",
         "222 Garden Street",
@@ -883,7 +1078,13 @@
         "444 Forest Avenue",
         "555 River Lane"
       ],
-      "specific_details": ["attacker with a bat", "strangling", "kicking", "punching", "dragging"],
+      "specific_details": [
+        "attacker with a bat",
+        "strangling",
+        "kicking",
+        "punching",
+        "dragging"
+      ],
       "ambient_audio": [
         "pounding",
         "grunting",
@@ -908,7 +1109,11 @@
             "{address_location}... help!",
             "Don't... {address_location}..."
           ],
-          "subdued": ["... (silence)", "No sound...", "... (whisper) {address_location}"],
+          "subdued": [
+            "... (silence)",
+            "No sound...",
+            "... (whisper) {address_location}"
+          ],
           "rescued": [
             "We're at {address_location}... safe.",
             "Police at {address_location}.",
@@ -931,7 +1136,10 @@
             "Still {specific_details}!",
             "Worse {specific_details}..."
           ],
-          "subdued": ["... (no reply)", "..."],
+          "subdued": [
+            "... (no reply)",
+            "..."
+          ],
           "rescued": [
             "It was {specific_details}. He's caught.",
             "Attacker used {specific_details}.",
@@ -954,7 +1162,11 @@
             "More {ambient_audio}...",
             "Stop... {ambient_audio}"
           ],
-          "subdued": ["... (silence)", "No {ambient_audio}", "Gone..."],
+          "subdued": [
+            "... (silence)",
+            "No {ambient_audio}",
+            "Gone..."
+          ],
           "rescued": [
             "Safe now. {ambient_audio} over.",
             "Medics here. {ambient_audio} gone.",
@@ -990,7 +1202,8 @@
         "message": "Call dismissed as muffled pocket dial; caller is severely beaten."
       }
     },
-    "id": "scenario_117"
+    "id": "scenario_117",
+    "difficulty": "Hard"
   },
   {
     "title": "Stuttered Warning",
@@ -1008,7 +1221,13 @@
       "B-b-breaking in! Back d-d-door! {specific_details}"
     ],
     "slots": {
-      "caller_name": ["John", "Emily", "Michael", "Sarah", "David"],
+      "caller_name": [
+        "John",
+        "Emily",
+        "Michael",
+        "Sarah",
+        "David"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -1054,7 +1273,9 @@
             "No! I'm at {address_location} - help!",
             "{address_location} - he's got a gun!"
           ],
-          "secured": ["Police are here. Thank you. {address_location} is safe now."]
+          "secured": [
+            "Police are here. Thank you. {address_location} is safe now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1080,7 +1301,9 @@
             "Don't shoot! I see {specific_details}",
             "He's demanding money, {specific_details}"
           ],
-          "secured": ["The intruder is in handcuffs. Details match your report."]
+          "secured": [
+            "The intruder is in handcuffs. Details match your report."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -1097,8 +1320,13 @@
             "It's {caller_name} - I live here",
             "I'm {caller_name} - in the closet"
           ],
-          "confronting": ["{caller_name} - he knows my name!", "I'm {caller_name} - please help!"],
-          "secured": ["{caller_name} - thank you, officer."]
+          "confronting": [
+            "{caller_name} - he knows my name!",
+            "I'm {caller_name} - please help!"
+          ],
+          "secured": [
+            "{caller_name} - thank you, officer."
+          ]
         }
       },
       "ASK_VICTIM_CONDITION": {
@@ -1123,7 +1351,9 @@
             "He's grabbed me!",
             "I think he'll hurt me!"
           ],
-          "secured": ["I'm safe now, thanks to you."]
+          "secured": [
+            "I'm safe now, thanks to you."
+          ]
         }
       }
     },
@@ -1155,7 +1385,8 @@
       }
     },
     "id": "scenario_118",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "Lost in Translation",
@@ -1173,7 +1404,13 @@
       "Big fire! {address_location} fast!"
     ],
     "slots": {
-      "caller_name": ["Maria", "Ahmed", "Yuki", "Jose", "Li"],
+      "caller_name": [
+        "Maria",
+        "Ahmed",
+        "Yuki",
+        "Jose",
+        "Li"
+      ],
       "address_location": [
         "1234 Main Street, Apartment 3B",
         "5678 Broadway",
@@ -1181,7 +1418,13 @@
         "3456 Elm Street",
         "7890 Oak Road"
       ],
-      "ambient_audio": ["crackling fire", "smoke alarms", "screaming", "breaking glass", "sirens"],
+      "ambient_audio": [
+        "crackling fire",
+        "smoke alarms",
+        "screaming",
+        "breaking glass",
+        "sirens"
+      ],
       "specific_details": [
         "kitchen fire started from stove",
         "electrical fire in the wall",
@@ -1210,7 +1453,9 @@
             "We are outside at {address_location} now.",
             "Evacuated from {address_location}."
           ],
-          "extinguished": ["The fire is out at {address_location}."]
+          "extinguished": [
+            "The fire is out at {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1229,16 +1474,30 @@
             "We are safe outside. The fire was {specific_details}.",
             "Everyone is out. The fire was in the {specific_details}."
           ],
-          "extinguished": ["The fire was {specific_details}. It has been put out."]
+          "extinguished": [
+            "The fire was {specific_details}. It has been put out."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
         "score_delta": 5,
         "responses": {
-          "initial": ["{caller_name}", "Name {caller_name}", "Me {caller_name}"],
-          "translated": ["My name is {caller_name}.", "This is {caller_name}."],
-          "evacuated": ["{caller_name} here. We are safe.", "{caller_name} reporting."],
-          "extinguished": ["{caller_name} - thank you for your help."]
+          "initial": [
+            "{caller_name}",
+            "Name {caller_name}",
+            "Me {caller_name}"
+          ],
+          "translated": [
+            "My name is {caller_name}.",
+            "This is {caller_name}."
+          ],
+          "evacuated": [
+            "{caller_name} here. We are safe.",
+            "{caller_name} reporting."
+          ],
+          "extinguished": [
+            "{caller_name} - thank you for your help."
+          ]
         }
       }
     },
@@ -1270,7 +1529,8 @@
       }
     },
     "id": "scenario_119",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Medium"
   },
   {
     "title": "Silent Button",
@@ -1288,7 +1548,13 @@
       "Keypad mashed. {specific_details} unknown."
     ],
     "slots": {
-      "caller_name": ["Alex", "Jordan", "Taylor", "Casey", "Riley"],
+      "caller_name": [
+        "Alex",
+        "Jordan",
+        "Taylor",
+        "Casey",
+        "Riley"
+      ],
       "address_location": [
         "100 Apple Boulevard",
         "200 Orange Street",
@@ -1330,7 +1596,9 @@
             "Caller taps rapidly - address confirmed but urgent.",
             "Caller does not tap - wrong address?"
           ],
-          "secured": ["Address confirmed. Police are on scene."]
+          "secured": [
+            "Address confirmed. Police are on scene."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1344,8 +1612,13 @@
             "Caller taps 1 - intruder in house.",
             "Caller taps pattern indicating {specific_details}."
           ],
-          "confronting": ["Caller taps 3 times - danger immediate.", "Caller stops tapping - ?"],
-          "secured": ["Details obtained. Intruder description matches."]
+          "confronting": [
+            "Caller taps 3 times - danger immediate.",
+            "Caller stops tapping - ?"
+          ],
+          "secured": [
+            "Details obtained. Intruder description matches."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -1359,8 +1632,12 @@
             "Caller presses 1 - name is {caller_name}.",
             "Caller does not respond - name unknown."
           ],
-          "confronting": ["No response for name - too stressed."],
-          "secured": ["Name confirmed as {caller_name}."]
+          "confronting": [
+            "No response for name - too stressed."
+          ],
+          "secured": [
+            "Name confirmed as {caller_name}."
+          ]
         }
       }
     },
@@ -1392,7 +1669,8 @@
       }
     },
     "id": "scenario_120",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "Stroke Code",
@@ -1410,7 +1688,13 @@
       "{(garbled)} ... please ... {specific_details}"
     ],
     "slots": {
-      "caller_name": ["Frank", "Linda", "George", "Nancy", "Tom"],
+      "caller_name": [
+        "Frank",
+        "Linda",
+        "George",
+        "Nancy",
+        "Tom"
+      ],
       "address_location": [
         "1428 Sycamore Street",
         "975 Walnut Avenue",
@@ -1472,7 +1756,9 @@
             "Unable to assess - caller unconscious.",
             "Symptoms prior: {specific_details} reported earlier."
           ],
-          "treated": ["Diagnosis: stroke. {specific_details} confirmed."]
+          "treated": [
+            "Diagnosis: stroke. {specific_details} confirmed."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -1486,8 +1772,12 @@
             "Name confirmed as {caller_name}.",
             "Caller cannot provide name. Using phone number."
           ],
-          "collapse": ["Unknown - no response from caller."],
-          "treated": ["Name {caller_name} from ID."]
+          "collapse": [
+            "Unknown - no response from caller."
+          ],
+          "treated": [
+            "Name {caller_name} from ID."
+          ]
         }
       }
     },
@@ -1519,7 +1809,8 @@
       }
     },
     "id": "scenario_121",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "Relay Miscommunication",
@@ -1537,7 +1828,13 @@
       "Relay: 'Caller says: I am sick. {address_location}. Send doctor.' (misinterpretation of signs)"
     ],
     "slots": {
-      "caller_name": ["Samantha", "Carlos", "Aisha", "Kenji", "Fatima"],
+      "caller_name": [
+        "Samantha",
+        "Carlos",
+        "Aisha",
+        "Kenji",
+        "Fatima"
+      ],
       "address_location": [
         "1234 Maple Court",
         "5678 Cherry Lane",
@@ -1576,7 +1873,9 @@
             "Relay: Caller is being dragged away, but location is {address_location}.",
             "Relay: Background noise confirms {address_location}."
           ],
-          "resolved": ["Address {address_location} - police on site."]
+          "resolved": [
+            "Address {address_location} - police on site."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1594,7 +1893,9 @@
             "Relay: Caller screams - 'He has a knife!' {specific_details}.",
             "Relay: Abuser took phone - but info is {ambient_audio}."
           ],
-          "resolved": ["Details confirmed: domestic assault with {specific_details}."]
+          "resolved": [
+            "Details confirmed: domestic assault with {specific_details}."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -1608,8 +1909,12 @@
             "Relay: Caller confirms name {caller_name}.",
             "Relay: Spelling out {caller_name}."
           ],
-          "escalated": ["Relay: Caller cannot respond now, but name is {caller_name}."],
-          "resolved": ["Victim identified as {caller_name}."]
+          "escalated": [
+            "Relay: Caller cannot respond now, but name is {caller_name}."
+          ],
+          "resolved": [
+            "Victim identified as {caller_name}."
+          ]
         }
       }
     },
@@ -1641,7 +1946,8 @@
       }
     },
     "id": "scenario_122",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Medium"
   },
   {
     "title": "The Muffled Cry for Help",
@@ -1658,8 +1964,20 @@
       "The line is open but {caller_name} only makes muffled sounds. I think I heard {specific_details} before the gagging."
     ],
     "slots": {
-      "caller_name": ["a woman", "a man", "a child", "someone", "caller"],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Rd", "10 Elm Lane", "unknown"],
+      "caller_name": [
+        "a woman",
+        "a man",
+        "a child",
+        "someone",
+        "caller"
+      ],
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Rd",
+        "10 Elm Lane",
+        "unknown"
+      ],
       "ambient_audio": [
         "door creaking",
         "muffled shouting",
@@ -1693,7 +2011,9 @@
             "There's crashing now! The address might be {address_location} but I'm not sure.",
             "Too much noise! But I think I heard {address_location}."
           ],
-          "silent": ["No response. Last known address from the call might be {address_location}."]
+          "silent": [
+            "No response. Last known address from the call might be {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1712,7 +2032,9 @@
             "Screaming now! I think {specific_details} is getting worse.",
             "They're trying to say {specific_details} but it's chaos."
           ],
-          "silent": ["Nothing now. But earlier they indicated {specific_details}."]
+          "silent": [
+            "Nothing now. But earlier they indicated {specific_details}."
+          ]
         }
       },
       "ASK_IF_SAFE": {
@@ -1723,12 +2045,17 @@
             "I don't think they're safe. Muffled sounds of distress.",
             "No, they sound terrified."
           ],
-          "muffled": ["They said 'no' weakly. Not safe.", "The muffled 'help' suggests danger."],
+          "muffled": [
+            "They said 'no' weakly. Not safe.",
+            "The muffled 'help' suggests danger."
+          ],
           "escalating": [
             "Definitely not safe. Sounds of a struggle.",
             "They're in immediate danger!"
           ],
-          "silent": ["I can't tell now, but previously it was dangerous."]
+          "silent": [
+            "I can't tell now, but previously it was dangerous."
+          ]
         }
       }
     },
@@ -1760,7 +2087,8 @@
       }
     },
     "id": "scenario_123",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "The Non-English Speaking Emergency",
@@ -1777,11 +2105,41 @@
       "This sounds like {language}. Caller says {specific_details} and I hear {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["a woman", "a man", "a child", "someone", "caller"],
-      "language": ["Spanish", "Mandarin", "Arabic", "French", "Russian"],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Rd", "10 Elm Lane", "unknown"],
-      "ambient_audio": ["screaming", "car horns", "breaking glass", "water running", "gunshots"],
-      "specific_details": ["fire", "accident", "heart attack", "robbery", "lost child"]
+      "caller_name": [
+        "a woman",
+        "a man",
+        "a child",
+        "someone",
+        "caller"
+      ],
+      "language": [
+        "Spanish",
+        "Mandarin",
+        "Arabic",
+        "French",
+        "Russian"
+      ],
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Rd",
+        "10 Elm Lane",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "screaming",
+        "car horns",
+        "breaking glass",
+        "water running",
+        "gunshots"
+      ],
+      "specific_details": [
+        "fire",
+        "accident",
+        "heart attack",
+        "robbery",
+        "lost child"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1800,7 +2158,9 @@
             "Through translation, the address is {address_location}.",
             "They said {address_location} clearly now."
           ],
-          "resolved": ["Confirmed address: {address_location}."]
+          "resolved": [
+            "Confirmed address: {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1819,17 +2179,30 @@
             "Translation says it's a {specific_details}.",
             "They confirm {specific_details}."
           ],
-          "resolved": ["Details: {specific_details}."]
+          "resolved": [
+            "Details: {specific_details}."
+          ]
         }
       },
       "ASK_LANGUAGE": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["Sounds like {language}.", "I think it's {language}."],
-          "struggling": ["Definitely {language}.", "They confirmed {language} when I asked."],
-          "translated": ["Yes, {language}. Using translation now.", "Language is {language}."],
-          "resolved": ["{language}."]
+          "initial": [
+            "Sounds like {language}.",
+            "I think it's {language}."
+          ],
+          "struggling": [
+            "Definitely {language}.",
+            "They confirmed {language} when I asked."
+          ],
+          "translated": [
+            "Yes, {language}. Using translation now.",
+            "Language is {language}."
+          ],
+          "resolved": [
+            "{language}."
+          ]
         }
       }
     },
@@ -1861,7 +2234,8 @@
       }
     },
     "id": "scenario_124",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "The Stroke Victim's Slurred Speech",
@@ -1885,9 +2259,27 @@
         "a woman",
         "someone"
       ],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Rd", "10 Elm Lane", "unknown"],
-      "ambient_audio": ["TV playing", "silence", "heavy breathing", "dropping objects", "coughing"],
-      "specific_details": ["face drooping", "arm weakness", "can't speak", "headache", "dizziness"]
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Rd",
+        "10 Elm Lane",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "TV playing",
+        "silence",
+        "heavy breathing",
+        "dropping objects",
+        "coughing"
+      ],
+      "specific_details": [
+        "face drooping",
+        "arm weakness",
+        "can't speak",
+        "headache",
+        "dizziness"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1906,7 +2298,9 @@
             "They're not responding to location questions. Might be at home, possibly {address_location}.",
             "No clear address, but registered to {address_location}."
           ],
-          "unresponsive": ["No answer. We can trace the call to {address_location}."]
+          "unresponsive": [
+            "No answer. We can trace the call to {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1925,20 +2319,30 @@
             "They keep repeating a word – might be {specific_details}.",
             "Not able to get details, but classic stroke signs."
           ],
-          "unresponsive": ["No details now, but earlier indicated {specific_details}."]
+          "unresponsive": [
+            "No details now, but earlier indicated {specific_details}."
+          ]
         }
       },
       "ASK_IF_ALONE": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["I think they are alone. They said 'alone'?", "Seems like they live alone."],
+          "initial": [
+            "I think they are alone. They said 'alone'?",
+            "Seems like they live alone."
+          ],
           "slurring": [
             "Can't tell, but I hear only one voice.",
             "Might be alone, no background voices."
           ],
-          "confused": ["No response to that question.", "Probably alone if no one else is heard."],
-          "unresponsive": ["Assumed alone since no other sounds."]
+          "confused": [
+            "No response to that question.",
+            "Probably alone if no one else is heard."
+          ],
+          "unresponsive": [
+            "Assumed alone since no other sounds."
+          ]
         }
       }
     },
@@ -1970,7 +2374,8 @@
       }
     },
     "id": "scenario_125",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "The Silent Keypad Tones",
@@ -1987,10 +2392,34 @@
       "I hear tapping and {ambient_audio}. Could be a silent emergency. Dispatcher needs to interpret."
     ],
     "slots": {
-      "caller_name": ["a woman", "a man", "a child", "someone", "unknown"],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Rd", "10 Elm Lane", "unknown"],
-      "ambient_audio": ["muffled voices", "footsteps", "door slamming", "silence", "crying"],
-      "specific_details": ["burglar", "intruder", "hostage", "hurt child", "domestic violence"]
+      "caller_name": [
+        "a woman",
+        "a man",
+        "a child",
+        "someone",
+        "unknown"
+      ],
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Rd",
+        "10 Elm Lane",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "muffled voices",
+        "footsteps",
+        "door slamming",
+        "silence",
+        "crying"
+      ],
+      "specific_details": [
+        "burglar",
+        "intruder",
+        "hostage",
+        "hurt child",
+        "domestic violence"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2009,7 +2438,9 @@
             "Decoded: address is {address_location}.",
             "They confirmed address via taps: {address_location}."
           ],
-          "no_response": ["No taps now. Last known phone location is {address_location}."]
+          "no_response": [
+            "No taps now. Last known phone location is {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2028,17 +2459,30 @@
             "They confirmed {specific_details} via code.",
             "Details: {specific_details}."
           ],
-          "no_response": ["No details now, but earlier taps indicated {specific_details}."]
+          "no_response": [
+            "No details now, but earlier taps indicated {specific_details}."
+          ]
         }
       },
       "ASK_IF_IN_DANGER": {
         "score_delta": 30,
         "transitions": {},
         "responses": {
-          "initial": ["Silence and tapping suggest yes.", "Likely in danger, using code."],
-          "tapping": ["They tapped '1' when I asked if in danger.", "Yes, tapping intensified."],
-          "code_breakthrough": ["Confirmed: immediate danger.", "They say yes."],
-          "no_response": ["Previously indicated danger."]
+          "initial": [
+            "Silence and tapping suggest yes.",
+            "Likely in danger, using code."
+          ],
+          "tapping": [
+            "They tapped '1' when I asked if in danger.",
+            "Yes, tapping intensified."
+          ],
+          "code_breakthrough": [
+            "Confirmed: immediate danger.",
+            "They say yes."
+          ],
+          "no_response": [
+            "Previously indicated danger."
+          ]
         }
       }
     },
@@ -2070,7 +2514,8 @@
       }
     },
     "id": "scenario_126",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "The Deaf Caller Using TTY",
@@ -2087,10 +2532,34 @@
       "{caller_name} is typing but the TTY is cutting out. I see '{specific_details}' and {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["a deaf woman", "a deaf man", "a child", "someone", "unknown"],
-      "address_location": ["123 Maple St", "456 Oak Ave", "789 Pine Rd", "10 Elm Lane", "unknown"],
-      "ambient_audio": ["typing", "relay beeps", "silence", "alarm siren", "breaking glass"],
-      "specific_details": ["fire", "break-in", "heart attack", "car accident", "domestic violence"]
+      "caller_name": [
+        "a deaf woman",
+        "a deaf man",
+        "a child",
+        "someone",
+        "unknown"
+      ],
+      "address_location": [
+        "123 Maple St",
+        "456 Oak Ave",
+        "789 Pine Rd",
+        "10 Elm Lane",
+        "unknown"
+      ],
+      "ambient_audio": [
+        "typing",
+        "relay beeps",
+        "silence",
+        "alarm siren",
+        "breaking glass"
+      ],
+      "specific_details": [
+        "fire",
+        "break-in",
+        "heart attack",
+        "car accident",
+        "domestic violence"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2109,14 +2578,19 @@
             "Clear text: {address_location}.",
             "Address confirmed: {address_location}."
           ],
-          "disconnected": ["We have the last known address: {address_location}."]
+          "disconnected": [
+            "We have the last known address: {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 40,
         "transitions": {},
         "responses": {
-          "initial": ["Text says '{specific_details}'.", "It looks like {specific_details}."],
+          "initial": [
+            "Text says '{specific_details}'.",
+            "It looks like {specific_details}."
+          ],
           "garbled": [
             "After correction, it's {specific_details}.",
             "They repeated {specific_details}."
@@ -2125,17 +2599,30 @@
             "They describe {specific_details} occurring.",
             "Details: {specific_details}."
           ],
-          "disconnected": ["Before disconnect, they said {specific_details}."]
+          "disconnected": [
+            "Before disconnect, they said {specific_details}."
+          ]
         }
       },
       "ASK_STATUS": {
         "score_delta": 30,
         "transitions": {},
         "responses": {
-          "initial": ["They typed 'URGENT'.", "Status: emergency."],
-          "garbled": ["STATUS: HELP", "Need assistance now."],
-          "clear_text": ["They say they are in immediate danger.", "Caller needs help."],
-          "disconnected": ["No response now."]
+          "initial": [
+            "They typed 'URGENT'.",
+            "Status: emergency."
+          ],
+          "garbled": [
+            "STATUS: HELP",
+            "Need assistance now."
+          ],
+          "clear_text": [
+            "They say they are in immediate danger.",
+            "Caller needs help."
+          ],
+          "disconnected": [
+            "No response now."
+          ]
         }
       }
     },
@@ -2167,13 +2654,19 @@
       }
     },
     "id": "scenario_127",
-    "archetype": "Communication Barrier"
+    "archetype": "Communication Barrier",
+    "difficulty": "Hard"
   },
   {
     "title": "The Heavily Accented Caller",
     "description": "A caller with a strong regional accent struggles to communicate a medical emergency. The dispatcher must parse garbled words and deduce the situation.",
     "archetype": "Communication Barrier",
-    "states": ["initial", "repeating", "straining", "silent"],
+    "states": [
+      "initial",
+      "repeating",
+      "straining",
+      "silent"
+    ],
     "initial_variations": [
       "Please, {caller_name} need help! {victim_relation} {specific_details} at {address_location}. Hurry! {ambient_audio}",
       "{caller_name} calling! {victim_relation} is {specific_details} can't breathe! {address_location} fast! {ambient_audio}",
@@ -2181,8 +2674,20 @@
       "Help! {caller_name} - {victim_relation} {specific_details} - {address_location} - {ambient_audio}"
     ],
     "slots": {
-      "caller_name": ["John", "Maria", "Ahmed", "Chen", "Yuki"],
-      "victim_relation": ["my father", "my mother", "my son", "my husband", "my neighbor"],
+      "caller_name": [
+        "John",
+        "Maria",
+        "Ahmed",
+        "Chen",
+        "Yuki"
+      ],
+      "victim_relation": [
+        "my father",
+        "my mother",
+        "my son",
+        "my husband",
+        "my neighbor"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -2228,7 +2733,12 @@
             "I already told you, {address_location}. Are you coming?",
             "Just listen to me, {address_location}!"
           ],
-          "silent": ["...", "*silence* ...", "phone still connected, no speech", "... *click*"]
+          "silent": [
+            "...",
+            "*silence* ...",
+            "phone still connected, no speech",
+            "... *click*"
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2253,7 +2763,11 @@
             "I can't ... {specific_details} ...",
             "Please, I said {specific_details}. Ambulance now!"
           ],
-          "silent": ["...", "*breathing heavily* ...", "... *click*"]
+          "silent": [
+            "...",
+            "*breathing heavily* ...",
+            "... *click*"
+          ]
         }
       },
       "ASK_VICTIM_CONDITION": {
@@ -2282,18 +2796,22 @@
             "*whisper* {specific_details} ...",
             "Help ... {specific_details} ..."
           ],
-          "silent": ["... *line goes dead*", "... ...", "open line, only background noise"]
+          "silent": [
+            "... *line goes dead*",
+            "... ...",
+            "open line, only background noise"
+          ]
         }
       }
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Police arrived, but no crime. They assisted with language barrier and called medical."
       },
       "SEND_FIRE": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 50,
         "message": "Firefighters responded, but no fire. They helped calm the caller and requested medical."
       },
@@ -2313,13 +2831,19 @@
         "message": "Call dismissed as unclear. Victim found dead later by family. Tragic miscommunication."
       }
     },
-    "id": "scenario_128"
+    "id": "scenario_128",
+    "difficulty": "Medium"
   },
   {
     "title": "The Slurred Speech Emergency",
     "description": "A caller is having a stroke, making speech unintelligible. Dispatcher must use minimal cues and background sounds to locate and assist.",
     "archetype": "Communication Barrier",
-    "states": ["initial", "slurring", "collapsing", "silent"],
+    "states": [
+      "initial",
+      "slurring",
+      "collapsing",
+      "silent"
+    ],
     "initial_variations": [
       "Hello? I... I think {caller_name} is... {specific_details} at {address_location}. Help... {ambient_audio}",
       "This is {caller_name}. Something wrong with {victim_relation}. {specific_details}... can't talk right. {address_location} {ambient_audio}",
@@ -2327,8 +2851,20 @@
       "{caller_name} calling... {victim_relation} having {specific_details}... please send... {address_location} *garbled* {ambient_audio}"
     ],
     "slots": {
-      "caller_name": ["George", "Linda", "Raj", "Mei", "Omar"],
-      "victim_relation": ["myself", "my wife", "my brother", "my friend", "my coworker"],
+      "caller_name": [
+        "George",
+        "Linda",
+        "Raj",
+        "Mei",
+        "Omar"
+      ],
+      "victim_relation": [
+        "myself",
+        "my wife",
+        "my brother",
+        "my friend",
+        "my coworker"
+      ],
       "address_location": [
         "15 Sunset Boulevard",
         "202 Park Avenue",
@@ -2374,7 +2910,12 @@
             "He's... *unintelligible* ...",
             "Just... send... *drop*"
           ],
-          "silent": ["...", "*open line*", "background noise only", "... *click*"]
+          "silent": [
+            "...",
+            "*open line*",
+            "background noise only",
+            "... *click*"
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2402,7 +2943,11 @@
             "*loud crash* ... {specific_details} ...",
             "Please... *heavy breathing* then silence"
           ],
-          "silent": ["...", "...", "..."]
+          "silent": [
+            "...",
+            "...",
+            "..."
+          ]
         }
       },
       "ASK_VICTIM_CONDITION": {
@@ -2431,18 +2976,23 @@
             "*breathing* ... then nothing...",
             "I'm scared... he's not... *whisper*"
           ],
-          "silent": ["*open line* – no speech", "...", "*background static*", "call disconnected"]
+          "silent": [
+            "*open line* – no speech",
+            "...",
+            "*background static*",
+            "call disconnected"
+          ]
         }
       }
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Police arrived, recognized stroke symptoms, called paramedics. Delay but victim survived with minor aftereffects."
       },
       "SEND_FIRE": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 50,
         "message": "Firefighters first on scene, provided basic first aid and called medical. Lacked advanced stroke care equipment."
       },
@@ -2462,13 +3012,19 @@
         "message": "Call dismissed as unintelligible. Victim died from preventable stroke. Tragic loss."
       }
     },
-    "id": "scenario_129"
+    "id": "scenario_129",
+    "difficulty": "Hard"
   },
   {
     "title": "The Garbled Translation Call",
     "description": "A non-English speaker uses a translation app that produces garbled text-to-speech. Dispatcher must piece together a fire emergency from broken phrases.",
     "archetype": "Communication Barrier",
-    "states": ["initial", "translating", "frustrated", "help_arrived"],
+    "states": [
+      "initial",
+      "translating",
+      "frustrated",
+      "help_arrived"
+    ],
     "initial_variations": [
       "*robot voice* Emergency. {caller_name}. {specific_details} at {address_location}. {ambient_audio}. Help.",
       "Translation: {caller_name} need {specific_details}. {address_location}. {ambient_audio}.",
@@ -2476,8 +3032,20 @@
       "{caller_name}: {specific_details}. Address {address_location}. {victim_relation} inside. {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["José", "Fatima", "Dmitri", "Aisha", "Luis"],
-      "victim_relation": ["my child", "my grandmother", "my roommate", "my pet", "no one else"],
+      "caller_name": [
+        "José",
+        "Fatima",
+        "Dmitri",
+        "Aisha",
+        "Luis"
+      ],
+      "victim_relation": [
+        "my child",
+        "my grandmother",
+        "my roommate",
+        "my pet",
+        "no one else"
+      ],
       "address_location": [
         "55 Calle Principal",
         "12 Rue de la Paix",
@@ -2597,7 +3165,7 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 150,
         "message": "Police arrived, evacuated building, called fire department. Victim had minor smoke inhalation."
       },
@@ -2607,7 +3175,7 @@
         "message": "Firefighters extinguished fire quickly. All occupants rescued. Translation app partly usable."
       },
       "SEND_MEDICAL": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Medics on scene treated minor injuries but fire still burning. Fire department called separately."
       },
@@ -2622,6 +3190,7 @@
         "message": "Call dismissed as garbled. Building burned down with fatalities. Communication breakdown tragedy."
       }
     },
-    "id": "scenario_130"
+    "id": "scenario_130",
+    "difficulty": "Medium"
   }
 ]

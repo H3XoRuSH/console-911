@@ -3,7 +3,12 @@
     "id": "scenario_007",
     "title": "The Coded Pizza Order",
     "description": "A domestic violence victim calls 911 under duress, pretending to order a pizza while secretly signaling for help. The dispatcher must decode the subtle clues.",
-    "states": ["initial", "code_negotiation", "escalated", "secured"],
+    "states": [
+      "initial",
+      "code_negotiation",
+      "escalated",
+      "secured"
+    ],
     "initial_variations": [
       "Hi, I'd like to place an order for a large pepperoni pizza at {address_location}.",
       "Can I get a pizza delivered to {address_location}? Make it a large with extra cheese, please.",
@@ -11,7 +16,12 @@
       "Delivery please, to {address_location}. Large pizza, half pepperoni, half plain."
     ],
     "slots": {
-      "caller_name": ["Sarah", "John", "Maria", "Alex"],
+      "caller_name": [
+        "Sarah",
+        "John",
+        "Maria",
+        "Alex"
+      ],
       "address_location": [
         "123 Maple Street, Apt 4B",
         "456 Oak Avenue",
@@ -50,7 +60,9 @@
             "{address_location}! Please, just send help!",
             "I already gave you {address_location}! Why aren't you sending someone?"
           ],
-          "secured": ["Thank you, yes, {address_location}. The police are here."]
+          "secured": [
+            "Thank you, yes, {address_location}. The police are here."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -73,7 +85,9 @@
             "He's getting angry! Large pepperoni! Now!",
             "Please, extra cheese! He's coming!"
           ],
-          "secured": ["The code worked. Thank you."]
+          "secured": [
+            "The code worked. Thank you."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -89,8 +103,13 @@
             "It's {caller_name}. Please, just send the pizza.",
             "{caller_name}. Is the pizza coming?"
           ],
-          "escalated": ["{caller_name}! He's yelling! Send help!", "{caller_name}, please!"],
-          "secured": ["{caller_name}. I'm safe now."]
+          "escalated": [
+            "{caller_name}! He's yelling! Send help!",
+            "{caller_name}, please!"
+          ],
+          "secured": [
+            "{caller_name}. I'm safe now."
+          ]
         }
       },
       "ASK_SPECIFICS": {
@@ -114,7 +133,9 @@
             "He's got a knife! Large pepperoni! Now!",
             "Extra cheese! He's coming! Code red!"
           ],
-          "secured": ["The code was understood. Thank you for saving us."]
+          "secured": [
+            "The code was understood. Thank you for saving us."
+          ]
         }
       },
       "ASSESS_SITUATION": {
@@ -138,7 +159,9 @@
             "He's violent! I need police now! The code was real!",
             "He's hitting me! Send help! The pizza was a lie!"
           ],
-          "secured": ["I'm safe now. Thank you for understanding the code."]
+          "secured": [
+            "I'm safe now. Thank you for understanding the code."
+          ]
         }
       }
     },
@@ -169,13 +192,19 @@
         "message": "Dismissing the call as a prank or wrong number was a critical error. The caller was a victim of domestic violence and needed immediate police intervention."
       }
     },
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Hard"
   },
   {
     "id": "scenario_008",
     "title": "The Nursery Rhyme Distress",
     "description": "A child calls 911 and begins reciting a nursery rhyme that contains a hidden plea for help, while parents argue violently in the background.",
-    "states": ["initial", "questioning", "confrontation", "safe"],
+    "states": [
+      "initial",
+      "questioning",
+      "confrontation",
+      "safe"
+    ],
     "initial_variations": [
       "Hello? Twinkle twinkle little star, how I wonder where you are, up above the world so high, like a diamond in the sky.",
       "Is this 911? Humpty Dumpty sat on a wall, Humpty Dumpty had a great fall. All the king's horses and all the king's men couldn't put Humpty together again.",
@@ -183,14 +212,24 @@
       "Please, I need help. Jack and Jill went up the hill to fetch a pail of water. Jack fell down and broke his crown, and Jill came tumbling after."
     ],
     "slots": {
-      "caller_name": ["Tommy", "Emma", "Liam", "Sophia"],
+      "caller_name": [
+        "Tommy",
+        "Emma",
+        "Liam",
+        "Sophia"
+      ],
       "address_location": [
         "15 Sunset Boulevard",
         "200 Lake Drive",
         "77 Cedar Court",
         "18 River Road"
       ],
-      "ambient_audio": ["loud arguing", "banging sounds", "crying", "breaking glass"],
+      "ambient_audio": [
+        "loud arguing",
+        "banging sounds",
+        "crying",
+        "breaking glass"
+      ],
       "specific_details": [
         "twinkle twinkle means help",
         "humpty dumpty means father is hurting mother",
@@ -216,7 +255,9 @@
             "{address_location}! They're fighting! Humpty Dumpty!",
             "{address_location}! Hurry! Jack fell down!"
           ],
-          "safe": ["Thank you. I'm at {address_location}. The police are here now."]
+          "safe": [
+            "Thank you. I'm at {address_location}. The police are here now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -239,7 +280,9 @@
             "He's hitting her! The rhyme is real! Humpty Dumpty!",
             "They're both fighting! Jack and Jill! Help!"
           ],
-          "safe": ["The rhyme worked. Thank you for understanding."]
+          "safe": [
+            "The rhyme worked. Thank you for understanding."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -255,8 +298,13 @@
             "It's {caller_name}. Please, the rhyme is a cry for help.",
             "{caller_name}. I'm scared."
           ],
-          "confrontation": ["{caller_name}! They're hurting each other!", "{caller_name}! Please!"],
-          "safe": ["{caller_name}. I'm safe. Thank you."]
+          "confrontation": [
+            "{caller_name}! They're hurting each other!",
+            "{caller_name}! Please!"
+          ],
+          "safe": [
+            "{caller_name}. I'm safe. Thank you."
+          ]
         }
       },
       "ASK_SPECIFICS": {
@@ -280,7 +328,9 @@
             "They are going to kill each other! The rhymes are not just rhymes!",
             "Jack and Jill is a fight! They are bleeding!"
           ],
-          "safe": ["The code was the rhyme. Thank you for listening."]
+          "safe": [
+            "The code was the rhyme. Thank you for listening."
+          ]
         }
       },
       "ASSESS_SITUATION": {
@@ -303,7 +353,9 @@
             "It's a domestic violence situation. They are violent! Send police!",
             "The nursery rhyme is a distress signal. Immediate help needed!"
           ],
-          "safe": ["I am safe now. The code worked. Thank you."]
+          "safe": [
+            "I am safe now. The code worked. Thank you."
+          ]
         }
       }
     },
@@ -334,7 +386,8 @@
         "message": "Dismissing the call as a prank was a fatal error. The child was in grave danger, and failure to respond led to serious harm."
       }
     },
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Book Club Meeting",
@@ -352,10 +405,30 @@
       "Oh, good, you picked up. I'm at {address_location} for the book club, but there's an unexpected {specific_details}. The door is locked and I hear {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["Jane", "Sam", "Alex", "Pat"],
-      "victim_relation": ["my sister", "the neighbor", "the caretaker", "the delivery person"],
-      "address_location": ["123 Oak Street", "456 Maple Avenue", "789 Pine Road", "321 Birch Lane"],
-      "ambient_audio": ["muffled voices", "footsteps", "a TV playing loudly", "a door creaking"],
+      "caller_name": [
+        "Jane",
+        "Sam",
+        "Alex",
+        "Pat"
+      ],
+      "victim_relation": [
+        "my sister",
+        "the neighbor",
+        "the caretaker",
+        "the delivery person"
+      ],
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Pine Road",
+        "321 Birch Lane"
+      ],
+      "ambient_audio": [
+        "muffled voices",
+        "footsteps",
+        "a TV playing loudly",
+        "a door creaking"
+      ],
       "specific_details": [
         "unexpected guest",
         "disagreement about the plot",
@@ -427,7 +500,9 @@
             "This is {caller_name}. Just send police now!",
             "Call me {caller_name}. I'm in danger."
           ],
-          "secured": ["I'm {caller_name}. Thank you for helping."]
+          "secured": [
+            "I'm {caller_name}. Thank you for helping."
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -448,7 +523,9 @@
             "They're hurting {victim_relation}! Hurry!",
             "{victim_relation} is the hostage! Send SWAT!"
           ],
-          "secured": ["The hostage is {victim_relation}. They're safe now."]
+          "secured": [
+            "The hostage is {victim_relation}. They're safe now."
+          ]
         }
       },
       "ASK_WEAPON": {
@@ -468,7 +545,9 @@
             "He has a knife! He's threatening {victim_relation}!",
             "Gun! He has a gun! Send armed units!"
           ],
-          "secured": ["The weapon is secured. Perpetrator disarmed."]
+          "secured": [
+            "The weapon is secured. Perpetrator disarmed."
+          ]
         }
       }
     },
@@ -500,7 +579,8 @@
       }
     },
     "id": "scenario_077",
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Wrong Number",
@@ -518,9 +598,24 @@
       "Sorry, wrong number. [Click]"
     ],
     "slots": {
-      "caller_name": ["unknown", "Anonymous", "Caller", "Victim"],
-      "victim_relation": ["the homeowner", "a child", "an elderly person", "someone inside"],
-      "address_location": ["15 Maple Drive", "42 Birch Lane", "8 Pine Street", "27 Elm Road"],
+      "caller_name": [
+        "unknown",
+        "Anonymous",
+        "Caller",
+        "Victim"
+      ],
+      "victim_relation": [
+        "the homeowner",
+        "a child",
+        "an elderly person",
+        "someone inside"
+      ],
+      "address_location": [
+        "15 Maple Drive",
+        "42 Birch Lane",
+        "8 Pine Street",
+        "27 Elm Road"
+      ],
       "ambient_audio": [
         "breaking glass",
         "heavy footsteps",
@@ -542,7 +637,11 @@
           "whispering": "background"
         },
         "responses": {
-          "initial": ["[No response]", "[Click]", "[Silence]"],
+          "initial": [
+            "[No response]",
+            "[Click]",
+            "[Silence]"
+          ],
           "whispering": [
             "[Whispering] {address_location} ... {ambient_audio}",
             "...help... {address_location}",
@@ -552,7 +651,9 @@
             "[Background sounds: {ambient_audio} and {specific_details}]",
             "[Sounds of struggle at {address_location}]"
           ],
-          "resolved": ["Thank you. At {address_location}. Danger passed."]
+          "resolved": [
+            "Thank you. At {address_location}. Danger passed."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -562,7 +663,10 @@
           "whispering": "background"
         },
         "responses": {
-          "initial": ["[Click]", "[Silence]"],
+          "initial": [
+            "[Click]",
+            "[Silence]"
+          ],
           "whispering": [
             "There's someone ... {specific_details} ...",
             "Burglary ... {ambient_audio} ... hide",
@@ -572,37 +676,69 @@
             "[Loud crash] [Footsteps running] [Voice: 'Where is it?']",
             "[Crying] [Man shouting] [Sound of drawers opening]"
           ],
-          "resolved": ["They left. Police can come now."]
+          "resolved": [
+            "They left. Police can come now."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["[No response]", "[Click]"],
-          "whispering": ["[Whispering] I can't say...", "...[muffled]..."],
-          "background": ["[Screaming] [Dial tone]"],
-          "resolved": ["My name is {caller_name}. I'm safe now."]
+          "initial": [
+            "[No response]",
+            "[Click]"
+          ],
+          "whispering": [
+            "[Whispering] I can't say...",
+            "...[muffled]..."
+          ],
+          "background": [
+            "[Screaming] [Dial tone]"
+          ],
+          "resolved": [
+            "My name is {caller_name}. I'm safe now."
+          ]
         }
       },
       "ASK_VICTIM": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["[Silence]"],
-          "whispering": ["{victim_relation} is upstairs... hiding...", "Kids... in closet..."],
-          "background": ["[Child crying] [Adult: 'Shut up!']", "[Elderly voice: 'Please, no...']"],
-          "resolved": ["{victim_relation} is safe. Everyone is okay."]
+          "initial": [
+            "[Silence]"
+          ],
+          "whispering": [
+            "{victim_relation} is upstairs... hiding...",
+            "Kids... in closet..."
+          ],
+          "background": [
+            "[Child crying] [Adult: 'Shut up!']",
+            "[Elderly voice: 'Please, no...']"
+          ],
+          "resolved": [
+            "{victim_relation} is safe. Everyone is okay."
+          ]
         }
       },
       "ASK_WEAPON": {
         "score_delta": 15,
         "transitions": {},
         "responses": {
-          "initial": ["[Click]"],
-          "whispering": ["Maybe a knife... saw something shiny...", "Gun? Not sure..."],
-          "background": ["[Gunshot] [Screaming]", "[Sound of metal hitting floor]"],
-          "resolved": ["No weapon seen. They just stole things."]
+          "initial": [
+            "[Click]"
+          ],
+          "whispering": [
+            "Maybe a knife... saw something shiny...",
+            "Gun? Not sure..."
+          ],
+          "background": [
+            "[Gunshot] [Screaming]",
+            "[Sound of metal hitting floor]"
+          ],
+          "resolved": [
+            "No weapon seen. They just stole things."
+          ]
         }
       }
     },
@@ -634,7 +770,8 @@
       }
     },
     "id": "scenario_078",
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Pet Grooming Appointment",
@@ -652,16 +789,36 @@
       "Hello, this is about the appointment for {caller_name}'s dog. The address is {address_location}. There's a lot of {ambient_audio} here."
     ],
     "slots": {
-      "caller_name": ["Lisa", "Mark", "Jessica", "Tom"],
-      "victim_relation": ["my sister", "my neighbor", "my friend", "my mother"],
+      "caller_name": [
+        "Lisa",
+        "Mark",
+        "Jessica",
+        "Tom"
+      ],
+      "victim_relation": [
+        "my sister",
+        "my neighbor",
+        "my friend",
+        "my mother"
+      ],
       "address_location": [
         "450 Cedar Street",
         "789 Willow Way",
         "123 Spruce Lane",
         "567 Ash Avenue"
       ],
-      "ambient_audio": ["barking", "growling", "whimpering", "scratching"],
-      "specific_details": ["aggressive", "nervous", "anxious", "frightened"]
+      "ambient_audio": [
+        "barking",
+        "growling",
+        "whimpering",
+        "scratching"
+      ],
+      "specific_details": [
+        "aggressive",
+        "nervous",
+        "anxious",
+        "frightened"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -727,7 +884,9 @@
             "I'm {caller_name}. Just send the police, please.",
             "Call me {caller_name}. I can't say more."
           ],
-          "safe": ["I'm {caller_name}. Thank you for understanding."]
+          "safe": [
+            "I'm {caller_name}. Thank you for understanding."
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -747,7 +906,9 @@
             "He's hurting {victim_relation} now! Please!",
             "{victim_relation} is the real victim. Hurry!"
           ],
-          "safe": ["{victim_relation} is free. They have bruises."]
+          "safe": [
+            "{victim_relation} is free. They have bruises."
+          ]
         }
       },
       "ASK_WEAPON": {
@@ -767,7 +928,9 @@
             "He's holding a {specific_details} to her throat!",
             "Weapon! ! He has a weapon!"
           ],
-          "safe": ["No weapon found. He didn't have one."]
+          "safe": [
+            "No weapon found. He didn't have one."
+          ]
         }
       }
     },
@@ -799,7 +962,8 @@
       }
     },
     "id": "scenario_079",
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Medium"
   },
   {
     "title": "The Tech Support Call",
@@ -817,11 +981,36 @@
       "Yes, I'm calling about the {specific_details} problem. The {ambient_audio} is really distracting. Address is {address_location}."
     ],
     "slots": {
-      "caller_name": ["Chris", "Morgan", "Taylor", "Jordan"],
-      "victim_relation": ["my colleague", "my roommate", "my ex-partner", "a stranger"],
-      "address_location": ["34 Tech Avenue", "56 Cyber Lane", "78 Digital Drive", "90 Code Street"],
-      "ambient_audio": ["beeping", "clicking", "static", "humming"],
-      "specific_details": ["blue screen", "slow performance", "pop-up ads", "network error"]
+      "caller_name": [
+        "Chris",
+        "Morgan",
+        "Taylor",
+        "Jordan"
+      ],
+      "victim_relation": [
+        "my colleague",
+        "my roommate",
+        "my ex-partner",
+        "a stranger"
+      ],
+      "address_location": [
+        "34 Tech Avenue",
+        "56 Cyber Lane",
+        "78 Digital Drive",
+        "90 Code Street"
+      ],
+      "ambient_audio": [
+        "beeping",
+        "clicking",
+        "static",
+        "humming"
+      ],
+      "specific_details": [
+        "blue screen",
+        "slow performance",
+        "pop-up ads",
+        "network error"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -841,7 +1030,9 @@
             "Yes, I'm at {address_location}. The {specific_details} needs urgent attention. (To intruder: 'Just a second, tech support.')",
             "It's {address_location}. I can't talk in detail. Please send police."
           ],
-          "safe": ["Location: {address_location}. The issue is resolved. Send police for evidence."]
+          "safe": [
+            "Location: {address_location}. The issue is resolved. Send police for evidence."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -863,7 +1054,9 @@
             "He's right here. I'm pretending to fix a {specific_details}. He's suspicious. Help!",
             "The {specific_details} is a ruse. He has a weapon. Police now!"
           ],
-          "safe": ["He's gone. He stole some data. But we're safe. Police can come."]
+          "safe": [
+            "He's gone. He stole some data. But we're safe. Police can come."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
@@ -883,7 +1076,9 @@
             "I'm {caller_name}. Just do what I say on the phone.",
             "{caller_name} here. Send help covertly."
           ],
-          "safe": ["I'm {caller_name}. Thank you for your patience."]
+          "safe": [
+            "I'm {caller_name}. Thank you for your patience."
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -904,7 +1099,9 @@
             "He's threatening {victim_relation} too. Send police.",
             "I'm the victim. {victim_relation} is the perp."
           ],
-          "safe": ["I'm the victim. Arrest {victim_relation}."]
+          "safe": [
+            "I'm the victim. Arrest {victim_relation}."
+          ]
         }
       },
       "ASK_WEAPON": {
@@ -924,7 +1121,9 @@
             "He's holding a {specific_details} to my back. I think it's a gun.",
             "He has a weapon. I can see it in his hand."
           ],
-          "safe": ["He was armed. He dropped it when he ran."]
+          "safe": [
+            "He was armed. He dropped it when he ran."
+          ]
         }
       }
     },
@@ -956,7 +1155,8 @@
       }
     },
     "id": "scenario_080",
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Late Delivery Complaint",
@@ -974,16 +1174,36 @@
       "Hello, I want to speak to the manager. My pizza hasn't arrived. There's a lot of {ambient_audio} going on here."
     ],
     "slots": {
-      "caller_name": ["Mike", "Sarah", "Dave", "Emma"],
-      "victim_relation": ["my wife", "my kids", "my roommate", "my parents"],
+      "caller_name": [
+        "Mike",
+        "Sarah",
+        "Dave",
+        "Emma"
+      ],
+      "victim_relation": [
+        "my wife",
+        "my kids",
+        "my roommate",
+        "my parents"
+      ],
       "address_location": [
         "22 Pepperoni Place",
         "44 Cheese Street",
         "66 Topping Avenue",
         "88 Dough Lane"
       ],
-      "ambient_audio": ["crashing sounds", "yelling", "glass breaking", "heavy footsteps"],
-      "specific_details": ["30", "45", "60", "90"]
+      "ambient_audio": [
+        "crashing sounds",
+        "yelling",
+        "glass breaking",
+        "heavy footsteps"
+      ],
+      "specific_details": [
+        "30",
+        "45",
+        "60",
+        "90"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1049,7 +1269,9 @@
             "I'm {caller_name}! They're coming! Help!",
             "Call me {caller_name}. I'm hiding."
           ],
-          "resolved": ["This is {caller_name}. Everything is under control."]
+          "resolved": [
+            "This is {caller_name}. Everything is under control."
+          ]
         }
       },
       "ASK_VICTIM": {
@@ -1069,7 +1291,9 @@
             "They're hurting {victim_relation}! I can hear them crying!",
             "{victim_relation} is the target! Save them!"
           ],
-          "resolved": ["{victim_relation} is safe. The intruders are arrested."]
+          "resolved": [
+            "{victim_relation} is safe. The intruders are arrested."
+          ]
         }
       },
       "ASK_WEAPON": {
@@ -1089,7 +1313,9 @@
             "They have guns! And they're pointing at {victim_relation}!",
             "I saw a shotgun. Please hurry!"
           ],
-          "resolved": ["They were armed. Police confiscated weapons."]
+          "resolved": [
+            "They were armed. Police confiscated weapons."
+          ]
         }
       }
     },
@@ -1121,17 +1347,26 @@
       }
     },
     "id": "scenario_081",
-    "archetype": "Ambiguous / Code Call"
+    "archetype": "Ambiguous / Code Call",
+    "difficulty": "Hard"
   },
   {
     "title": "The Stranded Motorist",
     "description": "A caller reports a broken-down vehicle but uses coded phrases to indicate a hostage situation. The dispatcher must decipher the hidden plea.",
     "archetype": "Ambiguous / Code Call",
     "states": {
-      "initial": ["Caller says car is broken down but sounds tense."],
-      "hiding": ["Caller whispers from inside the vehicle, fearing the kidnapper overhears."],
-      "confronting": ["Caller confronts the captor, tone shifts to pleading or bargaining."],
-      "secured": ["Police arrive and caller is safe."]
+      "initial": [
+        "Caller says car is broken down but sounds tense."
+      ],
+      "hiding": [
+        "Caller whispers from inside the vehicle, fearing the kidnapper overhears."
+      ],
+      "confronting": [
+        "Caller confronts the captor, tone shifts to pleading or bargaining."
+      ],
+      "secured": [
+        "Police arrive and caller is safe."
+      ]
     },
     "initial_variations": [
       "My car broke down on {address_location} and I need a tow truck, but there's a {specific_details} nearby.",
@@ -1171,8 +1406,13 @@
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["I'm {caller_name}. Please just send a tow truck.", "This is {caller_name}."],
-          "hiding": ["{caller_name}... that's all I can say."]
+          "initial": [
+            "I'm {caller_name}. Please just send a tow truck.",
+            "This is {caller_name}."
+          ],
+          "hiding": [
+            "{caller_name}... that's all I can say."
+          ]
         }
       },
       "ASK_VICTIM_RELATION": {
@@ -1193,7 +1433,9 @@
             "I hear {ambient_audio}. It's getting closer.",
             "There's a lot of {ambient_audio} nearby."
           ],
-          "hiding": ["I hear footsteps on gravel, {ambient_audio}."]
+          "hiding": [
+            "I hear footsteps on gravel, {ambient_audio}."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -1210,8 +1452,20 @@
       }
     },
     "slots": {
-      "caller_name": ["Sarah", "Mike", "Linda", "Tom", "Karen"],
-      "victim_relation": ["brother", "wife", "daughter", "neighbor", "coworker"],
+      "caller_name": [
+        "Sarah",
+        "Mike",
+        "Linda",
+        "Tom",
+        "Karen"
+      ],
+      "victim_relation": [
+        "brother",
+        "wife",
+        "daughter",
+        "neighbor",
+        "coworker"
+      ],
       "address_location": [
         "123 Elm Street",
         "45 Oak Avenue",
@@ -1226,7 +1480,13 @@
         "heavy breathing",
         "muffled screams"
       ],
-      "specific_details": ["red van", "black glove", "silver knife", "broken window", "blood stain"]
+      "specific_details": [
+        "red van",
+        "black glove",
+        "silver knife",
+        "broken window",
+        "blood stain"
+      ]
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
@@ -1255,17 +1515,26 @@
         "message": "The call was dismissed as a routine breakdown. The kidnapper escaped with the victim."
       }
     },
-    "id": "scenario_082"
+    "id": "scenario_082",
+    "difficulty": "Hard"
   },
   {
     "title": "Silent Struggle",
     "description": "An open line with heavy breathing and muffled sounds suggests a domestic violence incident where the victim cannot speak.",
     "archetype": "Ambiguous / Code Call",
     "states": {
-      "initial": ["Caller is silent, only heavy breathing is heard."],
-      "hiding": ["Caller whispers after being prompted, indicating they are hiding."],
-      "confronting": ["Sounds of a struggle escalate, caller may be in immediate danger."],
-      "secured": ["Police arrive and the situation is contained."]
+      "initial": [
+        "Caller is silent, only heavy breathing is heard."
+      ],
+      "hiding": [
+        "Caller whispers after being prompted, indicating they are hiding."
+      ],
+      "confronting": [
+        "Sounds of a struggle escalate, caller may be in immediate danger."
+      ],
+      "secured": [
+        "Police arrive and the situation is contained."
+      ]
     },
     "initial_variations": [
       "Heavy breathing and occasional thuds are heard in the background.",
@@ -1291,32 +1560,50 @@
         "score_delta": 80,
         "transitions": {},
         "responses": {
-          "initial": ["I cannot say. Just listen.", "There's a {specific_details} involved."],
-          "hiding": ["He has a {specific_details}. He's angry about {something}."]
+          "initial": [
+            "I cannot say. Just listen.",
+            "There's a {specific_details} involved."
+          ],
+          "hiding": [
+            "He has a {specific_details}. He's angry about {something}."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["I can't say my name.", "Please, just help."],
-          "hiding": ["{caller_name}... that's me."]
+          "initial": [
+            "I can't say my name.",
+            "Please, just help."
+          ],
+          "hiding": [
+            "{caller_name}... that's me."
+          ]
         }
       },
       "ASK_VICTIM_RELATION": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["It's my {victim_relation}. He's dangerous."],
-          "hiding": ["My {victim_relation} is the one attacking."]
+          "initial": [
+            "It's my {victim_relation}. He's dangerous."
+          ],
+          "hiding": [
+            "My {victim_relation} is the one attacking."
+          ]
         }
       },
       "ASK_AMBIENT": {
         "score_delta": 30,
         "transitions": {},
         "responses": {
-          "initial": ["You can hear {ambient_audio}."],
-          "hiding": ["He's breaking things, {ambient_audio}."]
+          "initial": [
+            "You can hear {ambient_audio}."
+          ],
+          "hiding": [
+            "He's breaking things, {ambient_audio}."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -1333,8 +1620,20 @@
       }
     },
     "slots": {
-      "caller_name": ["Emily", "Jessica", "Anna", "Maria", "John"],
-      "victim_relation": ["husband", "ex-boyfriend", "partner", "father", "roommate"],
+      "caller_name": [
+        "Emily",
+        "Jessica",
+        "Anna",
+        "Maria",
+        "John"
+      ],
+      "victim_relation": [
+        "husband",
+        "ex-boyfriend",
+        "partner",
+        "father",
+        "roommate"
+      ],
       "address_location": [
         "456 Willow Street",
         "89 Cedar Court",
@@ -1349,7 +1648,19 @@
         "heavy footsteps",
         "crying"
       ],
-      "specific_details": ["a knife", "a gun", "a broken bottle", "a hammer", "a rope"]
+      "specific_details": [
+        "a knife",
+        "a gun",
+        "a broken bottle",
+        "a hammer",
+        "a rope"
+      ],
+      "something": [
+        "the situation",
+        "the noise",
+        "the argument",
+        "the problem"
+      ]
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
@@ -1378,17 +1689,26 @@
         "message": "The call was dismissed as a pocket dial. The victim was found dead the next day."
       }
     },
-    "id": "scenario_083"
+    "id": "scenario_083",
+    "difficulty": "Hard"
   },
   {
     "title": "Foreign Language Cry for Help",
     "description": "A caller speaks in a foreign language, only uttering a few English words like 'help' and an address, possibly a code call.",
     "archetype": "Ambiguous / Code Call",
     "states": {
-      "initial": ["Caller speaks in Spanish, frantic, with limited English."],
-      "hiding": ["Caller whispers in Spanish, indicating they are hiding."],
-      "confronting": ["Caller screams in Spanish, sounds of a struggle."],
-      "secured": ["Police arrive and the situation is resolved."]
+      "initial": [
+        "Caller speaks in Spanish, frantic, with limited English."
+      ],
+      "hiding": [
+        "Caller whispers in Spanish, indicating they are hiding."
+      ],
+      "confronting": [
+        "Caller screams in Spanish, sounds of a struggle."
+      ],
+      "secured": [
+        "Police arrive and the situation is resolved."
+      ]
     },
     "initial_variations": [
       "¡Ayuda! {address_location}... please, police! ¡Rápido!",
@@ -1400,40 +1720,65 @@
         "score_delta": 50,
         "transitions": {},
         "responses": {
-          "initial": ["{address_location}, please hurry!", "Es {address_location}."],
-          "hiding": ["Estoy en {address_location}, escondido."]
+          "initial": [
+            "{address_location}, please hurry!",
+            "Es {address_location}."
+          ],
+          "hiding": [
+            "Estoy en {address_location}, escondido."
+          ]
         }
       },
       "ASK_DETAILS": {
         "score_delta": 80,
         "transitions": {},
         "responses": {
-          "initial": ["Hay un {specific_details}. Peligro.", "My {victim_relation} is in danger."],
-          "hiding": ["Él tiene un {specific_details}."]
+          "initial": [
+            "Hay un {specific_details}. Peligro.",
+            "My {victim_relation} is in danger."
+          ],
+          "hiding": [
+            "Él tiene un {specific_details}."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["Me llamo {caller_name}.", "{caller_name}."],
-          "hiding": ["{caller_name}. No puedo hablar mucho."]
+          "initial": [
+            "Me llamo {caller_name}.",
+            "{caller_name}."
+          ],
+          "hiding": [
+            "{caller_name}. No puedo hablar mucho."
+          ]
         }
       },
       "ASK_VICTIM_RELATION": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["Mi {victim_relation} está herido.", "Es mi {victim_relation}."],
-          "hiding": ["Mi {victim_relation} también está escondido."]
+          "initial": [
+            "Mi {victim_relation} está herido.",
+            "Es mi {victim_relation}."
+          ],
+          "hiding": [
+            "Mi {victim_relation} también está escondido."
+          ]
         }
       },
       "ASK_AMBIENT": {
         "score_delta": 30,
         "transitions": {},
         "responses": {
-          "initial": ["Oigo {ambient_audio}.", "Hay {ambient_audio}."],
-          "hiding": ["Silencio... pero {ambient_audio}."]
+          "initial": [
+            "Oigo {ambient_audio}.",
+            "Hay {ambient_audio}."
+          ],
+          "hiding": [
+            "Silencio... pero {ambient_audio}."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -1442,13 +1787,28 @@
           "initial": "hiding"
         },
         "responses": {
-          "initial": ["Me escondo. No hagan ruido.", "I hide. Please quiet."]
+          "initial": [
+            "Me escondo. No hagan ruido.",
+            "I hide. Please quiet."
+          ]
         }
       }
     },
     "slots": {
-      "caller_name": ["José", "María", "Carlos", "Ana", "Luis"],
-      "victim_relation": ["madre", "padre", "hermano", "hija", "esposa"],
+      "caller_name": [
+        "José",
+        "María",
+        "Carlos",
+        "Ana",
+        "Luis"
+      ],
+      "victim_relation": [
+        "madre",
+        "padre",
+        "hermano",
+        "hija",
+        "esposa"
+      ],
       "address_location": [
         "123 Calle Principal",
         "45 Avenida Roble",
@@ -1456,8 +1816,20 @@
         "99 Callejón Olmo",
         "12 Ruta Abedul"
       ],
-      "ambient_audio": ["gritos", "vidrios rotos", "pasos", "golpes", "sirenas lejanas"],
-      "specific_details": ["cuchillo", "pistola", "botella rota", "martillo", "cuerda"]
+      "ambient_audio": [
+        "gritos",
+        "vidrios rotos",
+        "pasos",
+        "golpes",
+        "sirenas lejanas"
+      ],
+      "specific_details": [
+        "cuchillo",
+        "pistola",
+        "botella rota",
+        "martillo",
+        "cuerda"
+      ]
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
@@ -1486,17 +1858,26 @@
         "message": "Call dismissed due to language barrier. Victim found dead from stab wounds."
       }
     },
-    "id": "scenario_084"
+    "id": "scenario_084",
+    "difficulty": "Hard"
   },
   {
     "title": "Locked in the Bathroom",
     "description": "A caller says they are locked in a bathroom, but the story is inconsistent; they might be hiding from an intruder.",
     "archetype": "Ambiguous / Code Call",
     "states": {
-      "initial": ["Caller says they are locked in the bathroom at {address_location}."],
-      "hiding": ["Caller whispers that they are hiding from someone."],
-      "confronting": ["Caller yells as someone tries to break in."],
-      "secured": ["Police arrive and the intruder is caught."]
+      "initial": [
+        "Caller says they are locked in the bathroom at {address_location}."
+      ],
+      "hiding": [
+        "Caller whispers that they are hiding from someone."
+      ],
+      "confronting": [
+        "Caller yells as someone tries to break in."
+      ],
+      "secured": [
+        "Police arrive and the intruder is caught."
+      ]
     },
     "initial_variations": [
       "I'm locked in my bathroom at {address_location}. The door won't open. Can you send a locksmith?",
@@ -1512,7 +1893,9 @@
             "{address_location}, the bathroom on the second floor.",
             "It's {address_location}, the main bathroom."
           ],
-          "hiding": ["Same, {address_location}. I'm hiding in the tub."]
+          "hiding": [
+            "Same, {address_location}. I'm hiding in the tub."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1523,23 +1906,35 @@
             "The door just jammed. But I heard {ambient_audio} before.",
             "I think someone locked me in. There's a {specific_details} outside."
           ],
-          "hiding": ["There's a man with a {specific_details} trying to get in."]
+          "hiding": [
+            "There's a man with a {specific_details} trying to get in."
+          ]
         }
       },
       "ASK_CALLER_NAME": {
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["I'm {caller_name}.", "{caller_name} here."],
-          "hiding": ["{caller_name}, please hurry."]
+          "initial": [
+            "I'm {caller_name}.",
+            "{caller_name} here."
+          ],
+          "hiding": [
+            "{caller_name}, please hurry."
+          ]
         }
       },
       "ASK_VICTIM_RELATION": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["My {victim_relation} is out there, I think.", "It's just me, I live alone."],
-          "hiding": ["My {victim_relation} might be hurt."]
+          "initial": [
+            "My {victim_relation} is out there, I think.",
+            "It's just me, I live alone."
+          ],
+          "hiding": [
+            "My {victim_relation} might be hurt."
+          ]
         }
       },
       "ASK_AMBIENT": {
@@ -1550,7 +1945,9 @@
             "I hear {ambient_audio}. Creaking.",
             "There's {ambient_audio} outside the door."
           ],
-          "hiding": ["{ambient_audio}... he's trying the lock."]
+          "hiding": [
+            "{ambient_audio}... he's trying the lock."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -1567,8 +1964,20 @@
       }
     },
     "slots": {
-      "caller_name": ["David", "Lisa", "Chris", "Amanda", "Brian"],
-      "victim_relation": ["husband", "wife", "son", "daughter", "roommate"],
+      "caller_name": [
+        "David",
+        "Lisa",
+        "Chris",
+        "Amanda",
+        "Brian"
+      ],
+      "victim_relation": [
+        "husband",
+        "wife",
+        "son",
+        "daughter",
+        "roommate"
+      ],
       "address_location": [
         "321 Maple Street",
         "654 Oak Avenue",
@@ -1583,7 +1992,13 @@
         "scratching",
         "heavy breathing"
       ],
-      "specific_details": ["crowbar", "baseball bat", "kitchen knife", "rope", "duct tape"]
+      "specific_details": [
+        "crowbar",
+        "baseball bat",
+        "kitchen knife",
+        "rope",
+        "duct tape"
+      ]
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
@@ -1612,17 +2027,26 @@
         "message": "Call dismissed as a minor lockout. The caller was found dead from an intruder."
       }
     },
-    "id": "scenario_085"
+    "id": "scenario_085",
+    "difficulty": "Hard"
   },
   {
     "title": "Gas Leak or Cover-Up?",
     "description": "A caller reports a gas leak, but background sounds suggest a domestic dispute. The dispatcher must determine if it's a real emergency or a code call.",
     "archetype": "Ambiguous / Code Call",
     "states": {
-      "initial": ["Caller says there is a gas leak at {address_location}."],
-      "hiding": ["Caller whispers that the gas leak is a cover for an intruder."],
-      "confronting": ["Sounds of a physical altercation escalate."],
-      "secured": ["Police arrive and the situation is under control."]
+      "initial": [
+        "Caller says there is a gas leak at {address_location}."
+      ],
+      "hiding": [
+        "Caller whispers that the gas leak is a cover for an intruder."
+      ],
+      "confronting": [
+        "Sounds of a physical altercation escalate."
+      ],
+      "secured": [
+        "Police arrive and the situation is under control."
+      ]
     },
     "initial_variations": [
       "There's a gas leak at {address_location}! I smell {specific_details}. Please send help!",
@@ -1638,7 +2062,9 @@
             "{address_location}, the kitchen. The smell is strong.",
             "At {address_location}, by the furnace."
           ],
-          "hiding": ["{address_location}, I'm in the basement. He's upstairs."]
+          "hiding": [
+            "{address_location}, I'm in the basement. He's upstairs."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1658,16 +2084,26 @@
         "score_delta": 10,
         "transitions": {},
         "responses": {
-          "initial": ["I'm {caller_name}.", "{caller_name}."],
-          "hiding": ["{caller_name}, but don't say my name."]
+          "initial": [
+            "I'm {caller_name}.",
+            "{caller_name}."
+          ],
+          "hiding": [
+            "{caller_name}, but don't say my name."
+          ]
         }
       },
       "ASK_VICTIM_RELATION": {
         "score_delta": 20,
         "transitions": {},
         "responses": {
-          "initial": ["My {victim_relation} is here too.", "It's me and my {victim_relation}."],
-          "hiding": ["My {victim_relation} is the one threatening me."]
+          "initial": [
+            "My {victim_relation} is here too.",
+            "It's me and my {victim_relation}."
+          ],
+          "hiding": [
+            "My {victim_relation} is the one threatening me."
+          ]
         }
       },
       "ASK_AMBIENT": {
@@ -1678,7 +2114,9 @@
             "I hear {ambient_audio}. Maybe it's the gas.",
             "There's {ambient_audio} in the background."
           ],
-          "hiding": ["{ambient_audio} from upstairs. He's pacing."]
+          "hiding": [
+            "{ambient_audio} from upstairs. He's pacing."
+          ]
         }
       },
       "GIVE_INSTRUCTIONS": {
@@ -1695,8 +2133,20 @@
       }
     },
     "slots": {
-      "caller_name": ["Robert", "Jennifer", "Michael", "Stephanie", "Kevin"],
-      "victim_relation": ["girlfriend", "boyfriend", "wife", "husband", "ex-partner"],
+      "caller_name": [
+        "Robert",
+        "Jennifer",
+        "Michael",
+        "Stephanie",
+        "Kevin"
+      ],
+      "victim_relation": [
+        "girlfriend",
+        "boyfriend",
+        "wife",
+        "husband",
+        "ex-partner"
+      ],
       "address_location": [
         "789 Walnut Street",
         "234 Spruce Avenue",
@@ -1704,7 +2154,13 @@
         "890 Poplar Lane",
         "123 Hickory Drive"
       ],
-      "ambient_audio": ["arguing", "objects breaking", "slamming doors", "crying", "threats"],
+      "ambient_audio": [
+        "arguing",
+        "objects breaking",
+        "slamming doors",
+        "crying",
+        "threats"
+      ],
       "specific_details": [
         "a knife",
         "a broken bottle",
@@ -1740,7 +2196,8 @@
         "message": "Call dismissed as a false alarm. The victim was found hospitalized with serious injuries."
       }
     },
-    "id": "scenario_086"
+    "id": "scenario_086",
+    "difficulty": "Hard"
   },
   {
     "title": "The Laundry Service Call",
@@ -1758,7 +2215,13 @@
       "This is {caller_name}. I need a laundry pickup at {address_location}. The bags are tagged with {specific_details} and there's a {ambient_audio} sound in the background."
     ],
     "slots": {
-      "caller_name": ["Jane", "Maria", "Alice", "Sarah", "Laura"],
+      "caller_name": [
+        "Jane",
+        "Maria",
+        "Alice",
+        "Sarah",
+        "Laura"
+      ],
       "address_location": [
         "123 Oak St",
         "456 Maple Ave",
@@ -1766,7 +2229,13 @@
         "321 Pine Ln",
         "654 Birch Rd"
       ],
-      "ambient_audio": ["muffled shouts", "glass breaking", "heavy footsteps", "crying", "silence"],
+      "ambient_audio": [
+        "muffled shouts",
+        "glass breaking",
+        "heavy footsteps",
+        "crying",
+        "silence"
+      ],
       "specific_details": [
         "code red",
         "blue tag",
@@ -1774,7 +2243,13 @@
         "immediate",
         "do not disturb"
       ],
-      "abuser_name": ["Mike", "Tom", "Dave", "Steve", "John"]
+      "abuser_name": [
+        "Mike",
+        "Tom",
+        "Dave",
+        "Steve",
+        "John"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1796,7 +2271,9 @@
             "I can't talk. {address_location}.",
             "Just come to {address_location}."
           ],
-          "secured": ["Thank you. I'm at {address_location}, safe now."]
+          "secured": [
+            "Thank you. I'm at {address_location}, safe now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1821,7 +2298,9 @@
             "Stop asking! {specific_details}!",
             "I already said {specific_details}."
           ],
-          "secured": ["{specific_details} was the signal. You saved me."]
+          "secured": [
+            "{specific_details} was the signal. You saved me."
+          ]
         }
       },
       "CLARIFY_INTENT": {
@@ -1846,7 +2325,9 @@
             "I said laundry. Nothing more.",
             "Please, just agree and send someone."
           ],
-          "secured": ["I was so scared. He's gone now."]
+          "secured": [
+            "I was so scared. He's gone now."
+          ]
         }
       },
       "PROVIDE_SILENT": {
@@ -1857,14 +2338,24 @@
           "confronting": "secured"
         },
         "responses": {
-          "initial": ["(silence) ... ", "(whisper) He's here.", "(sound of struggle)"],
+          "initial": [
+            "(silence) ... ",
+            "(whisper) He's here.",
+            "(sound of struggle)"
+          ],
           "hiding": [
             "(whisper) I'm in the closet. He's leaving.",
             "(silence) ... ",
             "(crying quietly)"
           ],
-          "confronting": ["(scream) No! Get away!", "(crash) ... ", "(silence)"],
-          "secured": ["(relieved sigh) He's handcuffed. Thank you."]
+          "confronting": [
+            "(scream) No! Get away!",
+            "(crash) ... ",
+            "(silence)"
+          ],
+          "secured": [
+            "(relieved sigh) He's handcuffed. Thank you."
+          ]
         }
       }
     },
@@ -1895,7 +2386,8 @@
         "message": "Call dismissed. Caller was assaulted severely before police could respond."
       }
     },
-    "id": "scenario_087"
+    "id": "scenario_087",
+    "difficulty": "Medium"
   },
   {
     "title": "The Wrong Apartment Call",
@@ -1913,7 +2405,13 @@
       "Hello? I'm trying to reach {caller_name} at {address_location}. I have a {specific_details} delivery."
     ],
     "slots": {
-      "caller_name": ["Tom", "David", "Chris", "Mike", "Jake"],
+      "caller_name": [
+        "Tom",
+        "David",
+        "Chris",
+        "Mike",
+        "Jake"
+      ],
       "address_location": [
         "10th floor, Apt 5",
         "Building B, Room 12",
@@ -1935,7 +2433,13 @@
         "emergency pizza",
         "safe word 'red'"
       ],
-      "captor_name": ["Lee", "Carlos", "Marcus", "Derek", "Alex"]
+      "captor_name": [
+        "Lee",
+        "Carlos",
+        "Marcus",
+        "Derek",
+        "Alex"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1957,7 +2461,9 @@
             "You know the address: {address_location}. Don't make them suspicious.",
             "It's {address_location}. Like I said."
           ],
-          "rescued": ["Thank you. I'm at {address_location}, safe now."]
+          "rescued": [
+            "Thank you. I'm at {address_location}, safe now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1982,7 +2488,9 @@
             "I said {specific_details}. That's what I need.",
             "Stop asking! It's {specific_details}."
           ],
-          "rescued": ["{specific_details} was the key. They're gone."]
+          "rescued": [
+            "{specific_details} was the key. They're gone."
+          ]
         }
       },
       "CLARIFY_INTENT": {
@@ -2007,7 +2515,9 @@
             "Nothing else. Just the delivery.",
             "Please, just go along with it."
           ],
-          "rescued": ["You saved me. I was so afraid."]
+          "rescued": [
+            "You saved me. I was so afraid."
+          ]
         }
       },
       "PROVIDE_SILENT": {
@@ -2018,10 +2528,24 @@
           "confronting": "rescued"
         },
         "responses": {
-          "initial": ["(silence) ... ", "(whisper) Help.", "(sound of struggle)"],
-          "hiding": ["(whisper) He's asleep.", "(silence) ... ", "(quiet crying)"],
-          "confronting": ["(loud) No! Get away from me!", "(crash) ... ", "(silence)"],
-          "rescued": ["I'm free. Thank you."]
+          "initial": [
+            "(silence) ... ",
+            "(whisper) Help.",
+            "(sound of struggle)"
+          ],
+          "hiding": [
+            "(whisper) He's asleep.",
+            "(silence) ... ",
+            "(quiet crying)"
+          ],
+          "confronting": [
+            "(loud) No! Get away from me!",
+            "(crash) ... ",
+            "(silence)"
+          ],
+          "rescued": [
+            "I'm free. Thank you."
+          ]
         }
       }
     },
@@ -2052,7 +2576,8 @@
         "message": "Call dismissed. Caller was later found deceased."
       }
     },
-    "id": "scenario_088"
+    "id": "scenario_088",
+    "difficulty": "Medium"
   },
   {
     "title": "The Birthday Party Invitation",
@@ -2070,7 +2595,13 @@
       "You're invited to a party! It's at {address_location} for {caller_name}. The theme is {specific_details}."
     ],
     "slots": {
-      "caller_name": ["Emma", "Olivia", "Sophia", "Isabella", "Mia"],
+      "caller_name": [
+        "Emma",
+        "Olivia",
+        "Sophia",
+        "Isabella",
+        "Mia"
+      ],
       "address_location": [
         "456 Cedar Ln",
         "789 Walnut St",
@@ -2092,7 +2623,13 @@
         "police whistle",
         "first aid kit"
       ],
-      "abuser_name": ["Ben", "Ryan", "Kevin", "Ethan", "Jacob"]
+      "abuser_name": [
+        "Ben",
+        "Ryan",
+        "Kevin",
+        "Ethan",
+        "Jacob"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2114,7 +2651,9 @@
             "Just come to {address_location}. I can't talk.",
             "It's {address_location}. Like I said."
           ],
-          "safe": ["Thank you. I'm at {address_location}, safe."]
+          "safe": [
+            "Thank you. I'm at {address_location}, safe."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2139,7 +2678,9 @@
             "Just bring {specific_details}. Nothing else.",
             "Stop asking! It's {specific_details}."
           ],
-          "safe": ["{specific_details} was the signal. You understood."]
+          "safe": [
+            "{specific_details} was the signal. You understood."
+          ]
         }
       },
       "CLARIFY_INTENT": {
@@ -2164,7 +2705,9 @@
             "Nothing else. Just the party.",
             "Please, just go along."
           ],
-          "safe": ["You saved my life. Thank you."]
+          "safe": [
+            "You saved my life. Thank you."
+          ]
         }
       },
       "PROVIDE_SILENT": {
@@ -2175,10 +2718,24 @@
           "confronting": "safe"
         },
         "responses": {
-          "initial": ["(silence) ... ", "(forced laugh) Ha ha.", "(sound of a slap)"],
-          "hiding": ["(whisper) He's leaving.", "(silence) ... ", "(crying)"],
-          "confronting": ["(scream) No! Don't hurt me!", "(crash) ... ", "(silence)"],
-          "safe": ["(crying) Thank you. He's gone."]
+          "initial": [
+            "(silence) ... ",
+            "(forced laugh) Ha ha.",
+            "(sound of a slap)"
+          ],
+          "hiding": [
+            "(whisper) He's leaving.",
+            "(silence) ... ",
+            "(crying)"
+          ],
+          "confronting": [
+            "(scream) No! Don't hurt me!",
+            "(crash) ... ",
+            "(silence)"
+          ],
+          "safe": [
+            "(crying) Thank you. He's gone."
+          ]
         }
       }
     },
@@ -2209,7 +2766,8 @@
         "message": "Call dismissed. Caller was assaulted critically before police could respond."
       }
     },
-    "id": "scenario_089"
+    "id": "scenario_089",
+    "difficulty": "Medium"
   },
   {
     "title": "The Dog Walker Incident",
@@ -2227,7 +2785,13 @@
       "I need animal control! I'm at {address_location} with a {specific_details} that is aggressive. My name is {caller_name}."
     ],
     "slots": {
-      "caller_name": ["Liam", "Noah", "Ethan", "Mason", "Logan"],
+      "caller_name": [
+        "Liam",
+        "Noah",
+        "Ethan",
+        "Mason",
+        "Logan"
+      ],
       "address_location": [
         "12 River Rd",
         "34 Lakeview Dr",
@@ -2235,9 +2799,27 @@
         "78 Valley Ave",
         "90 Mountain Rd"
       ],
-      "ambient_audio": ["dog barking", "growling", "chains rattling", "screaming", "footsteps"],
-      "specific_details": ["pit bull", "German shepherd", "Rottweiler", "Doberman", "wolf hybrid"],
-      "captor_name": ["Gus", "Rex", "Bruno", "Max", "Rocky"]
+      "ambient_audio": [
+        "dog barking",
+        "growling",
+        "chains rattling",
+        "screaming",
+        "footsteps"
+      ],
+      "specific_details": [
+        "pit bull",
+        "German shepherd",
+        "Rottweiler",
+        "Doberman",
+        "wolf hybrid"
+      ],
+      "captor_name": [
+        "Gus",
+        "Rex",
+        "Bruno",
+        "Max",
+        "Rocky"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2259,7 +2841,9 @@
             "You know the address: {address_location}. Don't make them suspicious.",
             "It's {address_location}. Like I said."
           ],
-          "rescued": ["Thank you. I'm at {address_location}, safe now."]
+          "rescued": [
+            "Thank you. I'm at {address_location}, safe now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2284,7 +2868,9 @@
             "I said {specific_details}. That's the problem.",
             "Stop asking! It's {specific_details}."
           ],
-          "rescued": ["{specific_details} was the signal. They're gone."]
+          "rescued": [
+            "{specific_details} was the signal. They're gone."
+          ]
         }
       },
       "CLARIFY_INTENT": {
@@ -2309,7 +2895,9 @@
             "Nothing else. Just the dog.",
             "Please, just go along with it."
           ],
-          "rescued": ["You saved me. I was so afraid."]
+          "rescued": [
+            "You saved me. I was so afraid."
+          ]
         }
       },
       "PROVIDE_SILENT": {
@@ -2320,10 +2908,24 @@
           "confronting": "rescued"
         },
         "responses": {
-          "initial": ["(silence) ... ", "(whisper) Help.", "(sound of dog barking)"],
-          "hiding": ["(whisper) He's asleep.", "(silence) ... ", "(quiet crying)"],
-          "confronting": ["(loud) No! Get away from me!", "(crash) ... ", "(silence)"],
-          "rescued": ["I'm free. Thank you."]
+          "initial": [
+            "(silence) ... ",
+            "(whisper) Help.",
+            "(sound of dog barking)"
+          ],
+          "hiding": [
+            "(whisper) He's asleep.",
+            "(silence) ... ",
+            "(quiet crying)"
+          ],
+          "confronting": [
+            "(loud) No! Get away from me!",
+            "(crash) ... ",
+            "(silence)"
+          ],
+          "rescued": [
+            "I'm free. Thank you."
+          ]
         }
       }
     },
@@ -2354,7 +2956,8 @@
         "message": "Call dismissed. Caller was later found deceased."
       }
     },
-    "id": "scenario_090"
+    "id": "scenario_090",
+    "difficulty": "Hard"
   },
   {
     "title": "The Tech Support Scam Call",
@@ -2372,7 +2975,13 @@
       "Hi, this is {caller_name} with a security alert. Your system at {address_location} is compromised. Execute {specific_details} immediately."
     ],
     "slots": {
-      "caller_name": ["Support Agent", "Technician", "IT", "Security", "Admin"],
+      "caller_name": [
+        "Support Agent",
+        "Technician",
+        "IT",
+        "Security",
+        "Admin"
+      ],
       "address_location": [
         "123 Tech Lane",
         "456 Cyber Street",
@@ -2394,7 +3003,13 @@
         "factory reset",
         "call police"
       ],
-      "intruder_count": ["two", "three", "one", "multiple", "at least four"]
+      "intruder_count": [
+        "two",
+        "three",
+        "one",
+        "multiple",
+        "at least four"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2416,7 +3031,9 @@
             "You know the address: {address_location}. Don't make them suspicious.",
             "It's {address_location}. Like I said."
           ],
-          "safe": ["Thank you. I'm at {address_location}, safe now."]
+          "safe": [
+            "Thank you. I'm at {address_location}, safe now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2441,7 +3058,9 @@
             "I said {specific_details}. That's the solution.",
             "Stop asking! It's {specific_details}."
           ],
-          "safe": ["{specific_details} was the signal. They're arrested."]
+          "safe": [
+            "{specific_details} was the signal. They're arrested."
+          ]
         }
       },
       "CLARIFY_INTENT": {
@@ -2466,7 +3085,9 @@
             "Nothing else. Just the fix.",
             "Please, just go along with it."
           ],
-          "safe": ["You saved me. I was so afraid."]
+          "safe": [
+            "You saved me. I was so afraid."
+          ]
         }
       },
       "PROVIDE_SILENT": {
@@ -2477,10 +3098,24 @@
           "confronting": "safe"
         },
         "responses": {
-          "initial": ["(silence) ... ", "(whisper) They're here.", "(sound of struggle)"],
-          "hiding": ["(whisper) They're leaving.", "(silence) ... ", "(quiet crying)"],
-          "confronting": ["(loud) No! Get away from the computer!", "(crash) ... ", "(silence)"],
-          "safe": ["(relieved) They're handcuffed. Thank you."]
+          "initial": [
+            "(silence) ... ",
+            "(whisper) They're here.",
+            "(sound of struggle)"
+          ],
+          "hiding": [
+            "(whisper) They're leaving.",
+            "(silence) ... ",
+            "(quiet crying)"
+          ],
+          "confronting": [
+            "(loud) No! Get away from the computer!",
+            "(crash) ... ",
+            "(silence)"
+          ],
+          "safe": [
+            "(relieved) They're handcuffed. Thank you."
+          ]
         }
       }
     },
@@ -2511,7 +3146,8 @@
         "message": "Call dismissed. Caller was assaulted critically before police could respond."
       }
     },
-    "id": "scenario_091"
+    "id": "scenario_091",
+    "difficulty": "Hard"
   },
   {
     "name": "The Wrong Address",
@@ -2529,8 +3165,18 @@
       "Yes, I need a pizza delivered to {address_location}. That's 123 Main Street? Actually, it's {address_location}."
     ],
     "slots": {
-      "caller_name": ["Sarah", "Mike", "Jessica", "David"],
-      "victim_relation": ["my wife", "my husband", "my child", "my neighbor"],
+      "caller_name": [
+        "Sarah",
+        "Mike",
+        "Jessica",
+        "David"
+      ],
+      "victim_relation": [
+        "my wife",
+        "my husband",
+        "my child",
+        "my neighbor"
+      ],
       "address_location": [
         "1428 Elm Street",
         "356 Oak Avenue",
@@ -2543,7 +3189,12 @@
         "objects being thrown",
         "faint screaming"
       ],
-      "specific_details": ["a broken window", "a loud thud", "a door slamming", "glass breaking"]
+      "specific_details": [
+        "a broken window",
+        "a loud thud",
+        "a door slamming",
+        "glass breaking"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2563,7 +3214,9 @@
             "I... I don't know. Just forget it.",
             "No, I can't talk now. Please don't come."
           ],
-          "secured": ["The address is {address_location}. Thank you."]
+          "secured": [
+            "The address is {address_location}. Thank you."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2579,8 +3232,13 @@
             "I need help. There's {ambient_audio}. My {victim_relation} is in danger.",
             "There's {specific_details} in the background. Please send police."
           ],
-          "confronted": ["Nothing's wrong. Just a pizza order.", "I can't talk about details now."],
-          "secured": ["Thank you for your help. The situation is resolved."]
+          "confronted": [
+            "Nothing's wrong. Just a pizza order.",
+            "I can't talk about details now."
+          ],
+          "secured": [
+            "Thank you for your help. The situation is resolved."
+          ]
         }
       },
       "ASK_PEOPLE": {
@@ -2596,21 +3254,34 @@
             "There's {victim_relation} and an intruder. Please hurry.",
             "My {victim_relation} is being hurt."
           ],
-          "confronted": ["Don't send anyone. It's fine.", "He's here. I have to go."],
-          "secured": ["Everyone is safe now."]
+          "confronted": [
+            "Don't send anyone. It's fine.",
+            "He's here. I have to go."
+          ],
+          "secured": [
+            "Everyone is safe now."
+          ]
         }
       },
       "ASK_RELATIONSHIP": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["That's my {victim_relation}.", "It's my {victim_relation}."],
+          "initial": [
+            "That's my {victim_relation}.",
+            "It's my {victim_relation}."
+          ],
           "hiding": [
             "The person arguing is {victim_relation}. He's angry.",
             "My {victim_relation} is the one crying."
           ],
-          "confronted": ["No one important.", "I can't say."],
-          "secured": ["My {victim_relation} and I are safe now."]
+          "confronted": [
+            "No one important.",
+            "I can't say."
+          ],
+          "secured": [
+            "My {victim_relation} and I are safe now."
+          ]
         }
       },
       "ASK_EMERGENCY": {
@@ -2628,8 +3299,13 @@
             "Yes, it's a domestic violence situation. Please send police.",
             "I'm hiding. He's violent. Send help."
           ],
-          "confronted": ["No, it's not an emergency. Just a pizza.", "Please don't make a scene."],
-          "secured": ["It's under control now. Thank you."]
+          "confronted": [
+            "No, it's not an emergency. Just a pizza.",
+            "Please don't make a scene."
+          ],
+          "secured": [
+            "It's under control now. Thank you."
+          ]
         }
       }
     },
@@ -2645,7 +3321,7 @@
         "message": "Firefighters arrive to find no fire. They report suspicious activity, but police are needed instead. Slight delay."
       },
       "SEND_MEDICAL": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 50,
         "message": "Medics arrive and treat minor injuries from the domestic violence. Police are still needed. Helpful but not primary."
       },
@@ -2660,7 +3336,9 @@
         "message": "You dismiss the call as a wrong number. The domestic violence continues and later escalates to a homicide. You are investigated for negligence."
       }
     },
-    "id": "scenario_092"
+    "id": "scenario_092",
+    "difficulty": "Hard",
+    "title": "Incident scenario_092"
   },
   {
     "name": "The Birthday Surprise",
@@ -2678,15 +3356,30 @@
       "Hey, I'm arranging a surprise party at {address_location} for my {victim_relation}. Can you suggest a cake?"
     ],
     "slots": {
-      "caller_name": ["Alice", "Bob", "Cathy", "Dan"],
-      "victim_relation": ["husband", "wife", "brother", "sister"],
+      "caller_name": [
+        "Alice",
+        "Bob",
+        "Cathy",
+        "Dan"
+      ],
+      "victim_relation": [
+        "husband",
+        "wife",
+        "brother",
+        "sister"
+      ],
       "address_location": [
         "123 Maple Drive",
         "456 Birch Lane",
         "789 Cedar Court",
         "321 Elm Street"
       ],
-      "ambient_audio": ["muffled screams", "tape being ripped", "heavy footsteps", "faint crying"],
+      "ambient_audio": [
+        "muffled screams",
+        "tape being ripped",
+        "heavy footsteps",
+        "faint crying"
+      ],
       "specific_details": [
         "a tied-up person in the corner",
         "a gun on the table",
@@ -2712,7 +3405,9 @@
             "It's {address_location}. Just a party.",
             "Same address. I can't talk more."
           ],
-          "secured": ["The address is {address_location}. Thank you for your help."]
+          "secured": [
+            "The address is {address_location}. Thank you for your help."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2732,7 +3427,9 @@
             "No details needed. Just a birthday.",
             "Don't ask questions. Just play along."
           ],
-          "secured": ["It's over. Police are here. Thank you."]
+          "secured": [
+            "It's over. Police are here. Thank you."
+          ]
         }
       },
       "ASK_PEOPLE": {
@@ -2747,8 +3444,13 @@
             "There are multiple armed men. My family is in danger.",
             "There's me, my {victim_relation}, and several hostages."
           ],
-          "confronted": ["Just the usual partygoers.", "You know, friends and family."],
-          "secured": ["Everyone is safe now."]
+          "confronted": [
+            "Just the usual partygoers.",
+            "You know, friends and family."
+          ],
+          "secured": [
+            "Everyone is safe now."
+          ]
         }
       },
       "ASK_RELATIONSHIP": {
@@ -2763,8 +3465,13 @@
             "My {victim_relation} is one of the hostages. I'm trying to protect them.",
             "My {victim_relation} is in danger."
           ],
-          "confronted": ["Just a relative. Nothing special.", "I can't say more."],
-          "secured": ["My {victim_relation} is safe."]
+          "confronted": [
+            "Just a relative. Nothing special.",
+            "I can't say more."
+          ],
+          "secured": [
+            "My {victim_relation} is safe."
+          ]
         }
       },
       "ASK_EMERGENCY": {
@@ -2782,8 +3489,13 @@
             "Yes, it's a hostage situation. Send police and negotiators.",
             "Emergency! Multiple armed suspects. Please hurry."
           ],
-          "confronted": ["No, it's just a party.", "Everything is fine. Don't come."],
-          "secured": ["It's resolved. Police are here."]
+          "confronted": [
+            "No, it's just a party.",
+            "Everything is fine. Don't come."
+          ],
+          "secured": [
+            "It's resolved. Police are here."
+          ]
         }
       }
     },
@@ -2814,7 +3526,9 @@
         "message": "You dismiss the call as a party planning query. The hostage situation turns violent; multiple casualties. You are fired and face charges."
       }
     },
-    "id": "scenario_093"
+    "id": "scenario_093",
+    "difficulty": "Hard",
+    "title": "Incident scenario_093"
   },
   {
     "name": "The Silent Caller",
@@ -2832,15 +3546,30 @@
       "[Sniffling] ... [Quiet crying] ... [Door creaks]"
     ],
     "slots": {
-      "caller_name": ["Unknown", "Jane Doe", "John Smith", "Anonymous"],
-      "victim_relation": ["my mother", "my father", "my child", "my spouse"],
+      "caller_name": [
+        "Unknown",
+        "Jane Doe",
+        "John Smith",
+        "Anonymous"
+      ],
+      "victim_relation": [
+        "my mother",
+        "my father",
+        "my child",
+        "my spouse"
+      ],
       "address_location": [
         "1010 Park Avenue",
         "2020 Lake Drive",
         "3030 Hill Street",
         "4040 River Road"
       ],
-      "ambient_audio": ["heavy footsteps", "a door slamming", "glass breaking", "faint sirens"],
+      "ambient_audio": [
+        "heavy footsteps",
+        "a door slamming",
+        "glass breaking",
+        "faint sirens"
+      ],
       "specific_details": [
         "a knife being dropped",
         "a whispered argument",
@@ -2853,7 +3582,11 @@
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["... [Breathing] ...", "... [Long pause] ...", "... [Muffled sound] ..."],
+          "initial": [
+            "... [Breathing] ...",
+            "... [Long pause] ...",
+            "... [Muffled sound] ..."
+          ],
           "whispering": [
             "[Whispered] I'm at {address_location}. Help me.",
             "[Whispered] {address_location}. They're here."
@@ -2866,7 +3599,11 @@
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["... [Heavy breathing] ...", "... [Click] ...", "... [Nothing] ..."],
+          "initial": [
+            "... [Heavy breathing] ...",
+            "... [Click] ...",
+            "... [Nothing] ..."
+          ],
           "whispering": [
             "[Whispered] He has a knife. I'm hiding.",
             "[Whispered] There's {ambient_audio}. I'm scared."
@@ -2879,26 +3616,35 @@
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["... [Breathing] ...", "... [Silence] ..."],
+          "initial": [
+            "... [Breathing] ...",
+            "... [Silence] ..."
+          ],
           "whispering": [
             "[Whispered] Just me and {victim_relation}.",
             "[Whispered] {victim_relation} is hiding too."
           ],
           "panicked": "[Panicked] There's someone else! I don't know!",
-          "rescued": ["My {victim_relation} and I are safe."]
+          "rescued": [
+            "My {victim_relation} and I are safe."
+          ]
         }
       },
       "ASK_RELATIONSHIP": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["... [No response] ..."],
+          "initial": [
+            "... [No response] ..."
+          ],
           "whispering": [
             "[Whispered] {victim_relation} is with me.",
             "[Whispered] It's {victim_relation}."
           ],
           "panicked": "[Crying] It's my {victim_relation}!",
-          "rescued": ["We are family."]
+          "rescued": [
+            "We are family."
+          ]
         }
       },
       "ASK_EMERGENCY": {
@@ -2907,13 +3653,18 @@
           "initial": "whispering"
         },
         "responses": {
-          "initial": ["... [Heavy breathing] ...", "... [Silence] ..."],
+          "initial": [
+            "... [Heavy breathing] ...",
+            "... [Silence] ..."
+          ],
           "whispering": [
             "[Whispered] Yes, it's an emergency. Please send police.",
             "[Whispered] I'm in danger. Hurry."
           ],
           "panicked": "[Screaming] Yes! He's here!",
-          "rescued": ["Yes, it was. Thank you."]
+          "rescued": [
+            "Yes, it was. Thank you."
+          ]
         }
       }
     },
@@ -2929,7 +3680,7 @@
         "message": "Firefighters arrive and find no fire, but notice signs of disturbance. They call police. Minor delay."
       },
       "SEND_MEDICAL": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Medics arrive and find a frightened victim. They provide comfort and police are called. Victim is safe."
       },
@@ -2944,6 +3695,8 @@
         "message": "You dismiss the silent call as a wrong number. The victim is later found dead. You are terminated and face disciplinary action."
       }
     },
-    "id": "scenario_094"
+    "id": "scenario_094",
+    "difficulty": "Hard",
+    "title": "Incident scenario_094"
   }
 ]

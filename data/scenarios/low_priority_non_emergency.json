@@ -17,8 +17,19 @@
       "Please send someone! I need peace and quiet. The address is {address_location}, my name is {caller_name}. They have {specific_details} going on."
     ],
     "slots": {
-      "caller_name": ["Alex", "Jamie", "Morgan", "Taylor", "Sam"],
-      "victim_relation": ["my upstairs", "the man next door", "the family across", "someone in"],
+      "caller_name": [
+        "Alex",
+        "Jamie",
+        "Morgan",
+        "Taylor",
+        "Sam"
+      ],
+      "victim_relation": [
+        "my upstairs",
+        "the man next door",
+        "the family across",
+        "someone in"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -32,7 +43,12 @@
         "crowd cheering",
         "music and laughter"
       ],
-      "specific_details": ["a keg stand", "karaoke", "a dance-off", "a BBQ party"]
+      "specific_details": [
+        "a keg stand",
+        "karaoke",
+        "a dance-off",
+        "a BBQ party"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -66,12 +82,16 @@
             "It's really loud, {specific_details}. I can't concentrate.",
             "{specific_details} is happening, and {ambient_audio}."
           ],
-          "assessing": ["Just waiting. They're still at {specific_details}."],
+          "assessing": [
+            "Just waiting. They're still at {specific_details}."
+          ],
           "escalating": [
             "They're doing {specific_details} and ignoring my knocks! I'm going to call the landlord.",
             "{ambient_audio} is getting louder!"
           ],
-          "resolved": ["It's over now. They apologized."]
+          "resolved": [
+            "It's over now. They apologized."
+          ]
         }
       },
       "ASK_EMOTION": {
@@ -81,13 +101,22 @@
           "assessing": "escalating"
         },
         "responses": {
-          "initial": ["I'm frustrated but calm.", "Just annoyed, nothing serious."],
-          "assessing": ["I'm starting to lose patience.", "Getting angrier by the minute."],
+          "initial": [
+            "I'm frustrated but calm.",
+            "Just annoyed, nothing serious."
+          ],
+          "assessing": [
+            "I'm starting to lose patience.",
+            "Getting angrier by the minute."
+          ],
           "escalating": [
             "I'm furious! If no one comes, I'll go over there myself!",
             "I'm about to call the cops myself!"
           ],
-          "resolved": ["I'm relieved it's over.", "I feel better now."]
+          "resolved": [
+            "I'm relieved it's over.",
+            "I feel better now."
+          ]
         }
       },
       "ASK_ACTION": {
@@ -97,9 +126,18 @@
           "escalating": "resolved"
         },
         "responses": {
-          "initial": ["I just want them to turn it down.", "Can you send someone to talk to them?"],
-          "assessing": ["I'm thinking of going over there.", "Maybe I'll just put in earplugs."],
-          "escalating": ["I'm going to confront them!", "I'm calling the landlord too."],
+          "initial": [
+            "I just want them to turn it down.",
+            "Can you send someone to talk to them?"
+          ],
+          "assessing": [
+            "I'm thinking of going over there.",
+            "Maybe I'll just put in earplugs."
+          ],
+          "escalating": [
+            "I'm going to confront them!",
+            "I'm calling the landlord too."
+          ],
           "resolved": [
             "I talked to them, they're turning it down.",
             "All good, they agreed to stop."
@@ -133,7 +171,8 @@
         "score_delta": 200,
         "message": "You advise the caller to try talking to the neighbor first or use earplugs. The caller calms down and handles it themselves. Excellent judgment."
       }
-    }
+    },
+    "difficulty": "Easy"
   },
   {
     "id": "scenario_004",
@@ -153,8 +192,19 @@
       "Yeah, I'm worried about a dog left in a car. It's {specific_details} and it looks {ambient_audio}. The address is {address_location}. {caller_name} here."
     ],
     "slots": {
-      "caller_name": ["Casey", "Jordan", "Riley", "Avery", "Quinn"],
-      "victim_relation": ["a brown lab", "a small terrier", "a golden retriever", "a poodle"],
+      "caller_name": [
+        "Casey",
+        "Jordan",
+        "Riley",
+        "Avery",
+        "Quinn"
+      ],
+      "victim_relation": [
+        "a brown lab",
+        "a small terrier",
+        "a golden retriever",
+        "a poodle"
+      ],
       "address_location": [
         "555 Market Street Parking Lot",
         "777 Mall Drive",
@@ -168,7 +218,12 @@
         "heavy panting",
         "scratching at the window"
       ],
-      "specific_details": ["a black sedan", "a red pickup truck", "a blue minivan", "a white SUV"]
+      "specific_details": [
+        "a black sedan",
+        "a red pickup truck",
+        "a blue minivan",
+        "a white SUV"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -180,12 +235,17 @@
             "Already said: {address_location}.",
             "The car is parked at {address_location}."
           ],
-          "watching": ["Still at {address_location}.", "Same spot, {address_location}."],
+          "watching": [
+            "Still at {address_location}.",
+            "Same spot, {address_location}."
+          ],
           "confronting": [
             "Still {address_location}, but I'm about to act!",
             "Location hasn't changed: {address_location}."
           ],
-          "resolved": ["The owner came back at {address_location}."]
+          "resolved": [
+            "The owner came back at {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -204,7 +264,9 @@
             "The dog seems worse. {ambient_audio} is louder.",
             "I'm going to find the owner! {specific_details} is the car."
           ],
-          "resolved": ["All good, the dog is out."]
+          "resolved": [
+            "All good, the dog is out."
+          ]
         }
       },
       "ASK_EMOTION": {
@@ -214,13 +276,22 @@
           "watching": "confronting"
         },
         "responses": {
-          "initial": ["I'm concerned, it's been a while.", "A bit worried for the dog."],
-          "watching": ["Getting more anxious as time passes.", "I think the dog is in trouble."],
+          "initial": [
+            "I'm concerned, it's been a while.",
+            "A bit worried for the dog."
+          ],
+          "watching": [
+            "Getting more anxious as time passes.",
+            "I think the dog is in trouble."
+          ],
           "confronting": [
             "I'm really upset now! I'm about to break the window!",
             "Frustrated! Someone needs to act!"
           ],
-          "resolved": ["Relieved the dog is safe.", "Happy it ended well."]
+          "resolved": [
+            "Relieved the dog is safe.",
+            "Happy it ended well."
+          ]
         }
       },
       "ASK_ACTION": {
@@ -230,7 +301,10 @@
           "confronting": "resolved"
         },
         "responses": {
-          "initial": ["I'm watching the car.", "Not sure what to do."],
+          "initial": [
+            "I'm watching the car.",
+            "Not sure what to do."
+          ],
           "watching": [
             "I'm waiting for the owner.",
             "Maybe I'll go into the store and page the owner."
@@ -272,7 +346,8 @@
         "score_delta": 200,
         "message": "You advise the caller to check if the owner is nearby or to wait a few minutes. The owner returns and the dog is fine. Good judgment."
       }
-    }
+    },
+    "difficulty": "Medium"
   },
   {
     "title": "Neighbor's Dog Barking Continuously",
@@ -290,7 +365,13 @@
       "I've had enough! The dog across the street has been barking since {specific_details}. Please send someone to quiet it down."
     ],
     "slots": {
-      "caller_name": ["John", "Maria", "Mr. Smith", "Jane Doe", "Anonymous"],
+      "caller_name": [
+        "John",
+        "Maria",
+        "Mr. Smith",
+        "Jane Doe",
+        "Anonymous"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -298,8 +379,18 @@
         "321 Elm Lane",
         "654 Birch Court"
       ],
-      "ambient_audio": ["extremely", "very", "incredibly", "annoyingly"],
-      "specific_details": ["sunrise", "dinner time", "midnight", "early morning"]
+      "ambient_audio": [
+        "extremely",
+        "very",
+        "incredibly",
+        "annoyingly"
+      ],
+      "specific_details": [
+        "sunrise",
+        "dinner time",
+        "midnight",
+        "early morning"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -311,8 +402,13 @@
             "The address is {address_location}.",
             "I already told you, {address_location}!"
           ],
-          "listening": ["Still at {address_location}.", "Yes, same place."],
-          "advised": ["I've already given the address: {address_location}."]
+          "listening": [
+            "Still at {address_location}.",
+            "Yes, same place."
+          ],
+          "advised": [
+            "I've already given the address: {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -324,8 +420,13 @@
             "It's a large brown dog, maybe a lab.",
             "I think it's been barking for {specific_details}."
           ],
-          "listening": ["It's still barking, same dog.", "No change."],
-          "advised": ["I already told you, it's a large brown dog."]
+          "listening": [
+            "It's still barking, same dog.",
+            "No change."
+          ],
+          "advised": [
+            "I already told you, it's a large brown dog."
+          ]
         }
       },
       "ADVISE_RESOLUTION": {
@@ -343,7 +444,10 @@
             "I appreciate the advice. I'll try that.",
             "I already tried talking to them."
           ],
-          "advised": ["Yes, I'll do that. Thanks.", "I already contacted the landlord."]
+          "advised": [
+            "Yes, I'll do that. Thanks.",
+            "I already contacted the landlord."
+          ]
         }
       },
       "ESCALATE": {
@@ -353,9 +457,17 @@
           "advised": "listening"
         },
         "responses": {
-          "initial": ["Can't you send someone now?", "This is an emergency for me!"],
-          "listening": ["Please hurry, it's still barking.", "I'm losing my mind here."],
-          "advised": ["I don't think that will help. I need action now!"]
+          "initial": [
+            "Can't you send someone now?",
+            "This is an emergency for me!"
+          ],
+          "listening": [
+            "Please hurry, it's still barking.",
+            "I'm losing my mind here."
+          ],
+          "advised": [
+            "I don't think that will help. I need action now!"
+          ]
         }
       }
     },
@@ -386,7 +498,8 @@
         "message": "Caller feels ignored and may call again. Better to provide advice."
       }
     },
-    "id": "scenario_041"
+    "id": "scenario_041",
+    "difficulty": "Easy"
   },
   {
     "title": "Lost Cat in Tree",
@@ -404,7 +517,13 @@
       "A cat has been meowing from the tree at {address_location} for hours. I think it's stuck. This is {caller_name}."
     ],
     "slots": {
-      "caller_name": ["Emily", "Tom", "Mrs. Johnson", "Liam", "Sarah"],
+      "caller_name": [
+        "Emily",
+        "Tom",
+        "Mrs. Johnson",
+        "Liam",
+        "Sarah"
+      ],
       "address_location": [
         "15 Cedar Lane",
         "22 Willow Drive",
@@ -412,8 +531,18 @@
         "97 Poplar Avenue",
         "33 Ash Road"
       ],
-      "ambient_audio": ["meowing loudly", "crying", "yowling", "silent but scared"],
-      "specific_details": ["since yesterday", "after the storm", "for two hours", "this morning"]
+      "ambient_audio": [
+        "meowing loudly",
+        "crying",
+        "yowling",
+        "silent but scared"
+      ],
+      "specific_details": [
+        "since yesterday",
+        "after the storm",
+        "for two hours",
+        "this morning"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -424,8 +553,13 @@
             "It's at {address_location}, the tree right in front.",
             "You know, the big tree at {address_location}."
           ],
-          "reassured": ["Still at {address_location}.", "Yes, same tree."],
-          "rescued": ["The cat is no longer there, it came down."]
+          "reassured": [
+            "Still at {address_location}.",
+            "Yes, same tree."
+          ],
+          "rescued": [
+            "The cat is no longer there, it came down."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -437,8 +571,13 @@
             "White cat with blue eyes.",
             "It's a small black cat."
           ],
-          "reassured": ["Same cat, still up there.", "It's still meowing."],
-          "rescued": ["The cat is safe now."]
+          "reassured": [
+            "Same cat, still up there.",
+            "It's still meowing."
+          ],
+          "rescued": [
+            "The cat is safe now."
+          ]
         }
       },
       "REASSURE": {
@@ -451,17 +590,30 @@
             "Cats often come down on their own, don't worry.",
             "Animal control will be dispatched to help."
           ],
-          "reassured": ["Thank you, I feel better.", "I hope they come soon."],
-          "rescued": ["It came down! Thanks for the advice."]
+          "reassured": [
+            "Thank you, I feel better.",
+            "I hope they come soon."
+          ],
+          "rescued": [
+            "It came down! Thanks for the advice."
+          ]
         }
       },
       "CHECK_STATUS": {
         "score_delta": 0,
         "transitions": {},
         "responses": {
-          "initial": ["It's still up there.", "It just climbed higher."],
-          "reassured": ["Still stuck.", "It's meowing less."],
-          "rescued": ["It's on the ground now!"]
+          "initial": [
+            "It's still up there.",
+            "It just climbed higher."
+          ],
+          "reassured": [
+            "Still stuck.",
+            "It's meowing less."
+          ],
+          "rescued": [
+            "It's on the ground now!"
+          ]
         }
       }
     },
@@ -492,7 +644,8 @@
         "message": "Cat eventually comes down, but caller is upset with lack of response."
       }
     },
-    "id": "scenario_042"
+    "id": "scenario_042",
+    "difficulty": "Easy"
   },
   {
     "title": "Illegal Parking Blocking Driveway",
@@ -510,7 +663,13 @@
       "I'm trapped in my own driveway! A truck is parked across the gate at {address_location}. {caller_name} reporting."
     ],
     "slots": {
-      "caller_name": ["Alex", "Patricia", "Mr. Brown", "Taylor", "Jordan"],
+      "caller_name": [
+        "Alex",
+        "Patricia",
+        "Mr. Brown",
+        "Taylor",
+        "Jordan"
+      ],
       "address_location": [
         "100 Main Street",
         "250 Broadway",
@@ -518,8 +677,17 @@
         "77 Lake Drive",
         "6 Hill Road"
       ],
-      "ambient_audio": ["honking", "engine running", "quiet"],
-      "specific_details": ["a red sedan", "a black SUV", "a blue pickup truck", "a yellow taxi"]
+      "ambient_audio": [
+        "honking",
+        "engine running",
+        "quiet"
+      ],
+      "specific_details": [
+        "a red sedan",
+        "a black SUV",
+        "a blue pickup truck",
+        "a yellow taxi"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -531,8 +699,13 @@
             "Address is {address_location}.",
             "You already have it, {address_location}!"
           ],
-          "waiting": ["Still at {address_location}.", "No change."],
-          "resolved": ["The car is gone now."]
+          "waiting": [
+            "Still at {address_location}.",
+            "No change."
+          ],
+          "resolved": [
+            "The car is gone now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -544,8 +717,13 @@
             "It's a {specific_details}, no plate visible.",
             "Looks like a rental {specific_details}."
           ],
-          "waiting": ["Same vehicle.", "It hasn't moved."],
-          "resolved": ["It's gone."]
+          "waiting": [
+            "Same vehicle.",
+            "It hasn't moved."
+          ],
+          "resolved": [
+            "It's gone."
+          ]
         }
       },
       "CALM_CALLER": {
@@ -558,8 +736,13 @@
             "We'll contact the owner if possible. Try to stay patient.",
             "You can call a towing company if it's on private property."
           ],
-          "waiting": ["Okay, I'll wait a bit longer.", "I can't be late!"],
-          "resolved": ["It's fine now, thanks."]
+          "waiting": [
+            "Okay, I'll wait a bit longer.",
+            "I can't be late!"
+          ],
+          "resolved": [
+            "It's fine now, thanks."
+          ]
         }
       },
       "TOW_REQUEST": {
@@ -568,9 +751,17 @@
           "waiting": "resolved"
         },
         "responses": {
-          "initial": ["I want it towed!", "Is there a tow truck coming?"],
-          "waiting": ["Yes, please send a tow truck.", "I've already called a tow."],
-          "resolved": ["It's been towed."]
+          "initial": [
+            "I want it towed!",
+            "Is there a tow truck coming?"
+          ],
+          "waiting": [
+            "Yes, please send a tow truck.",
+            "I've already called a tow."
+          ],
+          "resolved": [
+            "It's been towed."
+          ]
         }
       }
     },
@@ -601,7 +792,8 @@
         "message": "Caller resolves it themselves but is dissatisfied with dispatch."
       }
     },
-    "id": "scenario_043"
+    "id": "scenario_043",
+    "difficulty": "Easy"
   },
   {
     "title": "Overflowing Garbage Bin Creating Smell",
@@ -619,7 +811,13 @@
       "The bin at {address_location} hasn't been picked up in weeks. It's a health hazard! {caller_name}."
     ],
     "slots": {
-      "caller_name": ["Carlos", "Linda", "Mr. Green", "Susan", "Kevin"],
+      "caller_name": [
+        "Carlos",
+        "Linda",
+        "Mr. Green",
+        "Susan",
+        "Kevin"
+      ],
       "address_location": [
         "7th Street & 2nd Ave",
         "500 Broadway",
@@ -627,7 +825,11 @@
         "34 Cherry Drive",
         "9 Walnut Road"
       ],
-      "ambient_audio": ["buzzing flies", "smell", "scurrying rats"],
+      "ambient_audio": [
+        "buzzing flies",
+        "smell",
+        "scurrying rats"
+      ],
       "specific_details": [
         "since last Tuesday",
         "for a month",
@@ -645,8 +847,12 @@
             "Address is {address_location}.",
             "The bin behind the house at {address_location}."
           ],
-          "escalated": ["Still at {address_location}! Are you deaf?"],
-          "referred": ["I already told you, {address_location}."]
+          "escalated": [
+            "Still at {address_location}! Are you deaf?"
+          ],
+          "referred": [
+            "I already told you, {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -658,8 +864,13 @@
             "There's food waste spilling out.",
             "It's attracting raccoons."
           ],
-          "escalated": ["It's worse now!", "The smell is unbearable."],
-          "referred": ["It's still there."]
+          "escalated": [
+            "It's worse now!",
+            "The smell is unbearable."
+          ],
+          "referred": [
+            "It's still there."
+          ]
         }
       },
       "PROVIDE_INFO": {
@@ -673,8 +884,14 @@
             "Try calling 311 for trash issues.",
             "I can give you the number for waste management."
           ],
-          "escalated": ["I don't want a number, I want action!", "You're not helping."],
-          "referred": ["Thanks, I'll call them.", "I already tried that."]
+          "escalated": [
+            "I don't want a number, I want action!",
+            "You're not helping."
+          ],
+          "referred": [
+            "Thanks, I'll call them.",
+            "I already tried that."
+          ]
         }
       },
       "ESCALATE": {
@@ -688,8 +905,13 @@
             "This is urgent! The smell is making me sick!",
             "I'm calling your supervisor!"
           ],
-          "escalated": ["I demand someone come now!", "This is ridiculous!"],
-          "referred": ["You're useless!"]
+          "escalated": [
+            "I demand someone come now!",
+            "This is ridiculous!"
+          ],
+          "referred": [
+            "You're useless!"
+          ]
         }
       }
     },
@@ -720,7 +942,8 @@
         "message": "Caller is directed to proper sanitation services. Issue resolved."
       }
     },
-    "id": "scenario_044"
+    "id": "scenario_044",
+    "difficulty": "Easy"
   },
   {
     "title": "Children Playing Loudly in the Street",
@@ -738,7 +961,13 @@
       "These kids are kicking a ball against my fence at {address_location}. It's very annoying. {caller_name}."
     ],
     "slots": {
-      "caller_name": ["Mike", "Alice", "Mr. White", "Sam", "Olivia"],
+      "caller_name": [
+        "Mike",
+        "Alice",
+        "Mr. White",
+        "Sam",
+        "Olivia"
+      ],
       "address_location": [
         "123 Sunshine Street",
         "456 Rainbow Drive",
@@ -746,8 +975,18 @@
         "321 Pleasant Road",
         "654 Serenity Court"
       ],
-      "ambient_audio": ["screaming", "laughing", "ball bouncing", "shouting"],
-      "specific_details": ["after school", "since noon", "all afternoon", "during dinner time"]
+      "ambient_audio": [
+        "screaming",
+        "laughing",
+        "ball bouncing",
+        "shouting"
+      ],
+      "specific_details": [
+        "after school",
+        "since noon",
+        "all afternoon",
+        "during dinner time"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -758,8 +997,13 @@
             "Right on {address_location}, near the park.",
             "It's {address_location}, in front of the blue house."
           ],
-          "observed": ["Still there, same place.", "They moved to the corner."],
-          "resolved": ["They've left."]
+          "observed": [
+            "Still there, same place.",
+            "They moved to the corner."
+          ],
+          "resolved": [
+            "They've left."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -771,8 +1015,13 @@
             "They're playing soccer.",
             "There's a birthday party."
           ],
-          "observed": ["Still playing.", "They got louder."],
-          "resolved": ["They're gone."]
+          "observed": [
+            "Still playing.",
+            "They got louder."
+          ],
+          "resolved": [
+            "They're gone."
+          ]
         }
       },
       "ADVISE_NON_EMERGENCY": {
@@ -785,8 +1034,13 @@
             "It's normal for kids to play. Maybe talk to their parents?",
             "This is not an emergency."
           ],
-          "observed": ["I guess you're right.", "But it's still annoying."],
-          "resolved": ["They've quieted down."]
+          "observed": [
+            "I guess you're right.",
+            "But it's still annoying."
+          ],
+          "resolved": [
+            "They've quieted down."
+          ]
         }
       },
       "ESCALATE": {
@@ -796,9 +1050,17 @@
           "resolved": "observed"
         },
         "responses": {
-          "initial": ["I don't care, send someone!", "This is harassment!"],
-          "observed": ["They're still at it!", "Please hurry!"],
-          "resolved": ["They're back now!"]
+          "initial": [
+            "I don't care, send someone!",
+            "This is harassment!"
+          ],
+          "observed": [
+            "They're still at it!",
+            "Please hurry!"
+          ],
+          "resolved": [
+            "They're back now!"
+          ]
         }
       }
     },
@@ -829,7 +1091,8 @@
         "message": "Caller is advised that children playing is not an emergency. They accept the explanation."
       }
     },
-    "id": "scenario_045"
+    "id": "scenario_045",
+    "difficulty": "Easy"
   },
   {
     "title": "Early Morning Leaf Blower Noise",
@@ -847,11 +1110,36 @@
       "I've had enough. The {ambient_audio} is unbearable. My baby is crying and I can't get any rest. Please send police!"
     ],
     "slots": {
-      "caller_name": ["Mrs. Johnson", "Tom", "Linda from 123 Maple", "Ravi"],
-      "neighbor_name": ["the new guy", "Mr. Peterson", "the landscaper", "someone"],
-      "address_location": ["123 Oak Street", "456 Elm Avenue", "789 Pine Road", "321 Birch Lane"],
-      "time_of_day": ["5:45 AM", "6:00 AM", "6:15 AM", "dawn"],
-      "duration": ["15 minutes", "half an hour", "almost an hour", "too long"],
+      "caller_name": [
+        "Mrs. Johnson",
+        "Tom",
+        "Linda from 123 Maple",
+        "Ravi"
+      ],
+      "neighbor_name": [
+        "the new guy",
+        "Mr. Peterson",
+        "the landscaper",
+        "someone"
+      ],
+      "address_location": [
+        "123 Oak Street",
+        "456 Elm Avenue",
+        "789 Pine Road",
+        "321 Birch Lane"
+      ],
+      "time_of_day": [
+        "5:45 AM",
+        "6:00 AM",
+        "6:15 AM",
+        "dawn"
+      ],
+      "duration": [
+        "15 minutes",
+        "half an hour",
+        "almost an hour",
+        "too long"
+      ],
       "ambient_audio": [
         "loud leaf blower engine",
         "whining and sputtering",
@@ -892,7 +1180,10 @@
             "My neighbor {neighbor_name} is deliberately doing this, I think.",
             "It's a gas-powered leaf blower, very loud."
           ],
-          "waiting": ["Still going, it's been {duration} now.", "Nothing new, just more noise."],
+          "waiting": [
+            "Still going, it's been {duration} now.",
+            "Nothing new, just more noise."
+          ],
           "reassured": [
             "It stopped a few minutes ago, thank you.",
             "They finally stopped after I talked to them."
@@ -914,7 +1205,10 @@
             "Still angry, but waiting for something to happen.",
             "Calmer now, just want it to end."
           ],
-          "reassured": ["I feel much better, thanks.", "I'm okay now, no need to escalate."]
+          "reassured": [
+            "I feel much better, thanks.",
+            "I'm okay now, no need to escalate."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -928,8 +1222,13 @@
             "I don't have any weapons, but I might throw something if it doesn't stop!",
             "Of course not, I'm a peaceful person."
           ],
-          "waiting": ["Still no weapons.", "No firearms, just my patience wearing thin."],
-          "reassured": ["No weapons, all good."]
+          "waiting": [
+            "Still no weapons.",
+            "No firearms, just my patience wearing thin."
+          ],
+          "reassured": [
+            "No weapons, all good."
+          ]
         }
       },
       "ASK_SAFETY": {
@@ -943,8 +1242,13 @@
             "My family is safe, but this noise is driving us crazy.",
             "I'm not in danger, but my sleep is being ruined."
           ],
-          "waiting": ["Still safe, just waiting.", "No danger."],
-          "reassured": ["Safe and sound."]
+          "waiting": [
+            "Still safe, just waiting.",
+            "No danger."
+          ],
+          "reassured": [
+            "Safe and sound."
+          ]
         }
       }
     },
@@ -993,7 +1297,8 @@
         "message": "Correctly identified as a non-emergency noise complaint. Provided advice on local noise ordinances and encouraged caller to handle directly or file a complaint during business hours."
       }
     },
-    "id": "scenario_046"
+    "id": "scenario_046",
+    "difficulty": "Easy"
   },
   {
     "title": "Stray Cat Stealing Newspaper",
@@ -1011,21 +1316,36 @@
       "The {ambient_audio} of this cat is driving me crazy. It's been coming for {duration} days. I want it trapped and removed."
     ],
     "slots": {
-      "caller_name": ["Mr. Henderson", "Susan", "Bob the retired", "Maria"],
+      "caller_name": [
+        "Mr. Henderson",
+        "Susan",
+        "Bob the retired",
+        "Maria"
+      ],
       "address_location": [
         "14 Rose Avenue",
         "22 Daisy Court",
         "33 Tulip Lane",
         "7 Sunflower Drive"
       ],
-      "duration": ["three days", "a week", "two weeks", "almost a month"],
+      "duration": [
+        "three days",
+        "a week",
+        "two weeks",
+        "almost a month"
+      ],
       "ambient_audio": [
         "mewling and scratching",
         "rustling paper",
         "cat hissing",
         "pitter-patter of paws"
       ],
-      "specific_details": ["orange tabby", "black cat", "tuxedo cat", "calico"]
+      "specific_details": [
+        "orange tabby",
+        "black cat",
+        "tuxedo cat",
+        "calico"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1063,7 +1383,9 @@
             "It's a {specific_details}. It's now eyeing my car.",
             "It's just sitting there, cleaning itself."
           ],
-          "resolved": ["It was a {specific_details}. I haven't seen it since I called."]
+          "resolved": [
+            "It was a {specific_details}. I haven't seen it since I called."
+          ]
         }
       },
       "ASK_EMOTIONAL_STATE": {
@@ -1077,8 +1399,14 @@
             "I'm frustrated. I pay for that paper.",
             "I'm worried it might be rabid or something."
           ],
-          "observing": ["I'm watching it now. Still annoyed.", "Less angry, just want it gone."],
-          "resolved": ["Relieved it's gone.", "I feel better."]
+          "observing": [
+            "I'm watching it now. Still annoyed.",
+            "Less angry, just want it gone."
+          ],
+          "resolved": [
+            "Relieved it's gone.",
+            "I feel better."
+          ]
         }
       },
       "ASK_ANIMAL_BEHAVIOR": {
@@ -1092,17 +1420,31 @@
             "It hisses if I approach.",
             "It seems healthy, just a thief."
           ],
-          "observing": ["It's now rubbing against my leg. Weird.", "It's meowing loudly."],
-          "resolved": ["It didn't show any aggressive behavior."]
+          "observing": [
+            "It's now rubbing against my leg. Weird.",
+            "It's meowing loudly."
+          ],
+          "resolved": [
+            "It didn't show any aggressive behavior."
+          ]
         }
       },
       "ASK_WEAPONS": {
         "score_delta": -10,
         "transitions": {},
         "responses": {
-          "initial": ["No weapons, just a broom.", "I have a water hose.", "I'm not armed."],
-          "observing": ["Still no weapons.", "I have a spray bottle."],
-          "resolved": ["No weapons used."]
+          "initial": [
+            "No weapons, just a broom.",
+            "I have a water hose.",
+            "I'm not armed."
+          ],
+          "observing": [
+            "Still no weapons.",
+            "I have a spray bottle."
+          ],
+          "resolved": [
+            "No weapons used."
+          ]
         }
       }
     },
@@ -1146,12 +1488,13 @@
         "message": "Animal control was dispatched and picked up the stray cat. It was taken to a shelter. Problem resolved."
       },
       "DISMISS": {
-        "status": "MINOR_ERROR",
+        "status": "SUCCESS",
         "score_delta": 100,
         "message": "Dismissed the call as non-emergency and advised caller to contact animal control on their own. While this saves resources, the caller was unhappy. A minor error."
       }
     },
-    "id": "scenario_047"
+    "id": "scenario_047",
+    "difficulty": "Easy"
   },
   {
     "title": "Child Locked in Bathroom",
@@ -1169,11 +1512,42 @@
       "I need advice. My child locked himself in the bathroom. I have a key but I can't find it. He's {age} years old and scared. Should I break the door? I'm at {address_location}."
     ],
     "slots": {
-      "caller_name": ["Sarah", "Mike", "Aisha", "David"],
-      "victim_relation": ["my son", "my daughter", "my toddler", "my little boy"],
-      "address_location": ["55 Cedar Lane", "88 Maple Drive", "12 Oak Street", "99 Pine Court"],
-      "age": ["2", "3", "4", "1.5"],
-      "ambient_audio": ["crying and banging", "whimpering", "rattling the doorknob", "silence"]
+      "caller_name": [
+        "Sarah",
+        "Mike",
+        "Aisha",
+        "David"
+      ],
+      "victim_relation": [
+        "my son",
+        "my daughter",
+        "my toddler",
+        "my little boy"
+      ],
+      "address_location": [
+        "55 Cedar Lane",
+        "88 Maple Drive",
+        "12 Oak Street",
+        "99 Pine Court"
+      ],
+      "age": [
+        "2",
+        "3",
+        "4",
+        "1.5"
+      ],
+      "ambient_audio": [
+        "crying and banging",
+        "whimpering",
+        "rattling the doorknob",
+        "silence"
+      ],
+      "duration": [
+        "10 minutes",
+        "20 minutes",
+        "30 minutes",
+        "an hour"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1188,7 +1562,9 @@
             "Still at {address_location}. I'm trying a credit card.",
             "Same place, {address_location}."
           ],
-          "resolved": ["We're at {address_location}, but he's out now."]
+          "resolved": [
+            "We're at {address_location}, but he's out now."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1205,7 +1581,9 @@
             "He's still inside. I've tried a butter knife, but it didn't work.",
             "I'm talking to him through the door. He's calming down."
           ],
-          "resolved": ["I found the key in my pocket! He's out and safe."]
+          "resolved": [
+            "I found the key in my pocket! He's out and safe."
+          ]
         }
       },
       "ASK_EMOTIONAL_STATE": {
@@ -1222,7 +1600,9 @@
             "I'm frustrated but staying calm.",
             "I'm getting more anxious as time passes."
           ],
-          "resolved": ["Relieved and happy."]
+          "resolved": [
+            "Relieved and happy."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -1234,8 +1614,13 @@
             "I have a hammer but I don't want to use it.",
             "Just a credit card."
           ],
-          "attempting": ["Still no weapons.", "I'm thinking of using a screwdriver."],
-          "resolved": ["No weapons needed."]
+          "attempting": [
+            "Still no weapons.",
+            "I'm thinking of using a screwdriver."
+          ],
+          "resolved": [
+            "No weapons needed."
+          ]
         }
       },
       "ASK_SAFETY": {
@@ -1250,7 +1635,9 @@
             "Still safe, I can hear him crying but it's okay.",
             "He's starting to play with the faucet."
           ],
-          "resolved": ["He's safe and sound now."]
+          "resolved": [
+            "He's safe and sound now."
+          ]
         }
       }
     },
@@ -1297,7 +1684,8 @@
         "message": "Correctly identified as non-emergency. Provided caller with DIY unlock instructions. Caller successfully opened the door. Child safe. No dispatch needed."
       }
     },
-    "id": "scenario_048"
+    "id": "scenario_048",
+    "difficulty": "Medium"
   },
   {
     "title": "Missing Package Dispute",
@@ -1315,7 +1703,12 @@
       "Please send someone. I'm an old man and I can't afford to lose this. It was medicine. I need it urgently. Address is {address_location}."
     ],
     "slots": {
-      "caller_name": ["Mr. Henderson", "George", "Frank", "Elderly Bob"],
+      "caller_name": [
+        "Mr. Henderson",
+        "George",
+        "Frank",
+        "Elderly Bob"
+      ],
       "neighbor_name": [
         "the young guy in 3B",
         "the woman next door",
@@ -1328,7 +1721,12 @@
         "3030 Oak Avenue",
         "4040 Pine Drive"
       ],
-      "value": ["$50", "$100", "my blood pressure medication", "a gift from my daughter"],
+      "value": [
+        "$50",
+        "$100",
+        "my blood pressure medication",
+        "a gift from my daughter"
+      ],
       "ambient_audio": [
         "muffled sounds from next door",
         "a dog barking",
@@ -1349,7 +1747,9 @@
             "I'm at {address_location}, but I'm about to walk over to {neighbor_name}'s house.",
             "I'm at the neighbor's door at {address_location}."
           ],
-          "resolved": ["Still at {address_location}. But I found the package under the bush."]
+          "resolved": [
+            "Still at {address_location}. But I found the package under the bush."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1367,7 +1767,9 @@
             "I just talked to him and he denied it. But I saw him looking at my porch.",
             "He slammed the door on me. I'm sure he's hiding something."
           ],
-          "resolved": ["I found it behind some bushes. My mistake. Sorry."]
+          "resolved": [
+            "I found it behind some bushes. My mistake. Sorry."
+          ]
         }
       },
       "ASK_EMOTIONAL_STATE": {
@@ -1381,8 +1783,13 @@
             "I feel violated. I want justice.",
             "I'm anxious because it contained medication."
           ],
-          "confronting": ["I'm furious! He's lying!", "I'm shaking with anger."],
-          "resolved": ["Embarrassed but relieved."]
+          "confronting": [
+            "I'm furious! He's lying!",
+            "I'm shaking with anger."
+          ],
+          "resolved": [
+            "Embarrassed but relieved."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -1400,19 +1807,26 @@
             "I don't have a weapon, but I'm prepared to defend myself.",
             "I have a baseball bat just in case."
           ],
-          "resolved": ["No weapons."]
+          "resolved": [
+            "No weapons."
+          ]
         }
       },
       "ASK_SAFETY": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["I'm safe, just angry.", "I'm at home, safe."],
+          "initial": [
+            "I'm safe, just angry.",
+            "I'm at home, safe."
+          ],
           "confronting": [
             "I'm at his doorstep. It's a bit tense but I'm okay.",
             "He's yelling at me."
           ],
-          "resolved": ["I'm fine."]
+          "resolved": [
+            "I'm fine."
+          ]
         }
       }
     },
@@ -1460,7 +1874,8 @@
         "message": "Correctly handled as non-emergency. Advised caller to contact delivery service and file a police report online. No dispatch needed. Caller later found package misdelivered."
       }
     },
-    "id": "scenario_049"
+    "id": "scenario_049",
+    "difficulty": "Easy"
   },
   {
     "title": "Suspicious Vehicle in Neighborhood",
@@ -1478,15 +1893,41 @@
       "This van has been here for {duration}. It's not a neighbor's car. I think they are watching houses. I need police to come remove it. It's at {address_location}."
     ],
     "slots": {
-      "caller_name": ["Mrs. Davis", "Jennifer", "Carl", "Patricia"],
-      "street_name": ["Oak Street", "Maple Ave", "Birch Lane", "Cedar Court"],
-      "address_location": ["500 Oak Street", "1500 Maple Ave", "200 Birch Lane", "350 Cedar Court"],
-      "duration": ["two days", "almost three days", "since Monday", "over 48 hours"],
+      "caller_name": [
+        "Mrs. Davis",
+        "Jennifer",
+        "Carl",
+        "Patricia"
+      ],
+      "street_name": [
+        "Oak Street",
+        "Maple Ave",
+        "Birch Lane",
+        "Cedar Court"
+      ],
+      "address_location": [
+        "500 Oak Street",
+        "1500 Maple Ave",
+        "200 Birch Lane",
+        "350 Cedar Court"
+      ],
+      "duration": [
+        "two days",
+        "almost three days",
+        "since Monday",
+        "over 48 hours"
+      ],
       "ambient_audio": [
         "a muffled cough",
         "a radio playing softly",
         "engine sounds occasionally",
         "silence"
+      ],
+      "license_plate": [
+        "5XYZ789",
+        "3ABC123",
+        "9LMN456",
+        "7RST012"
       ]
     },
     "intents": {
@@ -1523,7 +1964,9 @@
             "I just saw the door open but no one got out.",
             "It's still there, hasn't moved."
           ],
-          "resolved": ["Turns out it belongs to the new neighbor's guest. Car broke down."]
+          "resolved": [
+            "Turns out it belongs to the new neighbor's guest. Car broke down."
+          ]
         }
       },
       "ASK_EMOTIONAL_STATE": {
@@ -1541,7 +1984,9 @@
             "I'm on edge, checking every few minutes.",
             "I'm calmer now that I've called."
           ],
-          "resolved": ["I feel silly but relieved."]
+          "resolved": [
+            "I feel silly but relieved."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -1553,17 +1998,30 @@
             "I have a baseball bat inside.",
             "I have pepper spray."
           ],
-          "monitoring": ["Still no weapons.", "I have my phone ready to record."],
-          "resolved": ["No weapons needed."]
+          "monitoring": [
+            "Still no weapons.",
+            "I have my phone ready to record."
+          ],
+          "resolved": [
+            "No weapons needed."
+          ]
         }
       },
       "ASK_SAFETY": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["I feel safe inside my home.", "I'm not directly threatened."],
-          "monitoring": ["I'm still safe, just cautious.", "I'm staying away from the van."],
-          "resolved": ["I'm safe."]
+          "initial": [
+            "I feel safe inside my home.",
+            "I'm not directly threatened."
+          ],
+          "monitoring": [
+            "I'm still safe, just cautious.",
+            "I'm staying away from the van."
+          ],
+          "resolved": [
+            "I'm safe."
+          ]
         }
       }
     },
@@ -1611,7 +2069,8 @@
         "message": "Correctly identified as non-emergency. Advised caller to check with neighbors. Later discovered the van belonged to a guest with a broken car. No police needed."
       }
     },
-    "id": "scenario_050"
+    "id": "scenario_050",
+    "difficulty": "Medium"
   },
   {
     "title": "The Mysterious Hum",
@@ -1628,7 +2087,13 @@
       "Yes, this is {caller_name} from {address_location}. I keep hearing a humming sound every night at {hum_time} for {hum_duration}. My neighbor can't hear it, but I'm concerned. What should I do?"
     ],
     "slots": {
-      "caller_name": ["Eleanor Vance", "Walter White", "Martha Stewart", "John Doe", "Jane Smith"],
+      "caller_name": [
+        "Eleanor Vance",
+        "Walter White",
+        "Martha Stewart",
+        "John Doe",
+        "Jane Smith"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -1781,7 +2246,8 @@
       }
     },
     "id": "scenario_051",
-    "archetype": "Low-Priority / Non-Emergency"
+    "archetype": "Low-Priority / Non-Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Mailbox Vandalism",
@@ -1798,7 +2264,13 @@
       "Hi, my name is {caller_name} from {address_location}. My mailbox has been {damage_description}. I think it was kids or maybe a car. Can you send someone to take a report?"
     ],
     "slots": {
-      "caller_name": ["Tom Hanks", "Bruce Wayne", "Clark Kent", "Peter Parker", "Tony Stark"],
+      "caller_name": [
+        "Tom Hanks",
+        "Bruce Wayne",
+        "Clark Kent",
+        "Peter Parker",
+        "Tony Stark"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -1845,7 +2317,9 @@
             "I have your address as {address_location}.",
             "Please, the address is {address_location}?"
           ],
-          "accepting": ["Alright, {address_location} is noted."]
+          "accepting": [
+            "Alright, {address_location} is noted."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -1854,7 +2328,10 @@
           "initial": "reporting"
         },
         "responses": {
-          "initial": ["When did this happen?", "What exactly happened to the mailbox?"],
+          "initial": [
+            "When did this happen?",
+            "What exactly happened to the mailbox?"
+          ],
           "reporting": [
             "So it happened {time_of_incident} and it's {damage_description}?",
             "Do you have any suspect info? {suspect_info}?"
@@ -1885,7 +2362,10 @@
             "I understand you're upset. Do you have any more details on the suspect?",
             "Please, any additional info on {suspect_info} could help."
           ],
-          "accepting": ["Thanks for the suspect info: {suspect_info}.", "Noted."]
+          "accepting": [
+            "Thanks for the suspect info: {suspect_info}.",
+            "Noted."
+          ]
         }
       },
       "ASK_ACTIONS": {
@@ -1894,7 +2374,10 @@
           "reporting": "accepting"
         },
         "responses": {
-          "initial": ["Have you contacted your insurance?", "What have you done so far?"],
+          "initial": [
+            "Have you contacted your insurance?",
+            "What have you done so far?"
+          ],
           "reporting": [
             "Have you called your insurance company?",
             "Any steps taken to secure the mailbox?"
@@ -1938,7 +2421,8 @@
       }
     },
     "id": "scenario_052",
-    "archetype": "Low-Priority / Non-Emergency"
+    "archetype": "Low-Priority / Non-Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Lost Drone Dispute",
@@ -1955,7 +2439,13 @@
       "Yes, this is {caller_name}. My drone crashed into {specific_location} next door at {address_location}. I asked nicely but they said 'finders keepers'. I think they should give it back."
     ],
     "slots": {
-      "caller_name": ["Chris", "Alex", "Jordan", "Taylor", "Sam"],
+      "caller_name": [
+        "Chris",
+        "Alex",
+        "Jordan",
+        "Taylor",
+        "Sam"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -1970,7 +2460,13 @@
         "said they'll keep it",
         "called the cops on me"
       ],
-      "drone_value": ["$200", "$500", "my Christmas present", "a high-end model", "custom built"],
+      "drone_value": [
+        "$200",
+        "$500",
+        "my Christmas present",
+        "a high-end model",
+        "custom built"
+      ],
       "specific_location": [
         "the neighbor's backyard",
         "the tall tree next door",
@@ -1996,7 +2492,9 @@
             "I have your address as {address_location}.",
             "Please, the address is {address_location}?"
           ],
-          "resigned": ["Alright, {address_location} is noted."]
+          "resigned": [
+            "Alright, {address_location} is noted."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2005,7 +2503,10 @@
           "initial": "pleading"
         },
         "responses": {
-          "initial": ["What happened exactly?", "Where did the drone land?"],
+          "initial": [
+            "What happened exactly?",
+            "Where did the drone land?"
+          ],
           "pleading": [
             "So it landed in {specific_location} and the neighbor said {neighbor_response}?",
             "And the drone is worth {drone_value}?"
@@ -2023,7 +2524,10 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Have you talked to the neighbor?", "What did they say?"],
+          "initial": [
+            "Have you talked to the neighbor?",
+            "What did they say?"
+          ],
           "pleading": [
             "You said they {neighbor_response}. Have you tried talking again?",
             "Maybe they'll return it if you offer a reward?"
@@ -2044,7 +2548,10 @@
           "pleading": "angry"
         },
         "responses": {
-          "initial": ["How much is the drone worth?", "Is it valuable?"],
+          "initial": [
+            "How much is the drone worth?",
+            "Is it valuable?"
+          ],
           "pleading": [
             "It's worth {drone_value}. That's a lot to lose.",
             "I understand it's important to you."
@@ -2053,7 +2560,9 @@
             "I get it, it's {drone_value}. But police involvement might not help.",
             "Even though it's valuable, this is a property dispute."
           ],
-          "resigned": ["I know it's {drone_value}. I hope you can resolve it."]
+          "resigned": [
+            "I know it's {drone_value}. I hope you can resolve it."
+          ]
         }
       }
     },
@@ -2085,7 +2594,8 @@
       }
     },
     "id": "scenario_053",
-    "archetype": "Low-Priority / Non-Emergency"
+    "archetype": "Low-Priority / Non-Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Shopping Cart Invasion",
@@ -2102,7 +2612,13 @@
       "Hi, my name is {caller_name} from {address_location}. Somebody left about {number_of_carts} shopping carts from {store_name} in the middle of the road. It's not an emergency but it's really inconvenient."
     ],
     "slots": {
-      "caller_name": ["Karen", "Bob", "Alice", "Frank", "Debbie"],
+      "caller_name": [
+        "Karen",
+        "Bob",
+        "Alice",
+        "Frank",
+        "Debbie"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -2110,8 +2626,20 @@
         "321 Elm Drive",
         "654 Birch Road"
       ],
-      "number_of_carts": ["five", "ten", "a dozen", "over twenty", "three"],
-      "store_name": ["Walmart", "Target", "Kroger", "Costco", "local grocery"],
+      "number_of_carts": [
+        "five",
+        "ten",
+        "a dozen",
+        "over twenty",
+        "three"
+      ],
+      "store_name": [
+        "Walmart",
+        "Target",
+        "Kroger",
+        "Costco",
+        "local grocery"
+      ],
       "location_detail": [
         "in the middle of the cul-de-sac",
         "blocking my driveway",
@@ -2137,7 +2665,9 @@
             "I have your address as {address_location}.",
             "Please, the address is {address_location}?"
           ],
-          "accepting": ["Alright, {address_location} is noted."]
+          "accepting": [
+            "Alright, {address_location} is noted."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2146,7 +2676,10 @@
           "initial": "explaining"
         },
         "responses": {
-          "initial": ["How many carts are there?", "Where exactly are they?"],
+          "initial": [
+            "How many carts are there?",
+            "Where exactly are they?"
+          ],
           "explaining": [
             "So there are {number_of_carts} carts from {store_name} at {location_detail}?",
             "Are they blocking traffic?"
@@ -2164,13 +2697,20 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Do you know which store they belong to?", "Can you see any logos?"],
-          "explaining": ["You said {store_name}. Do you have their number?"],
+          "initial": [
+            "Do you know which store they belong to?",
+            "Can you see any logos?"
+          ],
+          "explaining": [
+            "You said {store_name}. Do you have their number?"
+          ],
           "annoyed": [
             "The store is {store_name}. I can provide their non-emergency contact.",
             "Maybe call the store directly?"
           ],
-          "accepting": ["Good, you know the store. They can retrieve the carts."]
+          "accepting": [
+            "Good, you know the store. They can retrieve the carts."
+          ]
         }
       },
       "ASK_ACTION": {
@@ -2179,7 +2719,10 @@
           "explaining": "annoyed"
         },
         "responses": {
-          "initial": ["Have you tried contacting the store?", "What would you like us to do?"],
+          "initial": [
+            "Have you tried contacting the store?",
+            "What would you like us to do?"
+          ],
           "explaining": [
             "You can call the store at their customer service number.",
             "We can note the problem for public works."
@@ -2223,7 +2766,8 @@
       }
     },
     "id": "scenario_054",
-    "archetype": "Low-Priority / Non-Emergency"
+    "archetype": "Low-Priority / Non-Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "Midday BBQ Panic",
@@ -2240,7 +2784,13 @@
       "This is an emergency! I see smoke and a bright flame from the house next to {address_location}. I'm {caller_name}. Please send the fire department!"
     ],
     "slots": {
-      "caller_name": ["Jane", "Mike", "Sarah", "Dave", "Emily"],
+      "caller_name": [
+        "Jane",
+        "Mike",
+        "Sarah",
+        "Dave",
+        "Emily"
+      ],
       "address_location": [
         "123 Oak Street",
         "456 Maple Avenue",
@@ -2248,7 +2798,13 @@
         "321 Elm Drive",
         "654 Birch Road"
       ],
-      "smoke_color": ["white", "gray", "black", "bluish", "thin"],
+      "smoke_color": [
+        "white",
+        "gray",
+        "black",
+        "bluish",
+        "thin"
+      ],
       "flame_visibility": [
         "visible flames",
         "just smoke",
@@ -2281,7 +2837,9 @@
             "You're at {address_location}. Good.",
             "Alright, {address_location} is noted."
           ],
-          "embarrassed": ["No worries, we have {address_location}."]
+          "embarrassed": [
+            "No worries, we have {address_location}."
+          ]
         }
       },
       "ASK_DETAILS": {
@@ -2290,7 +2848,10 @@
           "initial": "panicked"
         },
         "responses": {
-          "initial": ["Can you describe the smoke? What color is it?", "Do you see flames?"],
+          "initial": [
+            "Can you describe the smoke? What color is it?",
+            "Do you see flames?"
+          ],
           "panicked": [
             "What color is the smoke? {smoke_color}?",
             "Are there visible flames? {flame_visibility}?"
@@ -2308,13 +2869,21 @@
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["How big are the flames?", "Is it spreading?"],
-          "panicked": ["Are the flames large or small?", "Is it just in one spot?"],
+          "initial": [
+            "How big are the flames?",
+            "Is it spreading?"
+          ],
+          "panicked": [
+            "Are the flames large or small?",
+            "Is it just in one spot?"
+          ],
           "reassured": [
             "I think I know what it is. Look closer: is it a grill?",
             "The flames seem controlled."
           ],
-          "embarrassed": ["No harm done. It's probably just a barbecue."]
+          "embarrassed": [
+            "No harm done. It's probably just a barbecue."
+          ]
         }
       },
       "ASK_NEIGHBOR_PRESENT": {
@@ -2323,7 +2892,10 @@
           "panicked": "reassured"
         },
         "responses": {
-          "initial": ["Do you see anyone in the backyard?", "Are there people around?"],
+          "initial": [
+            "Do you see anyone in the backyard?",
+            "Are there people around?"
+          ],
           "panicked": [
             "Can you see if anyone is grilling? {neighbor_activity}?",
             "Is there a barbecue or fire pit?"
@@ -2332,7 +2904,9 @@
             "I see. It sounds like a barbecue. Is that possible?",
             "They might be having a cookout."
           ],
-          "embarrassed": ["Don't worry, it happens. Just a BBQ."]
+          "embarrassed": [
+            "Don't worry, it happens. Just a BBQ."
+          ]
         }
       }
     },
@@ -2364,13 +2938,19 @@
       }
     },
     "id": "scenario_055",
-    "archetype": "Low-Priority / Non-Emergency"
+    "archetype": "Low-Priority / Non-Emergency",
+    "difficulty": "Easy"
   },
   {
     "title": "The Great Pumpkin Predicament",
     "archetype": "Low-Priority / Non-Emergency",
     "summary": "A neighbor's oversized, animated Halloween decoration is scaring children and causing a commotion on a quiet residential street. The caller is frustrated and demands immediate removal.",
-    "states": ["initial", "waiting", "confronting", "resolved"],
+    "states": [
+      "initial",
+      "waiting",
+      "confronting",
+      "resolved"
+    ],
     "initial_variations": [
       "There's a giant screaming pumpkin in my neighbor's yard and it's terrifying my kids! I need it removed right now!",
       "I can't take another night of that horrible Halloween decoration. It's keeping the whole block awake with its loud noises.",
@@ -2378,8 +2958,18 @@
       "This is ridiculous. That animatronic pumpkin is a public nuisance. I want an officer sent immediately."
     ],
     "slots": {
-      "caller_name": ["Mrs. Jenkins", "Tom", "Sarah", "Mr. Peterson"],
-      "address_location": ["1423 Oak Street", "485 Maple Avenue", "789 Pine Road", "325 Elm Drive"],
+      "caller_name": [
+        "Mrs. Jenkins",
+        "Tom",
+        "Sarah",
+        "Mr. Peterson"
+      ],
+      "address_location": [
+        "1423 Oak Street",
+        "485 Maple Avenue",
+        "789 Pine Road",
+        "325 Elm Drive"
+      ],
       "specific_details": [
         "giant pumpkin with flashing eyes",
         "screaming sound every 30 seconds",
@@ -2495,7 +3085,10 @@
             "Now it's a dispute with the neighbor over the decoration.",
             "The problem is the decoration, now confronting the owner."
           ],
-          "resolved": ["Resolved. Decoration is off.", "No issue now, decoration handled."]
+          "resolved": [
+            "Resolved. Decoration is off.",
+            "No issue now, decoration handled."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -2508,9 +3101,18 @@
             "No weapons. It's a decoration.",
             "None."
           ],
-          "waiting": ["No weapons.", "Still no weapons.", "Nothing like that."],
-          "confronting": ["No weapons. Just arguing.", "No, we're just talking."],
-          "resolved": ["No."]
+          "waiting": [
+            "No weapons.",
+            "Still no weapons.",
+            "Nothing like that."
+          ],
+          "confronting": [
+            "No weapons. Just arguing.",
+            "No, we're just talking."
+          ],
+          "resolved": [
+            "No."
+          ]
         }
       },
       "INSTRUCT_REMAIN_CALM": {
@@ -2526,26 +3128,44 @@
             "Alright, I'll wait calmly.",
             "Fine, but hurry."
           ],
-          "waiting": ["I'm calm, just waiting.", "Okay, I'm waiting.", "I'm staying calm."],
+          "waiting": [
+            "I'm calm, just waiting.",
+            "Okay, I'm waiting.",
+            "I'm staying calm."
+          ],
           "confronting": [
             "Okay, I'll back off and wait.",
             "I'll stop arguing and wait.",
             "Alright, I'll step back."
           ],
-          "resolved": ["I'm calm now that it's resolved.", "All good."]
+          "resolved": [
+            "I'm calm now that it's resolved.",
+            "All good."
+          ]
         }
       },
       "INSTRUCT_STAY_ON_LINE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Sure, I'll stay on.", "I'm not going anywhere.", "I'll stay.", "Okay."],
-          "waiting": ["Still here.", "I'm on the line.", "Not hanging up."],
+          "initial": [
+            "Sure, I'll stay on.",
+            "I'm not going anywhere.",
+            "I'll stay.",
+            "Okay."
+          ],
+          "waiting": [
+            "Still here.",
+            "I'm on the line.",
+            "Not hanging up."
+          ],
           "confronting": [
             "I'm here, but I'm talking to the neighbor too.",
             "I'm on the line, but the neighbor is here."
           ],
-          "resolved": ["I'm here. Thanks."]
+          "resolved": [
+            "I'm here. Thanks."
+          ]
         }
       }
     },
@@ -2576,13 +3196,19 @@
         "message": "Correctly dismissed as a non-emergency. The caller was advised to talk to the neighbor or wait until Halloween passed."
       }
     },
-    "id": "scenario_056"
+    "id": "scenario_056",
+    "difficulty": "Easy"
   },
   {
     "title": "Goat on the Loose",
     "archetype": "Low-Priority / Non-Emergency",
     "summary": "A stray goat is wandering through a suburban neighborhood, eating flowers and gardens. The caller is worried but it's not an emergency.",
-    "states": ["initial", "tracking", "contained", "owner_found"],
+    "states": [
+      "initial",
+      "tracking",
+      "contained",
+      "owner_found"
+    ],
     "initial_variations": [
       "There's a goat in my yard eating my tulips! What should I do?",
       "A goat is running down the street and scaring my dog. Can you send someone?",
@@ -2590,7 +3216,12 @@
       "I think there's a lost goat wandering around the block. It's not dangerous, but it's causing trouble."
     ],
     "slots": {
-      "caller_name": ["Linda", "Bob", "Angela", "Mike"],
+      "caller_name": [
+        "Linda",
+        "Bob",
+        "Angela",
+        "Mike"
+      ],
       "address_location": [
         "456 Cherry Lane",
         "123 Walnut Street",
@@ -2663,7 +3294,9 @@
             "The {specific_details} goat is safely contained.",
             "Got the {specific_details} goat locked up."
           ],
-          "owner_found": ["The {specific_details} goat is back with its owner."]
+          "owner_found": [
+            "The {specific_details} goat is back with its owner."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2685,7 +3318,10 @@
             "{caller_name}, we have the goat.",
             "This is {caller_name}, goat is contained."
           ],
-          "owner_found": ["{caller_name} here, owner found.", "This is {caller_name}. All done."]
+          "owner_found": [
+            "{caller_name} here, owner found.",
+            "This is {caller_name}. All done."
+          ]
         }
       },
       "ASK_NATURE": {
@@ -2703,8 +3339,14 @@
             "Tracking the loose goat.",
             "It's still about the goat."
           ],
-          "contained": ["Goat is now contained.", "The goat problem is under control."],
-          "owner_found": ["Goat returned to owner.", "Resolved."]
+          "contained": [
+            "Goat is now contained.",
+            "The goat problem is under control."
+          ],
+          "owner_found": [
+            "Goat returned to owner.",
+            "Resolved."
+          ]
         }
       },
       "ASK_WEAPONS": {
@@ -2717,9 +3359,18 @@
             "No, it's just a goat.",
             "No weapons involved."
           ],
-          "tracking": ["No.", "Still no weapons.", "No weapons."],
-          "contained": ["None.", "No."],
-          "owner_found": ["No."]
+          "tracking": [
+            "No.",
+            "Still no weapons.",
+            "No weapons."
+          ],
+          "contained": [
+            "None.",
+            "No."
+          ],
+          "owner_found": [
+            "No."
+          ]
         }
       },
       "INSTRUCT_REMAIN_CALM": {
@@ -2740,22 +3391,37 @@
             "Okay, I'm staying back.",
             "I'm calm, not chasing it."
           ],
-          "contained": ["I'm calm now that it's contained.", "All calm here."],
-          "owner_found": ["Calm and relieved."]
+          "contained": [
+            "I'm calm now that it's contained.",
+            "All calm here."
+          ],
+          "owner_found": [
+            "Calm and relieved."
+          ]
         }
       },
       "INSTRUCT_STAY_ON_LINE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Sure, I'll stay on.", "Okay.", "I'm not hanging up.", "I'll stay."],
+          "initial": [
+            "Sure, I'll stay on.",
+            "Okay.",
+            "I'm not hanging up.",
+            "I'll stay."
+          ],
           "tracking": [
             "Still on the line.",
             "Yes, I'm here.",
             "I'm following the goat and on the line."
           ],
-          "contained": ["I'm here.", "Yes, still on."],
-          "owner_found": ["I'm here, thank you."]
+          "contained": [
+            "I'm here.",
+            "Yes, still on."
+          ],
+          "owner_found": [
+            "I'm here, thank you."
+          ]
         }
       }
     },
@@ -2786,13 +3452,19 @@
         "message": "Dismissing the call left the goat to cause more damage. The caller was frustrated."
       }
     },
-    "id": "scenario_057"
+    "id": "scenario_057",
+    "difficulty": "Easy"
   },
   {
     "title": "The Midnight Cook",
     "archetype": "Low-Priority / Non-Emergency",
     "summary": "A neighbor's late-night cooking produces strong odors that are wafting into the caller's apartment. The caller complains about the smell and noise from the kitchen.",
-    "states": ["initial", "negotiating", "compromised", "resolved"],
+    "states": [
+      "initial",
+      "negotiating",
+      "compromised",
+      "resolved"
+    ],
     "initial_variations": [
       "My neighbor is cooking something so strong it's making me sick! It's 2 AM and the smell is everywhere!",
       "I can't sleep because of the cooking smell and loud sounds from next door. Please make it stop.",
@@ -2800,7 +3472,12 @@
       "I've asked them nicely but the cooking continues. The smell is unbreathable. Send someone to talk to them."
     ],
     "slots": {
-      "caller_name": ["Emily", "Carlos", "Linda", "James"],
+      "caller_name": [
+        "Emily",
+        "Carlos",
+        "Linda",
+        "James"
+      ],
       "address_location": [
         "Apartment 3B, 555 Main Street",
         "Suite 12, 234 Oak Avenue",
@@ -2819,7 +3496,12 @@
         "TV playing loudly",
         "neighbor talking loudly"
       ],
-      "neighbor_unit": ["Apartment 3C", "Suite 11", "Flat 6", "Unit 4"]
+      "neighbor_unit": [
+        "Apartment 3C",
+        "Suite 11",
+        "Flat 6",
+        "Unit 4"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2866,7 +3548,9 @@
             "The {specific_details} smell is reduced.",
             "They switched to something milder than {specific_details}."
           ],
-          "resolved": ["No more {specific_details}. Just quiet."]
+          "resolved": [
+            "No more {specific_details}. Just quiet."
+          ]
         }
       },
       "ASK_CALLER_INFO": {
@@ -2879,9 +3563,17 @@
             "{caller_name} here.",
             "This is {caller_name}."
           ],
-          "negotiating": ["It's {caller_name} again.", "{caller_name} still dealing with this."],
-          "compromised": ["{caller_name}, we reached a compromise.", "This is {caller_name}."],
-          "resolved": ["{caller_name}. All done."]
+          "negotiating": [
+            "It's {caller_name} again.",
+            "{caller_name} still dealing with this."
+          ],
+          "compromised": [
+            "{caller_name}, we reached a compromise.",
+            "This is {caller_name}."
+          ],
+          "resolved": [
+            "{caller_name}. All done."
+          ]
         }
       },
       "ASK_NATURE": {
@@ -2899,18 +3591,37 @@
             "Same issue, trying to resolve.",
             "The cooking nuisance continues."
           ],
-          "compromised": ["We have a temporary solution.", "The issue is partly resolved."],
-          "resolved": ["Resolved."]
+          "compromised": [
+            "We have a temporary solution.",
+            "The issue is partly resolved."
+          ],
+          "resolved": [
+            "Resolved."
+          ]
         }
       },
       "ASK_WEAPONS": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["No weapons. Just cooking.", "None.", "No.", "Nothing like that."],
-          "negotiating": ["No weapons.", "Still no.", "No weapons involved."],
-          "compromised": ["None.", "No."],
-          "resolved": ["No."]
+          "initial": [
+            "No weapons. Just cooking.",
+            "None.",
+            "No.",
+            "Nothing like that."
+          ],
+          "negotiating": [
+            "No weapons.",
+            "Still no.",
+            "No weapons involved."
+          ],
+          "compromised": [
+            "None.",
+            "No."
+          ],
+          "resolved": [
+            "No."
+          ]
         }
       },
       "INSTRUCT_REMAIN_CALM": {
@@ -2931,18 +3642,37 @@
             "Okay, I'm calm. I'll try talking again.",
             "Calm, but not happy."
           ],
-          "compromised": ["I'm calm now that we talked.", "Fine, I'm calm."],
-          "resolved": ["Definitely calm now."]
+          "compromised": [
+            "I'm calm now that we talked.",
+            "Fine, I'm calm."
+          ],
+          "resolved": [
+            "Definitely calm now."
+          ]
         }
       },
       "INSTRUCT_STAY_ON_LINE": {
         "score_delta": 5,
         "transitions": {},
         "responses": {
-          "initial": ["Sure, I'll stay on.", "I'm not going anywhere.", "I'll stay.", "Okay."],
-          "negotiating": ["Still on the line.", "I'm here.", "Yes, still on."],
-          "compromised": ["I'm here.", "Still on."],
-          "resolved": ["I'm here, thanks."]
+          "initial": [
+            "Sure, I'll stay on.",
+            "I'm not going anywhere.",
+            "I'll stay.",
+            "Okay."
+          ],
+          "negotiating": [
+            "Still on the line.",
+            "I'm here.",
+            "Yes, still on."
+          ],
+          "compromised": [
+            "I'm here.",
+            "Still on."
+          ],
+          "resolved": [
+            "I'm here, thanks."
+          ]
         }
       }
     },
@@ -2973,6 +3703,7 @@
         "message": "Correctly dismissed. The caller was advised to speak to the neighbor or building management. The issue was resolved without emergency services."
       }
     },
-    "id": "scenario_058"
+    "id": "scenario_058",
+    "difficulty": "Easy"
   }
 ]
