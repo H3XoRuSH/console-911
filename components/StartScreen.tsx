@@ -4,13 +4,31 @@ interface StartScreenProps {
   dispatcherName: string;
   setDispatcherName: (val: string) => void;
   onStart: () => void;
+  previewMode?: boolean;
+  availableScenarios?: Array<{ id: string; title: string; archetype: string }>;
+  selectedScenarios?: string[];
+  setSelectedScenarios?: (ids: string[]) => void;
 }
 
 export const StartScreen: React.FC<StartScreenProps> = ({
   dispatcherName,
   setDispatcherName,
-  onStart
+  onStart,
+  previewMode = false,
+  availableScenarios = [],
+  selectedScenarios = [],
+  setSelectedScenarios = () => {}
 }) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+
+  const filteredScenarios = React.useMemo(() => {
+    return availableScenarios.filter(
+      (s) =>
+        s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        s.archetype.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        s.id.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [availableScenarios, searchQuery]);
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto terminal-scroll">
       <pre className="text-[7px] leading-[8px] md:text-[10px] md:leading-[11px] text-emerald-500 font-bold crt-glow-green mb-6 text-center select-none">
@@ -55,6 +73,98 @@ export const StartScreen: React.FC<StartScreenProps> = ({
           }}
           className="space-y-4 pt-4"
         >
+          {previewMode && availableScenarios.length > 0 && (
+            <div className="w-full max-w-md mx-auto border border-amber-900/60 bg-zinc-950/60 p-4 rounded text-left space-y-3 shadow-md shadow-amber-950/10">
+              <h3 className="text-xs font-bold tracking-widest text-amber-500 uppercase border-b border-amber-950/50 pb-1.5 flex justify-between">
+                <span>☣️ Preview Debug Panel</span>
+                <span className="text-[10px] text-amber-500/60 font-mono">PREVIEW_MODE=ACTIVE</span>
+              </h3>
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs font-bold">
+                  <span className="text-amber-500/80 font-mono">
+                    SELECT SCENARIOS ({selectedScenarios.length}/5):
+                  </span>
+                  {selectedScenarios.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedScenarios([])}
+                      className="text-[9px] text-red-500 hover:text-red-400 font-bold uppercase underline cursor-pointer font-mono"
+                    >
+                      [Clear playlist]
+                    </button>
+                  )}
+                </div>
+
+                {/* Search bar */}
+                <div className="flex gap-2 items-center">
+                  <span className="text-[10px] text-amber-600 font-bold font-mono select-none">
+                    FILTER&gt;
+                  </span>
+                  <input
+                    type="text"
+                    placeholder="Search scenarios by title or archetype..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 bg-black border border-amber-900/60 text-amber-400 placeholder:text-amber-900/30 text-xs py-1.5 px-3 rounded focus:outline-none focus:border-amber-600 font-bold"
+                  />
+                </div>
+
+                {/* Scrollable List */}
+                <div className="h-36 overflow-y-auto border border-amber-900/40 rounded bg-black/45 p-2 space-y-1 terminal-scroll text-xs">
+                  {filteredScenarios.map((s) => {
+                    const selectIndex = selectedScenarios.indexOf(s.id);
+                    const isSelected = selectIndex !== -1;
+
+                    return (
+                      <div
+                        key={s.id}
+                        onClick={() => {
+                          if (isSelected) {
+                            setSelectedScenarios(selectedScenarios.filter((id) => id !== s.id));
+                          } else {
+                            if (selectedScenarios.length >= 5) {
+                              alert('Shift playlist is capped at 5 scenarios.');
+                              return;
+                            }
+                            setSelectedScenarios([...selectedScenarios, s.id]);
+                          }
+                        }}
+                        className={`flex items-center justify-between p-1.5 rounded border border-transparent cursor-pointer transition-colors ${
+                          isSelected
+                            ? 'bg-amber-950/20 border-amber-800/40 text-amber-400 font-bold shadow-[0_0_8px_rgba(245,158,11,0.05)]'
+                            : 'hover:bg-amber-950/10 text-amber-500/60'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2 truncate pr-2">
+                          <span className="text-[9px] text-amber-600/80 font-mono">[{s.id}]</span>
+                          <span className="truncate">{s.title}</span>
+                          <span className="text-[9px] text-amber-600/50 italic font-mono truncate">
+                            ({s.archetype})
+                          </span>
+                        </div>
+                        <div className="shrink-0 flex items-center font-mono">
+                          {isSelected ? (
+                            <span className="bg-amber-950/45 border border-amber-600 text-amber-400 text-[9px] px-1.5 py-0.5 rounded font-bold animate-pulse">
+                              PLAY #{selectIndex + 1}
+                            </span>
+                          ) : (
+                            <span className="text-amber-900/40 text-[9px]">[+]</span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  {filteredScenarios.length === 0 && (
+                    <div className="text-center text-amber-900/40 py-8 italic font-mono">
+                      No scenarios match your query.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col items-center gap-2">
             <label
               htmlFor="callsign"

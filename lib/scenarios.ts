@@ -67,3 +67,34 @@ export function selectSessionScenarios(count: number = 5): HydratedCallSession[]
   // Hydrate each selected scenario for the session
   return selectedScenarios.map((s) => hydrateScenario(s));
 }
+
+/**
+ * Selects session scenarios starting with a list of user-selected IDs,
+ * and fills the remaining slots with randomized scenarios up to the target count.
+ */
+export function selectSessionScenariosWithSelection(
+  selectedIds: string[],
+  count: number = 5
+): HydratedCallSession[] {
+  const allScenarios = loadAllScenarios();
+  if (allScenarios.length === 0) {
+    return [];
+  }
+
+  const selectedScenarios: Scenario[] = [];
+  selectedIds.slice(0, count).forEach((id) => {
+    const found = allScenarios.find((s) => s.id === id);
+    if (found) {
+      selectedScenarios.push(found);
+    }
+  });
+
+  if (selectedScenarios.length < count) {
+    const selectedSet = new Set(selectedScenarios.map((s) => s.id));
+    const remaining = allScenarios.filter((s) => !selectedSet.has(s.id));
+    const shuffledRemaining = [...remaining].sort(() => Math.random() - 0.5);
+    selectedScenarios.push(...shuffledRemaining.slice(0, count - selectedScenarios.length));
+  }
+
+  return selectedScenarios.map((s) => hydrateScenario(s));
+}

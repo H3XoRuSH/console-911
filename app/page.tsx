@@ -58,6 +58,13 @@ export default function Console911Game() {
   const [crtEnabled, setCrtEnabled] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
+  // Preview / Debug States
+  const [previewMode, setPreviewMode] = useState(false);
+  const [availableScenarios, setAvailableScenarios] = useState<
+    Array<{ id: string; title: string; archetype: string }>
+  >([]);
+  const [selectedScenarios, setSelectedScenarios] = useState<string[]>([]);
+
   const fetchLeaderboard = async () => {
     try {
       const res = await fetch('/api/leaderboard');
@@ -88,6 +95,27 @@ export default function Console911Game() {
     }
 
     fetchLeaderboard();
+
+    // Check preview mode configurations
+    const checkPreviewMode = async () => {
+      try {
+        const res = await fetch('/api/session');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.previewMode) {
+            setPreviewMode(true);
+            const listRes = await fetch('/api/session?list=all');
+            if (listRes.ok) {
+              const listData = await listRes.json();
+              setAvailableScenarios(listData.scenarios || []);
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Failed to check preview mode:', e);
+      }
+    };
+    checkPreviewMode();
   }, []);
 
   // Animate soundwave indicator when playing
@@ -138,7 +166,11 @@ export default function Console911Game() {
     setScoreSubmitted(false);
 
     try {
-      const res = await fetch('/api/session');
+      let url = '/api/session';
+      if (previewMode && selectedScenarios.length > 0) {
+        url += `?scenarios=${encodeURIComponent(selectedScenarios.join(','))}`;
+      }
+      const res = await fetch(url);
       if (!res.ok) {
         throw new Error('Failed to initialize session');
       }
@@ -495,6 +527,10 @@ export default function Console911Game() {
             dispatcherName={dispatcherName}
             setDispatcherName={setDispatcherName}
             onStart={startSession}
+            previewMode={previewMode}
+            availableScenarios={availableScenarios}
+            selectedScenarios={selectedScenarios}
+            setSelectedScenarios={setSelectedScenarios}
           />
         )}
 
@@ -535,6 +571,7 @@ export default function Console911Game() {
             soundwaveBars={soundwaveBars}
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
+            previewMode={previewMode}
           />
         )}
 
