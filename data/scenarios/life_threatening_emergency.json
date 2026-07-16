@@ -1713,42 +1713,27 @@
       "I'm scared, the gas smell is overwhelming. It's coming from {apartment_number} at {address_location}. I don't know if anyone is inside."
     ],
     "slots": {
-      "address_location": {
-        "type": "string",
-        "options": [
-          "123 Maple Street",
-          "456 Oak Avenue",
-          "789 Pine Road",
-          "321 Elm Street",
-          "654 Birch Lane"
-        ]
-      },
-      "apartment_number": {
-        "type": "string",
-        "options": ["Apt 2B", "Apt 3A", "Apt 1C", "Apt 4D", "Apt 5E"]
-      },
-      "caller_name": {
-        "type": "string",
-        "options": ["Mr. Johnson", "Ms. Smith", "Officer Dave", "Mrs. Chen", "Alex"]
-      },
-      "ambient_audio": {
-        "type": "string",
-        "options": [
-          "a faint hissing sound",
-          "alarms blaring in the background",
-          "people shouting in the hallway",
-          "silence"
-        ]
-      },
-      "specific_details": {
-        "type": "string",
-        "options": [
-          "I think the stove was left on",
-          "there's a broken pipe",
-          "someone might be sleeping inside",
-          "I saw a gas company truck here yesterday"
-        ]
-      }
+      "address_location": [
+        "123 Maple Street",
+        "456 Oak Avenue",
+        "789 Pine Road",
+        "321 Elm Street",
+        "654 Birch Lane"
+      ],
+      "apartment_number": ["Apt 2B", "Apt 3A", "Apt 1C", "Apt 4D", "Apt 5E"],
+      "caller_name": ["Mr. Johnson", "Ms. Smith", "Officer Dave", "Mrs. Chen", "Alex"],
+      "ambient_audio": [
+        "a faint hissing sound",
+        "alarms blaring in the background",
+        "people shouting in the hallway",
+        "silence"
+      ],
+      "specific_details": [
+        "I think the stove was left on",
+        "there's a broken pipe",
+        "someone might be sleeping inside",
+        "I saw a gas company truck here yesterday"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -1946,49 +1931,34 @@
       "Help! Bitten by a snake. Location: {landmark}, {trail_name}. My friend {caller_name} is with me but he's panicking. I need medical aid now."
     ],
     "slots": {
-      "trail_name": {
-        "type": "string",
-        "options": [
-          "Bear Peak Trail",
-          "River Bend Path",
-          "Eagle Ridge Loop",
-          "Coyote Canyon Trail",
-          "Sunset Summit"
-        ]
-      },
-      "landmark": {
-        "type": "string",
-        "options": [
-          "the old oak tree",
-          "Blue Lake",
-          "the ranger station ruins",
-          "the waterfall",
-          "the rocky outcrop"
-        ]
-      },
-      "caller_name": {
-        "type": "string",
-        "options": ["Alex", "Jamie", "Taylor", "Jordan", "Morgan"]
-      },
-      "ambient_audio": {
-        "type": "string",
-        "options": [
-          "birds chirping",
-          "wind howling",
-          "river rushing",
-          "heavy breathing",
-          "phone static"
-        ]
-      },
-      "specific_details": {
-        "type": "string",
-        "options": [
-          "I have a first aid kit but no antivenom",
-          "the snake was about 4 feet long",
-          "I see a trail marker nearby",
-          "I'm allergic to some medications"
-        ]
-      }
+      "trail_name": [
+        "Bear Peak Trail",
+        "River Bend Path",
+        "Eagle Ridge Loop",
+        "Coyote Canyon Trail",
+        "Sunset Summit"
+      ],
+      "landmark": [
+        "the old oak tree",
+        "Blue Lake",
+        "the ranger station ruins",
+        "the waterfall",
+        "the rocky outcrop"
+      ],
+      "caller_name": ["Alex", "Jamie", "Taylor", "Jordan", "Morgan"],
+      "ambient_audio": [
+        "birds chirping",
+        "wind howling",
+        "river rushing",
+        "heavy breathing",
+        "phone static"
+      ],
+      "specific_details": [
+        "I have a first aid kit but no antivenom",
+        "the snake was about 4 feet long",
+        "I see a trail marker nearby",
+        "I'm allergic to some medications"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2193,37 +2163,34 @@
       "Emergency! Unconscious male at {address_location}. He's in the snow, not breathing normally. {caller_name} reporting."
     ],
     "slots": {
-      "address_location": {
-        "type": "string",
-        "options": ["123 Main St", "456 Park Ave", "789 Broadway", "321 Elm St", "654 Pine St"]
-      },
-      "landmark": {
-        "type": "string",
-        "options": [
-          "the bus stop",
-          "the park bench",
-          "the alley behind the store",
-          "the church entrance",
-          "the bridge underpass"
-        ]
-      },
-      "caller_name": {
-        "type": "string",
-        "options": ["Sarah", "Mike", "Jane", "Officer Tom", "Emily"]
-      },
-      "ambient_audio": {
-        "type": "string",
-        "options": ["wind howling", "distant traffic", "a dog barking", "silence", "snow crunching"]
-      },
-      "specific_details": {
-        "type": "string",
-        "options": [
-          "He's wearing only a thin jacket",
-          "I saw him stumble and fall",
-          "He smells like alcohol",
-          "There's a homeless camp nearby"
-        ]
-      }
+      "address_location": [
+        "123 Main St",
+        "456 Park Ave",
+        "789 Broadway",
+        "321 Elm St",
+        "654 Pine St"
+      ],
+      "landmark": [
+        "the bus stop",
+        "the park bench",
+        "the alley behind the store",
+        "the church entrance",
+        "the bridge underpass"
+      ],
+      "caller_name": ["Sarah", "Mike", "Jane", "Officer Tom", "Emily"],
+      "ambient_audio": [
+        "wind howling",
+        "distant traffic",
+        "a dog barking",
+        "silence",
+        "snow crunching"
+      ],
+      "specific_details": [
+        "He's wearing only a thin jacket",
+        "I saw him stumble and fall",
+        "He smells like alcohol",
+        "There's a homeless camp nearby"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2437,43 +2404,28 @@
       "I need help! My friend {victim_name} got trapped in a freezer in the basement of {address_location}. I can't get the latch open. It's getting cold!"
     ],
     "slots": {
-      "address_location": {
-        "type": "string",
-        "options": [
-          "123 Oak Street",
-          "456 Maple Avenue",
-          "789 Elm Drive",
-          "321 Birch Lane",
-          "654 Cedar Court"
-        ]
-      },
-      "caller_name": {
-        "type": "string",
-        "options": ["Timmy", "Sophie", "Alex", "Mia", "Jake"]
-      },
-      "victim_name": {
-        "type": "string",
-        "options": ["Benny", "Lily", "Charlie", "Emma", "Lucas"]
-      },
-      "ambient_audio": {
-        "type": "string",
-        "options": [
-          "muffled crying from inside",
-          "a humming motor",
-          "a dog barking",
-          "silence",
-          "a clock ticking"
-        ]
-      },
-      "specific_details": {
-        "type": "string",
-        "options": [
-          "The freezer is unplugged",
-          "I tried using a screwdriver",
-          "There's a key on top of the fridge",
-          "My parents are not home"
-        ]
-      }
+      "address_location": [
+        "123 Oak Street",
+        "456 Maple Avenue",
+        "789 Elm Drive",
+        "321 Birch Lane",
+        "654 Cedar Court"
+      ],
+      "caller_name": ["Timmy", "Sophie", "Alex", "Mia", "Jake"],
+      "victim_name": ["Benny", "Lily", "Charlie", "Emma", "Lucas"],
+      "ambient_audio": [
+        "muffled crying from inside",
+        "a humming motor",
+        "a dog barking",
+        "silence",
+        "a clock ticking"
+      ],
+      "specific_details": [
+        "The freezer is unplugged",
+        "I tried using a screwdriver",
+        "There's a key on top of the fridge",
+        "My parents are not home"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -2688,43 +2640,34 @@
       "I just walked into the restroom at {location_name} and found someone on the floor. Needle nearby. They're not responding. {ambient_audio}. Address is {address_location}."
     ],
     "slots": {
-      "address_location": {
-        "type": "string",
-        "options": ["123 Main St", "456 Elm St", "789 Park Ave", "321 Broadway", "654 Market St"]
-      },
-      "location_name": {
-        "type": "string",
-        "options": [
-          "the gas station",
-          "the public library",
-          "the train station",
-          "the fast food restaurant",
-          "the park restroom"
-        ]
-      },
-      "caller_name": {
-        "type": "string",
-        "options": ["Janitor Mike", "Maria", "Security Guard Tom", "Amy", "Officer Lee"]
-      },
-      "ambient_audio": {
-        "type": "string",
-        "options": [
-          "a toilet running",
-          "footsteps nearby",
-          "a radio playing",
-          "silence",
-          "someone knocking on the door"
-        ]
-      },
-      "specific_details": {
-        "type": "string",
-        "options": [
-          "There's naloxone in the first aid kit",
-          "I think I saw them a few minutes ago",
-          "They're wearing a medical ID bracelet",
-          "The needle is still full"
-        ]
-      }
+      "address_location": [
+        "123 Main St",
+        "456 Elm St",
+        "789 Park Ave",
+        "321 Broadway",
+        "654 Market St"
+      ],
+      "location_name": [
+        "the gas station",
+        "the public library",
+        "the train station",
+        "the fast food restaurant",
+        "the park restroom"
+      ],
+      "caller_name": ["Janitor Mike", "Maria", "Security Guard Tom", "Amy", "Officer Lee"],
+      "ambient_audio": [
+        "a toilet running",
+        "footsteps nearby",
+        "a radio playing",
+        "silence",
+        "someone knocking on the door"
+      ],
+      "specific_details": [
+        "There's naloxone in the first aid kit",
+        "I think I saw them a few minutes ago",
+        "They're wearing a medical ID bracelet",
+        "The needle is still full"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {

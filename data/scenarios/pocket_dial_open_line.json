@@ -17,44 +17,35 @@
       "[Irregular breathing, occasional cough]"
     ],
     "slots": {
-      "caller_name": {
-        "description": "Name of the person who may be in distress",
-        "options": ["Unknown", "John Doe", "Jane Smith", "Unidentified male", "Unidentified female"]
-      },
-      "address_location": {
-        "description": "Location of the phone based on ping or trace",
-        "options": [
-          "1234 Maple Street, Apt 3B",
-          "5678 Oak Avenue",
-          "9101 Pine Road, House 2",
-          "2345 Cedar Lane",
-          "6789 Birch Drive"
-        ]
-      },
-      "ambient_audio": {
-        "description": "Background sounds heard during the call",
-        "options": [
-          "Labored breathing",
-          "Gasping sounds",
-          "Snores with long pauses",
-          "Faint moaning",
-          "Silence after choking noise"
-        ]
-      },
-      "specific_details": {
-        "description": "Clinical observations from audio",
-        "options": [
-          "Possible stroke symptoms",
-          "Cardiac arrest signs",
-          "Overdose scenario",
-          "Diabetic emergency",
-          "Seizure aftermath"
-        ]
-      },
-      "phone_type": {
-        "description": "Type of phone used",
-        "options": ["iPhone", "Android", "Landline", "Cell phone - no caller ID", "Smartwatch"]
-      }
+      "caller_name": [
+        "Unknown",
+        "John Doe",
+        "Jane Smith",
+        "Unidentified male",
+        "Unidentified female"
+      ],
+      "address_location": [
+        "1234 Maple Street, Apt 3B",
+        "5678 Oak Avenue",
+        "9101 Pine Road, House 2",
+        "2345 Cedar Lane",
+        "6789 Birch Drive"
+      ],
+      "ambient_audio": [
+        "Labored breathing",
+        "Gasping sounds",
+        "Snores with long pauses",
+        "Faint moaning",
+        "Silence after choking noise"
+      ],
+      "specific_details": [
+        "Possible stroke symptoms",
+        "Cardiac arrest signs",
+        "Overdose scenario",
+        "Diabetic emergency",
+        "Seizure aftermath"
+      ],
+      "phone_type": ["iPhone", "Android", "Landline", "Cell phone - no caller ID", "Smartwatch"]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -203,44 +194,29 @@
       "You think you can just walk out? *door slam*"
     ],
     "slots": {
-      "caller_name": {
-        "description": "Name of the potential victim",
-        "options": ["Unknown female", "Maria", "Sarah", "Unknown male", "Alex"]
-      },
-      "address_location": {
-        "description": "Location based on phone data",
-        "options": [
-          "45 Park Avenue, Suite 2B",
-          "123 Elm Street",
-          "789 Pine Court, House 5",
-          "456 Oak Boulevard",
-          "321 Lake Drive"
-        ]
-      },
-      "ambient_audio": {
-        "description": "Background sounds during the call",
-        "options": [
-          "Loud arguing",
-          "Crying and pleading",
-          "Sounds of impact",
-          "Glass breaking",
-          "Furniture being knocked over"
-        ]
-      },
-      "specific_details": {
-        "description": "Key words or phrases heard",
-        "options": [
-          "Threats of harm",
-          "Don't hit me again",
-          "I have a gun",
-          "Call the police",
-          "I'm sorry, I didn't mean it"
-        ]
-      },
-      "aggressor_name": {
-        "description": "Name of the possible abuser",
-        "options": ["John", "Mike", "Unknown male", "David", "Tom"]
-      }
+      "caller_name": ["Unknown female", "Maria", "Sarah", "Unknown male", "Alex"],
+      "address_location": [
+        "45 Park Avenue, Suite 2B",
+        "123 Elm Street",
+        "789 Pine Court, House 5",
+        "456 Oak Boulevard",
+        "321 Lake Drive"
+      ],
+      "ambient_audio": [
+        "Loud arguing",
+        "Crying and pleading",
+        "Sounds of impact",
+        "Glass breaking",
+        "Furniture being knocked over"
+      ],
+      "specific_details": [
+        "Threats of harm",
+        "Don't hit me again",
+        "I have a gun",
+        "Call the police",
+        "I'm sorry, I didn't mean it"
+      ],
+      "aggressor_name": ["John", "Mike", "Unknown male", "David", "Tom"]
     },
     "intents": {
       "ASK_LOCATION": {
