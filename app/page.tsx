@@ -132,7 +132,7 @@ export default function Console911Game() {
     setTranscript([
       {
         sender: 'system',
-        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} (ARCHETYPE: ${call.archetype.toUpperCase()}) ---`,
+        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} ---`,
         timestamp: getTimestamp()
       },
       {
