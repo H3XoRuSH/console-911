@@ -7,7 +7,6 @@ interface SummaryScreenProps {
   completedTranscripts: TranscriptMessage[][];
   totalScore: number;
   dispatcherName: string;
-  setDispatcherName: (val: string) => void;
   leaderboard: LeaderboardEntry[];
   scoreSubmitted: boolean;
   submittingScore: boolean;
@@ -20,7 +19,6 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   completedTranscripts,
   totalScore,
   dispatcherName,
-  setDispatcherName,
   leaderboard,
   scoreSubmitted,
   submittingScore,
@@ -143,10 +141,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               <div className="flex gap-2 w-full max-w-md">
                 <input
                   type="text"
-                  maxLength={15}
+                  readOnly
                   value={dispatcherName}
-                  onChange={(e) => setDispatcherName(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
-                  className="bg-black border border-emerald-900 text-center text-emerald-400 text-xs py-2 px-3 rounded flex-1 focus:outline-none focus:border-emerald-500 uppercase tracking-widest font-bold"
+                  className="bg-zinc-950/40 border border-emerald-950 text-center text-emerald-600/70 text-xs py-2 px-3 rounded flex-1 focus:outline-none uppercase tracking-widest font-bold select-none cursor-not-allowed"
                 />
                 <button
                   type="submit"
