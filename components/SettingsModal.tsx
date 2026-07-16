@@ -60,12 +60,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <div className="grid grid-cols-2 gap-2">
             {(
               [
-                { id: 'green', label: 'GREEN CRT', color: 'bg-emerald-500' },
-                { id: 'amber', label: 'AMBER CRT', color: 'bg-amber-500' },
-                { id: 'cyan', label: 'CYAN CRT', color: 'bg-cyan-500' },
-                { id: 'silver', label: 'SILVER MONO', color: 'bg-zinc-300' },
-                { id: 'paper', label: 'VINTAGE PAPER (LT)', color: 'bg-stone-300' },
-                { id: 'lab', label: 'RETRO LAB (LT)', color: 'bg-teal-600' }
+                { id: 'green', label: 'GREEN CRT', hex: '#10b981' },
+                { id: 'amber', label: 'AMBER CRT', hex: '#f59e0b' },
+                { id: 'cyan', label: 'CYAN CRT', hex: '#06b6d4' },
+                { id: 'silver', label: 'SILVER MONO', hex: '#d4d4d8' },
+                { id: 'paper', label: 'VINTAGE PAPER (LT)', hex: '#d6d3d1' },
+                { id: 'lab', label: 'RETRO LAB (LT)', hex: '#0d9488' }
               ] as const
             ).map((t) => (
               <button
@@ -77,7 +77,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     : 'border-emerald-950/60 text-emerald-500/60 bg-transparent'
                 }`}
               >
-                <span className={`w-2.5 h-2.5 rounded-full ${t.color}`} />
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: t.hex }} />
                 {t.label}
               </button>
             ))}
