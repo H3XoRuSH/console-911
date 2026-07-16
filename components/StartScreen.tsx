@@ -1,4 +1,5 @@
 import React from 'react';
+import TitleLogo from '@/public/img/title.svg';
 
 interface StartScreenProps {
   dispatcherName: string;
@@ -13,14 +14,9 @@ export const StartScreen: React.FC<StartScreenProps> = ({
 }) => {
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto terminal-scroll">
-      <pre className="text-[7px] leading-[8px] md:text-[10px] md:leading-[11px] text-emerald-500 font-bold crt-glow-green mb-6 text-center select-none">
-        {`   ______   ______   .__   __.      _______.  ______    __       _______       ________   .__   __.  __. 
-  /      | /  __  \\  |  \\ |  |     /       | /  __  \\  |  |     |   ____|     /  __  \\  |  \\ |  | |  | 
- |  ,----'|  |  |  | |   \\|  |    |   (----\`|  |  |  | |  |     |  |__       |  |  |  | |   \\|  | |  | 
- |  |     |  |  |  | |  . \`  |     \\   \\    |  |  |  | |  |     |   __|      |  |  |  | |  . \`  | |  | 
- |  \`----.|  \`--'  | |  |\\   | .----)   |   |  \`--'  | |  \`----.|  |____     |  \`--'  | |  |\\   | |  | 
-  \\______| \\______/  |__| \\__| |_______/     \\______/  |________||_______|     \\______/  |__| \__| |__|`}
-      </pre>
+      <div className="text-emerald-500 crt-glow-green mb-6 flex justify-center select-none">
+        <TitleLogo aria-label="CONSOLE911" role="img" />
+      </div>
 
       <div className="w-full max-w-xl border border-emerald-900 bg-zinc-950/60 p-6 rounded shadow-xl text-center space-y-4">
         <h2 className="text-sm font-bold tracking-widest text-emerald-400 uppercase border-b border-emerald-950 pb-2">
