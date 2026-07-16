@@ -162,68 +162,13 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
   > = {};
   if (scenario.dispatch_outcomes) {
     for (const outcomeKey in scenario.dispatch_outcomes) {
-      let outcome =
+      const outcome =
         scenario.dispatch_outcomes[outcomeKey as keyof typeof scenario.dispatch_outcomes];
       if (outcome) {
-        let obj = outcome as unknown as Record<string, unknown>;
-        // Handle array of outcomes (e.g. scenario_038 where outcomes is a list)
-        if (Array.isArray(obj.outcomes) && obj.outcomes.length > 0) {
-          const firstOutcome = obj.outcomes[0] as unknown as Record<string, unknown>;
-          outcome = firstOutcome as unknown as typeof outcome;
-          obj = firstOutcome;
-        }
-
-        // Handle nested structure (e.g. { SUCCESS: {...}, MINOR_ERROR: {...} })
-        if (!outcome.status && !obj.correctness) {
-          const subKey = obj.SUCCESS
-            ? 'SUCCESS'
-            : obj.MINOR_ERROR
-              ? 'MINOR_ERROR'
-              : 'CRITICAL_FAILURE';
-          const subOutcome = obj[subKey] as Record<string, unknown> | undefined;
-          if (subOutcome) {
-            outcome = {
-              status: subKey as 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE',
-              score_delta: (subOutcome.score_delta as number) || 0,
-              message:
-                (subOutcome.message as string) ||
-                (subOutcome.feedback as string) ||
-                (subOutcome.description as string) ||
-                (subOutcome.response as string) ||
-                ''
-            };
-            obj = outcome as unknown as Record<string, unknown>;
-          }
-        }
-
-        let status = (outcome.status || obj.correctness) as
-          'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE' | undefined;
-
-        // Support 'correct' boolean field mapping if present
-        if (!status && obj.correct !== undefined) {
-          if (obj.correct === true || obj.correct === 'true') {
-            status = 'SUCCESS';
-          } else {
-            const delta = (outcome.score_delta as number) || 0;
-            status = delta <= -150 ? 'CRITICAL_FAILURE' : 'MINOR_ERROR';
-          }
-        }
-
-        if (!status) {
-          status = 'CRITICAL_FAILURE';
-        }
-
         dispatchOutcomes[outcomeKey] = {
-          status,
+          status: outcome.status || 'CRITICAL_FAILURE',
           score_delta: outcome.score_delta || 0,
-          // Support multiple message fallback keys (message, feedback, description, response)
-          message: hydrateString(
-            outcome.message ||
-              (obj.feedback as string) ||
-              (obj.description as string) ||
-              (obj.response as string) ||
-              ''
-          )
+          message: hydrateString(outcome.message || '')
         };
       }
     }

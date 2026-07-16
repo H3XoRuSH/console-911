@@ -110,27 +110,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived but animal control was needed. A waste of resources."
+        "message": "Police arrived but animal control was needed. A waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters are not trained for bears. They called animal control."
+        "message": "Firefighters are not trained for bears. They called animal control."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "No injuries reported. Medical dispatch was completely unnecessary. Resources wasted."
+        "message": "No injuries reported. Medical dispatch was completely unnecessary. Resources wasted."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control arrived and safely tranquilized and relocated the bear."
+        "message": "Animal control arrived and safely tranquilized and relocated the bear."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "You dismissed a legitimate bear encounter. The bear injured a person before animal control was called again."
+        "message": "You dismissed a legitimate bear encounter. The bear injured a person before animal control was called again."
       }
     },
     "id": "scenario_013",
@@ -244,27 +244,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police managed crowd control but couldn't handle the alligator. Animal control was needed."
+        "message": "Police managed crowd control but couldn't handle the alligator. Animal control was needed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters are not equipped for alligators. They called animal control."
+        "message": "Firefighters are not equipped for alligators. They called animal control."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "No injuries, but paramedics stood by. Overkill."
+        "message": "No injuries, but paramedics stood by. Overkill."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Animal control arrived and captured the alligator safely. Area cleared."
+        "message": "Animal control arrived and captured the alligator safely. Area cleared."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "You dismissed the call. The alligator attacked a dog and caused a car accident."
+        "message": "You dismissed the call. The alligator attacked a dog and caused a car accident."
       }
     },
     "id": "scenario_014",
@@ -431,27 +431,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but were not equipped to handle a bear. Animal control was called as backup. Delay caused by incorrect dispatch."
+        "message": "Police arrived but were not equipped to handle a bear. Animal control was called as backup. Delay caused by incorrect dispatch."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department arrived with sirens, which agitated the bear further. It broke into the house and injured a resident before being subdued."
+        "message": "Fire department arrived with sirens, which agitated the bear further. It broke into the house and injured a resident before being subdued."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "No medical emergency initially. Medical units arrived but were unable to handle the bear. Bear attacked the paramedics, causing injuries."
+        "message": "No medical emergency initially. Medical units arrived but were unable to handle the bear. Bear attacked the paramedics, causing injuries."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control arrived promptly, assessed the situation, and safely tranquilized the bear. No injuries and bear relocated to a forest."
+        "message": "Animal control arrived promptly, assessed the situation, and safely tranquilized the bear. No injuries and bear relocated to a forest."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as non-emergency. Bear escaped garage and roamed neighborhood, causing property damage and injuring a jogger before being shot by police."
+        "message": "Call dismissed as non-emergency. Bear escaped garage and roamed neighborhood, causing property damage and injuring a jogger before being shot by police."
       }
     },
     "id": "scenario_131",
@@ -623,27 +623,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived and secured the area, but were not animal experts. They had to wait for animal control, causing some delay and panic."
+        "message": "Police arrived and secured the area, but were not animal experts. They had to wait for animal control, causing some delay and panic."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters used water hoses to spray the alligator, which agitated it. It attacked a firefighter's boot but no injuries. Gator was eventually captured by animal control."
+        "message": "Firefighters used water hoses to spray the alligator, which agitated it. It attacked a firefighter's boot but no injuries. Gator was eventually captured by animal control."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Medical units arrived but were unprepared for the alligator. The alligator bit a paramedic's leg, requiring hospitalization. Incident escalated."
+        "message": "Medical units arrived but were unprepared for the alligator. The alligator bit a paramedic's leg, requiring hospitalization. Incident escalated."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Animal control arrived quickly with proper equipment. Tranquilized the alligator and removed it safely. No injuries. Resort guests praised response."
+        "message": "Animal control arrived quickly with proper equipment. Tranquilized the alligator and removed it safely. No injuries. Resort guests praised response."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as likely hoax. Alligator attacked a child playing by the pool, causing severe injuries. Resort sued for negligence."
+        "message": "Call dismissed as likely hoax. Alligator attacked a child playing by the pool, causing severe injuries. Resort sued for negligence."
       }
     },
     "id": "scenario_132",
@@ -815,27 +815,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Police arrived, set up roadblocks, and directed traffic while animal control handled the cows. Efficient coordination prevented further accidents."
+        "message": "Police arrived, set up roadblocks, and directed traffic while animal control handled the cows. Efficient coordination prevented further accidents."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire trucks arrived with sirens, startling the cows and causing them to stampede onto the other side of the highway, causing more crashes."
+        "message": "Fire trucks arrived with sirens, startling the cows and causing them to stampede onto the other side of the highway, causing more crashes."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical units treated minor injuries but could not manage the cows. Police and animal control had to be called anyway."
+        "message": "Medical units treated minor injuries but could not manage the cows. Police and animal control had to be called anyway."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control arrived with trailers and herded the cows off the highway efficiently. Traffic resumed within an hour. No major injuries."
+        "message": "Animal control arrived with trailers and herded the cows off the highway efficiently. Traffic resumed within an hour. No major injuries."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as a prank. Cows continued to roam the highway, causing a multi-car pileup with fatalities. The truck driver died from injuries."
+        "message": "Call dismissed as a prank. Cows continued to roam the highway, causing a multi-car pileup with fatalities. The truck driver died from injuries."
       }
     },
     "id": "scenario_133",
@@ -1007,27 +1007,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived and secured the area but were not trained in snake handling. Animal control had to be called, causing a 20-minute delay."
+        "message": "Police arrived and secured the area but were not trained in snake handling. Animal control had to be called, causing a 20-minute delay."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters attempted to remove snake but it slithered into a vent, requiring building maintenance and pest control to remove it later."
+        "message": "Firefighters attempted to remove snake but it slithered into a vent, requiring building maintenance and pest control to remove it later."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "No bites reported. Medical units unnecessarily tied up resources. When a real medical emergency came, response was delayed."
+        "message": "No bites reported. Medical units unnecessarily tied up resources. When a real medical emergency came, response was delayed."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Animal expert arrived, identified the snake as a non-venomous garter snake, and safely removed it. Children watched with fascination. Great outcome."
+        "message": "Animal expert arrived, identified the snake as a non-venomous garter snake, and safely removed it. Children watched with fascination. Great outcome."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as prank. Snake turned out to be a venomous rattlesnake. It bit a child before being killed by a teacher. Child survived but permanent damage."
+        "message": "Call dismissed as prank. Snake turned out to be a venomous rattlesnake. It bit a child before being killed by a teacher. Child survived but permanent damage."
       }
     },
     "id": "scenario_134",
@@ -1194,27 +1194,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived and helped corral visitors, but the monkey was too quick. Animal control had to catch it later. Some minor injuries from falls."
+        "message": "Police arrived and helped corral visitors, but the monkey was too quick. Animal control had to catch it later. Some minor injuries from falls."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters used a ladder to try to reach the monkey in a tree, but it kept moving. They accidentally knocked over a food cart, causing mess."
+        "message": "Firefighters used a ladder to try to reach the monkey in a tree, but it kept moving. They accidentally knocked over a food cart, causing mess."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Medical units arrived but were not needed. They blocked the ambulance bay, delaying an actual emergency call. Monkey still loose."
+        "message": "Medical units arrived but were not needed. They blocked the ambulance bay, delaying an actual emergency call. Monkey still loose."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control zoo staff quickly responded with treats and a net. The monkey was lured back into its enclosure within minutes. Visitors amused."
+        "message": "Animal control zoo staff quickly responded with treats and a net. The monkey was lured back into its enclosure within minutes. Visitors amused."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as not serious. Monkey entered the control room and caused a power outage. Zoo had to evacuate. Several visitors injured in the dark."
+        "message": "Call dismissed as not serious. Monkey entered the control room and caused a power outage. Zoo had to evacuate. Several visitors injured in the dark."
       }
     },
     "id": "scenario_135",
@@ -2218,27 +2218,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived and directed traffic but had to wait for animal control to handle the bird."
+        "message": "Police arrived and directed traffic but had to wait for animal control to handle the bird."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Fire department arrived but lacked equipment for ostrich. They contained the area until animal control came."
+        "message": "Fire department arrived but lacked equipment for ostrich. They contained the area until animal control came."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical unit arrived but no injuries reported. They assisted with traffic control."
+        "message": "Medical unit arrived but no injuries reported. They assisted with traffic control."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control dispatched. They successfully tranquilized the ostrich and removed it from traffic."
+        "message": "Animal control dispatched. They successfully tranquilized the ostrich and removed it from traffic."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The ostrich caused multiple car accidents and people were injured."
+        "message": "You dismissed the call. The ostrich caused multiple car accidents and people were injured."
       }
     },
     "id": "scenario_141",
@@ -2353,27 +2353,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived and secured the perimeter. Zoo staff later recaptured the zebra."
+        "message": "Police arrived and secured the perimeter. Zoo staff later recaptured the zebra."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Fire department helped herd the zebra away from hazards until animal control arrived."
+        "message": "Fire department helped herd the zebra away from hazards until animal control arrived."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical team checked a few golfers for minor scrapes. No serious injuries."
+        "message": "Medical team checked a few golfers for minor scrapes. No serious injuries."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control and zoo staff tranquilized the zebra and returned it to the zoo."
+        "message": "Animal control and zoo staff tranquilized the zebra and returned it to the zoo."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The zebra caused extensive damage to the golf course and injured a golfer."
+        "message": "You dismissed the call. The zebra caused extensive damage to the golf course and injured a golfer."
       }
     },
     "id": "scenario_142",
@@ -2487,27 +2487,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived and warned joggers. They cornered the emu until animal control came."
+        "message": "Police arrived and warned joggers. They cornered the emu until animal control came."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Fire department used nets to try to catch the emu but failed. Animal control had to tranquilize it."
+        "message": "Fire department used nets to try to catch the emu but failed. Animal control had to tranquilize it."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical team treated a jogger with minor scratches. Emu was later caught by animal control."
+        "message": "Medical team treated a jogger with minor scratches. Emu was later caught by animal control."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control captured the emu with a net and tranquilizer. No injuries."
+        "message": "Animal control captured the emu with a net and tranquilizer. No injuries."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The emu attacked several joggers, causing serious injuries."
+        "message": "You dismissed the call. The emu attacked several joggers, causing serious injuries."
       }
     },
     "id": "scenario_143",
@@ -2621,27 +2621,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 100,
-        "feedback": "Police arrived and cleared the area. They guided the moose out of the city with the help of animal control."
+        "message": "Police arrived and cleared the area. They guided the moose out of the city with the help of animal control."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department helped direct traffic but could not handle the moose. Animal control was needed."
+        "message": "Fire department helped direct traffic but could not handle the moose. Animal control was needed."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical unit stood by but no injuries. They assisted with crowd control."
+        "message": "Medical unit stood by but no injuries. They assisted with crowd control."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control tranquilized the moose and transported it to a wildlife refuge."
+        "message": "Animal control tranquilized the moose and transported it to a wildlife refuge."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The moose charged at a pedestrian and caused a car crash, resulting in injuries."
+        "message": "You dismissed the call. The moose charged at a pedestrian and caused a car crash, resulting in injuries."
       }
     },
     "id": "scenario_144",
@@ -2764,27 +2764,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 100,
-        "feedback": "Police evacuated the area and kept people away until animal control arrived."
+        "message": "Police evacuated the area and kept people away until animal control arrived."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department tried to snare the crocodile but it escaped into a drain. Animal control later caught it."
+        "message": "Fire department tried to snare the crocodile but it escaped into a drain. Animal control later caught it."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical team was on standby but no injuries occurred."
+        "message": "Medical team was on standby but no injuries occurred."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Animal control captured the crocodile with a pole and transported it to a sanctuary."
+        "message": "Animal control captured the crocodile with a pole and transported it to a sanctuary."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The crocodile attacked a resident trying to wade through the flood, causing severe injury."
+        "message": "You dismissed the call. The crocodile attacked a resident trying to wade through the flood, causing severe injury."
       }
     },
     "id": "scenario_145",
@@ -2892,27 +2892,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "description": "Police arrive but are not equipped for animal control. They secure the perimeter until animal control arrives. Minor delay."
+        "message": "Police arrive but are not equipped for animal control. They secure the perimeter until animal control arrives. Minor delay."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "description": "Firefighters arrive with no animal control training. They manage to scare the bear away, but it could have gone worse."
+        "message": "Firefighters arrive with no animal control training. They manage to scare the bear away, but it could have gone worse."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "description": "Medical team arrives, but no injuries. They stand by unnecessarily."
+        "message": "Medical team arrives, but no injuries. They stand by unnecessarily."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Animal control arrives quickly and safely tranquilizes the bear. No injuries, children safe."
+        "message": "Animal control arrives quickly and safely tranquilizes the bear. No injuries, children safe."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Call dismissed as a prank. The bear attacks a child before police arrive. Severe injuries."
+        "message": "Call dismissed as a prank. The bear attacks a child before police arrive. Severe injuries."
       }
     },
     "id": "scenario_146",
@@ -3029,27 +3029,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Police respond but cannot handle raccoons. They set up perimeter, but problem persists."
+        "message": "Police respond but cannot handle raccoons. They set up perimeter, but problem persists."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Firefighters use hoses to chase raccoons out, causing water damage to the kitchen."
+        "message": "Firefighters use hoses to chase raccoons out, causing water damage to the kitchen."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "description": "Medical team arrives but no injuries. They waste resources."
+        "message": "Medical team arrives but no injuries. They waste resources."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Animal control safely captures and removes the raccoons. Kitchen can be cleaned."
+        "message": "Animal control safely captures and removes the raccoons. Kitchen can be cleaned."
       },
       "DISMISS": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Call dismissed as minor. Raccoons cause extensive damage and health code violation results in shutdown."
+        "message": "Call dismissed as minor. Raccoons cause extensive damage and health code violation results in shutdown."
       }
     },
     "id": "scenario_147",
@@ -3176,27 +3176,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Police block off the area and wait for animal control. Traffic is delayed but no injuries."
+        "message": "Police block off the area and wait for animal control. Traffic is delayed but no injuries."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "description": "Firefighters spray water, agitating the swarm. Several people get stung, causing minor injuries."
+        "message": "Firefighters spray water, agitating the swarm. Several people get stung, causing minor injuries."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "description": "Medics arrive but find no injuries yet. They stand by."
+        "message": "Medics arrive but find no injuries yet. They stand by."
       },
       "ANIMAL_CONTROL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "description": "Beekeeper arrives and safely relocates the swarm. No stings, traffic resumes."
+        "message": "Beekeeper arrives and safely relocates the swarm. No stings, traffic resumes."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "description": "Call dismissed as non-emergency. A driver allergic to bees exits car, gets stung, and goes into anaphylactic shock before help arrives."
+        "message": "Call dismissed as non-emergency. A driver allergic to bees exits car, gets stung, and goes into anaphylactic shock before help arrives."
       }
     },
     "id": "scenario_148",

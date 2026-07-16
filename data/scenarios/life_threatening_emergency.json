@@ -134,27 +134,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrived in time, intruders apprehended. Caller rescued."
+        "message": "Police arrived in time, intruders apprehended. Caller rescued."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responded but this is a police matter. Delayed police response."
+        "message": "Fire department responded but this is a police matter. Delayed police response."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Medical dispatched but no injuries reported. Police should have been sent."
+        "message": "Medical dispatched but no injuries reported. Police should have been sent."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control cannot handle armed intruders. Caller at risk."
+        "message": "Animal control cannot handle armed intruders. Caller at risk."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Caller left helpless. Tragic outcome likely."
+        "message": "Call dismissed. Caller left helpless. Tragic outcome likely."
       }
     },
     "id": "scenario_001",
@@ -300,27 +300,27 @@
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Paramedics arrived quickly, administered epinephrine, patient stabilized."
+        "message": "Paramedics arrived quickly, administered epinephrine, patient stabilized."
       },
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police dispatched but medical is needed. Delayed paramedic response."
+        "message": "Police dispatched but medical is needed. Delayed paramedic response."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Fire department responded but no fire. Slight delay in medical care."
+        "message": "Fire department responded but no fire. Slight delay in medical care."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Animal control dispatched. No help for allergic reaction. Patient critical."
+        "message": "Animal control dispatched. No help for allergic reaction. Patient critical."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Patient died from anaphylaxis. Negligent outcome."
+        "message": "Call dismissed. Patient died from anaphylaxis. Negligent outcome."
       }
     },
     "id": "scenario_002",
@@ -434,27 +434,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but could not provide medical aid. Medical was needed."
+        "message": "Police arrived but could not provide medical aid. Medical was needed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters arrived with oxygen but medical was more appropriate."
+        "message": "Firefighters arrived with oxygen but medical was more appropriate."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Paramedics arrived quickly and administered medication. Patient stabilized."
+        "message": "Paramedics arrived quickly and administered medication. Patient stabilized."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control cannot handle medical emergencies. Patient died."
+        "message": "Animal control cannot handle medical emergencies. Patient died."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Patient died of asthma attack."
+        "message": "Call dismissed. Patient died of asthma attack."
       }
     },
     "archetype": "Life-Threatening Emergency"
@@ -561,27 +561,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but lacked water rescue equipment."
+        "message": "Police arrived but lacked water rescue equipment."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Fire department swift water team rescued the hiker."
+        "message": "Fire department swift water team rescued the hiker."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medics arrived but couldn't reach the hiker without rescue team."
+        "message": "Medics arrived but couldn't reach the hiker without rescue team."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control cannot handle floods. Hiker drowned."
+        "message": "Animal control cannot handle floods. Hiker drowned."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Hiker swept away and died."
+        "message": "Call dismissed. Hiker swept away and died."
       }
     },
     "archetype": "Life-Threatening Emergency"
@@ -688,27 +688,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but could not perform medical procedures effectively."
+        "message": "Police arrived but could not perform medical procedures effectively."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters arrived with some medical training, but ambulance was needed."
+        "message": "Firefighters arrived with some medical training, but ambulance was needed."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Paramedics arrived and cleared the airway. Child safe."
+        "message": "Paramedics arrived and cleared the airway. Child safe."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control has no medical training. Child died."
+        "message": "Animal control has no medical training. Child died."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Child died of choking."
+        "message": "Call dismissed. Child died of choking."
       }
     },
     "archetype": "Life-Threatening Emergency"
@@ -849,27 +849,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but had limited first aid. Medical was needed."
+        "message": "Police arrived but had limited first aid. Medical was needed."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Firefighters arrived and controlled bleeding until medics came."
+        "message": "Firefighters arrived and controlled bleeding until medics came."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Medics provided advanced care and transported to hospital."
+        "message": "Medics provided advanced care and transported to hospital."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control sent. Patient bled out."
+        "message": "Animal control sent. Patient bled out."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Patient died from blood loss."
+        "message": "Call dismissed. Patient died from blood loss."
       }
     },
     "archetype": "Life-Threatening Emergency"
@@ -1015,27 +1015,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but lacked firefighting equipment. Fire spread."
+        "message": "Police arrived but lacked firefighting equipment. Fire spread."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Fire department extinguished fire and rescued the victim."
+        "message": "Fire department extinguished fire and rescued the victim."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medics could not approach due to fire. Fire needed first."
+        "message": "Medics could not approach due to fire. Fire needed first."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control sent. Victim died in fire."
+        "message": "Animal control sent. Victim died in fire."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. Victim died in crash and fire."
+        "message": "Call dismissed. Victim died in crash and fire."
       }
     },
     "archetype": "Life-Threatening Emergency"
@@ -1148,27 +1148,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived but could not handle the gas leak; fire department was called anyway."
+        "message": "Police arrived but could not handle the gas leak; fire department was called anyway."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Fire department detected and stopped the carbon monoxide leak; victims treated by paramedics."
+        "message": "Fire department detected and stopped the carbon monoxide leak; victims treated by paramedics."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Paramedics treated the victims but the source of the leak remained; fire department was later called."
+        "message": "Paramedics treated the victims but the source of the leak remained; fire department was later called."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control arrived and was unable to assist; victims suffered prolonged exposure."
+        "message": "Animal control arrived and was unable to assist; victims suffered prolonged exposure."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed; family found dead from carbon monoxide poisoning the next day."
+        "message": "Call dismissed; family found dead from carbon monoxide poisoning the next day."
       }
     },
     "id": "scenario_028",
@@ -1276,27 +1276,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived but could not provide medical care; paramedics were eventually dispatched."
+        "message": "Police arrived but could not provide medical care; paramedics were eventually dispatched."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Firefighters arrived with medical equipment and revived the child; transported to hospital."
+        "message": "Firefighters arrived with medical equipment and revived the child; transported to hospital."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Paramedics arrived quickly and resuscitated the child using advanced life support."
+        "message": "Paramedics arrived quickly and resuscitated the child using advanced life support."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Animal control arrived; child died due to lack of medical intervention."
+        "message": "Animal control arrived; child died due to lack of medical intervention."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as prank; child found dead at pool."
+        "message": "Call dismissed as prank; child found dead at pool."
       }
     },
     "id": "scenario_029",
@@ -1407,27 +1407,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived but could not provide advanced medical care; paramedics arrived later."
+        "message": "Police arrived but could not provide advanced medical care; paramedics arrived later."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Firefighters with EMS training stabilized the victim and transported to hospital."
+        "message": "Firefighters with EMS training stabilized the victim and transported to hospital."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Paramedics arrived within 5 minutes, administered epinephrine and oxygen; victim survived."
+        "message": "Paramedics arrived within 5 minutes, administered epinephrine and oxygen; victim survived."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Animal control responded; victim died from anaphylactic shock."
+        "message": "Animal control responded; victim died from anaphylactic shock."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed; victim found dead at scene."
+        "message": "Call dismissed; victim found dead at scene."
       }
     },
     "id": "scenario_030",
@@ -1538,27 +1538,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrived first and applied tourniquet; paramedics took over and saved caller's life."
+        "message": "Police arrived first and applied tourniquet; paramedics took over and saved caller's life."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Firefighters with medical training stabilized the wound and transported to hospital."
+        "message": "Firefighters with medical training stabilized the wound and transported to hospital."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Paramedics arrived quickly and provided life-saving blood transfusion and surgery."
+        "message": "Paramedics arrived quickly and provided life-saving blood transfusion and surgery."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Animal control responded; caller died from exsanguination."
+        "message": "Animal control responded; caller died from exsanguination."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as prank; caller found dead from blood loss."
+        "message": "Call dismissed as prank; caller found dead from blood loss."
       }
     },
     "id": "scenario_031",
@@ -1675,27 +1675,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police search and rescue team located and extricated the hiker with minor injuries."
+        "message": "Police search and rescue team located and extricated the hiker with minor injuries."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Fire department heavy rescue team used specialized equipment to free the hiker safely."
+        "message": "Fire department heavy rescue team used specialized equipment to free the hiker safely."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Paramedics arrived but could not extract the victim without rescue team; delayed treatment."
+        "message": "Paramedics arrived but could not extract the victim without rescue team; delayed treatment."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Animal control responded; hiker died from crush syndrome."
+        "message": "Animal control responded; hiker died from crush syndrome."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as hoax; hiker found dead days later."
+        "message": "Call dismissed as hoax; hiker found dead days later."
       }
     },
     "id": "scenario_032",
@@ -1847,74 +1847,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "feedback": "Police arrive quickly, help evacuate the building and secure the perimeter. The gas leak is contained without explosion."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Police respond but lack equipment to stop the leak. They request fire department, causing a slight delay."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "feedback": "Police arrive, but without proper hazmat gear, they are unable to enter the building. The leak ignites, causing an explosion."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive quickly, help evacuate the building and secure the perimeter. The gas leak is contained without explosion."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "feedback": "Firefighters arrive immediately, shut off the gas main, and ventilate the building. No injuries. All evacuate safely."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "feedback": "Fire department responds, but there is a miscommunication about the location, causing a 5-minute delay. The leak is eventually stopped."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Fire department gets lost due to poor address. Meanwhile, the gas leak ignites, destroying the building and causing multiple casualties."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Firefighters arrive immediately, shut off the gas main, and ventilate the building. No injuries. All evacuate safely."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "feedback": "Medical team arrives to treat residents for gas inhalation. No serious injuries, but they stabilize a few affected individuals."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "feedback": "Medical team treats symptoms but cannot stop the leak. Fire department is called later, resulting in panic."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Medical personnel are overwhelmed by the gas and fail to evacuate. Explosion kills several responders."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Medical team arrives to treat residents for gas inhalation. No serious injuries, but they stabilize a few affected individuals."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "feedback": "Animal control arrives, confused, and calls fire department. Leak is eventually handled, but time is wasted."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "feedback": "Animal control tries to find animals, delays proper response. Gas leak causes minor injuries."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Animal control's presence delays evacuation. Explosion kills many."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Animal control arrives, confused, and calls fire department. Leak is eventually handled, but time is wasted."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "feedback": "You dismissed the call as a false alarm. The leak was real and causes a small fire but no deaths."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -300,
-          "feedback": "You dismiss the call. The building explodes, dozens die."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "You ignore the caller. The gas leak causes a catastrophic explosion, leveling the block."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "You dismissed the call as a false alarm. The leak was real and causes a small fire but no deaths."
       }
     },
     "id": "scenario_033"
@@ -2079,74 +2034,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "feedback": "Police coordinate with park rangers and locate the hiker quickly. They provide first aid until medical arrives."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "feedback": "Police search but get lost in the wilderness. Delay of 30 minutes before medical arrives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Police are unfamiliar with the trail and cannot find the hiker. The hiker dies from venom."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police coordinate with park rangers and locate the hiker quickly. They provide first aid until medical arrives."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "feedback": "Fire department's search and rescue team finds the hiker using GPS coordinates. They administer oxygen and transport to hospital."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Firefighters arrive but lack antivenom; they stabilize the victim and call for a medical helicopter."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "feedback": "Fire brigade gets stuck on rough terrain. By the time they reach, the venom has spread fatally."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Fire department's search and rescue team finds the hiker using GPS coordinates. They administer oxygen and transport to hospital."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "feedback": "Medics are dispatched with antivenom and GPS locator. They reach the hiker within 20 minutes and treat the bite. Full recovery."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Medics arrive but realize they need a helicopter for evacuation. Slight delay, but victim survives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Medical team gets lost; no cell service. The hiker goes into shock and dies before rescue."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Medics are dispatched with antivenom and GPS locator. They reach the hiker within 20 minutes and treat the bite. Full recovery."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": -50,
-          "feedback": "Animal control comes to capture the snake but the hiker needs medical. They call for backup, causing delay."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "feedback": "Animal control focuses on snake, hiker's condition worsens. Medical arrives late."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Animal control ignores the hiker to catch the snake. The hiker dies from lack of treatment."
-        }
+        "status": "SUCCESS",
+        "score_delta": -50,
+        "message": "Animal control comes to capture the snake but the hiker needs medical. They call for backup, causing delay."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "feedback": "You dismiss as non-emergency. The hiker manages to call again later, but receives delayed help."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -300,
-          "feedback": "You dismiss the call. The hiker's condition deteriorates; a fellow hiker finds them too late."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "You hang up. The hiker dies alone in the wilderness."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "You dismiss as non-emergency. The hiker manages to call again later, but receives delayed help."
       }
     },
     "id": "scenario_034"
@@ -2320,74 +2230,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "feedback": "Police arrive quickly, assess the victim, and call for medical. They provide initial warmth with blankets from their car."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Police arrive but do not have medical training. They wait for medics, losing precious time."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Police assume the person is drunk and do nothing. The victim dies from hypothermia."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive quickly, assess the victim, and call for medical. They provide initial warmth with blankets from their car."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "feedback": "Firefighters are trained in cold-weather rescue. They use thermal blankets and oxygen, stabilizing the victim until medical arrives."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "feedback": "Fire department responds but gets stuck in traffic. Delay of 10 minutes."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "feedback": "Firefighters arrive late; the victim has gone into cardiac arrest. Resuscitation fails."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighters are trained in cold-weather rescue. They use thermal blankets and oxygen, stabilizing the victim until medical arrives."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "feedback": "Ambulance arrives within minutes. Paramedics treat severe hypothermia with heated IV and transport to hospital. Full recovery."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Medics arrive but have difficulty finding the exact spot. Slight delay, but victim survives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Medics get lost and arrive too late. Victim dies at the scene."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Ambulance arrives within minutes. Paramedics treat severe hypothermia with heated IV and transport to hospital. Full recovery."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "feedback": "Animal control is confused and calls for proper help. Time wasted."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "feedback": "Animal control tries to move the victim, causing further injury."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Animal control treats the victim like an animal and leaves them outside. Victim dies."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Animal control is confused and calls for proper help. Time wasted."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "feedback": "You dismiss as a drunk person. The victim is found later by a passerby but suffers from frostbite."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -300,
-          "feedback": "You dismiss. The victim dies from hypothermia overnight."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "You hang up. The victim dies alone in the snow."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "You dismiss as a drunk person. The victim is found later by a passerby but suffers from frostbite."
       }
     },
     "id": "scenario_035"
@@ -2556,74 +2421,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "feedback": "Police arrive and use a crowbar to open the freezer. Child is rescued and treated for mild hypothermia."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Police struggle with the latch but eventually get it open. Child is frightened but okay."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Police take too long to arrive. Child suffers severe hypothermia and brain damage."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive and use a crowbar to open the freezer. Child is rescued and treated for mild hypothermia."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "feedback": "Firefighters use hydraulic tools to quickly open the freezer. Child is cold but unharmed."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Fire department arrives but their tools are too big for the space. They manage after a few minutes."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "feedback": "Firefighters accidentally damage the freezer's cooling system, making it colder inside. Child suffers frostbite."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Firefighters use hydraulic tools to quickly open the freezer. Child is cold but unharmed."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 250,
-          "feedback": "Medics bring warming equipment and treat the child immediately after rescue. No lasting effects."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "feedback": "Medics arrive before the child is freed, causing frustration. They help after rescue."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Medics cannot open the freezer and wait for fire. Delayed rescue leads to hypothermia."
-        }
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Medics bring warming equipment and treat the child immediately after rescue. No lasting effects."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "feedback": "Animal control arrives, confused, and calls fire department. Child is rescued but later."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "feedback": "Animal control tries to use a dog to fetch the child? Wastes time."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Animal control thinks it's a pet and leaves. Child dies from cold."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Animal control arrives, confused, and calls fire department. Child is rescued but later."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "feedback": "You dismiss as a prank. The child is freed by a parent but suffers mild hypothermia."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -300,
-          "feedback": "You dismiss. Child is found too late, dies from hypothermia."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "You hang up. The child dies trapped in the freezer."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "You dismiss as a prank. The child is freed by a parent but suffers mild hypothermia."
       }
     },
     "id": "scenario_036"
@@ -2801,74 +2621,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "feedback": "Police arrive with naloxone and revive the victim. They secure the scene and call medical."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Police take time to assess, but eventually administer naloxone. Victim survives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "feedback": "Police handcuff the victim instead of helping. Victim dies from overdose."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive with naloxone and revive the victim. They secure the scene and call medical."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "feedback": "Firefighters are trained in overdose response. They administer oxygen and naloxone, saving the victim."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "feedback": "Firefighters arrive but lack naloxone. They perform CPR until medical arrives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "feedback": "Firefighters break down the door but cause a commotion. Victim dies from delayed treatment."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighters are trained in overdose response. They administer oxygen and naloxone, saving the victim."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "feedback": "Medics arrive quickly, administer naloxone and oxygen. Victim revived and transported. Full recovery."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "feedback": "Medics have trouble finding the restroom. Slight delay but victim survives."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Medics get stuck in traffic. Victim dies before arrival."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Medics arrive quickly, administer naloxone and oxygen. Victim revived and transported. Full recovery."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "feedback": "Animal control arrives, realizes the situation, and calls for medical. Time wasted."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "feedback": "Animal control tries to move the victim roughly, causing injury."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "Animal control ignores the victim to capture a stray cat. Victim dies."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Animal control arrives, realizes the situation, and calls for medical. Time wasted."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "feedback": "You dismiss as a false alarm. The victim is found later by another person, but survives due to bystander naloxone."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -300,
-          "feedback": "You dismiss. The victim dies before anyone else finds them."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "feedback": "You hang up. The victim dies alone in the restroom."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "You dismiss as a false alarm. The victim is found later by another person, but survives due to bystander naloxone."
       }
     },
     "id": "scenario_037"
@@ -2986,74 +2761,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Police dispatched unnecessarily. The situation is medical and does not require law enforcement. Medical units would have been more appropriate."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -50,
-            "feedback": "Police arrived to assist with crowd control, but medical was the priority. Points deducted for not dispatching medical first."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched unnecessarily. The situation is medical and does not require law enforcement. Medical units would have been more appropriate."
       },
       "SEND_FIRE": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -150,
-            "feedback": "Fire department responded, but they are not equipped for this medical emergency. Medical units should have been dispatched."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Firefighters provided basic first aid, but a paramedic team was needed. Suboptimal response."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -150,
+        "message": "Fire department responded, but they are not equipped for this medical emergency. Medical units should have been dispatched."
       },
       "SEND_MEDICAL": {
-        "outcomes": [
-          {
-            "status": "SUCCESS",
-            "score_delta": 250,
-            "feedback": "Medical team dispatched and provided life-saving treatment. The passenger is stable and recovering. Excellent dispatch decision."
-          },
-          {
-            "status": "SUCCESS",
-            "score_delta": 200,
-            "feedback": "Paramedics met the plane and administered advanced care. The passenger survived and is in hospital. Good job."
-          }
-        ]
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Medical team dispatched and provided life-saving treatment. The passenger is stable and recovering. Excellent dispatch decision."
       },
       "ANIMAL_CONTROL": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -400,
-            "feedback": "Animal control dispatched to a medical emergency on a plane. Complete waste of resources and delay in actual help. Extreme failure."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Caller confused. Animal control has no role here. Valuable time lost."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched to a medical emergency on a plane. Complete waste of resources and delay in actual help. Extreme failure."
       },
       "DISMISS": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Call dismissed as non-emergency. The passenger went into cardiac arrest and died. Unforgivable error."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -450,
-            "feedback": "You hung up on a life-threatening emergency. The caller had to re-dial, losing critical minutes. Passenger suffered severe brain damage."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as non-emergency. The passenger went into cardiac arrest and died. Unforgivable error."
       }
     }
   },
@@ -3183,74 +2913,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Police dispatched but they are not trained for technical rescue. Fire department should have been sent. Delay in actual rescue."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -50,
-            "feedback": "Police arrived and secured the scene, but fire rescue was needed. Points lost for not dispatching fire immediately."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police dispatched but they are not trained for technical rescue. Fire department should have been sent. Delay in actual rescue."
       },
       "SEND_FIRE": {
-        "outcomes": [
-          {
-            "status": "SUCCESS",
-            "score_delta": 300,
-            "feedback": "Fire department rescue team arrived and successfully extracted the child. The child was treated for mild hypothermia and released. Perfect dispatch."
-          },
-          {
-            "status": "SUCCESS",
-            "score_delta": 250,
-            "feedback": "Firefighters used specialized equipment to rescue the child. The child is safe and recovering. Good job."
-          }
-        ]
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Fire department rescue team arrived and successfully extracted the child. The child was treated for mild hypothermia and released. Perfect dispatch."
       },
       "SEND_MEDICAL": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Medical sent but no rescue capability. Fire department needed for extraction. Medical could not reach the child."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -50,
-            "feedback": "Paramedics on standby, but rescue operations delayed due to lack of equipment. Fire should have been primary."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Medical sent but no rescue capability. Fire department needed for extraction. Medical could not reach the child."
       },
       "ANIMAL_CONTROL": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -400,
-            "feedback": "Animal control dispatched to a child in a well. Completely inappropriate. Child suffered hypothermia while waiting."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Caller confused. No animals involved. Child trapped for hours due to wrong dispatch. Critical failure."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control dispatched to a child in a well. Completely inappropriate. Child suffered hypothermia while waiting."
       },
       "DISMISS": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Call dismissed as a prank. The child died from hypothermia and exhaustion. Unforgivable."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -450,
-            "feedback": "You hung up on a frantic parent. Child trapped for hours before another call came in. Serious injury."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as a prank. The child died from hypothermia and exhaustion. Unforgivable."
       }
     }
   },
@@ -3392,74 +3077,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Police sent but they are not hazmat trained. Fire and hazmat needed. Police can assist with crowd control, but primary response was delayed."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -50,
-            "feedback": "Police arrived and set up perimeter. However, chemical response was delayed. Points lost."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Police sent but they are not hazmat trained. Fire and hazmat needed. Police can assist with crowd control, but primary response was delayed."
       },
       "SEND_FIRE": {
-        "outcomes": [
-          {
-            "status": "SUCCESS",
-            "score_delta": 300,
-            "feedback": "Fire department hazmat team responded, contained the leak, and decontaminated victims. All survivors. Excellent dispatch."
-          },
-          {
-            "status": "SUCCESS",
-            "score_delta": 250,
-            "feedback": "Firefighters stopped the leak and coordinated medical care. Multiple lives saved. Great decision."
-          }
-        ]
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Fire department hazmat team responded, contained the leak, and decontaminated victims. All survivors. Excellent dispatch."
       },
       "SEND_MEDICAL": {
-        "outcomes": [
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -100,
-            "feedback": "Medical dispatched but without hazmat, they could not enter the contaminated area. Fire needed to secure scene first."
-          },
-          {
-            "status": "MINOR_ERROR",
-            "score_delta": -50,
-            "feedback": "Paramedics treated some victims outside, but could not access the trapped ones. Inefficient response."
-          }
-        ]
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "Medical dispatched but without hazmat, they could not enter the contaminated area. Fire needed to secure scene first."
       },
       "ANIMAL_CONTROL": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -400,
-            "feedback": "Animal control sent to a chemical spill. No animals involved. Workers were exposed for hours. Terrible."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Caller confused. No pets or wildlife. Chemical cloud spread to neighborhood. Multiple casualties due to delay."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Animal control sent to a chemical spill. No animals involved. Workers were exposed for hours. Terrible."
       },
       "DISMISS": {
-        "outcomes": [
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -500,
-            "feedback": "Call dismissed as false alarm. Explosion occurred minutes later. Multiple fatalities and injuries. Unforgivable."
-          },
-          {
-            "status": "CRITICAL_FAILURE",
-            "score_delta": -450,
-            "feedback": "You ignored the call. The chemical leak caused a chain reaction fire. Several workers died. Massive failure."
-          }
-        ]
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed as false alarm. Explosion occurred minutes later. Multiple fatalities and injuries. Unforgivable."
       }
     }
   }

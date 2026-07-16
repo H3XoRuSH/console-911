@@ -149,29 +149,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correctness": "MINOR_ERROR",
+        "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but medical is needed. Delay in care."
+        "message": "Police arrived but medical is needed. Delay in care."
       },
       "SEND_FIRE": {
-        "correctness": "MINOR_ERROR",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters are not trained for this medical emergency. Paramedics needed."
+        "message": "Firefighters are not trained for this medical emergency. Paramedics needed."
       },
       "SEND_MEDICAL": {
-        "correctness": "SUCCESS",
+        "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Paramedics arrived and provided life-saving treatment. Caller stable."
+        "message": "Paramedics arrived and provided life-saving treatment. Caller stable."
       },
       "ANIMAL_CONTROL": {
-        "correctness": "CRITICAL_FAILURE",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control dispatched instead of medical. Caller died before help arrived."
+        "message": "Animal control dispatched instead of medical. Caller died before help arrived."
       },
       "DISMISS": {
-        "correctness": "CRITICAL_FAILURE",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Caller found dead hours later."
+        "message": "Call dismissed as pocket dial. Caller found dead hours later."
       }
     },
     "id": "scenario_015"
@@ -321,29 +321,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correctness": "SUCCESS",
+        "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Police arrived during the assault and arrested the abuser. Victim is safe."
+        "message": "Police arrived during the assault and arrested the abuser. Victim is safe."
       },
       "SEND_FIRE": {
-        "correctness": "CRITICAL_FAILURE",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters arrived but were not trained for domestic violence. Abuser fled and victim was severely injured."
+        "message": "Firefighters arrived but were not trained for domestic violence. Abuser fled and victim was severely injured."
       },
       "SEND_MEDICAL": {
-        "correctness": "MINOR_ERROR",
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medics arrived without police presence and were met with hostility. Abuser attacked medics."
+        "message": "Medics arrived without police presence and were met with hostility. Abuser attacked medics."
       },
       "ANIMAL_CONTROL": {
-        "correctness": "CRITICAL_FAILURE",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control dispatched due to mistaken assumption of animal noise. Victim died from injuries."
+        "message": "Animal control dispatched due to mistaken assumption of animal noise. Victim died from injuries."
       },
       "DISMISS": {
-        "correctness": "CRITICAL_FAILURE",
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as a hang-up or prank. Victim was later found deceased from domestic violence."
+        "message": "Call dismissed as a hang-up or prank. Victim was later found deceased from domestic violence."
       }
     },
     "id": "scenario_016"
@@ -457,24 +457,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 250,
-        "feedback": "Police arrived and intercepted the truck. Rescued 3 victims of human trafficking. Suspects arrested."
+        "message": "Police arrived and intercepted the truck. Rescued 3 victims of human trafficking. Suspects arrested."
       },
       "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -50,
-        "feedback": "Fire department arrived but no fire. They assisted police in breaking into the cargo area."
+        "message": "Fire department arrived but no fire. They assisted police in breaking into the cargo area."
       },
       "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 100,
-        "feedback": "Medical team treated victims for dehydration and minor injuries."
+        "message": "Medical team treated victims for dehydration and minor injuries."
       },
       "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control arrived to find human victims. Not appropriate. Delayed rescue."
+        "message": "Animal control arrived to find human victims. Not appropriate. Delayed rescue."
       },
       "DISMISS": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Dispatched as pocket dial. Victims remained trapped for hours until another call came in."
+        "message": "Dispatched as pocket dial. Victims remained trapped for hours until another call came in."
       }
     },
     "id": "scenario_149"
@@ -586,24 +591,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 200,
-        "feedback": "Police arrived to find a domestic assault in progress. Suspect arrested, victim taken to shelter."
+        "message": "Police arrived to find a domestic assault in progress. Suspect arrested, victim taken to shelter."
       },
       "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -100,
-        "feedback": "Firefighters arrived, no fire. They called police and provided first aid."
+        "message": "Firefighters arrived, no fire. They called police and provided first aid."
       },
       "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 100,
-        "feedback": "Ambulance treated the victim for bruises and shock. Police took report."
+        "message": "Ambulance treated the victim for bruises and shock. Police took report."
       },
       "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control arrived to find a domestic dispute. Not helpful; police called later."
+        "message": "Animal control arrived to find a domestic dispute. Not helpful; police called later."
       },
       "DISMISS": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Dismissed as pocket dial. Victim suffered further injuries before neighbor called."
+        "message": "Dismissed as pocket dial. Victim suffered further injuries before neighbor called."
       }
     },
     "id": "scenario_150"
@@ -720,24 +730,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -50,
-        "feedback": "Police arrived but it was a medical emergency. They stabilized child until ambulance arrived."
+        "message": "Police arrived but it was a medical emergency. They stabilized child until ambulance arrived."
       },
       "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -100,
-        "feedback": "Firefighters responded, no fire. Helped comfort child while waiting for medics."
+        "message": "Firefighters responded, no fire. Helped comfort child while waiting for medics."
       },
       "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 200,
-        "feedback": "Ambulance arrived quickly. Child had a broken arm and concussion; treated successfully."
+        "message": "Ambulance arrived quickly. Child had a broken arm and concussion; treated successfully."
       },
       "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control arrived, confused. Child delayed getting medical help."
+        "message": "Animal control arrived, confused. Child delayed getting medical help."
       },
       "DISMISS": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Dismissed as pocket dial. Child's injury worsened before another parent called 911."
+        "message": "Dismissed as pocket dial. Child's injury worsened before another parent called 911."
       }
     },
     "id": "scenario_151"
@@ -845,24 +860,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 300,
-        "feedback": "Police arrived in time to catch the burglars exiting. Homeowner safe, suspects arrested."
+        "message": "Police arrived in time to catch the burglars exiting. Homeowner safe, suspects arrested."
       },
       "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -50,
-        "feedback": "Firefighters arrived; no fire. They secured the scene until police came."
+        "message": "Firefighters arrived; no fire. They secured the scene until police came."
       },
       "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -100,
-        "feedback": "Ambulance arrived; no injuries. Police took over."
+        "message": "Ambulance arrived; no injuries. Police took over."
       },
       "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control responded to a break-in; inappropriate. Burglars escaped."
+        "message": "Animal control responded to a break-in; inappropriate. Burglars escaped."
       },
       "DISMISS": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Dismissed as pocket dial. Homeowner was robbed at gunpoint; later called from a neighbor's phone."
+        "message": "Dismissed as pocket dial. Homeowner was robbed at gunpoint; later called from a neighbor's phone."
       }
     },
     "id": "scenario_152"
@@ -974,24 +994,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": 300,
-        "feedback": "Police tracked the phone and intercepted the thieves. Robbery prevented, suspects arrested."
+        "message": "Police tracked the phone and intercepted the thieves. Robbery prevented, suspects arrested."
       },
       "SEND_FIRE": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -100,
-        "feedback": "Fire responded; no fire. They reported suspicious activity to police but delayed response."
+        "message": "Fire responded; no fire. They reported suspicious activity to police but delayed response."
       },
       "SEND_MEDICAL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -150,
-        "feedback": "Ambulance arrived; no injuries. Police arrived late; thieves escaped."
+        "message": "Ambulance arrived; no injuries. Police arrived late; thieves escaped."
       },
       "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control responded to a crime scene. Inappropriate response; robbers got away."
+        "message": "Animal control responded to a crime scene. Inappropriate response; robbers got away."
       },
       "DISMISS": {
+        "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Dismissed as pocket dial. Thieves successfully robbed the location and escaped."
+        "message": "Dismissed as pocket dial. Thieves successfully robbed the location and escaped."
       }
     },
     "id": "scenario_153"
@@ -1122,27 +1147,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Officers arrived and arrested the abuser. Victim is safe."
+        "message": "Officers arrived and arrested the abuser. Victim is safe."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters arrived but no fire. Police had to be called separately, delaying response."
+        "message": "Firefighters arrived but no fire. Police had to be called separately, delaying response."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical crew treated minor injuries, but police were needed for the assault."
+        "message": "Medical crew treated minor injuries, but police were needed for the assault."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control responded to a domestic violence scene. Victim was further endangered."
+        "message": "Animal control responded to a domestic violence scene. Victim was further endangered."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Victim suffered severe injuries."
+        "message": "Call dismissed as pocket dial. Victim suffered severe injuries."
       }
     },
     "archetype": "Pocket Dial / Open Line"
@@ -1268,27 +1293,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived quickly but medical was needed first. Minor delay."
+        "message": "Police arrived quickly but medical was needed first. Minor delay."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire department arrived and extinguished a small fire, but medical and police were also required."
+        "message": "Fire department arrived and extinguished a small fire, but medical and police were also required."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Ambulance treated the injured caller and transported to hospital."
+        "message": "Ambulance treated the injured caller and transported to hospital."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Animal control arrived at a crash scene. Victim bled out waiting for medical."
+        "message": "Animal control arrived at a crash scene. Victim bled out waiting for medical."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Victim died from injuries."
+        "message": "Call dismissed as pocket dial. Victim died from injuries."
       }
     },
     "archetype": "Pocket Dial / Open Line"
@@ -1399,27 +1424,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police responded to a child playing with phone. Wasted resources."
+        "message": "Police responded to a child playing with phone. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire engine dispatched for a toddler's toy. Reckless use of emergency services."
+        "message": "Fire engine dispatched for a toddler's toy. Reckless use of emergency services."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Ambulance sent for a child's accidental call. No medical need."
+        "message": "Ambulance sent for a child's accidental call. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control showed up for a child's play call. Highly inappropriate."
+        "message": "Animal control showed up for a child's play call. Highly inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Call correctly identified as accidental and dismissed. No resources wasted."
+        "message": "Call correctly identified as accidental and dismissed. No resources wasted."
       }
     },
     "archetype": "Pocket Dial / Open Line"
@@ -1548,27 +1573,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Police intercepted the criminals based on intel. Robbery prevented."
+        "message": "Police intercepted the criminals based on intel. Robbery prevented."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Fire trucks arrived at a non-fire scene. Alerted the suspects, who escaped."
+        "message": "Fire trucks arrived at a non-fire scene. Alerted the suspects, who escaped."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Medical crew responded to a planned heist. No medical emergency, suspects fled."
+        "message": "Medical crew responded to a planned heist. No medical emergency, suspects fled."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control showed up to a robbery planning. Suspects panicked and committed more crimes."
+        "message": "Animal control showed up to a robbery planning. Suspects panicked and committed more crimes."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. The heist succeeded, with casualties."
+        "message": "Call dismissed as pocket dial. The heist succeeded, with casualties."
       }
     },
     "archetype": "Pocket Dial / Open Line"
@@ -1684,27 +1709,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived and found an injured elderly person. Medical was called, but response was delayed."
+        "message": "Police arrived and found an injured elderly person. Medical was called, but response was delayed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Firefighters forced entry and provided first aid, but medical transport was needed."
+        "message": "Firefighters forced entry and provided first aid, but medical transport was needed."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Ambulance arrived quickly, treated the patient for a hip fracture, and transported to hospital."
+        "message": "Ambulance arrived quickly, treated the patient for a hip fracture, and transported to hospital."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control responded to a medical emergency. Patient lay untreated for hours."
+        "message": "Animal control responded to a medical emergency. Patient lay untreated for hours."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Patient died from complications of fall."
+        "message": "Call dismissed as pocket dial. Patient died from complications of fall."
       }
     },
     "archetype": "Pocket Dial / Open Line"
@@ -1791,27 +1816,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Police dispatched to the scene. Victim safely rescued."
+        "message": "Police dispatched to the scene. Victim safely rescued."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire department sent, but no fire. Wasted resources."
+        "message": "Fire department sent, but no fire. Wasted resources."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medics arrived, but physical injuries not severe; police needed."
+        "message": "Medics arrived, but physical injuries not severe; police needed."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control sent to domestic violence incident. Unacceptable error."
+        "message": "Animal control sent to domestic violence incident. Unacceptable error."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Call dismissed as pocket dial. Victim suffered severe injuries."
+        "message": "Call dismissed as pocket dial. Victim suffered severe injuries."
       }
     },
     "id": "scenario_159",
@@ -1907,27 +1932,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police sent, but medical and fire were critical."
+        "message": "Police sent, but medical and fire were critical."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Fire crew extricated victim and prevented fire."
+        "message": "Fire crew extricated victim and prevented fire."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Medics treated injuries and transported to hospital."
+        "message": "Medics treated injuries and transported to hospital."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Animal control sent to crash scene. Completely inappropriate."
+        "message": "Animal control sent to crash scene. Completely inappropriate."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Victim died from untreated injuries."
+        "message": "Call dismissed as pocket dial. Victim died from untreated injuries."
       }
     },
     "id": "scenario_160",
@@ -2009,27 +2034,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police sent to a toddler's playtime. Wasted resources."
+        "message": "Police sent to a toddler's playtime. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Fire trucks arrived to find a child playing. Public embarrassment."
+        "message": "Fire trucks arrived to find a child playing. Public embarrassment."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medics checked the child, no emergency."
+        "message": "Medics checked the child, no emergency."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Animal control dispatched to a toddler's playroom. Absurd."
+        "message": "Animal control dispatched to a toddler's playroom. Absurd."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Correctly identified as a child's accidental call. No emergency."
+        "message": "Correctly identified as a child's accidental call. No emergency."
       }
     },
     "id": "scenario_161",
@@ -2116,27 +2141,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Police arrived and arrested the burglars. Victim safe."
+        "message": "Police arrived and arrested the burglars. Victim safe."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department sent, no fire present."
+        "message": "Fire department sent, no fire present."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medics checked victim, no injuries."
+        "message": "Medics checked victim, no injuries."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Animal control sent to a home invasion. Critical error."
+        "message": "Animal control sent to a home invasion. Critical error."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Victim was harmed by intruders."
+        "message": "Call dismissed as pocket dial. Victim was harmed by intruders."
       }
     },
     "id": "scenario_162",
@@ -2222,27 +2247,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police sent, but medical was needed."
+        "message": "Police sent, but medical was needed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire department sent to assist, but not necessary."
+        "message": "Fire department sent to assist, but not necessary."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Medics arrived and provided life-saving treatment."
+        "message": "Medics arrived and provided life-saving treatment."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control sent to a medical emergency. Fatal error."
+        "message": "Animal control sent to a medical emergency. Fatal error."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed as pocket dial. Victim died from untreated seizure."
+        "message": "Call dismissed as pocket dial. Victim died from untreated seizure."
       }
     },
     "id": "scenario_163",
