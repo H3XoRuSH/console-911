@@ -129,7 +129,6 @@ export default function Console911Game() {
   // Start the entire game session
   const startSession = async () => {
     if (!dispatcherName.trim()) {
-      alert('PLEASE ENTER DISPATCHER CALLSIGN TO BOOT SYSTEM.');
       return;
     }
     setGameState('loading');

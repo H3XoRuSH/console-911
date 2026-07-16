@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 interface StartScreenProps {
   dispatcherName: string;
@@ -11,6 +11,8 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   setDispatcherName,
   onStart
 }) => {
+  const [error, setError] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement>(null);
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto terminal-scroll">
       <pre className="text-[7px] leading-[8px] md:text-[10px] md:leading-[11px] text-emerald-500 font-bold crt-glow-green mb-6 text-center select-none">
@@ -51,6 +53,12 @@ export const StartScreen: React.FC<StartScreenProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            if (!dispatcherName.trim()) {
+              setError(true);
+              inputRef.current?.focus();
+              return;
+            }
+            setError(false);
             onStart();
           }}
           className="space-y-4 pt-4"
@@ -63,13 +71,21 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               Enter Callsign / Operator ID:
             </label>
             <input
+              ref={inputRef}
               id="callsign"
               type="text"
               maxLength={15}
               value={dispatcherName}
-              onChange={(e) => setDispatcherName(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''))}
-              placeholder="OPERATOR-911"
-              className="bg-black border border-emerald-800 text-center text-emerald-400 placeholder:text-emerald-800 text-sm py-2 px-4 rounded w-64 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-800 tracking-widest uppercase font-bold"
+              onChange={(e) => {
+                if (error) setError(false);
+                setDispatcherName(e.target.value.replace(/[^a-zA-Z0-9_-]/g, ''));
+              }}
+              placeholder={error ? 'CALLSIGN REQUIRED' : 'OPERATOR-911'}
+              className={`bg-black border text-center text-sm py-2 px-4 rounded w-64 focus:outline-none tracking-widest uppercase font-bold transition-all ${
+                error
+                  ? 'border-red-600 text-red-500 placeholder:text-red-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-600 crt-glow-red animate-pulse'
+                  : 'border-emerald-800 text-emerald-400 placeholder:text-emerald-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-800'
+              }`}
             />
           </div>
 
