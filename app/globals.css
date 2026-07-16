@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './colors.css';
 
 :root {
   --background: #09090b;
@@ -110,20 +111,51 @@ body {
   animation: pulse-glow-red 2s infinite;
 }
 
+/* Text Size Scaling Overrides */
+.size-small {
+  --text-xs: 0.65rem;
+  --text-xs--line-height: 0.85rem;
+  --text-sm: 0.75rem;
+  --text-sm--line-height: 1rem;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.15rem;
+  --text-lg: 1rem;
+  --text-lg--line-height: 1.25rem;
+  --text-xl: 1.15rem;
+  --text-xl--line-height: 1.4rem;
+  --text-2xl: 1.25rem;
+  --text-2xl--line-height: 1.5rem;
+}
+
+.size-large {
+  --text-xs: 0.85rem;
+  --text-xs--line-height: 1.1rem;
+  --text-sm: 1rem;
+  --text-sm--line-height: 1.3rem;
+  --text-base: 1.15rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.3rem;
+  --text-lg--line-height: 1.7rem;
+  --text-xl: 1.5rem;
+  --text-xl--line-height: 1.9rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.1rem;
+}
+
 /* Custom retro scrollbar */
 .terminal-scroll::-webkit-scrollbar {
   width: 8px;
 }
 .terminal-scroll::-webkit-scrollbar-track {
   background: rgba(9, 9, 11, 0.7);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 1px solid var(--color-emerald-950);
 }
 .terminal-scroll::-webkit-scrollbar-thumb {
-  background: rgba(16, 185, 129, 0.4);
+  background: var(--color-emerald-800);
   border-radius: 2px;
 }
 .terminal-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.8);
+  background: var(--color-emerald-500);
 }
 
 @keyframes scan {
