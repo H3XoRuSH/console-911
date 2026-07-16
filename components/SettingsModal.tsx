@@ -26,9 +26,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   crtEnabled,
   setCrtEnabled,
   previewMode = false,
-  showDebugPanel = true,
+  showDebugPanel = false,
   setShowDebugPanel = () => {},
-  showScenarioId = true,
+  showScenarioId = false,
   setShowScenarioId = () => {}
 }) => {
   React.useEffect(() => {

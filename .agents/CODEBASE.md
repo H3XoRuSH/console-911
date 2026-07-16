@@ -74,3 +74,14 @@ graph TD
 ### 4. Offline Development Cache (`DEV_MODE`)
 
 When `DEV_MODE=Y` is enabled in `.env.local`, the application bypasses Upstash Cloud Redis connection pools. Instead, a mock Redis implementation (`lib/redis.ts`) automatically intercepts calls and stores all caching keys, session intent maps, and high scores on disk inside a git-ignored JSON file at `data/local_cache.json`. This provides zero-cost, zero-setup offline game mechanics that mimic production Redis.
+
+### 5. Preview Mode (`PREVIEW_MODE`)
+
+When `PREVIEW_MODE=Y` is set (checked via `process.env.PREVIEW_MODE` or `NEXT_PUBLIC_PREVIEW_MODE` in `app/api/session/route.ts`), the API unlocks developer features:
+
+- **Scenario listing**: `GET /api/session?list=all` returns all available scenarios for selection.
+- **Custom scenario selection**: Clients can pass `?scenarios=id1,id2,id3` to pin specific scenarios instead of random picks.
+- **Debug settings**: The Settings modal reveals a "Preview Mode Tools" section with two toggles:
+  - `showDebugPanel` — shows/hides the scenario playlist selector on the Start screen.
+  - `showScenarioId` — displays the active scenario ID in the Playing screen case profile.
+  - Both toggles default to `false` (HIDDEN) — users must opt in via Settings.
