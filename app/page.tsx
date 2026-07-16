@@ -405,7 +405,7 @@ export default function Console911Game() {
       className={`flex flex-col flex-1 h-screen bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white select-none font-mono theme-${theme} size-${textSize} ${crtEnabled ? 'crt-effect' : ''}`}
     >
       {/* SCREEN BEZEL GLOW */}
-      <div className="absolute inset-0 border-[6px] border-zinc-900 pointer-events-none z-[1000] shadow-[inset_0_0_80px_rgba(0,0,0,0.9)]" />
+      <div className="screen-bezel" />
 
       {/* HEADER SECTION */}
       <header className="shrink-0 flex items-center justify-between border-b border-emerald-950 px-4 py-2 text-xs select-none">
