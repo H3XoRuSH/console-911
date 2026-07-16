@@ -44,6 +44,7 @@ export default function Console911Game() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [submittingScore, setSubmittingScore] = useState(false);
+  const [completedFeedbacks, setCompletedFeedbacks] = useState<FeedbackInfo[]>([]);
 
   // Abort confirmation intermediate state
   const [abortConfirm, setAbortConfirm] = useState(false);
@@ -167,6 +168,7 @@ export default function Console911Game() {
     setCurrentCallIndex(0);
     setScoreSubmitted(false);
     setCompletedTranscripts([]);
+    setCompletedFeedbacks([]);
 
     try {
       let url = '/api/session';
@@ -337,13 +339,19 @@ export default function Console911Game() {
     const finalScore = callScore + outcome.score_delta;
     setTotalScore((prev) => prev + finalScore);
 
-    setFeedbackInfo({
+    const feedback: FeedbackInfo = {
       status: outcome.status,
       message: outcome.message,
       dispatchType: actionType.replace('_', ' '),
       dialogueScore: callScore,
       dispatchScore: outcome.score_delta,
       totalCallScore: finalScore
+    };
+    setFeedbackInfo(feedback);
+    setCompletedFeedbacks((prev) => {
+      const updated = [...prev];
+      updated[currentCallIndex] = feedback;
+      return updated;
     });
 
     setCompletedTranscripts((prev) => {
@@ -361,7 +369,7 @@ export default function Console911Game() {
     const finalScore = callScore + penalty;
     setTotalScore((prev) => prev + finalScore);
 
-    setFeedbackInfo({
+    const feedback: FeedbackInfo = {
       status: 'CRITICAL_FAILURE',
       message:
         '⚠️ CALL CUTOFF: You failed to make a dispatch decision within the strict 10-turn limit. The line went silent. Emergency dispatch failed to route resources in time, resulting in a critical failure.',
@@ -369,6 +377,12 @@ export default function Console911Game() {
       dialogueScore: callScore,
       dispatchScore: penalty,
       totalCallScore: finalScore
+    };
+    setFeedbackInfo(feedback);
+    setCompletedFeedbacks((prev) => {
+      const updated = [...prev];
+      updated[currentCallIndex] = feedback;
+      return updated;
     });
 
     setCompletedTranscripts((prev) => {
@@ -444,6 +458,7 @@ export default function Console911Game() {
     setIsCallerTyping(false);
     setFeedbackInfo(null);
     setCompletedTranscripts([]);
+    setCompletedFeedbacks([]);
     setScoreSubmitted(false);
     setSubmittingScore(false);
   };
@@ -604,6 +619,7 @@ export default function Console911Game() {
           <SummaryScreen
             calls={calls}
             completedTranscripts={completedTranscripts}
+            completedFeedbacks={completedFeedbacks}
             totalScore={totalScore}
             dispatcherName={dispatcherName}
             setDispatcherName={setDispatcherName}
@@ -615,6 +631,7 @@ export default function Console911Game() {
               setGameState('start');
               setCalls([]);
               setCompletedTranscripts([]);
+              setCompletedFeedbacks([]);
             }}
           />
         )}
