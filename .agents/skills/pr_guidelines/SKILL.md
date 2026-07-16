@@ -16,8 +16,8 @@ When starting work on a new ticket/issue, follow this strict step-by-step sequen
    git checkout main
    git pull
    ```
-2. **Implement changes**: Develop the code changes directly on your local `main` branch.
-3. **User Dev Test**: Present the changes to the user and request they perform a development test on the local `main` branch. **Do not create a branch or a commit yet.**
+2. **Implement changes**: Develop the code changes directly on your local `main` branch. **Do not do pre-flight checks yet.**
+3. **User Dev Test**: Present the changes to the user and request they perform a development test on the local `main` branch. **Do not create a branch or a commit yet until user is satisfied with the code.**
 4. **Pre-flight Checks**: Once the user approves the dev test, run formatting, typecheck, and build checks:
    - `npm run format` (formats and applies linter autofixes)
    - `npm run typecheck` (verifies TypeScript types)

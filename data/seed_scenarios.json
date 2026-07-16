@@ -11,11 +11,33 @@
       "Oh my God, {caller_name} is on the floor! He's not responding to me, and there's a loud {ambient_audio} in the background. What do I do?!"
     ],
     "slots": {
-      "caller_name": ["Arthur", "Harold", "Grandpa Jim", "Donald"],
-      "victim_relation": ["grandfather", "husband", "neighbor", "father"],
-      "address_location": ["1428 Elm Street", "Apartment 4B, 88 Pine Road", "602 Maple Court"],
-      "ambient_audio": ["television blaring a news broadcast", "dog whimpering softly", "smoke detector chirping"],
-      "specific_details": ["wearing a blue plaid shirt", "pale skin and cold to the touch", "history of heart conditions"]
+      "caller_name": [
+        "Arthur",
+        "Harold",
+        "Grandpa Jim",
+        "Donald"
+      ],
+      "victim_relation": [
+        "grandfather",
+        "husband",
+        "neighbor",
+        "father"
+      ],
+      "address_location": [
+        "1428 Elm Street",
+        "Apartment 4B, 88 Pine Road",
+        "602 Maple Court"
+      ],
+      "ambient_audio": [
+        "television blaring a news broadcast",
+        "dog whimpering softly",
+        "smoke detector chirping"
+      ],
+      "specific_details": [
+        "wearing a blue plaid shirt",
+        "pale skin and cold to the touch",
+        "history of heart conditions"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -99,11 +121,33 @@
       "Hello, pizza delivery? Yes, I need one large pizza sent to {address_location}. My {victim_relation} is waiting, and there is {ambient_audio}."
     ],
     "slots": {
-      "caller_name": ["Brenda", "Jessica", "Amanda", "Chloe"],
-      "victim_relation": ["ex-boyfriend", "angry roommate", "uninvited guest", "intruder"],
-      "address_location": ["804 Whispering Pines Dr", "Apt 202, 12 Elmwood Ave", "3443 Summit Ridge"],
-      "ambient_audio": ["a man shouting angrily in the background", "heavy footsteps on floorboards", "someone slamming doors in another room"],
-      "specific_details": ["he has a pocket knife", "he is refusing to let me leave", "he's breaking glass in the hallway"]
+      "caller_name": [
+        "Brenda",
+        "Jessica",
+        "Amanda",
+        "Chloe"
+      ],
+      "victim_relation": [
+        "ex-boyfriend",
+        "angry roommate",
+        "uninvited guest",
+        "intruder"
+      ],
+      "address_location": [
+        "804 Whispering Pines Dr",
+        "Apt 202, 12 Elmwood Ave",
+        "3443 Summit Ridge"
+      ],
+      "ambient_audio": [
+        "a man shouting angrily in the background",
+        "heavy footsteps on floorboards",
+        "someone slamming doors in another room"
+      ],
+      "specific_details": [
+        "he has a pocket knife",
+        "he is refusing to let me leave",
+        "he's breaking glass in the hallway"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {
@@ -187,11 +231,33 @@
       "Get police down here! I paid good money, and {caller_name} served me raw, cold nuggets! I can hear {ambient_audio} from the staff laughing at me!"
     ],
     "slots": {
-      "caller_name": ["Manager Dave", "Cashier Kevin", "Stacy", "the cashier"],
-      "victim_relation": ["kid", "wife", "friend", "cousin"],
-      "address_location": ["1200 Burger Boulevard", "the drive-thru on 4th Street", "McFast Food parking lot"],
-      "ambient_audio": ["car engines idling", "car horns honking behind", "beeping fryers from the kitchen"],
-      "specific_details": ["paid $5.99 for a 10-piece", "demanding a free meal and gas money", "blocking the drive-thru lane"]
+      "caller_name": [
+        "Manager Dave",
+        "Cashier Kevin",
+        "Stacy",
+        "the cashier"
+      ],
+      "victim_relation": [
+        "kid",
+        "wife",
+        "friend",
+        "cousin"
+      ],
+      "address_location": [
+        "1200 Burger Boulevard",
+        "the drive-thru on 4th Street",
+        "McFast Food parking lot"
+      ],
+      "ambient_audio": [
+        "car engines idling",
+        "car horns honking behind",
+        "beeping fryers from the kitchen"
+      ],
+      "specific_details": [
+        "paid $5.99 for a 10-piece",
+        "demanding a free meal and gas money",
+        "blocking the drive-thru lane"
+      ]
     },
     "intents": {
       "ASK_LOCATION": {

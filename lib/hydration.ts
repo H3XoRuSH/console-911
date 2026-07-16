@@ -162,35 +162,13 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
   > = {};
   if (scenario.dispatch_outcomes) {
     for (const outcomeKey in scenario.dispatch_outcomes) {
-      let outcome =
+      const outcome =
         scenario.dispatch_outcomes[outcomeKey as keyof typeof scenario.dispatch_outcomes];
       if (outcome) {
-        const obj = outcome as unknown as Record<string, unknown>;
-        // Handle nested structure (e.g. { SUCCESS: {...}, MINOR_ERROR: {...} })
-        if (!outcome.status && !obj.correctness) {
-          const subKey = obj.SUCCESS
-            ? 'SUCCESS'
-            : obj.MINOR_ERROR
-              ? 'MINOR_ERROR'
-              : 'CRITICAL_FAILURE';
-          const subOutcome = obj[subKey] as Record<string, unknown> | undefined;
-          if (subOutcome) {
-            outcome = {
-              status: subKey as 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE',
-              score_delta: (subOutcome.score_delta as number) || 0,
-              message: (subOutcome.message as string) || (subOutcome.feedback as string) || ''
-            };
-          }
-        }
-
-        const status = (outcome.status || obj.correctness || 'CRITICAL_FAILURE') as string as
-          'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE';
-
         dispatchOutcomes[outcomeKey] = {
-          status,
+          status: outcome.status || 'CRITICAL_FAILURE',
           score_delta: outcome.score_delta || 0,
-          // Support both 'message' and 'feedback' keys fallback
-          message: hydrateString(outcome.message || (obj.feedback as string) || '')
+          message: hydrateString(outcome.message || '')
         };
       }
     }

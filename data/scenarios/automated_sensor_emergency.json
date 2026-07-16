@@ -551,27 +551,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police dispatched to a false alarm caused by a power surge. Waste of resources."
+        "message": "Police dispatched to a false alarm caused by a power surge. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responded to a non-fire event. No damage found."
+        "message": "Fire department responded to a non-fire event. No damage found."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Medical dispatched unnecessarily; no persons involved. Misallocation of emergency services."
+        "message": "Medical dispatched unnecessarily; no persons involved. Misallocation of emergency services."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control has no relevance here. Reported as inappropriate dispatch."
+        "message": "Animal control has no relevance here. Reported as inappropriate dispatch."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Alert dismissed as false alarm. Power surge confirmed later by utility company."
+        "message": "Alert dismissed as false alarm. Power surge confirmed later by utility company."
       }
     },
     "id": "scenario_167",
@@ -681,27 +681,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police dispatched but medical is primary. Officer arrives to find driver unconscious; medical needed."
+        "message": "Police dispatched but medical is primary. Officer arrives to find driver unconscious; medical needed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department dispatched to what turns out to be a no-fire accident. Unnecessary."
+        "message": "Fire department dispatched to what turns out to be a no-fire accident. Unnecessary."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Medical dispatched and arrives to find unconscious driver with internal injuries. Life saved."
+        "message": "Medical dispatched and arrives to find unconscious driver with internal injuries. Life saved."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control dispatched due to misrouting. Driver dies waiting for help."
+        "message": "Animal control dispatched due to misrouting. Driver dies waiting for help."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Alert dismissed as false; driver was actually unconscious and later died from injuries."
+        "message": "Alert dismissed as false; driver was actually unconscious and later died from injuries."
       }
     },
     "id": "scenario_168",
@@ -823,27 +823,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police dispatched and find a domestic dispute where the occupant intentionally broke the window and activated the gas stove as a threat. Situation resolved."
+        "message": "Police dispatched and find a domestic dispute where the occupant intentionally broke the window and activated the gas stove as a threat. Situation resolved."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Fire department handles the gas leak and ventilates the building. No injuries."
+        "message": "Fire department handles the gas leak and ventilates the building. No injuries."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical arrives to find no one injured, but gas exposure risk was minimal."
+        "message": "Medical arrives to find no one injured, but gas exposure risk was minimal."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control dispatched, gas leak worsens, building evacuated with minor injuries."
+        "message": "Animal control dispatched, gas leak worsens, building evacuated with minor injuries."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Alert dismissed as false; actual gas leak went unattended, leading to an explosion."
+        "message": "Alert dismissed as false; actual gas leak went unattended, leading to an explosion."
       }
     },
     "id": "scenario_169",
@@ -963,27 +963,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police visit to find a false alarm from a malfunctioning watch. Grandmother annoyed."
+        "message": "Police visit to find a false alarm from a malfunctioning watch. Grandmother annoyed."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Fire department dispatched to a non-emergency. Waste of resources."
+        "message": "Fire department dispatched to a non-emergency. Waste of resources."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical crew arrives to find grandmother just dizzy from a minor trip. No treatment needed."
+        "message": "Medical crew arrives to find grandmother just dizzy from a minor trip. No treatment needed."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control dispatched incorrectly. Grandmother reports the error to her family."
+        "message": "Animal control dispatched incorrectly. Grandmother reports the error to her family."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Alert dismissed after grandson confirms she is fine. Grandmother appreciates not being bothered."
+        "message": "Alert dismissed after grandson confirms she is fine. Grandmother appreciates not being bothered."
       }
     },
     "id": "scenario_170",
@@ -1104,27 +1104,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -75,
-        "feedback": "Police arrive to find false alarm; students annoyed at interruption."
+        "message": "Police arrive to find false alarm; students annoyed at interruption."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department dispatched to a doused spark. Wasted run."
+        "message": "Fire department dispatched to a doused spark. Wasted run."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Medical dispatched unnecessarily; no injuries."
+        "message": "Medical dispatched unnecessarily; no injuries."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control called, causing confusion and embarrassment."
+        "message": "Animal control called, causing confusion and embarrassment."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Alert correctly dismissed as false alarm. Kitchen staff handled it themselves."
+        "message": "Alert correctly dismissed as false alarm. Kitchen staff handled it themselves."
       }
     },
     "id": "scenario_171",
@@ -1216,28 +1216,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -50,
         "status": "MINOR_ERROR",
+        "score_delta": -50,
         "message": "Police arrived, but fire/EMS is needed for CO. Police secured scene and called fire."
       },
       "SEND_FIRE": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Fire department arrived, ventilated the home, found unconscious resident. Rescued and hospitalized."
       },
       "SEND_MEDICAL": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "EMS arrived, but needed fire to shut off gas. Resident treated for CO poisoning."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Animal control sent to CO alarm. Useless. Resident died due to delayed response."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Call dismissed as false alarm. Resident found dead from CO poisoning hours later."
       }
     },
@@ -1329,28 +1329,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Police arrived, caught the intruder leaving with stolen goods. Suspect arrested."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Fire department arrived, no fire. They secured the scene, but police had to be called separately."
       },
       "SEND_MEDICAL": {
-        "score_delta": -150,
         "status": "MINOR_ERROR",
+        "score_delta": -150,
         "message": "EMS arrived to find no injuries. Waste of resources."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Animal control sent. Intruder escaped with valuable items. Homeowner furious."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Call dismissed as false alarm. Actually a real burglary. Homeowner lost property and insurance claim denied."
       }
     },
@@ -1445,28 +1445,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -50,
         "status": "MINOR_ERROR",
+        "score_delta": -50,
         "message": "Police arrived and forced entry. Found patient unconscious. Called EMS, but delay reduced survival chance."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Fire department arrived, no fire. Provided basic life support until EMS arrived."
       },
       "SEND_MEDICAL": {
-        "score_delta": 300,
         "status": "SUCCESS",
+        "score_delta": 300,
         "message": "EMS arrived in time, defibrillated patient, restored heartbeat. Patient survived with no brain damage."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Animal control sent to a cardiac arrest. Patient died before any help arrived."
       },
       "DISMISS": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "Call dismissed as device malfunction. Patient deceased. Device was working correctly."
       }
     },
@@ -1557,28 +1557,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -50,
         "status": "MINOR_ERROR",
+        "score_delta": -50,
         "message": "Police arrived, helped secure perimeter. But fire/EMS were needed for rescue."
       },
       "SEND_FIRE": {
-        "score_delta": 250,
         "status": "SUCCESS",
+        "score_delta": 250,
         "message": "Firefighters evacuated all residents, stopped the water main. No injuries."
       },
       "SEND_MEDICAL": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "EMS provided medical checks for residents during evacuation. No serious injuries."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Animal control sent. Residents struggled in rising water. Two fell and were injured."
       },
       "DISMISS": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Call dismissed as sensor malfunction. Water continued to rise. Residents trapped for hours, some developed hypothermia."
       }
     },
@@ -1672,28 +1672,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -50,
         "status": "MINOR_ERROR",
+        "score_delta": -50,
         "message": "Police arrived, forced entry. Found baby not breathing. Started CPR, called EMS. Baby survived but with delays."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Firefighters entered, provided first aid. But medical response was primary need."
       },
       "SEND_MEDICAL": {
-        "score_delta": 300,
         "status": "SUCCESS",
+        "score_delta": 300,
         "message": "EMS arrived, performed resuscitation. Baby regained breathing and was hospitalized. Full recovery."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Animal control sent. Baby died from sudden infant death syndrome. No help arrived in time."
       },
       "DISMISS": {
-        "score_delta": -450,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
         "message": "Call dismissed as sensor false alarm. Parents later found baby not breathing in the morning. Fatal outcome."
       }
     },
@@ -1820,27 +1820,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived but medical assistance was more appropriate. Waste of resources."
+        "message": "Police arrived but medical assistance was more appropriate. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Sending fire department delayed medical response. Patient condition worsened."
+        "message": "Sending fire department delayed medical response. Patient condition worsened."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Correct dispatch. Paramedics arrived and treated the fall victim. Patient stabilized."
+        "message": "Correct dispatch. Paramedics arrived and treated the fall victim. Patient stabilized."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control was sent to a medical emergency. Patient died waiting for help."
+        "message": "Animal control was sent to a medical emergency. Patient died waiting for help."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Dismissed the alert as malfunction. Patient later found dead from fall complications."
+        "message": "Dismissed the alert as malfunction. Patient later found dead from fall complications."
       }
     },
     "id": "scenario_177",
@@ -1964,27 +1964,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police arrived but medical and fire were also needed. Delayed assistance."
+        "message": "Police arrived but medical and fire were also needed. Delayed assistance."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire department handled fuel leak, but medical needed for injuries."
+        "message": "Fire department handled fuel leak, but medical needed for injuries."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Medical dispatched and treated injured occupants. Some saved."
+        "message": "Medical dispatched and treated injured occupants. Some saved."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control sent to a crash scene. Occupants died from injuries."
+        "message": "Animal control sent to a crash scene. Occupants died from injuries."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Dismissed as false alarm. Fatalities discovered later."
+        "message": "Dismissed as false alarm. Fatalities discovered later."
       }
     },
     "id": "scenario_178",
@@ -2097,27 +2097,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived unnecessarily. Fire department should have been sent if fire confirmed."
+        "message": "Police arrived unnecessarily. Fire department should have been sent if fire confirmed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire dispatched but turned out to be a false alarm. Wasted resources."
+        "message": "Fire dispatched but turned out to be a false alarm. Wasted resources."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Medical sent to a smoke alarm. Delayed response for others."
+        "message": "Medical sent to a smoke alarm. Delayed response for others."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control dispatched to a fire alarm. Completely inappropriate."
+        "message": "Animal control dispatched to a fire alarm. Completely inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Correctly identified as sensor malfunction. No response needed."
+        "message": "Correctly identified as sensor malfunction. No response needed."
       }
     },
     "id": "scenario_179",
@@ -2244,27 +2244,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived before medical. Medical delayed."
+        "message": "Police arrived before medical. Medical delayed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Fire department can assist with CPR but medical needed."
+        "message": "Fire department can assist with CPR but medical needed."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Medical dispatched and performed life-saving treatment. Patient revived."
+        "message": "Medical dispatched and performed life-saving treatment. Patient revived."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control sent to cardiac arrest. Patient died."
+        "message": "Animal control sent to cardiac arrest. Patient died."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Alert dismissed as false. Patient died from heart attack."
+        "message": "Alert dismissed as false. Patient died from heart attack."
       }
     },
     "id": "scenario_180",
@@ -2385,27 +2385,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police assisted but fire or medical for water and patient more appropriate."
+        "message": "Police assisted but fire or medical for water and patient more appropriate."
       },
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Fire department pumped water and rescued patient. Medical also on scene."
+        "message": "Fire department pumped water and rescued patient. Medical also on scene."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical helped patient but flood mitigation needed."
+        "message": "Medical helped patient but flood mitigation needed."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Animal control sent. Patient fell in water and suffered injury."
+        "message": "Animal control sent. Patient fell in water and suffered injury."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Dismissed as false alarm. Patient wandered into basement and drowned."
+        "message": "Dismissed as false alarm. Patient wandered into basement and drowned."
       }
     },
     "id": "scenario_181",
@@ -2560,74 +2560,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Police dispatched as precaution for possible arson or break-in causing alarm."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Unnecessary police dispatch, fire was the primary issue."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Police dispatched instead of fire; delay in fire response caused property damage."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Police dispatched as precaution for possible arson or break-in causing alarm."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Fire department dispatched. Fire confirmed and extinguished quickly."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "False alarm. Fire dispatch was unnecessary but no harm done."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Fire not dispatched despite confirmed alarm; building destroyed."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Fire department dispatched. Fire confirmed and extinguished quickly."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Medical dispatched for smoke inhalation; minor injuries treated."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Medical dispatched but fire was the priority; resources split."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Medical only dispatched; no fire response led to casualties."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Medical dispatched for smoke inhalation; minor injuries treated."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "No animal involvement; no action needed."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Animal control dispatched unnecessarily; waste of resources."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "message": "Sent animal control instead of fire; fire spread uncontrollably."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "No animal involvement; no action needed."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "False alarm, dismissed correctly."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Dismissed but alarm was real; minor delay before calling back."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Dismissed a real fire; catastrophic outcome."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "False alarm, dismissed correctly."
       }
     },
     "id": "scenario_182"
@@ -2773,74 +2728,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Police assisted with wellness check; found elderly person safe but confused."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police dispatched but medical was more appropriate; delay in care."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "message": "Police sent only; medical not dispatched, person suffered complications."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police assisted with wellness check; found elderly person safe but confused."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Fire dispatched for lift assist; no medical needed."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Fire dispatched unnecessarily; medical could have handled."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Fire delayed medical response; person injured from prolonged fall."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Fire dispatched for lift assist; no medical needed."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Medical dispatched; person found with hip fracture, treated in time."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Medical dispatched but was false alarm; no harm but resources wasted."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Medical not dispatched; person died from injuries."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Medical dispatched; person found with hip fracture, treated in time."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "No animal involved; no action."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Animal control dispatched; irrelevant to fall."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "message": "Sent animal control instead of medical; person found deceased."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "No animal involved; no action."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Dismissed as false alarm; caregiver confirmed it was a glitch."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Dismissed but fall was real; person later called for help."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Dismissed a real fall; person died without assistance."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Dismissed as false alarm; caregiver confirmed it was a glitch."
       }
     },
     "id": "scenario_183"
@@ -2978,74 +2888,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Police secured scene; traffic control aided rescue."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police dispatched but medical and fire were primary; slight coordination delay."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Police only; no medical or fire; victims died from injuries."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police secured scene; traffic control aided rescue."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Fire extricated trapped victims; prevented fire from wreckage."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Fire dispatched but no fire present; resources wasted."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Fire not dispatched; vehicle caught fire and victims burned."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Fire extricated trapped victims; prevented fire from wreckage."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Medical treated injuries; all occupants survived."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Medical dispatched but no injuries; false alarm."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Medical not dispatched; victims died from untreated injuries."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Medical treated injuries; all occupants survived."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "No animals involved; no action needed."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Animal control dispatched; irrelevant to crash."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "message": "Sent animal control instead of fire/medical; victims perished."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "No animals involved; no action needed."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Dismissed as false alarm; telemetry glitch."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Dismissed but crash real; caller called back with delay."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Dismissed a real crash; no response, victims died."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Dismissed as false alarm; telemetry glitch."
       }
     },
     "id": "scenario_184"

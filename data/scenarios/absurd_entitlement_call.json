@@ -180,27 +180,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police responded to a trivial food complaint, wasting resources and public trust. The caller was not satisfied and posted a viral video mocking the department."
+        "message": "Police responded to a trivial food complaint, wasting resources and public trust. The caller was not satisfied and posted a viral video mocking the department."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Firefighters arrived to find a cold avocado toast. They were not amused and the department faced ridicule."
+        "message": "Firefighters arrived to find a cold avocado toast. They were not amused and the department faced ridicule."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Paramedics checked the caller for allergic reactions but found none. The caller was embarrassed but grateful for the attention."
+        "message": "Paramedics checked the caller for allergic reactions but found none. The caller was embarrassed but grateful for the attention."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Animal control arrived and the caller demanded they take the chef away. They left after realizing there were no animals involved."
+        "message": "Animal control arrived and the caller demanded they take the chef away. They left after realizing there were no animals involved."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Correctly determined the call was non-emergency. Caller was redirected to the restaurant's complaint line. Resources saved."
+        "message": "Correctly determined the call was non-emergency. Caller was redirected to the restaurant's complaint line. Resources saved."
       }
     },
     "id": "scenario_021"
@@ -366,27 +366,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Police arrived to find a person pointing at the sky. They were ridiculed by bystanders. The caller insisted on filing a report."
+        "message": "Police arrived to find a person pointing at the sky. They were ridiculed by bystanders. The caller insisted on filing a report."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters showed up with a ladder, unsure how to fix a cloud. The public laughed."
+        "message": "Firefighters showed up with a ladder, unsure how to fix a cloud. The public laughed."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -120,
-        "feedback": "Medics assessed the caller for heat stroke or hallucinations. They were fine, but the caller was annoyed by the suggestion."
+        "message": "Medics assessed the caller for heat stroke or hallucinations. They were fine, but the caller was annoyed by the suggestion."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control came with a net. The caller demanded they catch the duck cloud. They left shaking their heads."
+        "message": "Animal control came with a net. The caller demanded they catch the duck cloud. They left shaking their heads."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Correctly determined the call was frivolous. The caller was advised to contact a meteorologist. Resources preserved."
+        "message": "Correctly determined the call was frivolous. The caller was advised to contact a meteorologist. Resources preserved."
       }
     },
     "id": "scenario_022"
@@ -486,27 +486,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrive at the library only to find a quiet building and a confused staff. The caller is cited for misuse of emergency services. PR and resources wasted."
+        "message": "Police arrive at the library only to find a quiet building and a confused staff. The caller is cited for misuse of emergency services. PR and resources wasted."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Fire department responds to a 'crisis' involving a library book. They find no hazard. Community outraged at frivolous call. Disciplinary action for dispatcher."
+        "message": "Fire department responds to a 'crisis' involving a library book. They find no hazard. Community outraged at frivolous call. Disciplinary action for dispatcher."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Ambulance dispatched to a non-medical emergency. Real emergency delayed. Caller gets a lecture from paramedics. Public complaint filed."
+        "message": "Ambulance dispatched to a non-medical emergency. Real emergency delayed. Caller gets a lecture from paramedics. Public complaint filed."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control sent to retrieve a book? They politely explain that is not their job. Caller becomes irate. Minor resource waste."
+        "message": "Animal control sent to retrieve a book? They politely explain that is not their job. Caller becomes irate. Minor resource waste."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Dispatcher professionally explains that a library overdue book is not an emergency. Caller is redirected to library services. Call resolved without incident."
+        "message": "Dispatcher professionally explains that a library overdue book is not an emergency. Caller is redirected to library services. Call resolved without incident."
       }
     },
     "id": "scenario_203"
@@ -600,27 +600,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police respond to a drive-thru for a coffee complaint. The caller is cited for misuse of 911. The restaurant is annoyed. Negative media coverage."
+        "message": "Police respond to a drive-thru for a coffee complaint. The caller is cited for misuse of 911. The restaurant is annoyed. Negative media coverage."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Firefighters arrive expecting a fire, find a cold coffee. Their time is wasted. Fire chief files a complaint."
+        "message": "Firefighters arrive expecting a fire, find a cold coffee. Their time is wasted. Fire chief files a complaint."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Ambulance dispatched for lukewarm coffee. No medical need. Paramedics are furious. Real emergency possibly delayed."
+        "message": "Ambulance dispatched for lukewarm coffee. No medical need. Paramedics are furious. Real emergency possibly delayed."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control sent to a drive-thru. They find no animals. Caller is confused. Minor resources used."
+        "message": "Animal control sent to a drive-thru. They find no animals. Caller is confused. Minor resources used."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Dispatcher explains that cold coffee is not an emergency. Caller is advised to speak to the manager. Call resolved."
+        "message": "Dispatcher explains that cold coffee is not an emergency. Caller is advised to speak to the manager. Call resolved."
       }
     },
     "id": "scenario_204"
@@ -716,27 +716,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrive to find a distressed homeowner over paint color. They explain it's not a crime. Caller tries to file a report. Waste of resources."
+        "message": "Police arrive to find a distressed homeowner over paint color. They explain it's not a crime. Caller tries to file a report. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Fire department arrives with hoses, expecting a fire. They are asked to repaint. Firefighters are bemused. Department reprimanded."
+        "message": "Fire department arrives with hoses, expecting a fire. They are asked to repaint. Firefighters are bemused. Department reprimanded."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Ambulance arrives for a 'medical emergency' that is just paint dissatisfaction. Paramedics leave frustrated. Legal issues."
+        "message": "Ambulance arrives for a 'medical emergency' that is just paint dissatisfaction. Paramedics leave frustrated. Legal issues."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control officer shows up, confused. Caller yells about paint. Officer leaves. Minor time waste."
+        "message": "Animal control officer shows up, confused. Caller yells about paint. Officer leaves. Minor time waste."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Dispatcher calms caller, explains that paint color is not an emergency. Suggests contacting the store. Call resolved."
+        "message": "Dispatcher calms caller, explains that paint color is not an emergency. Suggests contacting the store. Call resolved."
       }
     },
     "id": "scenario_205"
@@ -839,27 +839,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrive and interview the neighbor about a missing sock. Neighbor is annoyed. Caller is cited for false report. Media picks up the story."
+        "message": "Police arrive and interview the neighbor about a missing sock. Neighbor is annoyed. Caller is cited for false report. Media picks up the story."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Firefighters show up to a 'sock emergency'. They are embarrassed. Department gets ridiculed."
+        "message": "Firefighters show up to a 'sock emergency'. They are embarrassed. Department gets ridiculed."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Ambulance dispatched for a sock theft? Paramedics file a complaint. No medical need."
+        "message": "Ambulance dispatched for a sock theft? Paramedics file a complaint. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control officer asks about animals. Caller insists it's a sock. Officer leaves after explaining jurisdiction."
+        "message": "Animal control officer asks about animals. Caller insists it's a sock. Officer leaves after explaining jurisdiction."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Dispatcher explains missing socks are not a police matter. Caller is advised to check their laundry or buy new socks. Call handled."
+        "message": "Dispatcher explains missing socks are not a police matter. Caller is advised to check their laundry or buy new socks. Call handled."
       }
     },
     "id": "scenario_206"
@@ -955,27 +955,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrive to find a gamer stressed about lag. They explain it's not a police matter. Caller is upset. Negative PR."
+        "message": "Police arrive to find a gamer stressed about lag. They explain it's not a police matter. Caller is upset. Negative PR."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Firefighters try to diagnose network issues. They are not IT. Time wasted. Department gets mocked online."
+        "message": "Firefighters try to diagnose network issues. They are not IT. Time wasted. Department gets mocked online."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Ambulance dispatched for 'lag' emergency. Paramedics find no medical issue. Waste of life-saving resources."
+        "message": "Ambulance dispatched for 'lag' emergency. Paramedics find no medical issue. Waste of life-saving resources."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control officer has no animals to handle. Leaves confused. Caller yells about Wi-Fi."
+        "message": "Animal control officer has no animals to handle. Leaves confused. Caller yells about Wi-Fi."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Dispatcher tells caller to restart router and contact ISP. Caller reluctantly agrees. No resources wasted."
+        "message": "Dispatcher tells caller to restart router and contact ISP. Caller reluctantly agrees. No resources wasted."
       }
     },
     "id": "scenario_207"
@@ -1182,27 +1182,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrived to find a cold pizza. Wasted resources; call was absurd."
+        "message": "Police arrived to find a cold pizza. Wasted resources; call was absurd."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Firefighters responded to a cold pizza. They were confused."
+        "message": "Firefighters responded to a cold pizza. They were confused."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics showed up for a cold pizza. No medical need."
+        "message": "Paramedics showed up for a cold pizza. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control arrived for a cold pizza. Inappropriate dispatch."
+        "message": "Animal control arrived for a cold pizza. Inappropriate dispatch."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly dismissed the trivial complaint. Resources saved."
+        "message": "Correctly dismissed the trivial complaint. Resources saved."
       }
     },
     "id": "scenario_208"
@@ -1385,27 +1385,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police responded to a bad haircut. Waste of resources."
+        "message": "Police responded to a bad haircut. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Firefighters arrived for a haircut complaint. Confusion."
+        "message": "Firefighters arrived for a haircut complaint. Confusion."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics arrived for a bad haircut. No medical need."
+        "message": "Paramedics arrived for a bad haircut. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control responded to a haircut complaint. Inappropriate."
+        "message": "Animal control responded to a haircut complaint. Inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly dismissed. Resources saved."
+        "message": "Correctly dismissed. Resources saved."
       }
     },
     "id": "scenario_209"
@@ -1588,27 +1588,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police dispatched for no toilet paper. Wasted resources."
+        "message": "Police dispatched for no toilet paper. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Firefighters responded to a TP emergency. Confusion."
+        "message": "Firefighters responded to a TP emergency. Confusion."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics arrived for no TP. No medical need."
+        "message": "Paramedics arrived for no TP. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control responded to a bathroom stall. Inappropriate."
+        "message": "Animal control responded to a bathroom stall. Inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly dismissed. Resources saved."
+        "message": "Correctly dismissed. Resources saved."
       }
     },
     "id": "scenario_210"
@@ -1791,27 +1791,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police responded to a leaf blower at 10 AM. Waste of resources."
+        "message": "Police responded to a leaf blower at 10 AM. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Firefighters arrived for a noise complaint. Confusion."
+        "message": "Firefighters arrived for a noise complaint. Confusion."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics responded to a leaf blower. No medical need."
+        "message": "Paramedics responded to a leaf blower. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control responded to a leaf blower. Inappropriate."
+        "message": "Animal control responded to a leaf blower. Inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly dismissed. Resources saved."
+        "message": "Correctly dismissed. Resources saved."
       }
     },
     "id": "scenario_211"
@@ -1991,27 +1991,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police responded to a wrong drive-thru order. Waste of resources."
+        "message": "Police responded to a wrong drive-thru order. Waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Firefighters arrived for a wrong order. Confusion."
+        "message": "Firefighters arrived for a wrong order. Confusion."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics responded to a wrong order. No medical need."
+        "message": "Paramedics responded to a wrong order. No medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control responded to a wrong order. Inappropriate."
+        "message": "Animal control responded to a wrong order. Inappropriate."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly dismissed. Resources saved."
+        "message": "Correctly dismissed. Resources saved."
       }
     },
     "id": "scenario_212"
@@ -2211,28 +2211,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Police arrive at the coffee shop, wasting resources on a cold coffee complaint. The barista is confused, and the caller is uncooperative. Public funds wasted."
       },
       "SEND_FIRE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Firefighters arrive with lights and sirens, only to find a cold beverage. The caller is irate, and the crew is embarrassed. Misallocation of emergency services."
       },
       "SEND_MEDICAL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "An ambulance rushes to the scene, expecting a medical emergency. The caller yells about cold coffee. Paramedics leave frustrated, and the caller is fined for misuse."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Animal control arrives, but there are no animals. They explain this isn't their jurisdiction. The caller is confused. Mild inconvenience."
       },
       "DISMISS": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "Dispatcher calms caller and suggests contacting the store directly or seeking a refund. Caller eventually agrees or hangs up. No emergency resources used."
       }
     },
@@ -2428,28 +2428,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Police respond, see a TV mount, and explain it's not a police matter. The caller becomes belligerent. Officers waste time and public trust."
       },
       "SEND_FIRE": {
-        "score_delta": -450,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
         "message": "A fire engine arrives, crew sees a slightly crooked mount. They cannot fix it. The caller insists they should. Potential disciplinary action for false alarm."
       },
       "SEND_MEDICAL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "Paramedics rush in, expecting injuries. They find a crooked TV mount. The caller yells at them for being slow. Ambulance misused."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Animal control arrives, no animal. They refer to a handyman. Caller is confused but slightly amused."
       },
       "DISMISS": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "Dispatcher suggests contacting the handyman's company or a local handyman. Caller eventually agrees or disconnects. Resources saved."
       }
     },
@@ -2650,28 +2650,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Police show up, see an avocado. Caller demands the avocado be tested. Officers provide no help, and the caller wastes their time."
       },
       "SEND_FIRE": {
-        "score_delta": -450,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
         "message": "Firefighters arrive, find a panicked person over an avocado. They have no hazmat gear for that. Caller becomes hysterical."
       },
       "SEND_MEDICAL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "An ambulance rushes over. Paramedics find the caller with an avocado. They explain non-organic isn't toxic. Caller demands to be taken to hospital. Resources wasted."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Animal control arrives, no animal. They recommend calling the delivery service. Caller is confused but calms down."
       },
       "DISMISS": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "Dispatcher reassures the caller that non-organic avocados are safe, suggests contacting the delivery service for a refund. Caller hangs up satisfied or still miffed but no emergency."
       }
     },
@@ -2867,28 +2867,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Police arrive, see a disco ball. The caller insists it's a violation. Officers explain it's not, caller becomes hostile. Waste of time."
       },
       "SEND_FIRE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Fire truck shows up. Crew sees disco ball. Caller demands they remove it. They refuse. Resources misused."
       },
       "SEND_MEDICAL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "Ambulance arrives. No injuries. Caller wants medical for 'depression from bad ball'. Paramedics leave frustrated."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Animal control officer arrives, sees disco ball, laughs. Explains it's not an animal. Caller is embarrassed but still annoyed."
       },
       "DISMISS": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "Dispatcher advises caller to contact rental company for exchange. Caller eventually agrees or hangs up. Emergency resources not used."
       }
     },
@@ -3079,28 +3079,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Police respond to a restaurant, find a salad without croutons. The caller is irate. Officers advise it's a civil matter. Wasted resources."
       },
       "SEND_FIRE": {
-        "score_delta": -450,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -450,
         "message": "Firefighters show up, see a salad. They have no solution. Caller demands they add croutons. Unprofessional."
       },
       "SEND_MEDICAL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
         "message": "Ambulance arrives for a missing crouton emergency. Paramedics are speechless. Caller pretends to have allergic reaction to the absence. Misuse."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Animal control officer arrives, no animal. They recommend talking to manager. Caller is confused but eventually stops."
       },
       "DISMISS": {
-        "score_delta": 100,
         "status": "SUCCESS",
+        "score_delta": 100,
         "message": "Dispatcher suggests speaking to the restaurant manager. Caller demands police but after a few minutes, agrees to talk to staff. No emergency."
       }
     },
@@ -3176,27 +3176,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrived to find a customer arguing over a burger. A waste of resources."
+        "message": "Police arrived to find a customer arguing over a burger. A waste of resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responded to a non-emergency food complaint."
+        "message": "Fire department responded to a non-emergency food complaint."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medical unit dispatched for a non-injury burger dispute."
+        "message": "Medical unit dispatched for a non-injury burger dispute."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control sent to a burger joint; no animals involved."
+        "message": "Animal control sent to a burger joint; no animals involved."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Advised caller to speak with the manager. Call resolved without emergency response."
+        "message": "Advised caller to speak with the manager. Call resolved without emergency response."
       }
     },
     "id": "scenario_218"
@@ -3263,27 +3263,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police responded to a coffee order dispute. Wasted resources."
+        "message": "Police responded to a coffee order dispute. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters arrived to find a customer complaining about milk choice."
+        "message": "Firefighters arrived to find a customer complaining about milk choice."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medics dispatched to a coffee shop; no medical need."
+        "message": "Medics dispatched to a coffee shop; no medical need."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control sent to a coffee shop; no animals involved."
+        "message": "Animal control sent to a coffee shop; no animals involved."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Advised caller to ask for a remake. Issue resolved without emergency response."
+        "message": "Advised caller to ask for a remake. Issue resolved without emergency response."
       }
     },
     "id": "scenario_219"
@@ -3347,27 +3347,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrived to find a disputed parking spot. A waste of time."
+        "message": "Police arrived to find a disputed parking spot. A waste of time."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responded to a parking dispute."
+        "message": "Fire department responded to a parking dispute."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Medics dispatched to a non-injury argument over parking."
+        "message": "Medics dispatched to a non-injury argument over parking."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Animal control sent to a parking dispute; no animals involved."
+        "message": "Animal control sent to a parking dispute; no animals involved."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Advised caller that parking disputes are civil matters. Call resolved."
+        "message": "Advised caller that parking disputes are civil matters. Call resolved."
       }
     },
     "id": "scenario_220"
