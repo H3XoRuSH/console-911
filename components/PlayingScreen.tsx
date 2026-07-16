@@ -100,7 +100,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
           {isCallerTyping && (
             <div className="flex flex-col mr-auto items-start max-w-[85%]">
               <span className="text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
-                [{new Date().toTimeString().split(' ')[0]}] CALLER TYPING...
+                [{new Date().toTimeString().split(' ')[0]}] INCOMING TRANSMISSION...
               </span>
               <div className="rounded px-3 py-2 text-xs bg-emerald-950/20 border border-emerald-900/40 text-emerald-500/60 animate-pulse">
                 LINE INCOMING... [████████]
