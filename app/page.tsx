@@ -44,6 +44,9 @@ export default function Console911Game() {
   const [scoreSubmitted, setScoreSubmitted] = useState(false);
   const [submittingScore, setSubmittingScore] = useState(false);
 
+  // Abort confirmation intermediate state
+  const [abortConfirm, setAbortConfirm] = useState(false);
+
   // Audio wave indicators bars
   const [soundwaveBars, setSoundwaveBars] = useState<number[]>([
     10, 10, 10, 10, 10, 10, 10, 10, 10, 10
@@ -108,6 +111,15 @@ export default function Console911Game() {
     return () => clearInterval(interval);
   }, [gameState, isCallerTyping]);
 
+  // Reset abort confirmation after 4 seconds of inactivity
+  useEffect(() => {
+    if (!abortConfirm) return;
+    const timer = setTimeout(() => {
+      setAbortConfirm(false);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [abortConfirm]);
+
   // Get current timestamp format e.g., [16:42:01]
   const getTimestamp = () => {
     const d = new Date();
@@ -159,7 +171,7 @@ export default function Console911Game() {
     setTranscript([
       {
         sender: 'system',
-        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} (ARCHETYPE: ${call.archetype.toUpperCase()}) ---`,
+        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} ---`,
         timestamp: getTimestamp()
       },
       {
@@ -365,6 +377,29 @@ export default function Console911Game() {
     }
   };
 
+  // Abort active session and return to start screen
+  const handleAbortSession = () => {
+    if (!abortConfirm) {
+      setAbortConfirm(true);
+      return;
+    }
+
+    setAbortConfirm(false);
+    setGameState('start');
+    setCalls([]);
+    setCurrentCallIndex(0);
+    setTurnCount(1);
+    setTotalScore(0);
+    setCurrentState('initial');
+    setCallScore(0);
+    setTranscript([]);
+    setInputText('');
+    setIsCallerTyping(false);
+    setFeedbackInfo(null);
+    setScoreSubmitted(false);
+    setSubmittingScore(false);
+  };
+
   return (
     <div
       className={`flex flex-col flex-1 h-screen bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white select-none font-mono theme-${theme} size-${textSize} ${crtEnabled ? 'crt-effect' : ''}`}
@@ -417,11 +452,37 @@ export default function Console911Game() {
               <span>
                 SESSION SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
               </span>
+              <span>|</span>
+              <button
+                onClick={handleAbortSession}
+                className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                  abortConfirm
+                    ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
+                    : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
+                }`}
+              >
+                {abortConfirm ? 'You sure?' : 'Abort Shift'}
+              </button>
             </div>
           )}
           {gameState !== 'playing' && (
-            <div className="text-emerald-500/60 font-semibold uppercase font-mono">
-              STATUS: {gameState === 'start' ? 'SYSTEM IDLE' : gameState.toUpperCase()}
+            <div className="flex items-center gap-4 text-emerald-500/60 font-semibold uppercase font-mono">
+              <span>STATUS: {gameState === 'start' ? 'SYSTEM IDLE' : gameState.toUpperCase()}</span>
+              {(gameState === 'feedback' || gameState === 'loading') && (
+                <>
+                  <span>|</span>
+                  <button
+                    onClick={handleAbortSession}
+                    className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                      abortConfirm
+                        ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
+                        : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
+                    }`}
+                  >
+                    {abortConfirm ? 'You sure?' : 'Abort Shift'}
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>

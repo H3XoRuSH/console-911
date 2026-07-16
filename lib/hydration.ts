@@ -79,7 +79,15 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
 
   if (scenario.slots) {
     for (const slotKey in scenario.slots) {
-      const options = scenario.slots[slotKey as keyof ScenarioSlot];
+      let options = scenario.slots[slotKey as keyof ScenarioSlot] as unknown;
+      if (options && typeof options === 'object' && !Array.isArray(options)) {
+        const obj = options as Record<string, unknown>;
+        if (Array.isArray(obj.options)) {
+          options = obj.options;
+        } else if (Array.isArray(obj.choices)) {
+          options = obj.choices;
+        }
+      }
       if (Array.isArray(options) && options.length > 0) {
         const randomIndex = Math.floor(Math.random() * options.length);
         selectedSlots[slotKey] = options[randomIndex];
@@ -92,9 +100,18 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
   // Helper function to replace {slot_name} placeholders in a string
   const hydrateString = (template: string): string => {
     if (!template) return '';
-    return template.replace(/\{([a-zA-Z0-9_]+)\}/g, (match, slotName) => {
+    const hydrated = template.replace(/\{([a-zA-Z0-9_]+)\}/g, (match, slotName) => {
       return selectedSlots[slotName] !== undefined ? selectedSlots[slotName] : match;
     });
+
+    // Fix indefinite article agreement dynamically.
+    // Replace "a" with "an" before a vowel sound (approximated by starting with a vowel letter: a, e, i, o, u).
+    // Replace "an" with "a" before a consonant sound (approximated by starting with a non-vowel letter, except "h" to preserve "an hour", etc.).
+    return hydrated
+      .replace(/\b(a)\s+([aeiouAEIOU])/g, '$1n $2')
+      .replace(/\b(A)\s+([aeiouAEIOU])/g, '$1n $2')
+      .replace(/\b(an)\s+([^aeiouAEIOUhH\s\d\W])/g, 'a $2')
+      .replace(/\b(An)\s+([^aeiouAEIOUhH\s\d\W])/g, 'A $2');
   };
 
   // 2. Select a random initial variation and hydrate it

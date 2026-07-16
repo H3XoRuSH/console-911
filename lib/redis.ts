@@ -152,8 +152,10 @@ export async function getLeaderboard(): Promise<{ name: string; score: number }[
       const result: { name: string; score: number }[] = [];
       // Upstash returns elements in flat arrays like [member1, score1, member2, score2, ...]
       for (let i = 0; i < data.length; i += 2) {
+        const rawName = String(data[i]);
+        const name = rawName.includes('#') ? rawName.split('#')[0] : rawName;
         result.push({
-          name: String(data[i]),
+          name,
           score: Number(data[i + 1])
         });
       }
@@ -184,9 +186,10 @@ export async function submitScore(name: string, score: number): Promise<void> {
 
   if (redis) {
     try {
-      // Add or update the member score
-      await redis.zadd('global_leaderboard', { score, member: cleanName });
-      console.log(`Leaderboard updated: ${cleanName} = ${score}`);
+      // Add or update the member score. Use a unique suffix to prevent overwriting same callsigns (Issues #14, #15)
+      const uniqueMember = `${cleanName}#${Date.now()}_${Math.random().toString(36).substring(2, 6)}`;
+      await redis.zadd('global_leaderboard', { score, member: uniqueMember });
+      console.log(`Leaderboard updated: ${uniqueMember} = ${score}`);
       return;
     } catch (error) {
       console.error('Failed to submit score to Upstash Redis, falling back:', error);
