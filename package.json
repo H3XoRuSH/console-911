@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write . && eslint --fix .",
+    "format": "eslint --fix .",
     "typecheck": "tsc --noEmit",
     "generate": "node scripts/generate-scenarios.js"
   },
@@ -27,7 +27,6 @@
     "@types/stopword": "^2.0.3",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
-    "prettier": "^3.9.5",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
