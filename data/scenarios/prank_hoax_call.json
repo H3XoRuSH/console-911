@@ -119,29 +119,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
-        "description": "Police arrive to find a group of kids laughing. Resources wasted. Caller may face charges."
+        "score_delta": -300,
+        "message": "Police arrive to find a group of kids laughing. Resources wasted. Caller may face charges."
       },
       "SEND_FIRE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "description": "Fire trucks respond to a non-existent monster. Public embarrassment and waste of funds."
+        "score_delta": -400,
+        "message": "Fire trucks respond to a non-existent monster. Public embarrassment and waste of funds."
       },
       "SEND_MEDICAL": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
-        "description": "Ambulance arrives to a fake emergency. Delay for real calls."
+        "score_delta": -350,
+        "message": "Ambulance arrives to a fake emergency. Delay for real calls."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -250,
         "status": "CRITICAL_FAILURE",
-        "description": "Animal control finds no animal. Prank call reported."
+        "score_delta": -250,
+        "message": "Animal control finds no animal. Prank call reported."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "description": "Dispatcher identifies the prank early and terminates the call without deploying resources."
+        "score_delta": 200,
+        "message": "Dispatcher identifies the prank early and terminates the call without deploying resources."
       }
     },
     "id": "scenario_005",
@@ -265,29 +265,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "description": "Heavily armed police swarm the mall, causing panic. No bomb found. Hoax caller traced and charged."
+        "score_delta": -400,
+        "message": "Heavily armed police swarm the mall, causing panic. No bomb found. Hoax caller traced and charged."
       },
       "SEND_FIRE": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
-        "description": "Firefighters respond with hazmat suits. No threat found. Waste of resources."
+        "score_delta": -350,
+        "message": "Firefighters respond with hazmat suits. No threat found. Waste of resources."
       },
       "SEND_MEDICAL": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
-        "description": "Ambulances stage nearby unnecessarily. No injuries."
+        "score_delta": -300,
+        "message": "Ambulances stage nearby unnecessarily. No injuries."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -500,
         "status": "CRITICAL_FAILURE",
-        "description": "Animal control is completely inappropriate. Call is flagged as prank."
+        "score_delta": -500,
+        "message": "Animal control is completely inappropriate. Call is flagged as prank."
       },
       "DISMISS": {
-        "score_delta": 250,
         "status": "SUCCESS",
-        "description": "Dispatcher recognizes the inconsistent details and does not deploy. Caller's number logged for prank calls."
+        "score_delta": 250,
+        "message": "Dispatcher recognizes the inconsistent details and does not deploy. Caller's number logged for prank calls."
       }
     },
     "id": "scenario_006",
@@ -368,27 +368,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police dispatched to a non-emergency prank, wasting resources."
+        "message": "Police dispatched to a non-emergency prank, wasting resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters respond to a fake alien sighting."
+        "message": "Firefighters respond to a fake alien sighting."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Paramedics sent for a hoax, leaving real emergencies unserved."
+        "message": "Paramedics sent for a hoax, leaving real emergencies unserved."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control sent for 'aliens' — they find a raccoon."
+        "message": "Animal control sent for 'aliens' — they find a raccoon."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call identified as prank; no dispatch required."
+        "message": "Call identified as prank; no dispatch required."
       }
     }
   },
@@ -467,27 +467,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police respond to a haunted doll prank, wasting patrol time."
+        "message": "Police respond to a haunted doll prank, wasting patrol time."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters arrive to find a teenager laughing."
+        "message": "Firefighters arrive to find a teenager laughing."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Paramedics sent for a fake attack causing embarrassment."
+        "message": "Paramedics sent for a fake attack causing embarrassment."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control checks for 'cursed' — nothing found."
+        "message": "Animal control checks for 'cursed' — nothing found."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call identified as prank; no action needed."
+        "message": "Call identified as prank; no action needed."
       }
     }
   },
@@ -566,27 +566,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police dispatched to a celebrity hoax; no one there."
+        "message": "Police dispatched to a celebrity hoax; no one there."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Firefighters respond to a fake celebrity sighting."
+        "message": "Firefighters respond to a fake celebrity sighting."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Paramedics sent as precaution; caller playing a joke."
+        "message": "Paramedics sent as precaution; caller playing a joke."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control checks for 'celebrity' — finds a raccoon."
+        "message": "Animal control checks for 'celebrity' — finds a raccoon."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call identified as prank; no dispatch."
+        "message": "Call identified as prank; no dispatch."
       }
     }
   },
@@ -678,27 +678,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police raided the area looking for zombies; prank caused panic."
+        "message": "Police raided the area looking for zombies; prank caused panic."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters arrived to a zombie hoax; wasted resources."
+        "message": "Firefighters arrived to a zombie hoax; wasted resources."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Paramedics dispatched; found teens laughing."
+        "message": "Paramedics dispatched; found teens laughing."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control responds to 'zombies'; finds nothing."
+        "message": "Animal control responds to 'zombies'; finds nothing."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call identified as prank; no action taken."
+        "message": "Call identified as prank; no action taken."
       }
     }
   },
@@ -791,27 +791,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police dispatched for time travel hoax; found pranksters."
+        "message": "Police dispatched for time travel hoax; found pranksters."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -200,
-        "feedback": "Firefighters respond to 'temporal rift'; no hazard."
+        "message": "Firefighters respond to 'temporal rift'; no hazard."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Paramedics sent for 'chrono-energy poisoning'; none."
+        "message": "Paramedics sent for 'chrono-energy poisoning'; none."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control checks for 'future robots'; nothing."
+        "message": "Animal control checks for 'future robots'; nothing."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call identified as prank; no dispatch needed."
+        "message": "Call identified as prank; no dispatch needed."
       }
     }
   },
@@ -915,28 +915,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Units arrive to find a teenager with a drone and flashlights. Prank call wastes resources."
       },
       "SEND_FIRE": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Fire trucks respond to a nonexistent fire. Minor embarrassment for the department."
       },
       "SEND_MEDICAL": {
-        "score_delta": -150,
         "status": "MINOR_ERROR",
+        "score_delta": -150,
         "message": "Paramedics find no injuries. Caller admits prank."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Animal control finds no animals or aliens. Caller laughs."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Dispatcher recognized the hoax signs and convinced caller to admit prank. No units dispatched."
       }
     },
@@ -1035,28 +1035,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Police arrive to find a fan with a poster. Public mockery and wasted patrol time."
       },
       "SEND_FIRE": {
-        "score_delta": -250,
         "status": "MINOR_ERROR",
+        "score_delta": -250,
         "message": "Firefighters respond to nonexistent fire. Caller apologizes."
       },
       "SEND_MEDICAL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Paramedics find no medical emergency. Caller admits prank."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Animal control searches for celebrity—none found."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Dispatcher identified the hoax, caller confessed. No resources wasted."
       }
     },
@@ -1155,28 +1155,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
         "message": "Police swarm the area only to find a zombie walk event. Public embarrassment."
       },
       "SEND_FIRE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Fire department responds to nonexistent fire. Wasted resources."
       },
       "SEND_MEDICAL": {
-        "score_delta": -250,
         "status": "MINOR_ERROR",
+        "score_delta": -250,
         "message": "Paramedics find only costumed pranksters. Minor waste."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Animal control shows up to a party. Caller laughs."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Dispatcher recognized the absurdity. Caller admitted prank. No dispatch."
       }
     },
@@ -1278,28 +1278,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -350,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
         "message": "Police find a man in a costume with a broken microwave. Social media mockery."
       },
       "SEND_FIRE": {
-        "score_delta": -250,
         "status": "MINOR_ERROR",
+        "score_delta": -250,
         "message": "Firefighters respond to 'time machine'—just a malfunctioning router."
       },
       "SEND_MEDICAL": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Paramedics see a healthy prankster. Minor waste."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Animal control arrives to find a man with a toy. Caller embarrassed."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Dispatcher recognized the hoax, caller confessed. No resources wasted."
       }
     },
@@ -1392,28 +1392,28 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": -300,
         "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
         "message": "Police search for monster under bed, find a toy. Caller admits prank. Wasted time."
       },
       "SEND_FIRE": {
-        "score_delta": -200,
         "status": "MINOR_ERROR",
+        "score_delta": -200,
         "message": "Firefighters respond to 'monster'—nothing. Minor error."
       },
       "SEND_MEDICAL": {
-        "score_delta": -150,
         "status": "MINOR_ERROR",
+        "score_delta": -150,
         "message": "Paramedics arrive to a laughing family. No emergency."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
+        "score_delta": -100,
         "message": "Animal control finds a cat under the bed. Caller apologizes."
       },
       "DISMISS": {
-        "score_delta": 200,
         "status": "SUCCESS",
+        "score_delta": 200,
         "message": "Dispatcher recognized the prank, caller confessed. No units dispatched."
       }
     },
@@ -1538,27 +1538,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrived to find a group of teenagers laughing with a homemade UFO prop. The call was a prank."
+        "message": "Police arrived to find a group of teenagers laughing with a homemade UFO prop. The call was a prank."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Fire trucks rushed to the scene only to find a Halloween decoration. The caller was pranking."
+        "message": "Fire trucks rushed to the scene only to find a Halloween decoration. The caller was pranking."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Paramedics found no one injured. The caller admitted it was a joke after being confronted."
+        "message": "Paramedics found no one injured. The caller admitted it was a joke after being confronted."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control was confused but found no animals. The hoax wasted resources."
+        "message": "Animal control was confused but found no animals. The hoax wasted resources."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
+        "message": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
       }
     },
     "id": "scenario_069",
@@ -1674,27 +1674,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Police found a person dressed as the celebrity with a group of friends. The call was a hoax."
+        "message": "Police found a person dressed as the celebrity with a group of friends. The call was a hoax."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Firefighters arrived to a party with a celebrity impersonator. Not a real emergency."
+        "message": "Firefighters arrived to a party with a celebrity impersonator. Not a real emergency."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical team found no injuries. The situation was a prank."
+        "message": "Medical team found no injuries. The situation was a prank."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control officers were ridiculed by the pranksters. Waste of resources."
+        "message": "Animal control officers were ridiculed by the pranksters. Waste of resources."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Correctly identified as a prank. No emergency response. Caller warned."
+        "message": "Correctly identified as a prank. No emergency response. Caller warned."
       }
     },
     "id": "scenario_070",
@@ -1820,27 +1820,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Police found a group of friends in zombie costumes filming a prank video. Wasted resources."
+        "message": "Police found a group of friends in zombie costumes filming a prank video. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Fire crews arrived to a 'zombie walk' event. Not an actual emergency."
+        "message": "Fire crews arrived to a 'zombie walk' event. Not an actual emergency."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Paramedics found no injuries. The caller was laughing. False alarm."
+        "message": "Paramedics found no injuries. The caller was laughing. False alarm."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control found no animals. The prank involved people, not animals."
+        "message": "Animal control found no animals. The prank involved people, not animals."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about penalties."
+        "message": "Correctly identified as a prank. No units dispatched. Caller warned about penalties."
       }
     },
     "id": "scenario_071",
@@ -1962,27 +1962,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police arrived to find a teenager with a spooky sound machine. The call was a prank."
+        "message": "Police arrived to find a teenager with a spooky sound machine. The call was a prank."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Firefighters found no fire or ghost. The caller was hiding and laughing."
+        "message": "Firefighters found no fire or ghost. The caller was hiding and laughing."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical team saw no injuries. The 'victim' was a doll."
+        "message": "Medical team saw no injuries. The 'victim' was a doll."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control found stray cats but no ghost. Waste of time."
+        "message": "Animal control found stray cats but no ghost. Waste of time."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned."
+        "message": "Correctly identified as a prank. No units dispatched. Caller warned."
       }
     },
     "id": "scenario_072",
@@ -2099,27 +2099,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Police found a man with a homemade time machine prop. The call was a hoax."
+        "message": "Police found a man with a homemade time machine prop. The call was a hoax."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Fire crews rushed to the scene only to see a group laughing. No emergency."
+        "message": "Fire crews rushed to the scene only to see a group laughing. No emergency."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical team found no injuries. The caller had a fake ID badge."
+        "message": "Medical team found no injuries. The caller had a fake ID badge."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control found a robotic dog. The prank wasted resources."
+        "message": "Animal control found a robotic dog. The prank wasted resources."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
+        "message": "Correctly identified as a prank. No units dispatched. Caller warned about false reporting."
       }
     },
     "id": "scenario_073",
@@ -2251,27 +2251,27 @@
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Police arrived to find a child pranking. Wasted resources."
+        "message": "Police arrived to find a child pranking. Wasted resources."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Firefighters responded to a monster under the bed prank. Extreme waste of emergency services."
+        "message": "Firefighters responded to a monster under the bed prank. Extreme waste of emergency services."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Paramedics dispatched for a fictitious monster. Critical misallocation of resources."
+        "message": "Paramedics dispatched for a fictitious monster. Critical misallocation of resources."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Animal control arrived to find no animal. Minor waste."
+        "message": "Animal control arrived to find no animal. Minor waste."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Call correctly identified as prank. No resources wasted."
+        "message": "Call correctly identified as prank. No resources wasted."
       }
     },
     "id": "scenario_074",
@@ -2395,27 +2395,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Police rushed to the scene only to find a group filming a prank. Wasted resources and potential fine for caller."
+        "message": "Police rushed to the scene only to find a group filming a prank. Wasted resources and potential fine for caller."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Fire department responded to a clown chase. Completely unnecessary dispatch."
+        "message": "Fire department responded to a clown chase. Completely unnecessary dispatch."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Paramedics dispatched for fake injuries. Critical waste of medical resources."
+        "message": "Paramedics dispatched for fake injuries. Critical waste of medical resources."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control arrived to find a clown prank. Not applicable."
+        "message": "Animal control arrived to find a clown prank. Not applicable."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Call identified as prank. No emergency units dispatched."
+        "message": "Call identified as prank. No emergency units dispatched."
       }
     },
     "id": "scenario_075",
@@ -2531,27 +2531,27 @@
       "SEND_POLICE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Police and bomb squad deployed, only to find a prank. Massive waste of resources and public panic."
+        "message": "Police and bomb squad deployed, only to find a prank. Massive waste of resources and public panic."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -450,
-        "feedback": "Fire department responded to a bomb threat hoax. Unnecessary risk and cost."
+        "message": "Fire department responded to a bomb threat hoax. Unnecessary risk and cost."
       },
       "SEND_MEDICAL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Medical units dispatched for a fake bomb threat. Waste of emergency services."
+        "message": "Medical units dispatched for a fake bomb threat. Waste of emergency services."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Animal control dispatched in error. Not relevant."
+        "message": "Animal control dispatched in error. Not relevant."
       },
       "DISMISS": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Call correctly identified as prank. No resources wasted. Caller may face charges."
+        "message": "Call correctly identified as prank. No resources wasted. Caller may face charges."
       }
     },
     "id": "scenario_076",

@@ -161,74 +161,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Police arrive and investigate. They find evidence of a squatter in the walls or confirm it's a false alarm due to pests. The caller feels validated and safe."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police respond but the caller is too scared to let them in. They leave after clearing the perimeter, but the caller remains anxious."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police break down the door and find no one. The caller is arrested for wasting resources, causing trauma."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrive and investigate. They find evidence of a squatter in the walls or confirm it's a false alarm due to pests. The caller feels validated and safe."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "message": "Firefighters check for gas leaks and find a family of raccoons in the attic. Animal control is called and the problem is solved."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Firefighters arrive but find no fire or hazard. The caller is embarrassed and the fire department is annoyed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Firefighters force entry with axes, damaging the walls. No threat found. The caller is sued for damages."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighters check for gas leaks and find a family of raccoons in the attic. Animal control is called and the problem is solved."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 250,
-          "message": "Paramedics assess the caller and find they are having a psychotic episode. They are taken to a psychiatric facility for treatment."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Paramedics check vital signs and find nothing wrong. The caller refuses transport, feeling dismissed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Paramedics sedate the caller against their will, causing a lawsuit and public outcry."
-        }
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics assess the caller and find they are having a psychotic episode. They are taken to a psychiatric facility for treatment."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Animal control arrives and discovers raccoons in the attic. They remove them humanely, solving the issue."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Animal control finds no animals, but calming the caller prevents escalation."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "message": "Animal control mistakenly tranquilizes the caller's pet, causing outrage."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Animal control arrives and discovers raccoons in the attic. They remove them humanely, solving the issue."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -100,
-          "message": "Call is dismissed as delusional. The caller feels abandoned and may call again or harm themselves."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Dismissed as prank, but it was real. No response, caller feels helpless."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Dismissed as hoax. The caller attempts to confront the 'entity' themselves and is injured."
-        }
+        "status": "SUCCESS",
+        "score_delta": -100,
+        "message": "Call is dismissed as delusional. The caller feels abandoned and may call again or harm themselves."
       }
     },
     "id": "scenario_009"
@@ -395,74 +350,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Police arrive and calm the caller. They investigate and find a rational explanation (e.g., drones, planes, or lights from a nearby event). The caller is relieved."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police respond but the caller hides, leading to a tense standoff. Eventually resolved but wastes time."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police forcefully detain the caller who resists, resulting in injury and charges."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrive and calm the caller. They investigate and find a rational explanation (e.g., drones, planes, or lights from a nearby event). The caller is relieved."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters find a small electrical fire caused by overloaded circuits that the caller misinterpreted as alien activity. Fire is extinguished."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Firefighters find no fire but provide a calming presence. The caller becomes more agitated."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Firefighters break windows and cause property damage looking for fire. No fire found."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters find a small electrical fire caused by overloaded circuits that the caller misinterpreted as alien activity. Fire is extinguished."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 250,
-          "message": "Paramedics assess the caller and determine they are having a mental health crisis. They are transported to a hospital for evaluation and support."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Paramedics check vitals and find nothing physical. The caller refuses transport and feels dismissed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Paramedics forcefully sedate the caller, leading to a negative outcome and lawsuit."
-        }
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics assess the caller and determine they are having a mental health crisis. They are transported to a hospital for evaluation and support."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control finds a stray animal that caused the noises. Surprising but effective."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Animal control finds nothing, but the caller feels unheard."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -200,
-          "message": "Animal control arrives with a net and noise, scaring the caller further."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control finds a stray animal that caused the noises. Surprising but effective."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -50,
-          "message": "Call is dismissed as delusional. The caller might contact a UFO hotline instead."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Dismissed but the caller goes public and causes a media frenzy."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Dismissed as hoax. The caller, feeling isolated, attempts to 'communicate' dangerously and gets hurt."
-        }
+        "status": "SUCCESS",
+        "score_delta": -50,
+        "message": "Call is dismissed as delusional. The caller might contact a UFO hotline instead."
       }
     },
     "id": "scenario_010"
@@ -1200,27 +1110,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Police arrive and conduct a thorough search, finding no intruder but calming the caller. Referral to mental health services."
+        "message": "Police arrive and conduct a thorough search, finding no intruder but calming the caller. Referral to mental health services."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Firefighters arrive but find no fire or gas leak. Wasted resources. Caller is confused."
+        "message": "Firefighters arrive but find no fire or gas leak. Wasted resources. Caller is confused."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Paramedics evaluate the caller for anxiety or psychotic episode. Provide support and transport if needed."
+        "message": "Paramedics evaluate the caller for anxiety or psychotic episode. Provide support and transport if needed."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Animal control arrives expecting a wild animal. Caller is upset. No animal found."
+        "message": "Animal control arrives expecting a wild animal. Caller is upset. No animal found."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "description": "Call dismissed as prank. Caller later walks into traffic in a delusional state. Severe outcome."
+        "message": "Call dismissed as prank. Caller later walks into traffic in a delusional state. Severe outcome."
       }
     }
   },
@@ -1329,27 +1239,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Police mediate the situation, talk to the neighbor who is just a normal person. Calm the caller and arrange mental health assessment."
+        "message": "Police mediate the situation, talk to the neighbor who is just a normal person. Calm the caller and arrange mental health assessment."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Firefighters find no hazard. Caller is frustrated that no one believes them."
+        "message": "Firefighters find no hazard. Caller is frustrated that no one believes them."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Paramedics recognize signs of psychosis, provide transport to psychiatric facility."
+        "message": "Paramedics recognize signs of psychosis, provide transport to psychiatric facility."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Animal control arrives expecting an animal. Caller becomes more paranoid. No animal found."
+        "message": "Animal control arrives expecting an animal. Caller becomes more paranoid. No animal found."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "description": "Call dismissed as prank. Caller attacks neighbor later, believing they are the source. Arrested."
+        "message": "Call dismissed as prank. Caller attacks neighbor later, believing they are the source. Arrested."
       }
     }
   },
@@ -1458,27 +1368,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Police investigate, find the real parent safely asleep. Arrange counseling for the caller."
+        "message": "Police investigate, find the real parent safely asleep. Arrange counseling for the caller."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Firefighters arrive, no emergency. Caller is embarrassed but relieved no one is hurt."
+        "message": "Firefighters arrive, no emergency. Caller is embarrassed but relieved no one is hurt."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Paramedics check both caller and parent. No physical injury. Recommend psychiatric evaluation."
+        "message": "Paramedics check both caller and parent. No physical injury. Recommend psychiatric evaluation."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Animal control arrives, no animal. Caller becomes more paranoid."
+        "message": "Animal control arrives, no animal. Caller becomes more paranoid."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "description": "Call dismissed. Caller later runs away from home in fear of imposter."
+        "message": "Call dismissed. Caller later runs away from home in fear of imposter."
       }
     }
   },
@@ -1580,27 +1490,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Police search the area, find no intruder. Calm caller, explain natural phenomena. Recommend follow-up if needed."
+        "message": "Police search the area, find no intruder. Calm caller, explain natural phenomena. Recommend follow-up if needed."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Fire department arrives, no fire. Caller feels slightly reassured but wasting resources."
+        "message": "Fire department arrives, no fire. Caller feels slightly reassured but wasting resources."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Paramedics check vital signs, provide anxiety relief, suggest coping strategies."
+        "message": "Paramedics check vital signs, provide anxiety relief, suggest coping strategies."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Animal control scares caller further, thinking the shadow is an animal. No animal found."
+        "message": "Animal control scares caller further, thinking the shadow is an animal. No animal found."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "description": "Call dismissed. Caller later has a panic attack and injures themselves."
+        "message": "Call dismissed. Caller later has a panic attack and injures themselves."
       }
     }
   },
@@ -1710,27 +1620,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "description": "Police inspect the building, find no voice. Provide reassurance and contact mental health services."
+        "message": "Police inspect the building, find no voice. Provide reassurance and contact mental health services."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "description": "Fire department finds no fire or gas. Check for carbon monoxide but none found. Time wasted."
+        "message": "Fire department finds no fire or gas. Check for carbon monoxide but none found. Time wasted."
       },
       "SEND_MEDICAL": {
         "status": "SUCCESS",
         "score_delta": 150,
-        "description": "Paramedics assess caller for auditory hallucinations, transport for psychiatric evaluation."
+        "message": "Paramedics assess caller for auditory hallucinations, transport for psychiatric evaluation."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "description": "Animal control arrives, no animal. Caller believes they sent the wrong help. Escalates."
+        "message": "Animal control arrives, no animal. Caller believes they sent the wrong help. Escalates."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "description": "Call dismissed. Caller later attempts to break through the wall to find the source, injuring themselves."
+        "message": "Call dismissed. Caller later attempts to break through the wall to find the source, injuring themselves."
       }
     }
   },
@@ -1858,74 +1768,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Police arrive and find the caller distressed but safe. A wellness check connects them with mental health services."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police respond but find no evidence. Caller feels dismissed, but no harm done."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "message": "Police escalate the situation, causing the caller to become more agitated. They are taken involuntarily."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrive and find the caller distressed but safe. A wellness check connects them with mental health services."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters perform a wellness check, calm the caller, and refer them to mental health support."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Fire department finds no fire hazard. Resources wasted, caller feels confused."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Firefighters break down doors looking for fire, causing property damage and trauma."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters perform a wellness check, calm the caller, and refer them to mental health support."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Paramedics assess the caller and arrange a psychiatric evaluation. Caller receives appropriate care."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Medics find no physical injuries but leave without follow-up. Caller feels abandoned."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Medics administer unnecessary sedatives, causing adverse reaction."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics assess the caller and arrange a psychiatric evaluation. Caller receives appropriate care."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control checks property, finds no animals, but provides a listening ear."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Animal control arrives with noise and equipment, terrifying the caller."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Animal control sets traps that injure the caller's pet."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control checks property, finds no animals, but provides a listening ear."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Call is dismissed as non-emergency. Caller may call back later."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Dismissal leads to caller feeling ignored and having a panic attack."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Caller later harms themselves because no one took them seriously."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Call is dismissed as non-emergency. Caller may call back later."
       }
     },
     "id": "scenario_105"
@@ -2036,74 +1901,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "message": "Police arrive and call for mental health support. Caller is safely transported."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Police search for parasites, wasting time. Caller becomes more agitated."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police use force to restrain the scratching caller, causing injury."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and call for mental health support. Caller is safely transported."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters provide first aid for scratches and calm the caller."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Firefighters have no medical training, leave caller confused."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -450,
-          "message": "Firefighters accidentally use a fire hose, injuring the caller."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters provide first aid for scratches and calm the caller."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Paramedics treat scratches and arrange psychiatric care. Caller feels heard."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Medics find no parasites, leave without follow-up. Caller feels dismissed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Medics give sedatives that cause an allergic reaction."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics treat scratches and arrange psychiatric care. Caller feels heard."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control checks for bed bugs, finds none. Caller feels validated."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Animal control brings equipment that frightens the caller."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Animal control fumigates the house for imaginary bugs, causing health issues."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control checks for bed bugs, finds none. Caller feels validated."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Call is dismissed as delusional. No resources used."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Caller feels abandoned and may self-harm."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Caller later attempts to remove 'parasites' with a knife."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Call is dismissed as delusional. No resources used."
       }
     },
     "id": "scenario_106"
@@ -2220,74 +2040,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Police check on neighbor, confirm identity, and reassure caller. Caller receives mental health referral."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Police find no evidence of impersonation, but neighbor is annoyed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police arrest the innocent neighbor for fraud, causing legal issues."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police check on neighbor, confirm identity, and reassure caller. Caller receives mental health referral."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters check for gas leaks, find none, but calm the caller."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Firefighters are confused and leave without resolving."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -450,
-          "message": "Firefighters break into neighbor's house, causing panic."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters check for gas leaks, find none, but calm the caller."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 250,
-          "message": "Paramedics assess caller's mental state and arrange psychiatric evaluation."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Medics find no physical issues, suggest caller see a doctor."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Medics involuntarily commit the caller based on delusion."
-        }
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics assess caller's mental state and arrange psychiatric evaluation."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control finds a stray dog causing noise, unrelated."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Animal control brings net and traps, frightening caller."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Animal control captures the neighbor's dog, creating conflict."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control finds a stray dog causing noise, unrelated."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Call dismissed. Caller may call back."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Caller feels ignored and begins to obsess more."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Caller tries to confront clone with a weapon."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Call dismissed. Caller may call back."
       }
     },
     "id": "scenario_107"
@@ -2398,74 +2173,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Police investigate, find no waves, but arrange mental health support. Caller feels safe."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Police dismiss as crazy, leave caller feeling helpless."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police confiscate electronics, causing caller to become more paranoid."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police investigate, find no waves, but arrange mental health support. Caller feels safe."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters check for gas or electrical issues, calm caller."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Firefighters have no explanation, leave caller frustrated."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -450,
-          "message": "Firefighters cut power to the block, causing blackout and panic."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters check for gas or electrical issues, calm caller."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Paramedics administer anxiety medication and transport for evaluation."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Medics check vitals, find nothing, and leave."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Medics use restraints due to resistance, causing trauma."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics administer anxiety medication and transport for evaluation."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control checks for animals causing noise, none found."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Animal control brings equipment that amplifies the hum, worsening delusion."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Animal control tranquilizes caller's dog, leading to conflict."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control checks for animals causing noise, none found."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Call dismissed. No resources spent."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Caller feels abandoned, may harm himself."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Caller later attacks neighbor's antenna, believing it's the source."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Call dismissed. No resources spent."
       }
     },
     "id": "scenario_108"
@@ -2576,74 +2306,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "message": "Police arrive, show caller their reflection in a phone camera. Caller realizes it's a delusion. Referral to mental health."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "message": "Police try to reassure but leave without proof. Caller still doubts."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Police say caller is invisible, joking. Caller has a breakdown."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrive, show caller their reflection in a phone camera. Caller realizes it's a delusion. Referral to mental health."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "message": "Firefighters use a reflective surface to show caller their reflection. Caller calms."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "message": "Firefighters have no tool, leave caller confused."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -450,
-          "message": "Firefighters break a mirror, causing more distress."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters use a reflective surface to show caller their reflection. Caller calms."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 300,
-          "message": "Paramedics assess and arrange psychiatric care. Caller feels validated."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "message": "Medics check vitals, find nothing, leave."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Medics call caller crazy, making situation worse."
-        }
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics assess and arrange psychiatric care. Caller feels validated."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "message": "Animal control checks for stray animals, none found."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Animal control brings mirrors to find animals, confusing caller."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "message": "Animal control accidentally breaks a window, shattering reflection."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Animal control checks for stray animals, none found."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": 0,
-          "message": "Call dismissed as non-emergency."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -200,
-          "message": "Caller feels unheard, may call back repeatedly."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "message": "Caller attempts to 'prove' they are invisible by walking into traffic."
-        }
+        "status": "SUCCESS",
+        "score_delta": 0,
+        "message": "Call dismissed as non-emergency."
       }
     },
     "id": "scenario_109"
@@ -2744,74 +2429,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 150,
-          "description": "Police arrive and calm the caller, no threat found but caller gets mental health counseling."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -50,
-          "description": "Police arrive, caller is agitated but no danger; deemed a waste of resources."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -300,
-          "description": "Police use excessive force on hallucinating caller; lawsuit ensues."
-        }
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and calm the caller, no threat found but caller gets mental health counseling."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 100,
-          "description": "Firefighters assist in searching the house, no fire but caller feels safer."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -80,
-          "description": "Fire department delayed for a real fire; resources misallocated."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -350,
-          "description": "Firefighters break down doors and injure caller; public outcry."
-        }
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Firefighters assist in searching the house, no fire but caller feels safer."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 200,
-          "description": "Paramedics assess caller, refer to psychiatric unit for evaluation."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -30,
-          "description": "No medical issue found, but caller gets bill for ambulance."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -250,
-          "description": "Caller is sedated against will; family complaints."
-        }
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics assess caller, refer to psychiatric unit for evaluation."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 50,
-          "description": "Caller reports a stray cat; not relevant but caller is distracted."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -100,
-          "description": "Animal control arrives for a nonexistent animal; wastes time."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -400,
-          "description": "Animal control officer is attacked by caller's dog; injuries."
-        }
+        "status": "SUCCESS",
+        "score_delta": 50,
+        "message": "Caller reports a stray cat; not relevant but caller is distracted."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -50,
-          "description": "Caller's fear escalates into violence; police called later anyways."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -150,
-          "description": "Caller calls back multiple times, tying up lines."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -500,
-          "description": "Caller commits suicide after feeling abandoned by dispatcher."
-        }
+        "status": "SUCCESS",
+        "score_delta": -50,
+        "message": "Caller's fear escalates into violence; police called later anyways."
       }
     },
     "id": "scenario_110",
@@ -2912,74 +2552,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 120,
-          "description": "Police calm the caller and arrange a mental health evaluation."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -60,
-          "description": "Police respond to delusion; caller is resentful but safe."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -320,
-          "description": "Police tase caller when they resist; serious injury."
-        }
+        "status": "SUCCESS",
+        "score_delta": 120,
+        "message": "Police calm the caller and arrange a mental health evaluation."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 80,
-          "description": "Firefighters talk to caller; refer to medical."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -90,
-          "description": "Fire engines block traffic for no reason."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -380,
-          "description": "Caller thinks firefighters are government agents; violent confrontation."
-        }
+        "status": "SUCCESS",
+        "score_delta": 80,
+        "message": "Firefighters talk to caller; refer to medical."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 250,
-          "description": "Ambulance takes caller to psych ward; proper care."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -20,
-          "description": "ER visit finds nothing; caller gets sedative."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -200,
-          "description": "Paramedics sedate caller; allergic reaction."
-        }
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Ambulance takes caller to psych ward; proper care."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 40,
-          "description": "Caller is distracted by animal control officer's uniform."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -110,
-          "description": "Animal control responds to 'parasites'; ridicule."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -420,
-          "description": "Caller believes animal control is part of the conspiracy; attack."
-        }
+        "status": "SUCCESS",
+        "score_delta": 40,
+        "message": "Caller is distracted by animal control officer's uniform."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -40,
-          "description": "Caller goes to hospital by themselves."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -160,
-          "description": "Caller calls back repeatedly."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -480,
-          "description": "Caller self-surgically removes 'parasites' causing severe injury."
-        }
+        "status": "SUCCESS",
+        "score_delta": -40,
+        "message": "Caller goes to hospital by themselves."
       }
     },
     "id": "scenario_111",
@@ -3078,74 +2673,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "SUCCESS": {
-          "score_delta": 140,
-          "description": "Police arrive and physically wake the caller, no harm done."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -70,
-          "description": "Police argue with delusional caller; waste of time."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -340,
-          "description": "Police break down door and frighten caller into a panic attack."
-        }
+        "status": "SUCCESS",
+        "score_delta": 140,
+        "message": "Police arrive and physically wake the caller, no harm done."
       },
       "SEND_FIRE": {
-        "SUCCESS": {
-          "score_delta": 110,
-          "description": "Firefighters break a window, fresh air wakes caller."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -60,
-          "description": "Firefighters cause property damage for nothing."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -360,
-          "description": "Caller attacked by firefighters believing they are dream monsters."
-        }
+        "status": "SUCCESS",
+        "score_delta": 110,
+        "message": "Firefighters break a window, fresh air wakes caller."
       },
       "SEND_MEDICAL": {
-        "SUCCESS": {
-          "score_delta": 220,
-          "description": "Paramedics administer a mild sedative and the caller wakes naturally."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -40,
-          "description": "Paramedics call it a false alarm; caller billed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -280,
-          "description": "Paramedics induce sleep, worsening the dream loop."
-        }
+        "status": "SUCCESS",
+        "score_delta": 220,
+        "message": "Paramedics administer a mild sedative and the caller wakes naturally."
       },
       "ANIMAL_CONTROL": {
-        "SUCCESS": {
-          "score_delta": 30,
-          "description": "Caller is amused by animal control; distraction helps."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -120,
-          "description": "Animal control officer bitten by caller's dog."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -450,
-          "description": "Caller believes animal control is part of the dream; attack."
-        }
+        "status": "SUCCESS",
+        "score_delta": 30,
+        "message": "Caller is amused by animal control; distraction helps."
       },
       "DISMISS": {
-        "SUCCESS": {
-          "score_delta": -60,
-          "description": "Caller eventually wakes up on their own."
-        },
-        "MINOR_ERROR": {
-          "score_delta": -170,
-          "description": "Caller calls back hour later, still in 'dream' but unharmed."
-        },
-        "CRITICAL_FAILURE": {
-          "score_delta": -490,
-          "description": "Caller jumps out of window to 'wake up' and dies."
-        }
+        "status": "SUCCESS",
+        "score_delta": -60,
+        "message": "Caller eventually wakes up on their own."
       }
     },
     "id": "scenario_112",

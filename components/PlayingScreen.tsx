@@ -14,6 +14,7 @@ interface PlayingScreenProps {
   onDispatchAction: (
     action: 'SEND_POLICE' | 'SEND_FIRE' | 'SEND_MEDICAL' | 'ANIMAL_CONTROL' | 'DISMISS'
   ) => void;
+  previewMode?: boolean;
 }
 
 export const PlayingScreen: React.FC<PlayingScreenProps> = ({
@@ -25,7 +26,8 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   isCallerTyping,
   soundwaveBars,
   onSendMessage,
-  onDispatchAction
+  onDispatchAction,
+  previewMode = false
 }) => {
   const transcriptEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -201,6 +203,12 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
                 {activeCall.difficulty.toUpperCase()}
               </span>
             </div>
+            {previewMode && (
+              <div className="flex justify-between text-amber-500 font-bold border-t border-emerald-950/40 pt-1.5 font-mono">
+                <span>SCENARIO ID:</span>
+                <span>{activeCall.scenarioId}</span>
+              </div>
+            )}
           </div>
         </div>
 

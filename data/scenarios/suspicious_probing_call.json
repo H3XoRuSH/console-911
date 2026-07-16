@@ -132,27 +132,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police dispatched. Upon arrival, no burglary found, but a suspicious vehicle was spotted leaving the area. Likely a probe."
+        "message": "Police dispatched. Upon arrival, no burglary found, but a suspicious vehicle was spotted leaving the area. Likely a probe."
       },
       "SEND_FIRE": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Fire department dispatched to a non-fire call. Wasted resources and delayed real emergencies."
+        "message": "Fire department dispatched to a non-fire call. Wasted resources and delayed real emergencies."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit dispatched unnecessarily. No injuries found."
+        "message": "Medical unit dispatched unnecessarily. No injuries found."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control dispatched to a non-animal call. Inefficient use of resources."
+        "message": "Animal control dispatched to a non-animal call. Inefficient use of resources."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. The callers later committed a burglary nearby, exploiting the delayed response."
+        "message": "Call dismissed. The callers later committed a burglary nearby, exploiting the delayed response."
       }
     },
     "id": "scenario_019"
@@ -298,27 +298,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police dispatched. Investigation reveals no evidence of gunfire; likely a test call. Patrols increased in area."
+        "message": "Police dispatched. Investigation reveals no evidence of gunfire; likely a test call. Patrols increased in area."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department dispatched to a false alarm. No fire or danger found."
+        "message": "Fire department dispatched to a false alarm. No fire or danger found."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit dispatched unnecessarily. No injuries."
+        "message": "Medical unit dispatched unnecessarily. No injuries."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control dispatched. No animals involved; wasted response."
+        "message": "Animal control dispatched. No animals involved; wasted response."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "Call dismissed. The callers were casing the neighborhood; a later robbery occurred without prompt police response."
+        "message": "Call dismissed. The callers were casing the neighborhood; a later robbery occurred without prompt police response."
       }
     },
     "id": "scenario_020"
@@ -441,29 +441,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "feedback": "Officers respond to the bank and find a burglary in progress. The caller was casing the area."
+        "score_delta": 200,
+        "message": "Officers respond to the bank and find a burglary in progress. The caller was casing the area."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Fire department arrives to find no fire, but the disturbance alerts the real burglars who escape."
+        "score_delta": -100,
+        "message": "Fire department arrives to find no fire, but the disturbance alerts the real burglars who escape."
       },
       "SEND_MEDICAL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Paramedics arrive to find no medical emergency. The caller's probing continues undetected."
+        "score_delta": -100,
+        "message": "Paramedics arrive to find no medical emergency. The caller's probing continues undetected."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Animal control shows up, confusing everyone. The burglars get away."
+        "score_delta": -100,
+        "message": "Animal control shows up, confusing everyone. The burglars get away."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "feedback": "You dismiss the call. The callers successfully burglarize the bank, leading to significant loss."
+        "score_delta": -400,
+        "message": "You dismiss the call. The callers successfully burglarize the bank, leading to significant loss."
       }
     },
     "id": "scenario_185",
@@ -581,29 +581,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "feedback": "Police arrive and detain the caller, who is found to be scouting for a burglary. Evidence of planning is discovered."
+        "score_delta": 200,
+        "message": "Police arrive and detain the caller, who is found to be scouting for a burglary. Evidence of planning is discovered."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Firefighters show up, confusing the caller, who ends the call. The probe continues elsewhere."
+        "score_delta": -100,
+        "message": "Firefighters show up, confusing the caller, who ends the call. The probe continues elsewhere."
       },
       "SEND_MEDICAL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Paramedics find no patient. The caller realizes they've been misdirected and hangs up."
+        "score_delta": -100,
+        "message": "Paramedics find no patient. The caller realizes they've been misdirected and hangs up."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Animal control arrives, causing the caller to laugh and hang up. They later successfully case a different location."
+        "score_delta": -100,
+        "message": "Animal control arrives, causing the caller to laugh and hang up. They later successfully case a different location."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "feedback": "You dismiss the call. The callers use the information to rob a house on {address_location} that night."
+        "score_delta": -400,
+        "message": "You dismiss the call. The callers use the information to rob a house on {address_location} that night."
       }
     },
     "id": "scenario_186",
@@ -721,29 +721,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "feedback": "Officers arrive and find the caller is actually scoping the neighborhood. They arrest him for attempted burglary."
+        "score_delta": 200,
+        "message": "Officers arrive and find the caller is actually scoping the neighborhood. They arrest him for attempted burglary."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Fire truck arrives, blocking the driveway further. The caller uses the confusion to case nearby homes."
+        "score_delta": -100,
+        "message": "Fire truck arrives, blocking the driveway further. The caller uses the confusion to case nearby homes."
       },
       "SEND_MEDICAL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Ambulance shows up; no medical issue. The caller takes note of response times and leaves."
+        "score_delta": -100,
+        "message": "Ambulance shows up; no medical issue. The caller takes note of response times and leaves."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Animal control arrives; caller laughs and hangs up. They later report their findings to accomplices."
+        "score_delta": -100,
+        "message": "Animal control arrives; caller laughs and hangs up. They later report their findings to accomplices."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "feedback": "You dismiss the call. The caller, a burglar, now knows response times are slow and proceeds to break into a nearby house."
+        "score_delta": -400,
+        "message": "You dismiss the call. The caller, a burglar, now knows response times are slow and proceeds to break into a nearby house."
       }
     },
     "id": "scenario_187",
@@ -849,29 +849,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "feedback": "Police respond and find the caller casing houses. He is arrested for loitering with intent to burglarize."
+        "score_delta": 200,
+        "message": "Police respond and find the caller casing houses. He is arrested for loitering with intent to burglarize."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Firefighters arrive, the caller pretends to look for pet and leaves. He uses the info elsewhere."
+        "score_delta": -100,
+        "message": "Firefighters arrive, the caller pretends to look for pet and leaves. He uses the info elsewhere."
       },
       "SEND_MEDICAL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Paramedics find no emergency. The caller notes slow response and plans accordingly."
+        "score_delta": -100,
+        "message": "Paramedics find no emergency. The caller notes slow response and plans accordingly."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Animal control shows up; the caller fakes gratitude and leaves after noting their arrival time."
+        "score_delta": -100,
+        "message": "Animal control shows up; the caller fakes gratitude and leaves after noting their arrival time."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "feedback": "You dismiss the call. The caller uses the patrol gaps to commit a burglary on {address_location}."
+        "score_delta": -400,
+        "message": "You dismiss the call. The caller uses the patrol gaps to commit a burglary on {address_location}."
       }
     },
     "id": "scenario_188",
@@ -975,29 +975,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "score_delta": 200,
         "status": "SUCCESS",
-        "feedback": "Police arrive and find no party. The caller is observed acting suspiciously and is found to be a burglar surveying the area. Arrested."
+        "score_delta": 200,
+        "message": "Police arrive and find no party. The caller is observed acting suspiciously and is found to be a burglar surveying the area. Arrested."
       },
       "SEND_FIRE": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Fire truck arrives; no fire. The caller notes the time and leaves, continuing his probe."
+        "score_delta": -100,
+        "message": "Fire truck arrives; no fire. The caller notes the time and leaves, continuing his probe."
       },
       "SEND_MEDICAL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Ambulance arrives; no patient. The caller writes down the response time and departs."
+        "score_delta": -100,
+        "message": "Ambulance arrives; no patient. The caller writes down the response time and departs."
       },
       "ANIMAL_CONTROL": {
-        "score_delta": -100,
         "status": "MINOR_ERROR",
-        "feedback": "Animal control shows up; caller laughs and hangs up. The information is relayed to accomplices."
+        "score_delta": -100,
+        "message": "Animal control shows up; caller laughs and hangs up. The information is relayed to accomplices."
       },
       "DISMISS": {
-        "score_delta": -400,
         "status": "CRITICAL_FAILURE",
-        "feedback": "You dismiss the call. The caller now knows police won't respond quickly to noise complaints. He burgle a house on the block later that night."
+        "score_delta": -400,
+        "message": "You dismiss the call. The caller now knows police won't respond quickly to noise complaints. He burgle a house on the block later that night."
       }
     },
     "id": "scenario_189",
@@ -1136,27 +1136,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrive and catch the caller attempting a burglary. The van was a decoy."
+        "message": "Police arrive and catch the caller attempting a burglary. The van was a decoy."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department arrives to find no fire; caller hangs up when confronted."
+        "message": "Fire department arrives to find no fire; caller hangs up when confronted."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit arrives to find no medical emergency; caller becomes hostile."
+        "message": "Medical unit arrives to find no medical emergency; caller becomes hostile."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control shows up; caller is amused and commits crime while they are distracted."
+        "message": "Animal control shows up; caller is amused and commits crime while they are distracted."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "No units dispatched; the caller commits a burglary and escapes."
+        "message": "No units dispatched; the caller commits a burglary and escapes."
       }
     },
     "id": "scenario_190",
@@ -1287,27 +1287,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrive and catch the caller attempting to break into the neighbor's home."
+        "message": "Police arrive and catch the caller attempting to break into the neighbor's home."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department arrives; caller claims it was a false alarm and leaves."
+        "message": "Fire department arrives; caller claims it was a false alarm and leaves."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit arrives to find nothing; caller berates them for slow response."
+        "message": "Medical unit arrives to find nothing; caller berates them for slow response."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control shows up; caller robs the neighbor with police delayed."
+        "message": "Animal control shows up; caller robs the neighbor with police delayed."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "No dispatch; neighbor is robbed and caller escapes."
+        "message": "No dispatch; neighbor is robbed and caller escapes."
       }
     },
     "id": "scenario_191",
@@ -1438,27 +1438,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrive and find the caller attempting to break into a house. The lost cat was a ruse."
+        "message": "Police arrive and find the caller attempting to break into a house. The lost cat was a ruse."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department shows up; caller says it's a misunderstanding and leaves."
+        "message": "Fire department shows up; caller says it's a misunderstanding and leaves."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit arrives; caller claims to be having a panic attack and leaves."
+        "message": "Medical unit arrives; caller claims to be having a panic attack and leaves."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Animal control arrives; caller is not there and a real lost cat is not found."
+        "message": "Animal control arrives; caller is not there and a real lost cat is not found."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "No dispatch; caller commits a burglary using the information gathered."
+        "message": "No dispatch; caller commits a burglary using the information gathered."
       }
     },
     "id": "scenario_192",
@@ -1597,27 +1597,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrive and find the caller casing a nearby bank; the traffic light was a distraction."
+        "message": "Police arrive and find the caller casing a nearby bank; the traffic light was a distraction."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters arrive; caller claims the light is fixed and leaves."
+        "message": "Firefighters arrive; caller claims the light is fixed and leaves."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit arrives to a non-emergency; caller is uncooperative."
+        "message": "Medical unit arrives to a non-emergency; caller is uncooperative."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control shows up; caller uses the confusion to commit a crime nearby."
+        "message": "Animal control shows up; caller uses the confusion to commit a crime nearby."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "No dispatch; caller's probing gives him enough info to execute a successful burglary."
+        "message": "No dispatch; caller's probing gives him enough info to execute a successful burglary."
       }
     },
     "id": "scenario_193",
@@ -1752,27 +1752,27 @@
       "SEND_FIRE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Fire department arrives and finds no gas leak, but catches the caller who was planning to rob a nearby store using the diversion."
+        "message": "Fire department arrives and finds no gas leak, but catches the caller who was planning to rob a nearby store using the diversion."
       },
       "SEND_POLICE": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Police respond; caller claims it was a false alarm and leaves, but their probing goes unpunished."
+        "message": "Police respond; caller claims it was a false alarm and leaves, but their probing goes unpunished."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit arrives; caller complains of headache and leaves after treatment."
+        "message": "Medical unit arrives; caller complains of headache and leaves after treatment."
       },
       "ANIMAL_CONTROL": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Animal control arrives; caller laughs and commits a crime while they are confused."
+        "message": "Animal control arrives; caller laughs and commits a crime while they are confused."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -500,
-        "feedback": "No dispatch; caller successfully tests response and commits a burglary later."
+        "message": "No dispatch; caller successfully tests response and commits a burglary later."
       }
     },
     "id": "scenario_194",
@@ -1930,29 +1930,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correct": true,
+        "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Officers respond to the address but find no drug activity. The caller is gone. It was a probe."
+        "message": "Officers respond to the address but find no drug activity. The caller is gone. It was a probe."
       },
       "SEND_FIRE": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire trucks arrive to a quiet street. No emergency. Resources wasted."
+        "message": "Fire trucks arrive to a quiet street. No emergency. Resources wasted."
       },
       "SEND_MEDICAL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Ambulance shows up to a false report. No medical emergency."
+        "message": "Ambulance shows up to a false report. No medical emergency."
       },
       "ANIMAL_CONTROL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control arrives to a supposed drug deal. Looks like a prank."
+        "message": "Animal control arrives to a supposed drug deal. Looks like a prank."
       },
       "DISMISS": {
-        "correct": false,
+        "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "Call dismissed as suspicious. However, if it was a real drug deal, it's a critical failure."
+        "message": "Call dismissed as suspicious. However, if it was a real drug deal, it's a critical failure."
       }
     },
     "id": "scenario_195",
@@ -2101,29 +2101,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correct": true,
+        "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Police arrive and find a suspicious individual casing the house. Potential burglary prevented."
+        "message": "Police arrive and find a suspicious individual casing the house. Potential burglary prevented."
       },
       "SEND_FIRE": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -120,
-        "feedback": "Fire trucks respond to a delivery query. Waste of resources."
+        "message": "Fire trucks respond to a delivery query. Waste of resources."
       },
       "SEND_MEDICAL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Ambulance dispatched for a parcel check. Not needed."
+        "message": "Ambulance dispatched for a parcel check. Not needed."
       },
       "ANIMAL_CONTROL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Animal control shows up to a delivery call. No animal involved."
+        "message": "Animal control shows up to a delivery call. No animal involved."
       },
       "DISMISS": {
-        "correct": false,
+        "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "Call dismissed as low priority. Missed opportunity to catch a potential criminal."
+        "message": "Call dismissed as low priority. Missed opportunity to catch a potential criminal."
       }
     },
     "id": "scenario_196",
@@ -2263,29 +2263,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correct": true,
+        "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police respond and find a person probing dispatch procedures. Interrogation reveals no criminal intent, but vigilance is noted."
+        "message": "Police respond and find a person probing dispatch procedures. Interrogation reveals no criminal intent, but vigilance is noted."
       },
       "SEND_FIRE": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire engine arrives to a taxi request. Completely inappropriate."
+        "message": "Fire engine arrives to a taxi request. Completely inappropriate."
       },
       "SEND_MEDICAL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Ambulance shows up for a cab. No medical need."
+        "message": "Ambulance shows up for a cab. No medical need."
       },
       "ANIMAL_CONTROL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -60,
-        "feedback": "Animal control dispatched for a taxi call. No animals present."
+        "message": "Animal control dispatched for a taxi call. No animals present."
       },
       "DISMISS": {
-        "correct": false,
+        "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "Call dismissed as not an emergency. However, the probing nature could indicate a planned crime."
+        "message": "Call dismissed as not an emergency. However, the probing nature could indicate a planned crime."
       }
     },
     "id": "scenario_197",
@@ -2413,29 +2413,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correct": true,
+        "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Police trace the call and find a person testing the system. No crime, but behavior noted."
+        "message": "Police trace the call and find a person testing the system. No crime, but behavior noted."
       },
       "SEND_FIRE": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responds to a wrong number. Unnecessary."
+        "message": "Fire department responds to a wrong number. Unnecessary."
       },
       "SEND_MEDICAL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Ambulance dispatched for a non-emergency. Waste."
+        "message": "Ambulance dispatched for a non-emergency. Waste."
       },
       "ANIMAL_CONTROL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -60,
-        "feedback": "Animal control shows up. No relevance."
+        "message": "Animal control shows up. No relevance."
       },
       "DISMISS": {
-        "correct": false,
+        "status": "CRITICAL_FAILURE",
         "score_delta": -200,
-        "feedback": "Call dismissed as wrong number. Could be a probe for vulnerabilities."
+        "message": "Call dismissed as wrong number. Could be a probe for vulnerabilities."
       }
     },
     "id": "scenario_198",
@@ -2572,29 +2572,29 @@
     },
     "dispatch_outcomes": {
       "SEND_POLICE": {
-        "correct": true,
+        "status": "SUCCESS",
         "score_delta": 150,
-        "feedback": "Police respond to the noise complaint but find no disturbance. The caller is not present. It was a probe."
+        "message": "Police respond to the noise complaint but find no disturbance. The caller is not present. It was a probe."
       },
       "SEND_FIRE": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire trucks arrive for a noise complaint. Inappropriate response."
+        "message": "Fire trucks arrive for a noise complaint. Inappropriate response."
       },
       "SEND_MEDICAL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Ambulance dispatched. No medical need."
+        "message": "Ambulance dispatched. No medical need."
       },
       "ANIMAL_CONTROL": {
-        "correct": false,
+        "status": "MINOR_ERROR",
         "score_delta": -60,
-        "feedback": "Animal control shows up. No animals involved."
+        "message": "Animal control shows up. No animals involved."
       },
       "DISMISS": {
-        "correct": false,
+        "status": "CRITICAL_FAILURE",
         "score_delta": -250,
-        "feedback": "Call dismissed as non-emergency. However, probing calls can indicate future criminal activity."
+        "message": "Call dismissed as non-emergency. However, probing calls can indicate future criminal activity."
       }
     },
     "id": "scenario_199",
@@ -2703,27 +2703,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 200,
-        "feedback": "Police arrived and found the caller was casing homes. They arrested him."
+        "message": "Police arrived and found the caller was casing homes. They arrested him."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Fire department responded to a false alarm. Wasted resources."
+        "message": "Fire department responded to a false alarm. Wasted resources."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "Medical unit found no injuries. Caller was suspicious."
+        "message": "Medical unit found no injuries. Caller was suspicious."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control came, no animals involved."
+        "message": "Animal control came, no animals involved."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -300,
-        "feedback": "You dismissed the call. The caller later burglarized a home on the same street."
+        "message": "You dismissed the call. The caller later burglarized a home on the same street."
       }
     },
     "id": "scenario_200",
@@ -2829,27 +2829,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 250,
-        "feedback": "Police identified the caller as a scout for a burglary ring. They were arrested."
+        "message": "Police identified the caller as a scout for a burglary ring. They were arrested."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Firefighters found no emergency. Wasted resources."
+        "message": "Firefighters found no emergency. Wasted resources."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -80,
-        "feedback": "No medical issue. Caller acted suspiciously but left before police arrived."
+        "message": "No medical issue. Caller acted suspiciously but left before police arrived."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -60,
-        "feedback": "Animal control responded, but there were no animals in distress."
+        "message": "Animal control responded, but there were no animals in distress."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -350,
-        "feedback": "You dismissed the call. The suspect's accomplices burglarized a home later that day."
+        "message": "You dismissed the call. The suspect's accomplices burglarized a home later that day."
       }
     },
     "id": "scenario_201",
@@ -2954,27 +2954,27 @@
       "SEND_POLICE": {
         "status": "SUCCESS",
         "score_delta": 300,
-        "feedback": "Police arrived and found the caller was an imposter attempting to case the home. He was taken into custody."
+        "message": "Police arrived and found the caller was an imposter attempting to case the home. He was taken into custody."
       },
       "SEND_FIRE": {
         "status": "MINOR_ERROR",
         "score_delta": -150,
-        "feedback": "Fire department responded to a non-existent gas leak. Resources wasted."
+        "message": "Fire department responded to a non-existent gas leak. Resources wasted."
       },
       "SEND_MEDICAL": {
         "status": "MINOR_ERROR",
         "score_delta": -100,
-        "feedback": "Medical unit found no emergencies. Caller became agitated and left."
+        "message": "Medical unit found no emergencies. Caller became agitated and left."
       },
       "ANIMAL_CONTROL": {
         "status": "MINOR_ERROR",
         "score_delta": -50,
-        "feedback": "Animal control had no relevance here."
+        "message": "Animal control had no relevance here."
       },
       "DISMISS": {
         "status": "CRITICAL_FAILURE",
         "score_delta": -400,
-        "feedback": "You dismissed the call. The imposter gained entry to a home and robbed it."
+        "message": "You dismissed the call. The imposter gained entry to a home and robbed it."
       }
     },
     "id": "scenario_202",
