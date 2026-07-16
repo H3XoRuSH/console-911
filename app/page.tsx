@@ -65,8 +65,8 @@ export default function Console911Game() {
     Array<{ id: string; title: string; archetype: string }>
   >([]);
   const [selectedScenarios, setSelectedScenarios] = useState<string[]>([]);
-  const [showDebugPanel, setShowDebugPanel] = useState(true);
-  const [showScenarioId, setShowScenarioId] = useState(true);
+  const [showDebugPanel, setShowDebugPanel] = useState(false);
+  const [showScenarioId, setShowScenarioId] = useState(false);
 
   const fetchLeaderboard = async () => {
     try {
