@@ -64,6 +64,8 @@ export default function Console911Game() {
     Array<{ id: string; title: string; archetype: string }>
   >([]);
   const [selectedScenarios, setSelectedScenarios] = useState<string[]>([]);
+  const [showDebugPanel, setShowDebugPanel] = useState(true);
+  const [showScenarioId, setShowScenarioId] = useState(true);
 
   const fetchLeaderboard = async () => {
     try {
@@ -527,7 +529,7 @@ export default function Console911Game() {
             dispatcherName={dispatcherName}
             setDispatcherName={setDispatcherName}
             onStart={startSession}
-            previewMode={previewMode}
+            previewMode={previewMode && showDebugPanel}
             availableScenarios={availableScenarios}
             selectedScenarios={selectedScenarios}
             setSelectedScenarios={setSelectedScenarios}
@@ -571,7 +573,7 @@ export default function Console911Game() {
             soundwaveBars={soundwaveBars}
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
-            previewMode={previewMode}
+            previewMode={previewMode && showScenarioId}
           />
         )}
 
@@ -620,6 +622,11 @@ export default function Console911Game() {
           setCrtEnabled(e);
           localStorage.setItem('console911-crt-enabled', String(e));
         }}
+        previewMode={previewMode}
+        showDebugPanel={showDebugPanel}
+        setShowDebugPanel={setShowDebugPanel}
+        showScenarioId={showScenarioId}
+        setShowScenarioId={setShowScenarioId}
       />
     </div>
   );

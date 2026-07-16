@@ -9,6 +9,11 @@ interface SettingsModalProps {
   setTextSize: (size: 'small' | 'medium' | 'large') => void;
   crtEnabled: boolean;
   setCrtEnabled: (enabled: boolean) => void;
+  previewMode?: boolean;
+  showDebugPanel?: boolean;
+  setShowDebugPanel?: (show: boolean) => void;
+  showScenarioId?: boolean;
+  setShowScenarioId?: (show: boolean) => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -19,7 +24,12 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   textSize,
   setTextSize,
   crtEnabled,
-  setCrtEnabled
+  setCrtEnabled,
+  previewMode = false,
+  showDebugPanel = true,
+  setShowDebugPanel = () => {},
+  showScenarioId = true,
+  setShowScenarioId = () => {}
 }) => {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -137,6 +147,56 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </button>
           </div>
         </div>
+
+        {/* Preview Debug Panel Toggle */}
+        {previewMode && (
+          <div className="space-y-3">
+            <label className="text-xs font-bold uppercase tracking-widest text-amber-500/70 block font-mono">
+              Preview Mode Tools
+            </label>
+            <div className="flex items-center justify-between border border-amber-950 bg-black/60 p-3 rounded">
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-amber-400 font-mono">
+                  PLAYLIST SELECTION BOARD
+                </span>
+                <span className="text-[9px] text-amber-500/40 uppercase">
+                  Show or hide the scenario selector in main menu
+                </span>
+              </div>
+              <button
+                onClick={() => setShowDebugPanel(!showDebugPanel)}
+                className={`px-3 py-1.5 border text-xs font-bold rounded tracking-widest transition-all cursor-pointer ${
+                  showDebugPanel
+                    ? 'border-amber-500 text-amber-400 bg-amber-950/20 shadow-[0_0_8px_rgba(245,158,11,0.05)]'
+                    : 'border-amber-950 text-amber-500/40 bg-transparent'
+                }`}
+              >
+                {showDebugPanel ? 'VISIBLE' : 'HIDDEN'}
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between border border-amber-950 bg-black/60 p-3 rounded">
+              <div className="flex flex-col">
+                <span className="text-xs font-bold text-amber-400 font-mono">
+                  IN-GAME SCENARIO ID
+                </span>
+                <span className="text-[9px] text-amber-500/40 uppercase">
+                  Display active scenario ID in case profile
+                </span>
+              </div>
+              <button
+                onClick={() => setShowScenarioId(!showScenarioId)}
+                className={`px-3 py-1.5 border text-xs font-bold rounded tracking-widest transition-all cursor-pointer ${
+                  showScenarioId
+                    ? 'border-amber-500 text-amber-400 bg-amber-950/20 shadow-[0_0_8px_rgba(245,158,11,0.05)]'
+                    : 'border-amber-950 text-amber-500/40 bg-transparent'
+                }`}
+              >
+                {showScenarioId ? 'VISIBLE' : 'HIDDEN'}
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Save/Close Button */}
         <div className="pt-2">

@@ -22,12 +22,13 @@ export const StartScreen: React.FC<StartScreenProps> = ({
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const filteredScenarios = React.useMemo(() => {
-    return availableScenarios.filter(
+    const list = availableScenarios.filter(
       (s) =>
         s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         s.archetype.toLowerCase().includes(searchQuery.toLowerCase()) ||
         s.id.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    return [...list].sort((a, b) => a.id.localeCompare(b.id));
   }, [availableScenarios, searchQuery]);
   return (
     <main className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto terminal-scroll">
