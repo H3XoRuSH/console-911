@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
 import { TranscriptMessage } from '@/types/game';
 
@@ -15,6 +15,7 @@ interface PlayingScreenProps {
     action: 'SEND_POLICE' | 'SEND_FIRE' | 'SEND_MEDICAL' | 'ANIMAL_CONTROL' | 'DISMISS'
   ) => void;
   previewMode?: boolean;
+  turnCount?: number;
 }
 
 export const PlayingScreen: React.FC<PlayingScreenProps> = ({
@@ -27,10 +28,12 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   soundwaveBars,
   onSendMessage,
   onDispatchAction,
-  previewMode = false
+  previewMode = false,
+  turnCount = 1
 }) => {
   const transcriptEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [activeTab, setActiveTab] = useState<'transcript' | 'routing'>('transcript');
 
   // Scroll transcript to bottom on new messages
   useEffect(() => {
@@ -39,18 +42,44 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
   // Focus input automatically
   useEffect(() => {
-    if (!isCallerTyping) {
+    if (!isCallerTyping && activeTab === 'transcript') {
       inputRef.current?.focus();
     }
-  }, [isCallerTyping]);
+  }, [isCallerTyping, activeTab]);
 
   const activeCall = calls[currentCallIndex];
   if (!activeCall) return null;
 
   return (
     <main className="flex-1 flex flex-col md:flex-row overflow-hidden min-h-0">
+      {/* MOBILE TABS SWITCHER */}
+      <div className="flex md:hidden border-b border-emerald-950 bg-black shrink-0 select-none">
+        <button
+          type="button"
+          onClick={() => setActiveTab('transcript')}
+          className={`flex-1 py-3 text-center font-bold uppercase tracking-wider text-[10px] sm:text-xs border-r border-emerald-950 transition-all ${
+            activeTab === 'transcript'
+              ? 'text-emerald-400 bg-emerald-950/20 font-black'
+              : 'text-emerald-500/40 hover:text-emerald-500/60'
+          }`}
+        >
+          [1] Transcript {turnCount >= 8 ? <span className="text-red-500 animate-pulse ml-1 font-bold">⚠️</span> : null}
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('routing')}
+          className={`flex-1 py-3 text-center font-bold uppercase tracking-wider text-[10px] sm:text-xs transition-all ${
+            activeTab === 'routing'
+              ? 'text-emerald-400 bg-emerald-950/20 font-black'
+              : 'text-emerald-500/40 hover:text-emerald-500/60'
+          }`}
+        >
+          [2] Routing Board {isCallerTyping ? <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse ml-1" /> : null}
+        </button>
+      </div>
+
       {/* LEFT TRANSCRIPT COLUMN */}
-      <section className="flex-1 flex flex-col border-r border-emerald-950 bg-zinc-950/40 relative min-h-0">
+      <section className={`flex-1 flex-col border-r border-emerald-950 bg-zinc-950/40 relative min-h-0 ${activeTab === 'transcript' ? 'flex' : 'hidden md:flex'}`}>
         {/* SCROLLING TRANSCRIPT PANEL */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3 terminal-scroll select-text">
           {transcript.map((msg, idx) => {
@@ -80,7 +109,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
                 key={idx}
                 className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
               >
-                <span className="text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
+                <span className="text-[10px] sm:text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                   [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
                 </span>
                 <div
@@ -99,7 +128,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
           {/* CALLER TYPING INDICATOR */}
           {isCallerTyping && (
             <div className="flex flex-col mr-auto items-start max-w-[85%]">
-              <span className="text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
+              <span className="text-[10px] sm:text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                 [{new Date().toTimeString().split(' ')[0]}] INCOMING TRANSMISSION...
               </span>
               <div className="rounded px-3 py-2 text-xs bg-emerald-950/20 border border-emerald-900/40 text-emerald-500/60 animate-pulse">
@@ -114,10 +143,10 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
         {/* INPUT BAR */}
         <form
           onSubmit={onSendMessage}
-          className="border-t border-emerald-950 p-2 flex items-center bg-black/60 gap-2 relative"
+          className="border-t border-emerald-950 p-2 flex items-center bg-black/60 gap-2 relative shrink-0"
         >
-          <span className="text-xs text-amber-500 font-bold pl-2 select-none h-9 flex items-center">
-            DISPATCHER_PROMPT&gt;
+          <span className="text-[10px] sm:text-xs text-amber-500 font-bold pl-1 sm:pl-2 select-none h-9 flex items-center shrink-0">
+            PROMPT&gt;
           </span>
           <input
             ref={inputRef}
@@ -126,16 +155,16 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
             onChange={(e) => setInputText(e.target.value)}
             placeholder={
               isCallerTyping
-                ? 'WAITING FOR LINE INPUT...'
-                : 'Type dispatcher instruction / query...'
+                ? 'WAITING FOR LINE...'
+                : 'Type dispatcher query...'
             }
             disabled={isCallerTyping}
-            className="flex-1 bg-transparent text-xs text-amber-400 placeholder:text-emerald-900/60 font-bold h-9 outline-none focus:ring-0 border-none disabled:opacity-50"
+            className="flex-1 bg-transparent text-[11px] sm:text-xs text-amber-400 placeholder:text-emerald-900/60 font-bold h-9 outline-none focus:ring-0 border-none disabled:opacity-50 min-w-0"
           />
           <button
             type="submit"
             disabled={isCallerTyping || !inputText.trim()}
-            className="bg-emerald-950 hover:bg-emerald-900 border border-emerald-700 text-emerald-400 px-4 h-9 flex items-center justify-center rounded text-xs uppercase font-bold tracking-widest transition-all cursor-pointer disabled:opacity-30 disabled:hover:bg-emerald-950 disabled:cursor-not-allowed"
+            className="bg-emerald-950 hover:bg-emerald-900 border border-emerald-700 text-emerald-400 px-3 sm:px-4 h-9 flex items-center justify-center rounded text-xs uppercase font-bold tracking-widest transition-all cursor-pointer disabled:opacity-30 disabled:hover:bg-emerald-950 disabled:cursor-not-allowed shrink-0"
           >
             Send
           </button>
@@ -143,10 +172,10 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
       </section>
 
       {/* RIGHT SIDEBAR COLUMN */}
-      <aside className="w-full md:w-80 flex flex-col border-t md:border-t-0 border-emerald-950 bg-black/40 min-h-0">
+      <aside className={`w-full md:w-80 flex-col border-t md:border-t-0 border-emerald-950 bg-black/40 min-h-0 ${activeTab === 'routing' ? 'flex' : 'hidden md:flex'}`}>
         {/* AUDIO & LINE STATUS */}
-        <div className="p-4 border-b border-emerald-950 space-y-3">
-          <div className="flex justify-between items-center text-xs tracking-widest text-emerald-500/60 uppercase">
+        <div className="p-4 border-b border-emerald-950 space-y-3 shrink-0">
+          <div className="flex justify-between items-center text-[10px] sm:text-xs tracking-widest text-emerald-500/60 uppercase">
             <span>Audio Stream 911</span>
             <span
               className={
@@ -175,7 +204,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
         {/* ACTIVE CASE DETAILS */}
         <div className="p-4 border-b border-emerald-950 space-y-2 flex-1 overflow-y-auto terminal-scroll">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-emerald-400 border-b border-emerald-950 pb-1">
+          <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-emerald-400 border-b border-emerald-950 pb-1">
             Active Case Profile
           </h3>
           <div className="space-y-1.5 text-xs text-emerald-500/80">
@@ -213,33 +242,33 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
         </div>
 
         {/* CONTROL BOARD (DISPATCH BUTTONS) */}
-        <div className="p-4 bg-zinc-950 border-t border-emerald-950 space-y-2">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-red-500 text-center select-none animate-pulse">
+        <div className="p-4 bg-zinc-950 border-t border-emerald-950 space-y-2 shrink-0">
+          <h3 className="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-red-500 text-center select-none animate-pulse">
             ☣️ RESPONDER ROUTING BOARD ☣️
           </h3>
 
           <div className="grid grid-cols-2 gap-2 text-center">
             <button
               onClick={() => onDispatchAction('SEND_POLICE')}
-              className="border border-blue-900 bg-blue-950/20 hover:bg-blue-900/40 text-blue-400 hover:text-blue-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] active:scale-95 uppercase"
+              className="border border-blue-900 bg-blue-950/20 hover:bg-blue-900/40 text-blue-400 hover:text-blue-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] active:scale-95 uppercase font-mono"
             >
               Send Police
             </button>
             <button
               onClick={() => onDispatchAction('SEND_FIRE')}
-              className="border border-red-900 bg-red-950/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] active:scale-95 uppercase"
+              className="border border-red-900 bg-red-950/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] active:scale-95 uppercase font-mono"
             >
               Send Fire
             </button>
             <button
               onClick={() => onDispatchAction('SEND_MEDICAL')}
-              className="border border-orange-950 bg-orange-900/10 hover:bg-orange-900/30 text-orange-400 hover:text-orange-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(245,158,11,0.2)] active:scale-95 uppercase"
+              className="border border-orange-950 bg-orange-900/10 hover:bg-orange-900/30 text-orange-400 hover:text-orange-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(245,158,11,0.2)] active:scale-95 uppercase font-mono"
             >
               Send Medical
             </button>
             <button
               onClick={() => onDispatchAction('ANIMAL_CONTROL')}
-              className="border border-emerald-950 bg-emerald-900/10 hover:bg-emerald-900/30 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] active:scale-95 uppercase"
+              className="border border-emerald-950 bg-emerald-900/10 hover:bg-emerald-900/30 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] active:scale-95 uppercase font-mono"
             >
               Animal Ctrl
             </button>
@@ -247,7 +276,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
           <button
             onClick={() => onDispatchAction('DISMISS')}
-            className="w-full border border-yellow-950 bg-yellow-950/15 hover:bg-yellow-950/30 text-yellow-500 hover:text-yellow-400 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(234,179,8,0.2)] active:scale-95 uppercase mt-1"
+            className="w-full border border-yellow-950 bg-yellow-950/15 hover:bg-yellow-950/30 text-yellow-500 hover:text-yellow-400 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(234,179,8,0.2)] active:scale-95 uppercase mt-1 font-mono"
           >
             Dismiss / Prank Call
           </button>

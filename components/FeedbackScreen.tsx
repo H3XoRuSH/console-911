@@ -16,7 +16,7 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
   onAdvanceCall
 }) => {
   return (
-    <main className="flex-1 flex flex-col items-center justify-center p-6 overflow-y-auto terminal-scroll space-y-6">
+    <main className="flex-1 flex flex-col items-center justify-start sm:justify-center p-6 overflow-y-auto terminal-scroll space-y-6">
       <div className="w-full max-w-2xl border border-emerald-900 bg-zinc-950/80 p-6 rounded shadow-2xl space-y-6">
         <div className="border-b border-emerald-950 pb-4 text-center">
           <span className="text-xs tracking-widest text-emerald-500/60 uppercase block mb-1">
@@ -44,15 +44,15 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
         </div>
 
         {/* REPORT CARD */}
-        <div className="grid grid-cols-2 gap-4 border border-emerald-950 bg-black/60 p-4 rounded text-xs">
-          <div className="space-y-1.5 border-r border-emerald-950/40 pr-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border border-emerald-950 bg-black/60 p-4 rounded text-xs">
+          <div className="space-y-1.5 border-b sm:border-b-0 sm:border-r border-emerald-950/40 pb-2 sm:pb-0 sm:pr-2">
             <div className="flex justify-between">
               <span>Incident:</span>
               <strong className="text-emerald-400">{calls[currentCallIndex]?.title}</strong>
             </div>
             <div className="flex justify-between">
               <span>Archetype:</span>
-              <strong className="text-emerald-400/80 truncate max-w-[120px]">
+              <strong className="text-emerald-400/80 truncate max-w-[150px]">
                 {calls[currentCallIndex]?.archetype}
               </strong>
             </div>
@@ -62,7 +62,7 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
             </div>
           </div>
 
-          <div className="space-y-1.5 pl-2 font-mono">
+          <div className="space-y-1.5 sm:pl-2 font-mono">
             <div className="flex justify-between text-emerald-500/60">
               <span>Dialogue Score:</span>
               <strong

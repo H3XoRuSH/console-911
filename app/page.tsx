@@ -465,19 +465,21 @@ export default function Console911Game() {
 
   return (
     <div
-      className={`flex flex-col flex-1 h-screen bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white select-none font-mono theme-${theme} size-${textSize} ${crtEnabled ? 'crt-effect' : ''}`}
+      className={`flex flex-col flex-1 h-[100dvh] bg-zinc-950 text-emerald-400 selection:bg-emerald-800 selection:text-white select-none font-mono theme-${theme} size-${textSize} ${crtEnabled ? 'crt-effect' : ''}`}
     >
       {/* SCREEN BEZEL GLOW */}
       <div className="screen-bezel" />
 
       {/* HEADER SECTION */}
-      <header className="shrink-0 flex items-center justify-between border-b border-emerald-950 px-4 py-2 text-xs select-none">
-        <div className="flex items-center gap-3">
-          <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-bold tracking-widest text-emerald-500 crt-glow-green">
-            CONSOLE 911 // DISPATCH SYSTEM v1.0
-          </span>
-          <span className="text-emerald-950">|</span>
+      <header className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between border-b border-emerald-950 px-4 py-2 gap-2 text-xs select-none bg-black/80">
+        <div className="flex items-center justify-between sm:justify-start gap-3 w-full sm:w-auto">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-bold tracking-widest text-emerald-500 crt-glow-green">
+              <span className="hidden sm:inline">CONSOLE 911 // DISPATCH SYSTEM v1.0</span>
+              <span className="inline sm:hidden">CONSOLE 911</span>
+            </span>
+          </div>
           <button
             onClick={() => setIsSettingsOpen(true)}
             className="px-2 py-0.5 border border-emerald-900 bg-emerald-950/20 text-emerald-400 hover:bg-emerald-900 hover:text-emerald-300 font-bold uppercase tracking-widest text-[10px] rounded cursor-pointer transition-all"
@@ -486,21 +488,21 @@ export default function Console911Game() {
           </button>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto border-t sm:border-t-0 border-emerald-950/30 pt-1.5 sm:pt-0">
           {gameState === 'playing' && (
-            <div className="flex items-center gap-4 text-emerald-500/80">
-              <span>
+            <div className="flex flex-wrap items-center justify-between sm:justify-end gap-x-2 gap-y-1 text-emerald-500/80 text-[10px] sm:text-xs w-full sm:w-auto">
+              <span className="hidden md:inline">
                 CALLSIGN:{' '}
                 <strong className="text-emerald-400">{dispatcherName.toUpperCase()}</strong>
               </span>
-              <span>|</span>
+              <span className="hidden md:inline text-emerald-950">|</span>
               <span>
                 CALL:{' '}
                 <strong className="text-emerald-400">
-                  {currentCallIndex + 1} / {calls.length}
+                  {currentCallIndex + 1}/{calls.length}
                 </strong>
               </span>
-              <span>|</span>
+              <span className="text-emerald-950">|</span>
               <span>
                 TURN:{' '}
                 <strong
@@ -508,41 +510,41 @@ export default function Console911Game() {
                     turnCount >= 8 ? 'text-red-500 font-bold animate-pulse' : 'text-emerald-400'
                   }
                 >
-                  {turnCount} / 10
+                  {turnCount}/10
                 </strong>
               </span>
-              <span>|</span>
+              <span className="text-emerald-950">|</span>
               <span>
-                SESSION SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
+                SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
               </span>
-              <span>|</span>
+              <span className="text-emerald-950">|</span>
               <button
                 onClick={handleAbortSession}
-                className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                className={`w-[80px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[9px] ${
                   abortConfirm
                     ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
                     : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
                 }`}
               >
-                {abortConfirm ? 'You sure?' : 'Abort Shift'}
+                {abortConfirm ? 'Sure?' : 'Abort'}
               </button>
             </div>
           )}
           {gameState !== 'playing' && (
-            <div className="flex items-center gap-4 text-emerald-500/60 font-semibold uppercase font-mono">
+            <div className="flex items-center justify-between sm:justify-end gap-4 text-emerald-500/60 font-semibold uppercase font-mono text-[10px] sm:text-xs w-full sm:w-auto">
               <span>STATUS: {gameState === 'start' ? 'SYSTEM IDLE' : gameState.toUpperCase()}</span>
               {(gameState === 'feedback' || gameState === 'loading') && (
                 <>
-                  <span>|</span>
+                  <span className="text-emerald-950">|</span>
                   <button
                     onClick={handleAbortSession}
-                    className={`w-[96px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[10px] ${
+                    className={`w-[80px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[9px] ${
                       abortConfirm
                         ? 'text-red-400 border-red-500 bg-red-950/60 animate-pulse crt-glow-red'
                         : 'text-red-500 hover:text-red-400 border-red-950 hover:border-red-800 bg-red-950/20 hover:bg-red-950/40'
                     }`}
                   >
-                    {abortConfirm ? 'You sure?' : 'Abort Shift'}
+                    {abortConfirm ? 'Sure?' : 'Abort'}
                   </button>
                 </>
               )}
@@ -603,6 +605,7 @@ export default function Console911Game() {
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
             previewMode={previewMode && showScenarioId}
+            turnCount={turnCount}
           />
         )}
 
