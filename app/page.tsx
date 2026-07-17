@@ -606,7 +606,6 @@ export default function Console911Game() {
             completedTranscripts={completedTranscripts}
             totalScore={totalScore}
             dispatcherName={dispatcherName}
-            setDispatcherName={setDispatcherName}
             leaderboard={leaderboard}
             scoreSubmitted={scoreSubmitted}
             submittingScore={submittingScore}
