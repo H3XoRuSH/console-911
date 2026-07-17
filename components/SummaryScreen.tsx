@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
-import { LeaderboardEntry, TranscriptMessage } from '@/types/game';
+import { LeaderboardEntry, TranscriptMessage, FeedbackInfo } from '@/types/game';
+
+const getThemeColors = (themeName: string) => {
+  switch (themeName) {
+    case 'amber':
+      return { bg: '#090500', text: '#f59e0b', textDim: '#b45309', border: '#78350f', accent: '#f59e0b' };
+    case 'cyan':
+      return { bg: '#00080d', text: '#06b6d4', textDim: '#0369a1', border: '#0e7490', accent: '#06b6d4' };
+    case 'silver':
+      return { bg: '#09090b', text: '#d4d4d8', textDim: '#71717a', border: '#3f3f46', accent: '#fafafa' };
+    case 'paper':
+      return { bg: '#f5f5f4', text: '#1c1917', textDim: '#78716c', border: '#d6d3d1', accent: '#000000' };
+    case 'lab':
+      return { bg: '#f0fdfa', text: '#0f766e', textDim: '#0d9488', border: '#99f6e4', accent: '#115e59' };
+    case 'green':
+    default:
+      return { bg: '#000a05', text: '#10b981', textDim: '#047857', border: '#065f46', accent: '#34d399' };
+  }
+};
 
 interface SummaryScreenProps {
   calls: HydratedCallSession[];
   completedTranscripts: TranscriptMessage[][];
+  completedFeedbacks: FeedbackInfo[];
   totalScore: number;
   dispatcherName: string;
   leaderboard: LeaderboardEntry[];
@@ -17,6 +36,7 @@ interface SummaryScreenProps {
 export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   calls,
   completedTranscripts,
+  completedFeedbacks,
   totalScore,
   dispatcherName,
   leaderboard,
@@ -26,6 +46,29 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   onReboot
 }) => {
   const [selectedCallIndex, setSelectedCallIndex] = useState<number | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [copyImageSuccess, setCopyImageSuccess] = useState(false);
+  const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+
+  const handleClosePreview = () => {
+    if (previewImageUrl) {
+      URL.revokeObjectURL(previewImageUrl);
+      setPreviewImageUrl(null);
+    }
+  };
+
+  const handleDownloadPreviewImage = () => {
+    if (!previewImageUrl) return;
+    const link = document.createElement('a');
+    const safeCallsign = (dispatcherName || 'operator').toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    link.href = previewImageUrl;
+    link.setAttribute('download', `console-911-report-${safeCallsign}-${Date.now()}.png`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    handleClosePreview();
+  };
+
   // Assign dispatcher operator rating
   const getDispatcherRank = (score: number) => {
     if (score >= 1400)
@@ -50,16 +93,178 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
   const rank = getDispatcherRank(totalScore);
 
+  const generateMarkdownReport = (): string => {
+    const rankObj = getDispatcherRank(totalScore);
+    
+    let md = `📞 **CONSOLE 911 - SHIFT REPORT**\n`;
+    md += `**Operator:** ${dispatcherName.toUpperCase() || 'OPERATOR'}\n`;
+    md += `**Rank:** ${rankObj.title}\n`;
+    md += `**Total Score:** ${totalScore} PTS\n\n`;
+    
+    md += `**Shift Overview:**\n`;
+    calls.forEach((call, idx) => {
+      const feedback = completedFeedbacks[idx];
+      const scoreVal = feedback?.totalCallScore !== undefined ? feedback.totalCallScore : 0;
+      const scoreStr = `${scoreVal >= 0 ? '+' : ''}${scoreVal} PTS`;
+      md += `- ${call.title} (${call.difficulty.toUpperCase()}): ${scoreStr}\n`;
+    });
+    return md;
+  };
+
+  const handleCopyToClipboard = async () => {
+    const reportText = generateMarkdownReport();
+    try {
+      await navigator.clipboard.writeText(reportText);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      alert('Could not copy report to clipboard.');
+    }
+  };
+
+  const generateReportCanvas = (): HTMLCanvasElement | null => {
+    const rankObj = getDispatcherRank(totalScore);
+
+    // Determine current theme class
+    const container = document.querySelector('.theme-green, .theme-amber, .theme-cyan, .theme-silver, .theme-paper, .theme-lab');
+    let currentTheme = 'green';
+    if (container) {
+      const match = container.className.match(/theme-(\w+)/);
+      if (match) currentTheme = match[1];
+    }
+    const colors = getThemeColors(currentTheme);
+
+    // List of lines to render on canvas
+    const linesToDraw: Array<{ type: 'text' | 'dim' | 'accent' | 'separator'; content: string }> = [];
+
+    // Header Banners
+    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ type: 'accent', content: `  CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT` });
+    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ type: 'text', content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
+    linesToDraw.push({ type: 'text', content: `RANK ASSESSMENT:   ${rankObj.title}` });
+    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ type: 'separator', content: `` });
+
+    // Shift Overview
+    linesToDraw.push({ type: 'accent', content: `## SHIFT OVERVIEW` });
+    linesToDraw.push({ type: 'dim', content: `---------------------------------------------------` });
+
+    calls.forEach((call, idx) => {
+      const feedback = completedFeedbacks[idx];
+      const difficulty = (call.difficulty || 'N/A').toUpperCase();
+      const scoreVal = feedback?.totalCallScore !== undefined ? feedback.totalCallScore : 0;
+      const scoreStr = `${scoreVal >= 0 ? '+' : ''}${scoreVal} PTS`;
+      
+      linesToDraw.push({ 
+        type: 'text', 
+        content: `${idx + 1}. ${call.title} - ${difficulty} - ${scoreStr}` 
+      });
+    });
+
+    linesToDraw.push({ type: 'dim', content: `---------------------------------------------------` });
+    linesToDraw.push({ type: 'accent', content: `TOTAL SCORE: ${totalScore} PTS` });
+    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ type: 'dim', content: `// END OF TRANSMISSION //` });
+
+    const lineHeight = 20;
+    const padding = 35;
+    const width = 580; // Narrower canvas since lines are shorter!
+    const height = linesToDraw.length * lineHeight + padding * 2;
+
+    const canvas = document.createElement('canvas');
+    const scale = 2; // high definition scale factor
+    canvas.width = width * scale;
+    canvas.height = height * scale;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    ctx.scale(scale, scale);
+
+    // Draw background
+    ctx.fillStyle = colors.bg;
+    ctx.fillRect(0, 0, width, height);
+
+    // Draw bezel line
+    ctx.strokeStyle = colors.border;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(10, 10, width - 20, height - 20);
+
+    // Draw scanlines
+    const hasCrt = document.querySelector('.crt-effect') !== null;
+    if (hasCrt && currentTheme !== 'paper' && currentTheme !== 'lab') {
+      ctx.fillStyle = 'rgba(0, 255, 0, 0.012)';
+      for (let y = 10; y < height - 10; y += 3) {
+        ctx.fillRect(10, y, width - 20, 1.2);
+      }
+    }
+
+    // Set styling and draw text lines
+    ctx.textBaseline = 'top';
+    let currentY = padding;
+
+    linesToDraw.forEach((line) => {
+      if (line.type === 'accent') {
+        ctx.font = `bold 12px "Courier New", Courier, monospace`;
+        ctx.fillStyle = colors.accent;
+      } else if (line.type === 'dim') {
+        ctx.font = `12px "Courier New", Courier, monospace`;
+        ctx.fillStyle = colors.textDim;
+      } else {
+        ctx.font = `12px "Courier New", Courier, monospace`;
+        ctx.fillStyle = colors.text;
+      }
+
+      ctx.fillText(line.content, padding + 10, currentY);
+      currentY += lineHeight;
+    });
+
+    return canvas;
+  };
+
+  const handleDownloadImage = () => {
+    const canvas = generateReportCanvas();
+    if (!canvas) return;
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      setPreviewImageUrl(url);
+    }, 'image/png');
+  };
+
+  const handleCopyImageToClipboard = () => {
+    const canvas = generateReportCanvas();
+    if (!canvas) return;
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            'image/png': blob
+          })
+        ]);
+        setCopyImageSuccess(true);
+        setTimeout(() => setCopyImageSuccess(false), 3000);
+      } catch (err) {
+        console.error('Failed to copy image: ', err);
+        alert('Failed to copy image. Your browser might not support clipboard image write.');
+      }
+    }, 'image/png');
+  };
+
   useEffect(() => {
-    if (selectedCallIndex === null) return;
+    if (selectedCallIndex === null && !previewImageUrl) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setSelectedCallIndex(null);
+        handleClosePreview();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedCallIndex]);
+  }, [selectedCallIndex, previewImageUrl]);
 
   const transcriptToAudit =
     selectedCallIndex !== null ? completedTranscripts[selectedCallIndex] || [] : [];
@@ -86,6 +291,33 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
             <span className="text-lg font-bold text-emerald-400 mt-2">
               CUMULATIVE SCORE: {totalScore} PTS
             </span>
+          </div>
+
+          {/* SHIFT REPORT EXPORT BOARD */}
+          <div className="border border-emerald-900 bg-zinc-950/40 p-4 rounded text-xs space-y-3">
+            <h3 className="font-bold text-emerald-400 uppercase tracking-widest border-b border-emerald-950/60 pb-1 flex items-center justify-between">
+              <span>💾 Shift Record Archivist</span>
+              <span className="text-[9px] text-emerald-500/55 font-mono">EXPORT_v1.0</span>
+            </h3>
+            <p className="text-[10px] text-emerald-500/60 uppercase leading-relaxed text-left">
+              Archive this shift&apos;s performance logs and dialogues to local formats.
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={handleDownloadImage}
+                className="border border-emerald-900 bg-emerald-950/15 hover:bg-emerald-950/40 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-[11px] transition-all cursor-pointer uppercase text-center"
+              >
+                Preview
+              </button>
+              <button
+                type="button"
+                onClick={handleCopyToClipboard}
+                className="border border-emerald-900 bg-emerald-950/15 hover:bg-emerald-950/40 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-[11px] transition-all cursor-pointer uppercase text-center"
+              >
+                {copySuccess ? 'Copied!' : 'Copy Text'}
+              </button>
+            </div>
           </div>
 
           {/* GAME SCRIPT SUMMARY TABLE */}
@@ -159,6 +391,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               ✓ Score Posted Successfully to Global Database.
             </div>
           )}
+
 
           {/* REBOOT GAME BUTTON */}
           <div className="text-center pt-2">
@@ -278,6 +511,66 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
               >
                 [CLOSE AUDIT]
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* IMAGE PREVIEW MODAL OVERLAY */}
+      {previewImageUrl && (
+        <div
+          className="fixed inset-0 bg-black/85 backdrop-blur-sm z-[100] flex flex-col items-center justify-center p-4 select-none"
+          onClick={handleClosePreview}
+        >
+          <div
+            className="w-full max-w-2xl border border-emerald-950 bg-zinc-950 p-6 rounded shadow-[0_0_30px_rgba(16,185,129,0.35)] flex flex-col max-h-[90vh] space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="border-b border-emerald-950 pb-3 flex justify-between items-center shrink-0">
+              <h3 className="text-sm font-bold tracking-widest text-emerald-400 uppercase flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Shift Report Image Preview
+              </h3>
+              <button
+                onClick={handleClosePreview}
+                className="text-emerald-500 hover:text-emerald-300 font-bold uppercase text-[10px] tracking-wider border border-emerald-950 bg-emerald-950/20 px-2 py-0.5 rounded cursor-pointer hover:bg-emerald-900/40 transition-all"
+              >
+                [ESC] CLOSE
+              </button>
+            </div>
+
+            {/* Scrollable image container */}
+            <div className="flex-1 overflow-y-auto p-2 border border-emerald-950 bg-black/60 rounded flex items-center justify-center terminal-scroll min-h-[300px]">
+              <img
+                src={previewImageUrl}
+                alt="Shift Performance Report Preview"
+                className="max-w-full h-auto border border-emerald-900/40 rounded shadow-lg select-none"
+              />
+            </div>
+
+            <div className="border-t border-emerald-950 pt-3 flex justify-between items-center shrink-0">
+              <button
+                onClick={handleClosePreview}
+                className="bg-zinc-900 hover:bg-zinc-800 border border-emerald-950 text-emerald-500 hover:text-emerald-400 font-bold uppercase tracking-widest text-xs py-2 px-6 rounded cursor-pointer transition-all"
+              >
+                Cancel
+              </button>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={handleCopyImageToClipboard}
+                  className="bg-zinc-900 hover:bg-zinc-800 border border-emerald-600 text-emerald-400 hover:text-emerald-300 font-bold uppercase tracking-widest text-xs py-2 px-6 rounded cursor-pointer transition-all active:scale-95"
+                >
+                  {copyImageSuccess ? 'Copied!' : 'Copy Image'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDownloadPreviewImage}
+                  className="bg-emerald-950 hover:bg-emerald-900 border border-emerald-600 text-emerald-400 hover:text-emerald-300 font-bold uppercase tracking-widest text-xs py-2.5 px-8 rounded cursor-pointer transition-all active:scale-95 shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                >
+                  Download PNG
+                </button>
+              </div>
             </div>
           </div>
         </div>
