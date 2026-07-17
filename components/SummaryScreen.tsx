@@ -49,6 +49,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   const [copySuccess, setCopySuccess] = useState(false);
   const [copyImageSuccess, setCopyImageSuccess] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'results' | 'leaderboard'>('results');
 
   const handleClosePreview = () => {
     if (previewImageUrl) {
@@ -266,13 +267,56 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedCallIndex, previewImageUrl]);
 
+  useEffect(() => {
+    if (scoreSubmitted) {
+      const top10 = leaderboard.slice(0, 10);
+      const inTop10 = top10.some(
+        (entry) =>
+          entry.name.toUpperCase() === dispatcherName.toUpperCase() &&
+          entry.score === totalScore
+      );
+      if (inTop10) {
+        const timer = setTimeout(() => {
+          setActiveTab('leaderboard');
+        }, 0);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [scoreSubmitted, leaderboard, dispatcherName, totalScore]);
+
   const transcriptToAudit =
     selectedCallIndex !== null ? completedTranscripts[selectedCallIndex] || [] : [];
 
   return (
-    <main className="flex-1 flex flex-col md:flex-row overflow-hidden p-6 gap-6 justify-center max-w-6xl mx-auto w-full">
+    <main className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden p-4 sm:p-6 gap-6 md:justify-center max-w-6xl mx-auto w-full terminal-scroll">
+      {/* MOBILE TABS SWITCHER */}
+      <div className="flex md:hidden border-b border-emerald-950 bg-black shrink-0 select-none w-full mb-4">
+        <button
+          type="button"
+          onClick={() => setActiveTab('results')}
+          className={`flex-1 py-3 text-center font-bold uppercase tracking-wider text-[10px] sm:text-xs border-r border-emerald-950 transition-all ${
+            activeTab === 'results'
+              ? 'text-emerald-400 bg-emerald-950/20 font-black'
+              : 'text-emerald-500/40 hover:text-emerald-500/60'
+          }`}
+        >
+          [1] Shift Review
+        </button>
+        <button
+          type="button"
+          onClick={() => setActiveTab('leaderboard')}
+          className={`flex-1 py-3 text-center font-bold uppercase tracking-wider text-[10px] sm:text-xs transition-all ${
+            activeTab === 'leaderboard'
+              ? 'text-emerald-400 bg-emerald-950/20 font-black'
+              : 'text-emerald-500/40 hover:text-emerald-500/60'
+          }`}
+        >
+          [2] Leaderboard
+        </button>
+      </div>
+
       {/* LEFT COLUMN: PERFORMANCE & RANKING */}
-      <section className="flex-1 flex flex-col justify-center max-w-xl space-y-4 overflow-y-auto pr-2 terminal-scroll">
+      <section className={`flex-1 flex flex-col justify-start md:justify-center max-w-xl space-y-4 md:overflow-y-auto md:pr-2 terminal-scroll ${activeTab === 'results' ? 'flex' : 'hidden md:flex'}`}>
         <div className="border border-emerald-900 bg-zinc-950/70 p-5 rounded shadow-xl space-y-4">
           <h2 className="text-base font-bold tracking-widest text-emerald-400 border-b border-emerald-950 pb-2 uppercase text-center">
             Shift Operations Review
@@ -336,16 +380,16 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                     key={idx}
                     disabled={!hasTranscript}
                     onClick={() => setSelectedCallIndex(idx)}
-                    className={`w-full flex justify-between border-b border-emerald-950/20 py-1.5 px-2 text-left text-emerald-500/90 font-mono transition-all rounded ${
+                    className={`w-full flex flex-col sm:flex-row sm:justify-between sm:items-start md:items-center gap-2 border-b border-emerald-950/20 py-2 px-2 text-left text-emerald-500/90 font-mono transition-all rounded ${
                       hasTranscript
                         ? 'hover:bg-emerald-950/30 hover:text-emerald-300 cursor-pointer border border-transparent hover:border-emerald-900/60'
                         : 'opacity-60 cursor-not-allowed'
                     }`}
                   >
-                    <span className="truncate max-w-[280px] font-bold">
+                    <span className="font-bold whitespace-normal break-words flex-1 pr-4">
                       {idx + 1}. {call.title} ({call.archetype})
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-3 shrink-0 text-[10px] sm:text-xs pt-1 sm:pt-0">
                       <span className="font-bold text-emerald-400">
                         DIFF: {call.difficulty.toUpperCase()}
                       </span>
@@ -406,7 +450,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       </section>
 
       {/* RIGHT COLUMN: HIGH SCORE LEADERBOARD */}
-      <section className="w-full md:w-80 flex flex-col justify-center max-w-sm">
+      <section className={`w-full md:w-80 flex flex-col justify-start md:justify-center max-w-full md:max-w-sm shrink-0 ${activeTab === 'leaderboard' ? 'flex' : 'hidden md:flex'}`}>
         <div className="border border-emerald-900 bg-zinc-950/70 p-5 rounded shadow-xl space-y-4 flex flex-col max-h-[480px]">
           <h2 className="text-base font-bold tracking-widest text-emerald-400 border-b border-emerald-950 pb-2 uppercase text-center crt-glow-green">
             Global Database Rankings
@@ -458,23 +502,29 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       {/* CALL AUDIT MODAL OVERLAY */}
       {selectedCallIndex !== null && (
         <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 select-text"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-0 sm:p-4 select-text"
           onClick={() => setSelectedCallIndex(null)}
         >
           <div
-            className="w-full max-w-2xl border border-emerald-500 bg-zinc-950 p-6 rounded shadow-[0_0_20px_rgba(16,185,129,0.2)] flex flex-col max-h-[85vh] space-y-4"
+            className="w-full h-full sm:h-auto sm:max-w-2xl border-0 sm:border border-emerald-500 bg-zinc-950 p-4 sm:p-6 rounded-none sm:rounded shadow-[0_0_20px_rgba(16,185,129,0.2)] flex flex-col max-h-[100dvh] sm:max-h-[85vh] space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="border-b border-emerald-950 pb-3 flex justify-between items-center shrink-0">
               <h3 className="text-sm font-bold tracking-widest text-emerald-400 uppercase">
                 Call Audit: {calls[selectedCallIndex]?.title}
               </h3>
-              <span className="text-[10px] text-emerald-500/60 uppercase font-bold">
+              <button
+                onClick={() => setSelectedCallIndex(null)}
+                className="sm:hidden text-red-500 hover:text-red-400 font-bold uppercase text-[10px] border border-red-950 bg-red-950/20 px-2 py-0.5 rounded cursor-pointer"
+              >
+                [CLOSE]
+              </button>
+              <span className="hidden sm:inline text-[10px] text-emerald-500/60 uppercase font-bold">
                 Difficulty: {calls[selectedCallIndex]?.difficulty}
               </span>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-3 p-4 border border-emerald-950 bg-black/40 rounded terminal-scroll max-h-[50vh]">
+            <div className="flex-1 overflow-y-auto space-y-3 p-4 border border-emerald-950 bg-black/40 rounded terminal-scroll max-h-[70vh] sm:max-h-[50vh]">
               {transcriptToAudit
                 .filter((msg) => msg.sender === 'dispatcher' || msg.sender === 'caller')
                 .map((msg, idx) => {
@@ -503,7 +553,8 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
             <div className="border-t border-emerald-950 pt-3 flex justify-between items-center shrink-0">
               <span className="text-[10px] text-emerald-500/40 uppercase font-bold">
-                [ESC] KEY TO EXIT
+                <span className="hidden sm:inline">[ESC] KEY TO EXIT</span>
+                <span className="inline sm:hidden">TAP OUTSIDE TO EXIT</span>
               </span>
               <button
                 onClick={() => setSelectedCallIndex(null)}
