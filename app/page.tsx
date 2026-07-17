@@ -6,8 +6,7 @@ import { PlayingScreen } from '@/components/PlayingScreen';
 import { FeedbackScreen } from '@/components/FeedbackScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { SettingsModal } from '@/components/SettingsModal';
-import { HydratedCallSession } from '@/lib/hydration';
-import { TranscriptMessage, LeaderboardEntry, FeedbackInfo } from '@/types/game';
+import { useGameState } from '@/hooks/useGameState';
 
 const VALID_THEMES = ['green', 'amber', 'cyan', 'silver', 'paper', 'lab'] as const;
 type ThemeType = (typeof VALID_THEMES)[number];
@@ -16,72 +15,15 @@ const VALID_SIZES = ['small', 'medium', 'large'] as const;
 type TextSizeType = (typeof VALID_SIZES)[number];
 
 export default function Console911Game() {
-  // Game state manager
-  // 'start' | 'loading' | 'playing' | 'feedback' | 'summary'
-  const [gameState, setGameState] = useState<
-    'start' | 'loading' | 'playing' | 'feedback' | 'summary'
-  >('start');
-
-  // Game session states
-  const [dispatcherName, setDispatcherName] = useState('');
-  const [calls, setCalls] = useState<HydratedCallSession[]>([]);
-  const [currentCallIndex, setCurrentCallIndex] = useState(0);
-  const [turnCount, setTurnCount] = useState(1);
-  const [totalScore, setTotalScore] = useState(0);
-  const [currentState, setCurrentState] = useState('initial');
-  const [completedTranscripts, setCompletedTranscripts] = useState<TranscriptMessage[][]>([]);
-
-  // Current active call states
-  const [callScore, setCallScore] = useState(0);
-  const [transcript, setTranscript] = useState<TranscriptMessage[]>([]);
-  const [inputText, setInputText] = useState('');
-  const [isCallerTyping, setIsCallerTyping] = useState(false);
-
-  // Feedback state
-  const [feedbackInfo, setFeedbackInfo] = useState<FeedbackInfo | null>(null);
-
-  // Leaderboard states
-  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [scoreSubmitted, setScoreSubmitted] = useState(false);
-  const [submittingScore, setSubmittingScore] = useState(false);
-  const [completedFeedbacks, setCompletedFeedbacks] = useState<FeedbackInfo[]>([]);
-
-  // Abort confirmation intermediate state
-  const [abortConfirm, setAbortConfirm] = useState(false);
-
-  // Audio wave indicators bars
-  const [soundwaveBars, setSoundwaveBars] = useState<number[]>([
-    10, 10, 10, 10, 10, 10, 10, 10, 10, 10
-  ]);
-
   // Settings States
   const [theme, setTheme] = useState<ThemeType>('green');
   const [textSize, setTextSize] = useState<TextSizeType>('medium');
   const [crtEnabled, setCrtEnabled] = useState(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-  // Preview / Debug States
-  const [previewMode, setPreviewMode] = useState(false);
-  const [availableScenarios, setAvailableScenarios] = useState<
-    Array<{ id: string; title: string; archetype: string }>
-  >([]);
-  const [selectedScenarios, setSelectedScenarios] = useState<string[]>([]);
   const [showDebugPanel, setShowDebugPanel] = useState(false);
   const [showScenarioId, setShowScenarioId] = useState(false);
 
-  const fetchLeaderboard = async () => {
-    try {
-      const res = await fetch('/api/leaderboard');
-      if (res.ok) {
-        const data = await res.json();
-        setLeaderboard(data.leaderboard || []);
-      }
-    } catch (e) {
-      console.error('Error loading leaderboard:', e);
-    }
-  };
-
-  // Load saved preferences and leaderboard on component mount
+  // Load saved preferences on component mount
   useEffect(() => {
     const savedTheme = localStorage.getItem('console911-theme');
     const savedTextSize = localStorage.getItem('console911-text-size');
@@ -97,371 +39,46 @@ export default function Console911Game() {
     if (savedCrt !== null) {
       setCrtEnabled(savedCrt === 'true');
     }
-
-    fetchLeaderboard();
-
-    // Check preview mode configurations
-    const checkPreviewMode = async () => {
-      try {
-        const res = await fetch('/api/session');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.previewMode) {
-            setPreviewMode(true);
-            const listRes = await fetch('/api/session?list=all');
-            if (listRes.ok) {
-              const listData = await listRes.json();
-              setAvailableScenarios(listData.scenarios || []);
-            }
-          }
-        }
-      } catch (e) {
-        console.error('Failed to check preview mode:', e);
-      }
-    };
-    checkPreviewMode();
   }, []);
 
-  // Animate soundwave indicator when playing
-  useEffect(() => {
-    if (gameState !== 'playing') {
-      // Only set if not already flatlined to avoid cascading render loops
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSoundwaveBars((prev) => {
-        const isFlat = prev.every((val) => val === 4);
-        return isFlat ? prev : [4, 4, 4, 4, 4, 4, 4, 4, 4, 4];
-      });
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setSoundwaveBars((prev) =>
-        prev.map(() => Math.floor(Math.random() * (isCallerTyping ? 32 : 12)) + 4)
-      );
-    }, 120);
-
-    return () => clearInterval(interval);
-  }, [gameState, isCallerTyping]);
-
-  // Reset abort confirmation after 4 seconds of inactivity
-  useEffect(() => {
-    if (!abortConfirm) return;
-    const timer = setTimeout(() => {
-      setAbortConfirm(false);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, [abortConfirm]);
-
-  // Get current timestamp format e.g., [16:42:01]
-  const getTimestamp = () => {
-    const d = new Date();
-    return d.toTimeString().split(' ')[0];
-  };
-
-  // Start the entire game session
-  const startSession = async () => {
-    if (!dispatcherName.trim()) {
-      return;
-    }
-    setGameState('loading');
-    setTotalScore(0);
-    setCurrentCallIndex(0);
-    setScoreSubmitted(false);
-    setCompletedTranscripts([]);
-    setCompletedFeedbacks([]);
-
-    try {
-      let url = '/api/session';
-      if (previewMode && selectedScenarios.length > 0) {
-        url += `?scenarios=${encodeURIComponent(selectedScenarios.join(','))}`;
-      }
-      const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error('Failed to initialize session');
-      }
-      const data = await res.json();
-      setCalls(data.calls || []);
-
-      if (data.calls && data.calls.length > 0) {
-        initiateCall(0, data.calls);
-      } else {
-        alert('ERROR: No scenarios available in database.');
-        setGameState('start');
-      }
-    } catch (error) {
-      console.error('Failed to start session:', error);
-      alert('CRITICAL ERROR LOADING SESSION DATA. CHECK DATABASE CONNECTION.');
-      setGameState('start');
-    }
-  };
-
-  // Initiate a single call event
-  const initiateCall = (index: number, sessionCalls: HydratedCallSession[]) => {
-    const call = sessionCalls[index];
-    setTurnCount(1);
-    setCallScore(0);
-    setFeedbackInfo(null);
-    setCurrentState('initial'); // Reset state
-    setGameState('playing');
-
-    // Set initial transcript with the caller's randomized first statement
-    setTranscript([
-      {
-        sender: 'system',
-        text: `--- ACTIVE LINE OPENED: CALL ${index + 1} OF ${sessionCalls.length} ---`,
-        timestamp: getTimestamp()
-      },
-      {
-        sender: 'caller',
-        text: call.initialMessage,
-        timestamp: getTimestamp()
-      }
-    ]);
-  };
-
-  // Handle free-text dispatcher response submit
-  const handleSendMessage = async (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    if (!inputText.trim() || isCallerTyping) return;
-
-    const messageText = inputText.trim();
-    setInputText('');
-
-    // Append dispatcher query to transcript
-    const userMsg: TranscriptMessage = {
-      sender: 'dispatcher',
-      text: messageText,
-      timestamp: getTimestamp()
-    };
-
-    const newTranscript = [...transcript, userMsg];
-    setTranscript(newTranscript);
-
-    // Apply immediate UI turn counter increment
-    const currentTurn = turnCount;
-    setTurnCount((prev) => prev + 1);
-
-    // Trigger Warning alerts
-    if (currentTurn === 8 || currentTurn === 9) {
-      setTranscript((prev) => [
-        ...prev,
-        {
-          sender: 'warning',
-          text: `⚠️ LINE TIMEOUT IMMINENT. DISPATCH OUTCOME FORCED ON TURN 10.`,
-          timestamp: getTimestamp()
-        }
-      ]);
-    }
-
-    // Call forced Turn 10 Cutoff if turn counter has run out
-    if (currentTurn >= 10) {
-      handleTimeout();
-      return;
-    }
-
-    // Trigger caller typing animation
-    setIsCallerTyping(true);
-
-    try {
-      const activeCall = calls[currentCallIndex];
-      // Format chat history for LLM
-      const history = newTranscript
-        .filter((t) => t.sender === 'dispatcher' || t.sender === 'caller')
-        .map((t) => ({
-          role: t.sender === 'dispatcher' ? ('dispatcher' as const) : ('caller' as const),
-          text: t.text
-        }));
-
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          scenarioId: activeCall.scenarioId,
-          dispatcherMessage: messageText,
-          history,
-          selectedSlots: activeCall.selectedSlots,
-          currentState
-        })
-      });
-
-      if (!res.ok) {
-        throw new Error('Dialogue API error');
-      }
-
-      const data = await res.json();
-
-      // Simulate typing latency
-      setTimeout(() => {
-        setIsCallerTyping(false);
-        setCallScore((prev) => prev + (data.scoreDelta || 0));
-        setCurrentState(data.newState || currentState);
-        setTranscript((prev) => [
-          ...prev,
-          {
-            sender: 'caller',
-            text: data.response,
-            timestamp: getTimestamp()
-          }
-        ]);
-      }, 700);
-    } catch (err) {
-      console.error(err);
-      setTimeout(() => {
-        setIsCallerTyping(false);
-        setCallScore((prev) => prev - 10);
-        setTranscript((prev) => [
-          ...prev,
-          {
-            sender: 'caller',
-            text: "I... I can't hear you clearly! Just send someone quickly, please!",
-            timestamp: getTimestamp()
-          }
-        ]);
-      }, 700);
-    }
-  };
-
-  // Perform dispatch action selection
-  const handleDispatchAction = (
-    actionType: 'SEND_POLICE' | 'SEND_FIRE' | 'SEND_MEDICAL' | 'ANIMAL_CONTROL' | 'DISMISS'
-  ) => {
-    if (isCallerTyping || gameState !== 'playing') return;
-
-    const activeCall = calls[currentCallIndex];
-    const outcome = activeCall.dispatchOutcomes[actionType];
-
-    if (!outcome) {
-      alert('INVALID DISPATCH PROTOCOL');
-      return;
-    }
-
-    // Apply outcomes
-    const finalScore = callScore + outcome.score_delta;
-    setTotalScore((prev) => prev + finalScore);
-
-    const feedback: FeedbackInfo = {
-      status: outcome.status,
-      message: outcome.message,
-      dispatchType: actionType.replace('_', ' '),
-      dialogueScore: callScore,
-      dispatchScore: outcome.score_delta,
-      totalCallScore: finalScore
-    };
-    setFeedbackInfo(feedback);
-    setCompletedFeedbacks((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = feedback;
-      return updated;
-    });
-
-    setCompletedTranscripts((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = transcript;
-      return updated;
-    });
-
-    setGameState('feedback');
-  };
-
-  // Turn 10 force timeout penalty
-  const handleTimeout = () => {
-    const penalty = -150 - Math.floor(Math.random() * 150);
-    const finalScore = callScore + penalty;
-    setTotalScore((prev) => prev + finalScore);
-
-    const feedback: FeedbackInfo = {
-      status: 'CRITICAL_FAILURE',
-      message:
-        '⚠️ CALL CUTOFF: You failed to make a dispatch decision within the strict 10-turn limit. The line went silent. Emergency dispatch failed to route resources in time, resulting in a critical failure.',
-      dispatchType: 'NONE (TIMEOUT CUTOFF)',
-      dialogueScore: callScore,
-      dispatchScore: penalty,
-      totalCallScore: finalScore
-    };
-    setFeedbackInfo(feedback);
-    setCompletedFeedbacks((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = feedback;
-      return updated;
-    });
-
-    setCompletedTranscripts((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = transcript;
-      return updated;
-    });
-
-    setGameState('feedback');
-  };
-
-  // Advance to next screen
-  const advanceCall = () => {
-    if (currentCallIndex < calls.length - 1) {
-      const nextIndex = currentCallIndex + 1;
-      setCurrentCallIndex(nextIndex);
-      initiateCall(nextIndex, calls);
-    } else {
-      // Completed all calls, transition to game summary
-      setGameState('summary');
-      fetchLeaderboard();
-    }
-  };
-
-  // Submit high score to database
-  const handleLeaderboardSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (submittingScore || scoreSubmitted) return;
-
-    setSubmittingScore(true);
-    try {
-      const res = await fetch('/api/leaderboard', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: dispatcherName,
-          score: totalScore
-        })
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        setLeaderboard(data.leaderboard || []);
-        setScoreSubmitted(true);
-      } else {
-        alert('COULD NOT SUBMIT SCORE. DB CONNECTION ERROR.');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('LEADERBOARD TRANSACTION FAILED.');
-    } finally {
-      setSubmittingScore(false);
-    }
-  };
-
-  // Abort active session and return to start screen
-  const handleAbortSession = () => {
-    if (!abortConfirm) {
-      setAbortConfirm(true);
-      return;
-    }
-
-    setAbortConfirm(false);
-    setGameState('start');
-    setCalls([]);
-    setCurrentCallIndex(0);
-    setTurnCount(1);
-    setTotalScore(0);
-    setCurrentState('initial');
-    setCallScore(0);
-    setTranscript([]);
-    setInputText('');
-    setIsCallerTyping(false);
-    setFeedbackInfo(null);
-    setCompletedTranscripts([]);
-    setCompletedFeedbacks([]);
-    setScoreSubmitted(false);
-    setSubmittingScore(false);
-  };
+  // Delegate all gameplay state and events to custom hook
+  const {
+    gameState,
+    setGameState,
+    dispatcherName,
+    setDispatcherName,
+    calls,
+    setCalls,
+    currentCallIndex,
+    turnCount,
+    totalScore,
+    completedTranscripts,
+    setCompletedTranscripts,
+    transcript,
+    inputText,
+    setInputText,
+    isCallerTyping,
+    feedbackInfo,
+    leaderboard,
+    scoreSubmitted,
+    submittingScore,
+    completedFeedbacks,
+    setCompletedFeedbacks,
+    abortConfirm,
+    soundwaveBars,
+    previewMode,
+    availableScenarios,
+    selectedScenarios,
+    setSelectedScenarios,
+    scenarioDataset,
+    changeScenarioDataset,
+    startSession,
+    handleSendMessage,
+    handleDispatchAction,
+    advanceCall,
+    handleLeaderboardSubmit,
+    handleAbortSession
+  } = useGameState();
 
   return (
     <div
@@ -604,7 +221,6 @@ export default function Console911Game() {
             soundwaveBars={soundwaveBars}
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
-            previewMode={previewMode && showScenarioId}
             turnCount={turnCount}
           />
         )}
@@ -662,6 +278,8 @@ export default function Console911Game() {
         setShowDebugPanel={setShowDebugPanel}
         showScenarioId={showScenarioId}
         setShowScenarioId={setShowScenarioId}
+        scenarioDataset={scenarioDataset}
+        setScenarioDataset={changeScenarioDataset}
       />
     </div>
   );

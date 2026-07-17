@@ -9,11 +9,12 @@ export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const listAll = searchParams.get('list') === 'all';
+    const dataset = searchParams.get('dataset') || 'original';
     const previewMode =
       process.env.PREVIEW_MODE === 'Y' || process.env.NEXT_PUBLIC_PREVIEW_MODE === 'Y';
 
     if (listAll && previewMode) {
-      const allScenarios = loadAllScenarios().map((s) => ({
+      const allScenarios = loadAllScenarios(dataset).map((s) => ({
         id: s.id,
         title:
           s.title ||
@@ -27,8 +28,8 @@ export async function GET(req: Request) {
     const selectedIdsParam = searchParams.get('scenarios');
     const sessionCalls =
       selectedIdsParam && previewMode
-        ? selectSessionScenariosWithSelection(selectedIdsParam.split(',').filter(Boolean), 5)
-        : selectSessionScenarios(5);
+        ? selectSessionScenariosWithSelection(selectedIdsParam.split(',').filter(Boolean), 5, dataset)
+        : selectSessionScenarios(5, dataset);
 
     return NextResponse.json({ calls: sessionCalls, previewMode });
   } catch (error: unknown) {

@@ -10,14 +10,18 @@ const SEED_FILE = path.join(DATA_DIR, 'seed_scenarios.json');
  * Loads all scenarios from the local dataset.
  * Falls back to seed scenarios if the scenarios directory is empty or missing.
  */
-export function loadAllScenarios(): Scenario[] {
-  if (fs.existsSync(SCENARIOS_DIR)) {
+export function loadAllScenarios(dataset: string = 'original'): Scenario[] {
+  const targetDir = dataset === 'experimental'
+    ? path.join(SCENARIOS_DIR, 'experimental')
+    : SCENARIOS_DIR;
+
+  if (fs.existsSync(targetDir)) {
     try {
-      const files = fs.readdirSync(SCENARIOS_DIR);
+      const files = fs.readdirSync(targetDir);
       const scenarios: Scenario[] = [];
       for (const file of files) {
         if (file.endsWith('.json')) {
-          const filePath = path.join(SCENARIOS_DIR, file);
+          const filePath = path.join(targetDir, file);
           const rawData = fs.readFileSync(filePath, 'utf8');
           const parsed = JSON.parse(rawData);
           if (Array.isArray(parsed)) {
@@ -31,7 +35,7 @@ export function loadAllScenarios(): Scenario[] {
         return scenarios;
       }
     } catch (error) {
-      console.error('Error loading scenarios from scenarios directory:', error);
+      console.error(`Error loading scenarios from directory ${targetDir}:`, error);
     }
   }
 
@@ -52,8 +56,8 @@ export function loadAllScenarios(): Scenario[] {
  * Selects exactly N scenarios for a game session.
  * Allows scenarios with the same archetype to appear in the same shift.
  */
-export function selectSessionScenarios(count: number = 5): HydratedCallSession[] {
-  const allScenarios = loadAllScenarios();
+export function selectSessionScenarios(count: number = 5, dataset: string = 'original'): HydratedCallSession[] {
+  const allScenarios = loadAllScenarios(dataset);
   if (allScenarios.length === 0) {
     return [];
   }
@@ -74,9 +78,10 @@ export function selectSessionScenarios(count: number = 5): HydratedCallSession[]
  */
 export function selectSessionScenariosWithSelection(
   selectedIds: string[],
-  count: number = 5
+  count: number = 5,
+  dataset: string = 'original'
 ): HydratedCallSession[] {
-  const allScenarios = loadAllScenarios();
+  const allScenarios = loadAllScenarios(dataset);
   if (allScenarios.length === 0) {
     return [];
   }
