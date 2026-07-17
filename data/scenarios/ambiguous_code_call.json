@@ -3150,7 +3150,6 @@
     "difficulty": "Hard"
   },
   {
-    "name": "The Wrong Address",
     "archetype": "Ambiguous / Code Call",
     "description": "A caller pretending to order pizza gives a wrong address, but background sounds of arguing and a child crying suggest a domestic violence situation.",
     "states": {
@@ -3338,10 +3337,9 @@
     },
     "id": "scenario_092",
     "difficulty": "Hard",
-    "title": "Incident scenario_092"
+    "title": "The Wrong Address"
   },
   {
-    "name": "The Birthday Surprise",
     "archetype": "Ambiguous / Code Call",
     "description": "A caller sounds cheerful, but background noises of struggle and muffled screams indicate a hostage situation. The caller is forced to act normal.",
     "states": {
@@ -3528,10 +3526,9 @@
     },
     "id": "scenario_093",
     "difficulty": "Hard",
-    "title": "Incident scenario_093"
+    "title": "The Birthday Surprise"
   },
   {
-    "name": "The Silent Caller",
     "archetype": "Ambiguous / Code Call",
     "description": "The line is open, but the caller says nothing. Heavy breathing, muffled sounds, and faint knocking are heard. The caller may be unable to speak due to threat or injury.",
     "states": {
@@ -3697,6 +3694,6 @@
     },
     "id": "scenario_094",
     "difficulty": "Hard",
-    "title": "Incident scenario_094"
+    "title": "The Silent Caller"
   }
 ]

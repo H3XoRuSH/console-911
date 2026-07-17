@@ -3187,7 +3187,6 @@
     "difficulty": "Hard"
   },
   {
-    "name": "The Wrong Address for a Delivery",
     "states": [
       "initial",
       "probing",
@@ -3359,10 +3358,9 @@
     "id": "scenario_200",
     "archetype": "Suspicious / Probing Call",
     "difficulty": "Hard",
-    "title": "Incident scenario_200"
+    "title": "The Wrong Address for a Delivery"
   },
   {
-    "name": "The Lost Pet Survey",
     "states": [
       "initial",
       "suspicious",
@@ -3526,10 +3524,9 @@
     "id": "scenario_201",
     "archetype": "Suspicious / Probing Call",
     "difficulty": "Hard",
-    "title": "Incident scenario_201"
+    "title": "The Lost Pet Survey"
   },
   {
-    "name": "The Utility Company Inspection",
     "states": [
       "initial",
       "suspicious",
@@ -3694,6 +3691,6 @@
     "id": "scenario_202",
     "archetype": "Suspicious / Probing Call",
     "difficulty": "Hard",
-    "title": "Incident scenario_202"
+    "title": "The Utility Company Inspection"
   }
 ]
