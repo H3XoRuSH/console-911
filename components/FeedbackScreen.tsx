@@ -102,7 +102,7 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
           <strong className="text-emerald-400 uppercase tracking-widest block border-b border-emerald-950 pb-1">
             Operational Response Report:
           </strong>
-          <p className="text-emerald-300">{feedbackInfo.message}</p>
+          <p className="text-emerald-300 break-all">{feedbackInfo.message}</p>
         </div>
 
         {/* PRESS TO CONTINUE BUTTON */}

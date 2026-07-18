@@ -77,7 +77,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
       </div>
 
       {/* LEFT TRANSCRIPT COLUMN */}
-      <section className={`flex-1 flex-col border-r border-emerald-950 bg-zinc-950/40 relative min-h-0 ${activeTab === 'transcript' ? 'flex' : 'hidden md:flex'}`}>
+      <section className={`flex-1 flex-col min-w-0 border-r border-emerald-950 bg-zinc-950/40 relative min-h-0 ${activeTab === 'transcript' ? 'flex' : 'hidden md:flex'}`}>
         {/* SCROLLING TRANSCRIPT PANEL */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3 terminal-scroll select-text">
           {transcript.map((msg, idx) => {
@@ -95,9 +95,9 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
               return (
                 <div
                   key={idx}
-                  className="bg-red-950/40 border border-red-800 text-red-500 text-xs px-3 py-2 rounded animate-pulse select-none flex items-center gap-2"
+                  className="bg-red-950/40 border border-red-800 text-red-500 text-xs px-3 py-2 rounded animate-pulse select-none flex items-center gap-2 break-all"
                 >
-                  <span>{msg.text}</span>
+                  <span className="break-all">{msg.text}</span>
                 </div>
               );
             }
@@ -105,15 +105,15 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
             return (
               <div
                 key={idx}
-                className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
+                className={`flex flex-col max-w-[85%] min-w-0 ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
               >
                 <span className="text-[10px] sm:text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                   [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
                 </span>
                 <div
-                  className={`rounded px-3 py-2 text-xs leading-relaxed border ${
+                  className={`rounded px-3 py-2 text-xs leading-relaxed border break-all ${
                     isDispatcher
-                      ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold shadow-[0_0_10px_rgba(245,158,11,0.05)]'
+                      ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold text-right shadow-[0_0_10px_rgba(245,158,11,0.05)]'
                       : 'bg-emerald-950/20 border-emerald-900 text-emerald-300'
                   }`}
                 >
@@ -149,6 +149,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
           <input
             ref={inputRef}
             type="text"
+            maxLength={120}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder={
@@ -159,6 +160,11 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
             disabled={isCallerTyping}
             className="flex-1 bg-transparent text-[11px] sm:text-xs text-amber-400 placeholder:text-emerald-900/60 font-bold h-9 outline-none focus:ring-0 border-none disabled:opacity-50 min-w-0"
           />
+          {inputText.length > 80 && (
+            <span className="text-[9px] text-amber-600/70 font-mono pr-1 select-none shrink-0 animate-pulse">
+              {inputText.length}/120
+            </span>
+          )}
           <button
             type="submit"
             disabled={isCallerTyping || !inputText.trim()}

@@ -3,6 +3,8 @@ const TitleLogo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 623 128"
+    width={623}
+    height={128}
     {...props}
   >
     <path d="M0 0 C205.59 0 411.18 0 623 0 C623 42.24 623 84.48 623 128 C417.41 128 211.82 128 0 128 C0 85.76 0 43.52 0 0 Z " fill="none" transform="translate(0,0)"/>
@@ -169,16 +171,17 @@ export const StartScreen: React.FC<StartScreenProps> = ({
     return [...list].sort((a, b) => a.id.localeCompare(b.id));
   }, [availableScenarios, searchQuery]);
   return (
-    <main className="flex-1 flex flex-col items-center justify-start md:justify-center p-4 sm:p-8 overflow-y-auto terminal-scroll">
-      <div className="text-emerald-500 crt-glow-green mb-6 flex justify-center select-none w-full px-4">
-        <TitleLogo
-          aria-label="CONSOLE911"
-          role="img"
-          style={{ width: '100%', maxWidth: '623px', height: 'auto' }}
-        />
-      </div>
+    <main className="flex-1 flex flex-col items-center justify-start p-4 sm:p-8 overflow-y-auto terminal-scroll">
+      <div className="my-auto flex flex-col items-center w-full">
+        <div className="text-emerald-500 crt-glow-green mb-6 flex justify-center items-center select-none w-full px-4 shrink-0">
+          <TitleLogo
+            aria-label="CONSOLE911"
+            role="img"
+            style={{ width: '100%', maxWidth: '623px', height: 'auto', aspectRatio: '623/128' }}
+          />
+        </div>
 
-      <div className="w-full max-w-xl border border-emerald-900 bg-zinc-950/60 p-4 sm:p-6 rounded shadow-xl text-center space-y-4">
+        <div className="w-full max-w-xl border border-emerald-900 bg-zinc-950/60 p-4 sm:p-6 rounded shadow-xl text-center space-y-4">
         {/* Mobile manual expand toggle */}
         <div className="md:hidden flex justify-center pb-2 border-b border-emerald-950/30">
           <button
@@ -357,6 +360,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
           </button>
         </form>
       </div>
+     </div>
     </main>
   );
 };
