@@ -58,6 +58,7 @@ export default function Console911Game() {
     inputText,
     setInputText,
     isCallerTyping,
+    setIsCallerTyping,
     feedbackInfo,
     leaderboard,
     scoreSubmitted,
@@ -222,6 +223,7 @@ export default function Console911Game() {
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
             turnCount={turnCount}
+            onCallerMessageRevealed={() => setIsCallerTyping(false)}
           />
         )}
 

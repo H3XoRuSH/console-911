@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { TypewriterText } from './TypewriterText';
 import { HydratedCallSession } from '@/lib/hydration';
 import { TranscriptMessage } from '@/types/game';
 
@@ -15,7 +16,25 @@ interface PlayingScreenProps {
     action: 'SEND_POLICE' | 'SEND_FIRE' | 'SEND_MEDICAL' | 'ANIMAL_CONTROL' | 'DISMISS'
   ) => void;
   turnCount?: number;
+  onCallerMessageRevealed?: () => void;
 }
+
+const getRevealSpeed = (difficulty: string, archetype: string): number => {
+  const arch = archetype.toLowerCase();
+  if (arch.includes('life-threatening') || arch.includes('emergency') || difficulty === 'Hard') {
+    return 15;
+  }
+  if (
+    arch.includes('delusional') ||
+    arch.includes('pocket') ||
+    arch.includes('open line') ||
+    arch.includes('barrier') ||
+    difficulty === 'Easy'
+  ) {
+    return 75;
+  }
+  return 35;
+};
 
 export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   calls,
@@ -27,15 +46,22 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   soundwaveBars,
   onSendMessage,
   onDispatchAction,
-  turnCount = 1
+  turnCount = 1,
+  onCallerMessageRevealed
 }) => {
-  const transcriptEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [activeTab, setActiveTab] = useState<'transcript' | 'routing'>('transcript');
 
+  const scrollToBottom = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  };
+
   // Scroll transcript to bottom on new messages
   useEffect(() => {
-    transcriptEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    scrollToBottom();
   }, [transcript, isCallerTyping]);
 
   // Focus input automatically
@@ -47,6 +73,9 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
   const activeCall = calls[currentCallIndex];
   if (!activeCall) return null;
+
+  const revealSpeed = getRevealSpeed(activeCall.difficulty, activeCall.archetype);
+  const lastMessage = transcript[transcript.length - 1];
 
   return (
     <main className="flex-1 flex flex-col md:flex-row overflow-hidden min-h-0">
@@ -79,7 +108,10 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
       {/* LEFT TRANSCRIPT COLUMN */}
       <section className={`flex-1 flex-col min-w-0 border-r border-emerald-950 bg-zinc-950/40 relative min-h-0 ${activeTab === 'transcript' ? 'flex' : 'hidden md:flex'}`}>
         {/* SCROLLING TRANSCRIPT PANEL */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-3 terminal-scroll select-text">
+        <div
+          ref={scrollContainerRef}
+          className="flex-1 overflow-y-auto p-4 space-y-3 terminal-scroll select-text"
+        >
           {transcript.map((msg, idx) => {
             if (msg.sender === 'system') {
               return (
@@ -102,6 +134,9 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
               );
             }
             const isDispatcher = msg.sender === 'dispatcher';
+            const isLastMessage = idx === transcript.length - 1;
+            const useTypewriter = !isDispatcher && msg.sender === 'caller' && isLastMessage;
+
             return (
               <div
                 key={idx}
@@ -117,14 +152,23 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
                       : 'bg-emerald-950/20 border-emerald-900 text-emerald-300'
                   }`}
                 >
-                  {msg.text}
+                  {useTypewriter ? (
+                    <TypewriterText
+                      text={msg.text}
+                      speed={revealSpeed}
+                      onComplete={onCallerMessageRevealed}
+                      onCharAdded={scrollToBottom}
+                    />
+                  ) : (
+                    msg.text
+                  )}
                 </div>
               </div>
             );
           })}
 
           {/* CALLER TYPING INDICATOR */}
-          {isCallerTyping && (
+          {isCallerTyping && (!lastMessage || lastMessage.sender !== 'caller') && (
             <div className="flex flex-col mr-auto items-start max-w-[85%]">
               <span className="text-[10px] sm:text-xs opacity-75 text-emerald-500/40 mb-1 select-none">
                 [{new Date().toTimeString().split(' ')[0]}] INCOMING TRANSMISSION...
@@ -135,7 +179,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
             </div>
           )}
 
-          <div ref={transcriptEndRef} />
+          <div />
         </div>
 
         {/* INPUT BAR */}
@@ -248,25 +292,29 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
           <div className="grid grid-cols-2 gap-2 text-center">
             <button
               onClick={() => onDispatchAction('SEND_POLICE')}
-              className="border border-blue-900 bg-blue-950/20 hover:bg-blue-900/40 text-blue-400 hover:text-blue-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] active:scale-95 uppercase font-mono"
+              disabled={isCallerTyping}
+              className="border border-blue-900 bg-blue-950/20 hover:bg-blue-900/40 text-blue-400 hover:text-blue-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(59,130,246,0.2)] active:scale-95 uppercase font-mono disabled:opacity-30 disabled:hover:bg-blue-950/20 disabled:cursor-not-allowed"
             >
               Send Police
             </button>
             <button
               onClick={() => onDispatchAction('SEND_FIRE')}
-              className="border border-red-900 bg-red-950/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] active:scale-95 uppercase font-mono"
+              disabled={isCallerTyping}
+              className="border border-red-900 bg-red-950/20 hover:bg-red-900/40 text-red-400 hover:text-red-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] active:scale-95 uppercase font-mono disabled:opacity-30 disabled:hover:bg-red-950/20 disabled:cursor-not-allowed"
             >
               Send Fire
             </button>
             <button
               onClick={() => onDispatchAction('SEND_MEDICAL')}
-              className="border border-orange-950 bg-orange-900/10 hover:bg-orange-900/30 text-orange-400 hover:text-orange-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(245,158,11,0.2)] active:scale-95 uppercase font-mono"
+              disabled={isCallerTyping}
+              className="border border-orange-950 bg-orange-900/10 hover:bg-orange-900/30 text-orange-400 hover:text-orange-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(245,158,11,0.2)] active:scale-95 uppercase font-mono disabled:opacity-30 disabled:hover:bg-orange-900/10 disabled:cursor-not-allowed"
             >
               Send Medical
             </button>
             <button
               onClick={() => onDispatchAction('ANIMAL_CONTROL')}
-              className="border border-emerald-950 bg-emerald-900/10 hover:bg-emerald-900/30 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] active:scale-95 uppercase font-mono"
+              disabled={isCallerTyping}
+              className="border border-emerald-950 bg-emerald-900/10 hover:bg-emerald-900/30 text-emerald-400 hover:text-emerald-300 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(16,185,129,0.2)] active:scale-95 uppercase font-mono disabled:opacity-30 disabled:hover:bg-emerald-900/10 disabled:cursor-not-allowed"
             >
               Animal Ctrl
             </button>
@@ -274,7 +322,8 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
 
           <button
             onClick={() => onDispatchAction('DISMISS')}
-            className="w-full border border-yellow-950 bg-yellow-950/15 hover:bg-yellow-950/30 text-yellow-500 hover:text-yellow-400 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(234,179,8,0.2)] active:scale-95 uppercase mt-1 font-mono"
+            disabled={isCallerTyping}
+            className="w-full border border-yellow-950 bg-yellow-950/15 hover:bg-yellow-950/30 text-yellow-500 hover:text-yellow-400 font-bold py-2 rounded text-xs transition-all cursor-pointer hover:shadow-[0_0_10px_rgba(234,179,8,0.2)] active:scale-95 uppercase mt-1 font-mono disabled:opacity-30 disabled:hover:bg-yellow-950/15 disabled:cursor-not-allowed"
           >
             Dismiss / Prank Call
           </button>
