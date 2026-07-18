@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
 import { LeaderboardEntry, TranscriptMessage, FeedbackInfo } from '@/types/game';
+import { showToast } from '@/lib/toast';
 
 const getThemeColors = (themeName: string) => {
   switch (themeName) {
@@ -68,7 +69,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     link.click();
     document.body.removeChild(link);
     handleClosePreview();
+    showToast('Shift report PNG download started', 'success');
   };
+
 
   // Assign dispatcher operator rating
   const getDispatcherRank = (score: number) => {
@@ -118,11 +121,13 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       await navigator.clipboard.writeText(reportText);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 3000);
+      showToast('Shift report copied to clipboard', 'success');
     } catch (err) {
       console.error('Failed to copy text: ', err);
-      alert('Could not copy report to clipboard.');
+      showToast('Could not copy report to clipboard.', 'error');
     }
   };
+
 
   const generateReportCanvas = (): HTMLCanvasElement | null => {
     const rankObj = getDispatcherRank(totalScore);
@@ -136,38 +141,102 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     }
     const colors = getThemeColors(currentTheme);
 
+    const getStatusColor = (status: 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE' | 'PENDING') => {
+      const isLight = currentTheme === 'paper' || currentTheme === 'lab';
+      switch (status) {
+        case 'SUCCESS':
+          return isLight ? '#0f766e' : '#10b981';
+        case 'MINOR_ERROR':
+          return isLight ? '#b45309' : '#f59e0b';
+        case 'CRITICAL_FAILURE':
+          return isLight ? '#b91c1c' : '#ef4444';
+        case 'PENDING':
+        default:
+          return colors.textDim;
+      }
+    };
+
+    const getRankColor = () => {
+      const isLight = currentTheme === 'paper' || currentTheme === 'lab';
+      if (totalScore >= 1400) return isLight ? '#b45309' : '#f59e0b';
+      if (totalScore >= 1000) return isLight ? '#0f766e' : '#10b981';
+      if (totalScore >= 600) return isLight ? '#b45309' : '#f59e0b';
+      if (totalScore >= 200) return isLight ? '#c2410c' : '#ea580c';
+      return isLight ? '#b91c1c' : '#ef4444';
+    };
+
     // List of lines to render on canvas
-    const linesToDraw: Array<{ type: 'text' | 'dim' | 'accent' | 'separator'; content: string }> = [];
+    const linesToDraw: Array<{ type: 'text' | 'dim' | 'accent' | 'separator' | 'custom'; content: string; color?: string }> = [];
 
     // Header Banners
-    linesToDraw.push({ type: 'accent', content: `===================================================` });
-    linesToDraw.push({ type: 'accent', content: `  CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT` });
-    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ type: 'accent', content: `====================================================================` });
+    linesToDraw.push({ type: 'accent', content: `           CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT` });
+    linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'text', content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
-    linesToDraw.push({ type: 'text', content: `RANK ASSESSMENT:   ${rankObj.title}` });
-    linesToDraw.push({ type: 'accent', content: `===================================================` });
+    linesToDraw.push({ 
+      type: 'custom', 
+      color: getRankColor(), 
+      content: `RANK ASSESSMENT:   ${rankObj.title}` 
+    });
+    linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'separator', content: `` });
 
     // Shift Overview
     linesToDraw.push({ type: 'accent', content: `## SHIFT OVERVIEW` });
-    linesToDraw.push({ type: 'dim', content: `---------------------------------------------------` });
+    linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
+    linesToDraw.push({ type: 'dim', content: `LN  INCIDENT                      DIFF    STATUS               SCORE` });
+    linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
 
     calls.forEach((call, idx) => {
       const feedback = completedFeedbacks[idx];
       const difficulty = (call.difficulty || 'N/A').toUpperCase();
-      const scoreVal = feedback?.totalCallScore !== undefined ? feedback.totalCallScore : 0;
-      const scoreStr = `${scoreVal >= 0 ? '+' : ''}${scoreVal} PTS`;
       
-      linesToDraw.push({ 
-        type: 'text', 
-        content: `${idx + 1}. ${call.title} - ${difficulty} - ${scoreStr}` 
+      let statusText = 'PENDING';
+      let statusType: 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE' | 'PENDING' = 'PENDING';
+      let scoreText = '---';
+
+      if (feedback) {
+        statusType = feedback.status;
+        if (feedback.status === 'SUCCESS') {
+          statusText = 'SUCCESS';
+          scoreText = `+${feedback.totalCallScore} PTS`;
+        } else if (feedback.status === 'MINOR_ERROR') {
+          statusText = 'MINOR ERROR';
+          scoreText = `${feedback.totalCallScore >= 0 ? '+' : ''}${feedback.totalCallScore} PTS`;
+        } else {
+          statusText = 'CRITICAL FAIL';
+          scoreText = `${feedback.totalCallScore} PTS`;
+        }
+      }
+
+      const colLine = (idx + 1).toString().padStart(2, '0') + '  ';
+      let colTitle = call.title.toUpperCase();
+      if (colTitle.length > 28) {
+        colTitle = colTitle.substring(0, 25) + '...  ';
+      } else {
+        colTitle = colTitle.padEnd(30, ' ');
+      }
+      const colDiff = difficulty.substring(0, 7).toUpperCase().padEnd(8, ' ');
+      const colStatus = statusText.padEnd(14, ' ');
+      const colScore = scoreText.padStart(12, ' ');
+
+      const rowText = `${colLine}${colTitle}${colDiff}${colStatus}${colScore}`;
+      
+      linesToDraw.push({
+        type: 'custom',
+        color: getStatusColor(statusType),
+        content: rowText
       });
     });
 
-    linesToDraw.push({ type: 'dim', content: `---------------------------------------------------` });
-    linesToDraw.push({ type: 'accent', content: `TOTAL SCORE: ${totalScore} PTS` });
-    linesToDraw.push({ type: 'accent', content: `===================================================` });
-    linesToDraw.push({ type: 'dim', content: `// END OF TRANSMISSION //` });
+    linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
+    linesToDraw.push({ 
+      type: 'custom', 
+      color: getRankColor(), 
+      content: `TOTAL SCORE: ${totalScore} PTS` 
+    });
+    linesToDraw.push({ type: 'accent', content: `====================================================================` });
+    linesToDraw.push({ type: 'dim', content: `                     // END OF TRANSMISSION //` });
 
     const lineHeight = 20;
     const padding = 35;
@@ -213,6 +282,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       } else if (line.type === 'dim') {
         ctx.font = `12px "Courier New", Courier, monospace`;
         ctx.fillStyle = colors.textDim;
+      } else if (line.type === 'custom' && line.color) {
+        ctx.font = `bold 12px "Courier New", Courier, monospace`;
+        ctx.fillStyle = line.color;
       } else {
         ctx.font = `12px "Courier New", Courier, monospace`;
         ctx.fillStyle = colors.text;
@@ -248,12 +320,14 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
         ]);
         setCopyImageSuccess(true);
         setTimeout(() => setCopyImageSuccess(false), 3000);
+        showToast('Shift report image copied to clipboard', 'success');
       } catch (err) {
         console.error('Failed to copy image: ', err);
-        alert('Failed to copy image. Your browser might not support clipboard image write.');
+        showToast('Failed to copy image. Browser clipboard write unsupported.', 'error');
       }
     }, 'image/png');
   };
+
 
   useEffect(() => {
     if (selectedCallIndex === null && !previewImageUrl) return;
@@ -288,7 +362,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     selectedCallIndex !== null ? completedTranscripts[selectedCallIndex] || [] : [];
 
   return (
-    <main className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden p-4 sm:p-6 gap-6 md:justify-center max-w-6xl mx-auto w-full terminal-scroll">
+    <main className="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden p-4 sm:p-6 gap-6 md:justify-start max-w-6xl mx-auto w-full terminal-scroll">
       {/* MOBILE TABS SWITCHER */}
       <div className="flex md:hidden border-b border-emerald-950 bg-black shrink-0 select-none w-full mb-4">
         <button
@@ -316,25 +390,29 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       </div>
 
       {/* LEFT COLUMN: PERFORMANCE & RANKING */}
-      <section className={`flex-1 flex flex-col justify-start md:justify-center max-w-xl space-y-4 md:overflow-y-auto md:pr-2 terminal-scroll ${activeTab === 'results' ? 'flex' : 'hidden md:flex'}`}>
+      <section className={`flex-1 flex flex-col justify-start md:justify-start max-w-xl space-y-4 md:overflow-y-auto md:pr-2 terminal-scroll ${activeTab === 'results' ? 'flex' : 'hidden md:flex'}`}>
         <div className="border border-emerald-900 bg-zinc-950/70 p-5 rounded shadow-xl space-y-4">
           <h2 className="text-base font-bold tracking-widest text-emerald-400 border-b border-emerald-950 pb-2 uppercase text-center">
             Shift Operations Review
           </h2>
 
-          {/* RANK ASSESSMENT */}
-          <div className="text-center p-3 border border-emerald-950 bg-black/60 rounded flex flex-col items-center gap-1.5">
-            <span className="text-[10px] text-emerald-500/60 uppercase tracking-widest">
-              Operator Ranking Status
+          {/* RANK ASSESSMENT & CUMULATIVE SCORE */}
+          <div className="text-center p-4 border border-emerald-950 bg-black/60 rounded flex flex-col items-center gap-2">
+            <span className="text-[10px] text-emerald-500/60 uppercase tracking-widest font-bold">
+              Operator Performance Profile
             </span>
-            <span
-              className={`text-md font-black tracking-widest uppercase border px-4 py-1.5 rounded ${rank.style}`}
-            >
-              {rank.title}
-            </span>
-            <span className="text-lg font-bold text-emerald-400 mt-2">
-              CUMULATIVE SCORE: {totalScore} PTS
-            </span>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
+              <span
+                className={`text-xs sm:text-sm font-black tracking-widest uppercase border px-4 py-2 rounded-md ${rank.style}`}
+              >
+                RANK: {rank.title}
+              </span>
+              <span
+                className={`text-xs sm:text-sm font-black tracking-widest uppercase border px-4 py-2 rounded-md ${rank.style}`}
+              >
+                SCORE: {totalScore} PTS
+              </span>
+            </div>
           </div>
 
           {/* SHIFT REPORT EXPORT BOARD */}
@@ -369,39 +447,102 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
             <h3 className="font-bold text-emerald-500/70 uppercase tracking-widest border-b border-emerald-950/60 pb-1">
               Call Logs Audit (CLICK TO AUDIT)
             </h3>
-            <div className="space-y-1">
-              {calls.map((call, idx) => {
-                const hasTranscript =
-                  completedTranscripts &&
-                  completedTranscripts[idx] &&
-                  completedTranscripts[idx].length > 0;
-                return (
-                  <button
-                    key={idx}
-                    disabled={!hasTranscript}
-                    onClick={() => setSelectedCallIndex(idx)}
-                    className={`w-full flex flex-col sm:flex-row sm:justify-between sm:items-start md:items-center gap-2 border-b border-emerald-950/20 py-2 px-2 text-left text-emerald-500/90 font-mono transition-all rounded ${
-                      hasTranscript
-                        ? 'hover:bg-emerald-950/30 hover:text-emerald-300 cursor-pointer border border-transparent hover:border-emerald-900/60'
-                        : 'opacity-60 cursor-not-allowed'
-                    }`}
-                  >
-                    <span className="font-bold whitespace-normal break-words flex-1 pr-4">
-                      {idx + 1}. {call.title} ({call.archetype})
-                    </span>
-                    <div className="flex items-center gap-3 shrink-0 text-[10px] sm:text-xs pt-1 sm:pt-0">
-                      <span className="font-bold text-emerald-400">
-                        DIFF: {call.difficulty.toUpperCase()}
-                      </span>
-                      {hasTranscript && (
-                        <span className="text-[10px] text-emerald-500/60 font-semibold uppercase tracking-wider animate-pulse">
-                          [AUDIT]
-                        </span>
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
+            <div className="border border-emerald-950 bg-black/40 rounded overflow-hidden">
+              <div className="overflow-x-auto w-full terminal-scroll">
+                <table className="w-full text-xs text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-emerald-950 bg-emerald-950/20 text-[10px] text-emerald-500/60 font-bold uppercase tracking-widest">
+                      <th className="px-3 py-2 w-12 text-center whitespace-nowrap">LINE</th>
+                      <th className="px-3 py-2">INCIDENT</th>
+                      <th className="px-3 py-2 w-28 hidden sm:table-cell whitespace-nowrap">DIFFICULTY</th>
+                      <th className="px-3 py-2 w-40 whitespace-nowrap">STATUS</th>
+                      <th className="px-3 py-2 w-28 text-right whitespace-nowrap">SCORE</th>
+                      <th className="px-3 py-2 w-20 text-center whitespace-nowrap">AUDIT</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {calls.map((call, idx) => {
+                      const hasTranscript =
+                        completedTranscripts &&
+                        completedTranscripts[idx] &&
+                        completedTranscripts[idx].length > 0;
+                      const feedback = completedFeedbacks[idx];
+
+                      // Color coding for status and score
+                      let statusText = 'PENDING';
+                      let statusClass = 'text-emerald-500/40';
+                      let scoreText = '---';
+                      let scoreClass = 'text-emerald-500/40';
+
+                      if (feedback) {
+                        if (feedback.status === 'SUCCESS') {
+                          statusText = 'SUCCESS';
+                          statusClass = 'text-emerald-400 font-bold crt-glow-green';
+                          scoreClass = 'text-emerald-400 font-bold';
+                          scoreText = `+${feedback.totalCallScore} PTS`;
+                        } else if (feedback.status === 'MINOR_ERROR') {
+                          statusText = 'MINOR ERROR';
+                          statusClass = 'text-amber-500 font-bold crt-glow-amber';
+                          scoreClass = feedback.totalCallScore >= 0 ? 'text-emerald-400 font-bold' : 'text-red-500 font-bold';
+                          scoreText = `${feedback.totalCallScore >= 0 ? '+' : ''}${feedback.totalCallScore} PTS`;
+                        } else {
+                          statusText = 'CRITICAL FAIL';
+                          statusClass = 'text-red-500 font-bold crt-glow-red animate-pulse';
+                          scoreClass = 'text-red-500 font-bold';
+                          scoreText = `${feedback.totalCallScore} PTS`;
+                        }
+                      }
+
+                      // Color coding for difficulty
+                      let diffClass = 'text-emerald-400/80';
+                      if (call.difficulty === 'medium') {
+                        diffClass = 'text-amber-500/80';
+                      } else if (call.difficulty === 'hard') {
+                        diffClass = 'text-orange-500/80';
+                      }
+
+                      return (
+                        <tr
+                          key={idx}
+                          onClick={() => hasTranscript && setSelectedCallIndex(idx)}
+                          className={`border-b border-emerald-950/20 font-mono text-[11px] sm:text-xs transition-colors ${
+                            hasTranscript
+                              ? 'hover:bg-emerald-950/15 cursor-pointer text-emerald-500/90 hover:text-emerald-300'
+                              : 'opacity-50 cursor-not-allowed text-emerald-500/60'
+                          }`}
+                        >
+                          <td className="px-3 py-2.5 text-center font-bold">
+                            {(idx + 1).toString().padStart(2, '0')}
+                          </td>
+                          <td className="px-3 py-2.5 font-bold uppercase truncate max-w-[120px] sm:max-w-none">
+                            {call.title}
+                          </td>
+                          <td className={`px-3 py-2.5 hidden sm:table-cell font-semibold uppercase whitespace-nowrap ${diffClass}`}>
+                            {call.difficulty}
+                          </td>
+                          <td className="px-3 py-2.5 font-semibold whitespace-nowrap">
+                            <span className={statusClass}>{statusText}</span>
+                          </td>
+                          <td className={`px-3 py-2.5 text-right font-bold whitespace-nowrap ${scoreClass}`}>
+                            {scoreText}
+                          </td>
+                          <td className="px-3 py-2.5 text-center">
+                            {hasTranscript ? (
+                              <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider animate-pulse hover:text-emerald-300 transition-colors">
+                                [AUDIT]
+                              </span>
+                            ) : (
+                              <span className="text-[10px] text-emerald-950 font-semibold uppercase tracking-wider">
+                                [N/A]
+                              </span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -450,7 +591,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       </section>
 
       {/* RIGHT COLUMN: HIGH SCORE LEADERBOARD */}
-      <section className={`w-full md:w-80 flex flex-col justify-start md:justify-center max-w-full md:max-w-sm shrink-0 ${activeTab === 'leaderboard' ? 'flex' : 'hidden md:flex'}`}>
+      <section className={`w-full md:w-80 flex flex-col justify-start md:justify-start max-w-full md:max-w-sm shrink-0 ${activeTab === 'leaderboard' ? 'flex' : 'hidden md:flex'}`}>
         <div className="border border-emerald-900 bg-zinc-950/70 p-5 rounded shadow-xl space-y-4 flex flex-col max-h-[480px]">
           <h2 className="text-base font-bold tracking-widest text-emerald-400 border-b border-emerald-950 pb-2 uppercase text-center crt-glow-green">
             Global Database Rankings

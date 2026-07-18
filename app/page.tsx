@@ -6,7 +6,9 @@ import { PlayingScreen } from '@/components/PlayingScreen';
 import { FeedbackScreen } from '@/components/FeedbackScreen';
 import { SummaryScreen } from '@/components/SummaryScreen';
 import { SettingsModal } from '@/components/SettingsModal';
+import { ToastContainer } from '@/components/ToastContainer';
 import { useGameState } from '@/hooks/useGameState';
+
 
 const VALID_THEMES = ['green', 'amber', 'cyan', 'silver', 'paper', 'lab'] as const;
 type ThemeType = (typeof VALID_THEMES)[number];
@@ -281,6 +283,8 @@ export default function Console911Game() {
         scenarioDataset={scenarioDataset}
         setScenarioDataset={changeScenarioDataset}
       />
+      <ToastContainer />
     </div>
   );
 }
+

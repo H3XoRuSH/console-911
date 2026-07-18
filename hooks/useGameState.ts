@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
 import { TranscriptMessage, LeaderboardEntry, FeedbackInfo } from '@/types/game';
+import { showToast } from '@/lib/toast';
+
 
 export function useGameState() {
   // Game state manager
@@ -171,15 +173,16 @@ export function useGameState() {
       if (data.calls && data.calls.length > 0) {
         initiateCall(0, data.calls);
       } else {
-        alert('ERROR: No scenarios available in database.');
+        showToast('No scenarios available in database.', 'error');
         setGameState('start');
       }
     } catch (error) {
       console.error('Failed to start session:', error);
-      alert('CRITICAL ERROR LOADING SESSION DATA. CHECK DATABASE CONNECTION.');
+      showToast('Critical error loading session data.', 'error');
       setGameState('start');
     }
   };
+
 
   // Initiate a single call event
   const initiateCall = (index: number, sessionCalls: HydratedCallSession[]) => {
@@ -338,9 +341,10 @@ export function useGameState() {
     const outcome = activeCall.dispatchOutcomes[actionType];
 
     if (!outcome) {
-      alert('INVALID DISPATCH PROTOCOL');
+      showToast('Invalid dispatch protocol.', 'error');
       return;
     }
+
 
     let finalStatus = outcome.status;
     let penaltyMessage = '';
@@ -465,15 +469,17 @@ export function useGameState() {
         const data = await res.json();
         setLeaderboard(data.leaderboard || []);
         setScoreSubmitted(true);
+        showToast('Score submitted successfully!', 'success');
       } else {
-        alert('COULD NOT SUBMIT SCORE. DB CONNECTION ERROR.');
+        showToast('Could not submit score. DB connection error.', 'error');
       }
     } catch (err) {
       console.error(err);
-      alert('LEADERBOARD TRANSACTION FAILED.');
+      showToast('Leaderboard transaction failed.', 'error');
     } finally {
       setSubmittingScore(false);
     }
+
   };
 
   const handleAbortSession = () => {
