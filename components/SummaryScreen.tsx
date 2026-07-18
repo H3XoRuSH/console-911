@@ -532,15 +532,15 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                   return (
                     <div
                       key={idx}
-                      className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
+                      className={`flex flex-col max-w-[85%] min-w-0 ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
                     >
                       <span className="text-[10px] opacity-75 text-emerald-500/40 mb-1 select-none">
                         [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
                       </span>
                       <div
-                        className={`rounded px-3 py-2 text-xs leading-relaxed border ${
+                        className={`rounded px-3 py-2 text-xs leading-relaxed border break-all ${
                           isDispatcher
-                            ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold'
+                            ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold text-right'
                             : 'bg-emerald-950/20 border-emerald-900 text-emerald-300'
                         }`}
                       >
