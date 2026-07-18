@@ -15,6 +15,7 @@ interface ChatRequestBody {
   history: ChatHistoryItem[];
   selectedSlots: Record<string, string>;
   currentState?: string;
+  dataset?: string;
 }
 
 /**
@@ -168,7 +169,8 @@ export async function POST(req: Request) {
       dispatcherMessage,
       history,
       selectedSlots,
-      currentState = 'initial'
+      currentState = 'initial',
+      dataset = 'original'
     } = body;
 
     if (!scenarioId || !dispatcherMessage || !selectedSlots) {
@@ -241,7 +243,7 @@ export async function POST(req: Request) {
     }
 
     // Load the raw scenario to search predefined intents
-    const allScenarios = loadAllScenarios();
+    const allScenarios = loadAllScenarios(dataset);
     const scenario = allScenarios.find((s) => s.id === scenarioId);
 
     if (!scenario) {

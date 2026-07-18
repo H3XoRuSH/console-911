@@ -1,0 +1,2247 @@
+[
+  {
+    "title": "The Muffled Crash",
+    "description": "A pocket dial from inside a car that has just been in a severe accident; the caller is unconscious and background audio reveals the crash aftermath.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "trying_to_identify",
+      "audio_played",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "You answer a 911 call and hear only static and what sounds like {ambient_audio}. A faint voice groans, '...please...'",
+      "An open line with no direct speaker. Through the background noise, you make out {ambient_audio} and a child crying.",
+      "A pocket dial comes in. The line is live, and you hear {ambient_audio}. There's a muffled sound of someone gasping.",
+      "You pick up a silent call. After a moment, you hear {ambient_audio} and a distant voice whispering, '{victim_name}... wake up.'"
+    ],
+    "slots": {
+      "address_location": [
+        "Route 9 near mile marker 27",
+        "the intersection of Pine and Elm"
+      ],
+      "caller_name": [
+        "Mark",
+        "Elena"
+      ],
+      "victim_name": [
+        "Josh",
+        "Clara"
+      ],
+      "ambient_audio": [
+        "a hissing radiator and warped metal",
+        "the ping of an open door alert"
+      ],
+      "specific_details": [
+        "the airbags have deployed",
+        "the windshield is shattered"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No direct answer, but you hear a GPS voice: 'In {address_location}, continue straight.'"
+          ],
+          "trying_to_identify": [
+            "Still nothing, but the GPS repeats: '{address_location}'."
+          ],
+          "audio_played": [
+            "A crying child in the background shouts 'We're at {address_location}!'"
+          ],
+          "help_dispatched": [
+            "The location is confirmed as {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "audio_played"
+        },
+        "responses": {
+          "initial": [
+            "You can hear {ambient_audio} and a baby crying. {specific_details}."
+          ],
+          "trying_to_identify": [
+            "The moaning continues. It sounds like {ambient_audio}."
+          ],
+          "audio_played": [
+            "You play the recorded audio; it's clear: {ambient_audio} and a child screaming."
+          ],
+          "help_dispatched": [
+            "Rescuers report {specific_details} on scene."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "trying_to_identify",
+          "trying_to_identify": "audio_played"
+        },
+        "responses": {
+          "initial": [
+            "A faint groan, then silence. Possibly unconscious."
+          ],
+          "trying_to_identify": [
+            "Still no direct reply. You hear more {ambient_audio}."
+          ],
+          "audio_played": [
+            "The groaning stops; you hear a whispered 'help' from a child."
+          ],
+          "help_dispatched": [
+            "The caller remains unresponsive."
+          ]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 40,
+        "transitions": {
+          "trying_to_identify": "help_dispatched"
+        },
+        "responses": {
+          "initial": [
+            "No answer. A child cries, 'Mommy, {victim_name} won't wake up!'"
+          ],
+          "trying_to_identify": [
+            "A shaky voice: '{victim_name} is bleeding.'"
+          ],
+          "audio_played": [
+            "A child says, '{victim_name} is stuck!'"
+          ],
+          "help_dispatched": [
+            "Paramedics are attending to {victim_name}."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive to secure the scene and assist with traffic."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Firefighters extract the victims using the jaws of life."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics treat multiple injuries and transport critical patients."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control finds only a stray dog near the crash, no urgent help."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a prank; victims remain trapped for hours."
+      }
+    },
+    "id": "scenario_091",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Distant Argument",
+    "description": "A pocket dial from a mobile phone during a escalating domestic dispute; shouting, breaking objects, and threats are heard.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "listening",
+      "dispute_escalates",
+      "dispatcher_intervention"
+    ],
+    "initial_variations": [
+      "An open line picks up muffled yelling. You hear '{ambient_audio}' and a woman's voice: '{caller_name}, please stop!'",
+      "You receive a silent call, but in the background, a man shouts over {ambient_audio}, and a child is crying.",
+      "A 911 hang-up calls in. Through the phone, you hear {ambient_audio} and a thud, followed by a scream.",
+      "The caller doesn't speak. In the distance, a woman cries, 'You're hurting me!' and {ambient_audio} is heard."
+    ],
+    "slots": {
+      "address_location": [
+        "45 Park Avenue, Apartment 3B",
+        "a house at 221 Baker Street"
+      ],
+      "caller_name": [
+        "Mike",
+        "Jessica"
+      ],
+      "victim_name": [
+        "Sarah",
+        "Tommy"
+      ],
+      "ambient_audio": [
+        "breaking glass",
+        "a door slamming repeatedly"
+      ],
+      "specific_details": [
+        "a baseball bat being swung",
+        "a child locked in a bedroom"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A child sobs: 'We're at {address_location}.'"
+          ],
+          "listening": [
+            "No direct reply, but a GPS alert says: 'Arrived at {address_location}.'"
+          ],
+          "dispute_escalates": [
+            "Someone shouts, 'Get out of {address_location}!'"
+          ],
+          "dispatcher_intervention": [
+            "Officers confirm the address: {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "listening",
+          "listening": "dispute_escalates"
+        },
+        "responses": {
+          "initial": [
+            "You hear {ambient_audio} and a woman begging. {specific_details}."
+          ],
+          "listening": [
+            "More {ambient_audio}; it sounds like {specific_details}."
+          ],
+          "dispute_escalates": [
+            "The dispute worsens: {ambient_audio} and threats of violence."
+          ],
+          "dispatcher_intervention": [
+            "Details match: {specific_details} found on scene."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "listening",
+          "listening": "dispute_escalates",
+          "dispute_escalates": "dispatcher_intervention"
+        },
+        "responses": {
+          "initial": [
+            "No direct caller. A woman whispers, '{caller_name} help.'"
+          ],
+          "listening": [
+            "The victim's voice is trembling; she's trying to stay quiet."
+          ],
+          "dispute_escalates": [
+            "The yelling gets closer; the victim screams."
+          ],
+          "dispatcher_intervention": [
+            "The caller picks up the phone and begs for police."
+          ]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 40,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A child says: 'Daddy, don't hit {victim_name}!'"
+          ],
+          "listening": [
+            "The victim calls out: 'Please, {victim_name} is bleeding!'"
+          ],
+          "dispute_escalates": [
+            "Shouting: 'Where is {victim_name}?'"
+          ],
+          "dispatcher_intervention": [
+            "{victim_name} is located hiding in a closet."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police intervene and arrest the aggressor, protecting the family."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 20,
+        "message": "Firefighters arrive but are not needed; they wait for police."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics treat injuries and transport the victim."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control finds a noisy dog, but misses the domestic incident."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed; the victim is later found with severe injuries."
+      }
+    },
+    "id": "scenario_092",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Silent Fall",
+    "description": "An elderly person's medical alert pendant accidentally activates after a fall; the dispatcher hears faint cries for help and a caregiver's TV in the background.",
+    "difficulty": "Easy",
+    "states": [
+      "initial",
+      "fall_detected",
+      "checking_on_victim",
+      "help_arrives"
+    ],
+    "initial_variations": [
+      "A silent open line, then a weak voice: 'Help... I've fallen.' You also hear {ambient_audio}.",
+      "Pocket dial from a pendant. You hear {ambient_audio} and a soft moan: '{caller_name}.'",
+      "The call is quiet except for {ambient_audio}. After a moment, a faint call for '{victim_name}?'",
+      "An emergency button activated. Background: {ambient_audio}. A frail voice says, 'I can't get up...'"
+    ],
+    "slots": {
+      "address_location": [
+        "102 Rosewood Lane",
+        "Apartment 7, Silver Manor"
+      ],
+      "caller_name": [
+        "Eleanor",
+        "George"
+      ],
+      "victim_name": [
+        "Samuel",
+        "Mildred"
+      ],
+      "ambient_audio": [
+        "a television turned up loud",
+        "a persistent beeping from a low-battery alert"
+      ],
+      "specific_details": [
+        "the bathroom floor is cold",
+        "the phone is out of reach"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "You hear a muffled voice: 'In {address_location}, please hurry.'"
+          ],
+          "fall_detected": [
+            "The pendant system announces: 'Fall detected at {address_location}.'"
+          ],
+          "checking_on_victim": [
+            "The victim whispers: 'I'm at {address_location}.'"
+          ],
+          "help_arrives": [
+            "Medics confirm the address: {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "fall_detected",
+          "fall_detected": "checking_on_victim"
+        },
+        "responses": {
+          "initial": [
+            "You hear {ambient_audio} and a groan. {specific_details}."
+          ],
+          "fall_detected": [
+            "The fall detection alarm sounds. {specific_details}."
+          ],
+          "checking_on_victim": [
+            "The victim explains: {specific_details}."
+          ],
+          "help_arrives": [
+            "The scene matches: {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "fall_detected",
+          "fall_detected": "checking_on_victim"
+        },
+        "responses": {
+          "initial": [
+            "Weak response: '{caller_name} fell.'"
+          ],
+          "fall_detected": [
+            "In pain, {caller_name} says they can't move."
+          ],
+          "checking_on_victim": [
+            "Vital signs are weak but stable."
+          ],
+          "help_arrives": [
+            "{caller_name} is being assisted."
+          ]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 40,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A neighbor yells: 'I hear {victim_name} calling for help!'"
+          ],
+          "fall_detected": [
+            "The pendant alert says: 'User {victim_name} needs assistance.'"
+          ],
+          "checking_on_victim": [
+            "The victim says: 'My name is {victim_name}.'"
+          ],
+          "help_arrives": [
+            "{victim_name} is being treated."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive and force entry to reach the fallen senior."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighters break down the door and provide initial aid."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics treat a hip fracture and transport the patient."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control responds to a pet barking inside, but no one else comes."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call is dismissed; the senior lies on the floor for hours developing complications."
+      }
+    },
+    "id": "scenario_093",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Overheard Robbery",
+    "description": "A store clerk's phone accidentally dials 911 during an armed robbery; the dispatcher hears demands, threats, and a silent alarm.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "robbery_in_progress",
+      "suspect_flees",
+      "scene_secure"
+    ],
+    "initial_variations": [
+      "An open line from a noisy environment. You hear '{ambient_audio}' and a shaky voice: '{caller_name}, put the money in the bag.'",
+      "A pocket dial. Background: {ambient_audio}. A man yells, 'Give me all of it!' and a woman whimpers.",
+      "You pick up a silent call, then a loud crash: {ambient_audio}. A voice barks, 'Open the safe, {caller_name}!'",
+      "The phone is open. You hear {ambient_audio} and someone counting down: 'You have 10 seconds, {victim_name}!'"
+    ],
+    "slots": {
+      "address_location": [
+        "QuickMart at 7-Eleven, Main Street",
+        "City Jewelers on 5th Avenue"
+      ],
+      "caller_name": [
+        "Raj",
+        "Betty"
+      ],
+      "victim_name": [
+        "the manager",
+        "the cashier"
+      ],
+      "ambient_audio": [
+        "a cash register slamming open",
+        "shattering glass display cases"
+      ],
+      "specific_details": [
+        "the robber has a handgun",
+        "a customer is on the floor"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "A panicked customer whispers: 'He's robbing {address_location}!'"
+          ],
+          "robbery_in_progress": [
+            "The robber shouts: 'Everyone in {address_location} on the ground!'"
+          ],
+          "suspect_flees": [
+            "A witness yells: 'The guy from {address_location} is running!'"
+          ],
+          "scene_secure": [
+            "Police confirm the location: {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "robbery_in_progress",
+          "robbery_in_progress": "suspect_flees"
+        },
+        "responses": {
+          "initial": [
+            "You hear {ambient_audio} and demands. {specific_details}."
+          ],
+          "robbery_in_progress": [
+            "More {ambient_audio} and {specific_details} are visible."
+          ],
+          "suspect_flees": [
+            "The robbery details: {specific_details}, and he's getting away."
+          ],
+          "scene_secure": [
+            "Evidence matches: {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "robbery_in_progress",
+          "robbery_in_progress": "suspect_flees"
+        },
+        "responses": {
+          "initial": [
+            "The clerk {caller_name} can't respond; the robber is watching."
+          ],
+          "robbery_in_progress": [
+            "{caller_name} is being forced to empty the register."
+          ],
+          "suspect_flees": [
+            "{caller_name} shouts: 'He's gone!'"
+          ],
+          "scene_secure": [
+            "{caller_name} is shaken but safe."
+          ]
+        }
+      },
+      "ASK_SUSPECT_DESCRIPTION": {
+        "score_delta": 60,
+        "transitions": {
+          "robbery_in_progress": "suspect_flees"
+        },
+        "responses": {
+          "initial": [
+            "No description yet; you only hear {ambient_audio}."
+          ],
+          "robbery_in_progress": [
+            "The robber's voice: deep, wearing a mask."
+          ],
+          "suspect_flees": [
+            "A witness says: 'He's wearing a red hoodie, heading south.'"
+          ],
+          "scene_secure": [
+            "Officers have the description broadcast."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police arrive quickly and apprehend the suspect."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Firefighters respond but stand by until police secure the scene."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Medics treat a customer with a minor injury from glass."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control finds a stray cat outside the store."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed as a prank; the robbery is successful and victims are traumatized."
+      }
+    },
+    "id": "scenario_094",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Unattended Child",
+    "description": "A toddler playing with a phone accidentally dials 911; initially playful sounds, but then a smoke alarm and screams turn the situation urgent.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "child_play",
+      "smoke_alarm",
+      "rescue_attempt"
+    ],
+    "initial_variations": [
+      "You answer a 911 call and hear a child giggling and {ambient_audio}. Then a smoke alarm beeps in the background.",
+      "An open line with babbling sounds. There's {ambient_audio} and a distant TV. Suddenly, a smoke detector goes off.",
+      "A toddler's voice says 'hello?' and then drops the phone. You hear {ambient_audio} and a panicked adult scream from another room.",
+      "The line is live with baby noises. In the distance, {ambient_audio} and then a voice cries, '{victim_name}, where are you?'"
+    ],
+    "slots": {
+      "address_location": [
+        "55 Maple Drive",
+        "Apartment 12C, Oakwood Heights"
+      ],
+      "caller_name": [
+        "Liam",
+        "Emma"
+      ],
+      "victim_name": [
+        "the baby",
+        "Mommy"
+      ],
+      "ambient_audio": [
+        "a cartoon playing loudly",
+        "clattering toys"
+      ],
+      "specific_details": [
+        "a pot left on a lit stove",
+        "an unattended candle near curtains"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No direct answer; a child says: 'We live at {address_location}.'"
+          ],
+          "child_play": [
+            "A parent in the background yells: 'The house is {address_location}!'"
+          ],
+          "smoke_alarm": [
+            "The alarm is beeping in {address_location}."
+          ],
+          "rescue_attempt": [
+            "Firefighters confirm the location: {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "child_play": "smoke_alarm",
+          "smoke_alarm": "rescue_attempt"
+        },
+        "responses": {
+          "initial": [
+            "You hear {ambient_audio} and a giggle. {specific_details}."
+          ],
+          "child_play": [
+            "More {ambient_audio}, but now you smell smoke? {specific_details}."
+          ],
+          "smoke_alarm": [
+            "The alarm screams; {specific_details} caused the fire."
+          ],
+          "rescue_attempt": [
+            "Firefighters find {specific_details} as the source."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "child_play",
+          "child_play": "smoke_alarm",
+          "smoke_alarm": "rescue_attempt"
+        },
+        "responses": {
+          "initial": [
+            "The child {caller_name} is babbling, unreachable."
+          ],
+          "child_play": [
+            "{caller_name} drops the phone and runs."
+          ],
+          "smoke_alarm": [
+            "You hear {caller_name} crying."
+          ],
+          "rescue_attempt": [
+            "{caller_name} is being carried out by a firefighter."
+          ]
+        }
+      },
+      "ASK_VICTIM_INFO": {
+        "score_delta": 40,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The child says: '{victim_name} is cooking!'"
+          ],
+          "child_play": [
+            "An adult shouts: 'Save {victim_name}!'"
+          ],
+          "smoke_alarm": [
+            "A woman screams: 'My {victim_name} is trapped!'"
+          ],
+          "rescue_attempt": [
+            "{victim_name} is found safe."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive and help evacuate the building."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Firefighters extinguish the kitchen fire and rescue the toddler."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics treat smoke inhalation and minor burns."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control finds only the family dog, no immediate danger."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed; the fire spreads, endangering the child and neighbors."
+      }
+    },
+    "id": "scenario_095",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "Ride-Share Ruckus",
+    "description": "A ride-share driver's phone pocket dials 911 during a heated argument with a passenger that escalates into an armed threat.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "argument_escalating",
+      "threat_made",
+      "police_informed"
+    ],
+    "initial_variations": [
+      "I hear muffled arguing and the sound of a car engine. It seems like a pocket dial.",
+      "There's shouting in the background, something about payment. It sounds like a ride-share gone wrong.",
+      "I can hear {ambient_audio} and a passenger yelling, 'You trying to scam me?'",
+      "It's an open line. Someone is screaming, 'Get out of the car, {caller_name}!'"
+    ],
+    "slots": {
+      "address_location": [
+        "corner of 5th and Main Street",
+        "near the airport arrivals terminal",
+        "on Interstate 95, mile marker 12"
+      ],
+      "caller_name": [
+        "Mike",
+        "David"
+      ],
+      "ambient_audio": [
+        "faint hip-hop music",
+        "GPS repeatedly saying 'recalculating'",
+        "the sound of a turn signal clicking"
+      ],
+      "specific_details": [
+        "passenger has a knife",
+        "passenger is pulling a gun",
+        "the car doors are locked"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "The GPS just said 'Arrived at {address_location}'."
+          ],
+          "argument_escalating": [
+            "We're still near {address_location}. He won't let me stop."
+          ],
+          "threat_made": [
+            "He's making me drive to {address_location}. Send help quick!"
+          ],
+          "police_informed": [
+            "I see police lights at {address_location}! Hurry!"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "argument_escalating"
+        },
+        "responses": {
+          "initial": [
+            "I can hear {ambient_audio} and a man and woman arguing over the fare."
+          ],
+          "argument_escalating": [
+            "He's getting angrier. He says I took the wrong route and now he's threatening me."
+          ],
+          "threat_made": [
+            "He just pulled out something shiny – it looks like a knife. He's saying he won't pay."
+          ],
+          "police_informed": [
+            "Police are pulling the car over. He's putting his hands up."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "argument_escalating": "threat_made"
+        },
+        "responses": {
+          "initial": [
+            "I'm the driver, {caller_name}. I can't talk much, he's watching me. The phone is in my pocket."
+          ],
+          "argument_escalating": [
+            "I'm scared. He's getting really aggressive."
+          ],
+          "threat_made": [
+            "He's showing me a knife! He's telling me to keep driving."
+          ],
+          "police_informed": [
+            "I'm okay now. The police are here."
+          ]
+        }
+      },
+      "ASK_PASSENGER_INFO": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "He's a big guy, wearing a red cap. He got in near the stadium."
+          ],
+          "argument_escalating": [
+            "He keeps yelling. He's wearing a red cap and a black jacket. He says his name is 'T'."
+          ],
+          "threat_made": [
+            "He's waving the knife. Red cap, black jacket, scar on his left cheek."
+          ],
+          "police_informed": [
+            "The police have him. They're arresting him now."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police intercept the vehicle, detain the suspect, and recover a concealed weapon."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Fire crews respond but there is no fire or rescue needed; they assist police after the fact."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -30,
+        "message": "Medics arrive but the driver has no physical injuries; only emotional distress."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -100,
+        "message": "Animal control is confused, delaying the actual law enforcement response."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing the call as a prank leaves the driver defenseless; the situation escalates to assault."
+      }
+    },
+    "id": "scenario_096",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "Smart Speaker Intrusion",
+    "description": "A family's smart speaker accidentally triggers a 911 call during a home invasion, allowing the dispatcher to hear intruders and the family hiding.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "hearing_intruders",
+      "homeowner_whisper",
+      "location_confirmed"
+    ],
+    "initial_variations": [
+      "It sounds like an open line from a smart speaker. I can hear movement and a man shouting orders.",
+      "I hear {ambient_audio} and a faint voice saying 'Please, no'.",
+      "There's a lot of noise like someone is rummaging through drawers. It might be a break-in.",
+      "I can barely make out {ambient_audio} and a child crying somewhere in the background."
+    ],
+    "slots": {
+      "address_location": [
+        "342 Willow Lane",
+        "178 Oakridge Drive"
+      ],
+      "caller_name": [
+        "Sarah",
+        "Mr. Thompson"
+      ],
+      "ambient_audio": [
+        "glass shattering",
+        "heavy footsteps on a wooden floor",
+        "a door being kicked in"
+      ],
+      "specific_details": [
+        "three intruders, one with a crowbar",
+        "family hiding in a panic room",
+        "the intruders are demanding jewelry and cash"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "homeowner_whisper": "location_confirmed"
+        },
+        "responses": {
+          "initial": [
+            "The speaker just said 'Location services are off'. I can't pinpoint it."
+          ],
+          "hearing_intruders": [
+            "I hear a GPS voice? No, the smart speaker just read out the weather for {address_location}."
+          ],
+          "homeowner_whisper": [
+            "Whispering: 'We're at {address_location}. Be quiet... they're in the hall.'"
+          ],
+          "location_confirmed": [
+            "Yes, {address_location}. Please hurry, they're trying to break the panic room door."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "hearing_intruders"
+        },
+        "responses": {
+          "initial": [
+            "I hear {ambient_audio} and someone saying, 'Check the back room!'"
+          ],
+          "hearing_intruders": [
+            "The intruders are shouting, 'Where's the safe?' They sound like {specific_details}."
+          ],
+          "homeowner_whisper": [
+            "{caller_name} says there are three of them, they have a crowbar, and they're demanding cash."
+          ],
+          "location_confirmed": [
+            "The police are pulling up. The intruders are panicking."
+          ]
+        }
+      },
+      "ASK_IF_SAFE": {
+        "score_delta": 40,
+        "transitions": {
+          "hearing_intruders": "homeowner_whisper"
+        },
+        "responses": {
+          "initial": [
+            "It's hard to tell. I hear whispering, maybe they're hiding."
+          ],
+          "hearing_intruders": [
+            "Someone whispered 'We're in the panic room. Please send police silently.'"
+          ],
+          "homeowner_whisper": [
+            "We're safe for now. The door is locked, but they're trying to break it."
+          ],
+          "location_confirmed": [
+            "They've heard the sirens. They're running outside."
+          ]
+        }
+      },
+      "ASK_NUMBER_OF_INTRUDERS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I can't tell yet. There's too much noise."
+          ],
+          "hearing_intruders": [
+            "I hear at least two different voices, maybe three."
+          ],
+          "homeowner_whisper": [
+            "{caller_name} says there are three men. One is in the kitchen, two upstairs."
+          ],
+          "location_confirmed": [
+            "The police see three suspects fleeing from the back door."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police surround the house, capture all intruders, and safely retrieve the family from the panic room."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Fire crews are not needed, but they assist with a broken door frame."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Medics treat minor injuries from flying debris; no life-threatening wounds."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -150,
+        "message": "Animal control arrives expecting a loose pet; the intruders escape in the confusion."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing the call as a false alarm results in the intruders breaking into the panic room."
+      }
+    },
+    "id": "scenario_097",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "Trapped Hiker",
+    "description": "A solo hiker falls into a ravine and their phone pocket dials 911, picking up faint moans and environmental sounds.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "locating_sounds",
+      "caller_responding",
+      "location_narrowed"
+    ],
+    "initial_variations": [
+      "I hear nothing but the sound of {ambient_audio}. It might be an open line from the wilderness.",
+      "There's a faint moaning and what sounds like {ambient_audio}. No one is speaking directly.",
+      "It's an open line. I can barely make out a person groaning, and the wind is very loud.",
+      "I think this is a pocket dial from a hiker. I hear a river rushing and occasional distant shouts for 'Help'."
+    ],
+    "slots": {
+      "address_location": [
+        "Eagle Ridge Trail, mile marker 3",
+        "Devil's Canyon, near the old bridge",
+        "Sunset Peak, off the main path"
+      ],
+      "caller_name": [
+        "Alex",
+        "Jordan"
+      ],
+      "ambient_audio": [
+        "a roaring river",
+        "wind howling through trees",
+        "birds chirping and a distant waterfall"
+      ],
+      "specific_details": [
+        "the hiker has a broken leg",
+        "they are bleeding from a head wound",
+        "they fell about 20 feet"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "locating_sounds": "location_narrowed"
+        },
+        "responses": {
+          "initial": [
+            "Just the sound of {ambient_audio}. No GPS coordinates coming through."
+          ],
+          "locating_sounds": [
+            "I heard a faint voice say 'near {address_location}'. But it's far from the phone."
+          ],
+          "caller_responding": [
+            "{caller_name} is whispering, 'I'm at {address_location}. I fell off the trail.'"
+          ],
+          "location_narrowed": [
+            "They're confirming the location: {address_location}. The sound of the river is very loud there."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "locating_sounds"
+        },
+        "responses": {
+          "initial": [
+            "It's hard to tell. The audio is muffled. I think I hear {ambient_audio}."
+          ],
+          "locating_sounds": [
+            "I can hear someone moaning 'Help' every few seconds. The {ambient_audio} is making it hard to hear."
+          ],
+          "caller_responding": [
+            "{caller_name} says they slipped on a wet rock. {specific_details}."
+          ],
+          "location_narrowed": [
+            "They described the area: there's a large fallen tree and a steep drop to {ambient_audio}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 40,
+        "transitions": {
+          "locating_sounds": "caller_responding"
+        },
+        "responses": {
+          "initial": [
+            "No direct reply. Just those faint groans."
+          ],
+          "locating_sounds": [
+            "I shouted, and the person coughed. I think they're trying to crawl toward the phone."
+          ],
+          "caller_responding": [
+            "{caller_name} is conscious but in a lot of pain. {specific_details}."
+          ],
+          "location_narrowed": [
+            "They are getting weaker. They asked for water and said they're going to pass out."
+          ]
+        }
+      },
+      "ASK_TO_MAKE_NOISE": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I told them to tap the phone. I hear a faint tap... maybe one tap every few seconds."
+          ],
+          "locating_sounds": [
+            "They are tapping the phone. It's a slow, rhythmic tapping."
+          ],
+          "caller_responding": [
+            "{caller_name} is tapping twice to mean 'yes'. They can understand me."
+          ],
+          "location_narrowed": [
+            "They're tapping SOS in Morse code. It's definitely them."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 50,
+        "message": "Police arrive but lack mountain rescue gear; they secure the area and call for specialized rescue."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Fire department's high-angle rescue team locates and extracts the hiker using ropes."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics provide on-site trauma care and airlift the hiker to a hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -150,
+        "message": "Animal control searches for wildlife, wasting time while the hiker's condition worsens."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing as a prank leaves the hiker alone; they succumb to injuries before any rescue."
+      }
+    },
+    "id": "scenario_098",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "Child's Tablet Witness",
+    "description": "A child playing on a tablet accidentally calls 911 during a violent domestic dispute, broadcasting the sounds of fighting and a crying child.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "hearing_argument",
+      "child_crying",
+      "police_updated"
+    ],
+    "initial_variations": [
+      "I can hear a child sobbing and adults yelling in the background. It's an open line from a tablet.",
+      "There's a lot of noise. A child is crying {ambient_audio}. It sounds like a domestic disturbance.",
+      "This sounds like an accidental call from a kid's device. I hear shouting and glass breaking.",
+      "It's chaos on the line. A young voice keeps crying '{caller_name} is scared' and someone is screaming."
+    ],
+    "slots": {
+      "address_location": [
+        "Apartment 2B, 55 Maple Court",
+        "142 Pine Street, side entrance"
+      ],
+      "caller_name": [
+        "Lily",
+        "Tommy"
+      ],
+      "ambient_audio": [
+        "dishes smashing",
+        "loud thuds against a wall",
+        "a woman screaming 'Stop!'"
+      ],
+      "specific_details": [
+        "the father has a belt",
+        "the mother is being choked",
+        "a knife is involved"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "child_crying": "police_updated"
+        },
+        "responses": {
+          "initial": [
+            "No one is answering. The GPS on the tablet shows it's near {address_location}."
+          ],
+          "hearing_argument": [
+            "The tablet's location is pinging at {address_location}. It's not moving."
+          ],
+          "child_crying": [
+            "{caller_name} is whispering, 'We live at {address_location}. Please make daddy stop.'"
+          ],
+          "police_updated": [
+            "Police confirm they're approaching {address_location}. They can hear the disturbance."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "hearing_argument"
+        },
+        "responses": {
+          "initial": [
+            "I hear {ambient_audio} and a child crying {caller_name}. An adult male is shouting."
+          ],
+          "hearing_argument": [
+            "The argument is getting worse. I heard something like {specific_details} mentioned."
+          ],
+          "child_crying": [
+            "{caller_name} says 'Daddy is hurting Mommy with a belt.' The child is hiding under the bed."
+          ],
+          "police_updated": [
+            "The police hear the dad yelling now. They're breaching the door."
+          ]
+        }
+      },
+      "ASK_CHILD_SAFETY": {
+        "score_delta": 40,
+        "transitions": {
+          "hearing_argument": "child_crying"
+        },
+        "responses": {
+          "initial": [
+            "The child is crying but I can't tell if they're hurt. I'm trying to calm them down."
+          ],
+          "hearing_argument": [
+            "{caller_name} just said 'I'm scared, don't let him find me.' The child is hiding."
+          ],
+          "child_crying": [
+            "The child is under the bed. They said 'Daddy hit Mommy and she fell.'"
+          ],
+          "police_updated": [
+            "An officer has the child now. They're safe."
+          ]
+        }
+      },
+      "ASK_PARENTS_NAMES": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I can't make out names. The adult is just screaming 'Get back here!'"
+          ],
+          "hearing_argument": [
+            "The child said 'Daddy's name is Robert.' The mother is screaming 'Robert, stop!'"
+          ],
+          "child_crying": [
+            "{caller_name} says 'Mommy's name is Sarah. Please, she's not moving.'"
+          ],
+          "police_updated": [
+            "Police confirm they have a male suspect named Robert and a female victim."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrest the abusive father and ensure the safety of the child and mother."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Firefighters arrive but there is no fire; they assist with forced entry."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics treat the mother for injuries and check the child for trauma."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -100,
+        "message": "Animal control shows up expecting a dog, delaying critical police intervention."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Ignoring the call allows the violence to continue, resulting in serious injuries to the mother."
+      }
+    },
+    "id": "scenario_099",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "Construction Site Accident",
+    "description": "After a scaffolding collapse, a worker's radio pocket dials 911, relaying chaotic shouting, alarms, and cries for help.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "accident_sounds",
+      "worker_response",
+      "injuries_described"
+    ],
+    "initial_variations": [
+      "I hear loud alarms and people shouting '{caller_name} is down!' It seems like a worksite accident.",
+      "There's chaotic noise, like {ambient_audio}. It might be a construction site emergency.",
+      "It's an open line. I can hear alarms, metal clanging, and someone screaming for a medic.",
+      "This sounds like a pocket dial from a construction site. {ambient_audio} is drowning out most voices."
+    ],
+    "slots": {
+      "address_location": [
+        "Riverside Construction Site, Lot 4",
+        "Highway 16 expansion project, near exit 42"
+      ],
+      "caller_name": [
+        "Jake",
+        "Carlos"
+      ],
+      "ambient_audio": [
+        "continuous beeping from a heavy machinery alarm",
+        "sawing and hammering in the background",
+        "the roar of a diesel generator"
+      ],
+      "specific_details": [
+        "three workers trapped under collapsed scaffolding",
+        "a crane load fell on workers",
+        "live electrical wires exposed"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "worker_response": "injuries_described"
+        },
+        "responses": {
+          "initial": [
+            "I can't pinpoint it. The GPS shows a broad area near {address_location}."
+          ],
+          "accident_sounds": [
+            "Someone yelled 'We need help at {address_location}, the scaffold fell!'"
+          ],
+          "worker_response": [
+            "{caller_name} got the phone. He says 'We're at {address_location}. Hurry, the south side collapsed.'"
+          ],
+          "injuries_described": [
+            "They're at {address_location}. The foreman is giving exact coordinates for the rescue."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "accident_sounds"
+        },
+        "responses": {
+          "initial": [
+            "It sounds like a busy site. I hear {ambient_audio} and people shouting."
+          ],
+          "accident_sounds": [
+            "The alarm is for a scaffold collapse. I heard someone say {specific_details}."
+          ],
+          "worker_response": [
+            "{caller_name} says {specific_details}. They need medical and fire rescue."
+          ],
+          "injuries_described": [
+            "The foreman reports two people are unconscious and one has a severe leg injury."
+          ]
+        }
+      },
+      "ASK_NUMBER_INJURED": {
+        "score_delta": 25,
+        "transitions": {
+          "accident_sounds": "worker_response"
+        },
+        "responses": {
+          "initial": [
+            "I can only hear general commotion. No clear count."
+          ],
+          "accident_sounds": [
+            "Someone is shouting 'Three guys are under the scaffolding!'"
+          ],
+          "worker_response": [
+            "{caller_name} confirms three workers are trapped. One is bleeding badly."
+          ],
+          "injuries_described": [
+            "The foreman says two are critical, one is stable but trapped."
+          ]
+        }
+      },
+      "ASK_IF_POWER_LINES_INVOLVED": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I don't know yet. The noise is overwhelming."
+          ],
+          "accident_sounds": [
+            "I heard someone say 'Stay back, there's a live wire!' So it's possible."
+          ],
+          "worker_response": [
+            "{caller_name} says there are downed power lines near the collapse zone."
+          ],
+          "injuries_described": [
+            "The power company has been notified. The site is partially energized."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Police secure the perimeter and control traffic, but cannot perform rescue operations."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Fire department's technical rescue team safely extracts trapped workers."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Multiple ambulances treat severe traumatic injuries and transport to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -150,
+        "message": "Animal control arrives to a construction site with no animals, wasting valuable rescue time."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing the call as a false alarm delays rescue, causing fatalities among the trapped workers."
+      }
+    },
+    "id": "scenario_100",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Basement Confession",
+    "description": "A kidnapper's phone pockets dials 911, broadcasting threats and a hostage's cries from a basement.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "threat_identified",
+      "location_triangulated",
+      "suspect_contained"
+    ],
+    "initial_variations": [
+      "You hear a muffled male voice: '...shut up or I'll do it right now.' There's {ambient_audio} in the background.",
+      "A woman's sobbing can be heard faintly. Then a gruff voice: '...the money's not there? You're lying.' {caller_name} might be the caller ID name, but the voice doesn't match.",
+      "The call is silent for a moment, then {ambient_audio} and a scraping sound. A man says: '...you're not leaving this basement.'",
+      "Heavy breathing, then a click of a lock. A voice whispers: 'Please... someone help...' but it's not directed at the phone."
+    ],
+    "slots": {
+      "address_location": [
+        "a house on 45 Willow Lane",
+        "a basement on County Road 7",
+        "1428 Elm Street",
+        "a farmhouse outside town"
+      ],
+      "caller_name": [
+        "John Marston",
+        "Emily Reed",
+        "Unknown",
+        "Mike's Auto Shop"
+      ],
+      "ambient_audio": [
+        "dripping water",
+        "a furnace rumbling",
+        "chains rattling",
+        "a distant dog barking"
+      ],
+      "specific_details": [
+        "a male voice with a Southern accent",
+        "the sound of a gun being cocked",
+        "a woman's muffled scream",
+        "a thud like someone falling"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "threat_identified"
+        },
+        "responses": {
+          "initial": [
+            "You hear a distant siren in the background, but no clear address. The phone's GPS is pinging near {address_location}."
+          ],
+          "threat_identified": [
+            "The man says 'I know this house is isolated.' GPS shows {address_location}."
+          ],
+          "location_triangulated": [
+            "Coordinates pinpoint {address_location}. Police are en route."
+          ],
+          "suspect_contained": [
+            "The location is secured at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "threat_identified": "location_triangulated"
+        },
+        "responses": {
+          "initial": [
+            "You pick up {specific_details}. The ambient audio includes {ambient_audio}."
+          ],
+          "threat_identified": [
+            "More details: {specific_details}. The victim is begging for her life."
+          ],
+          "location_triangulated": [
+            "Caller's phone records confirm this number belongs to {caller_name}."
+          ],
+          "suspect_contained": [
+            "Details match the confession; suspect said '{specific_details}'."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "threat_identified"
+        },
+        "responses": {
+          "initial": [
+            "If you try to speak, the line stays open but no one answers. The breathing gets heavier."
+          ],
+          "threat_identified": [
+            "The man seems unaware of the call. He continues: '...I'll get my money one way or another.'"
+          ],
+          "location_triangulated": [
+            "Responders hear the same conversation through the open line."
+          ],
+          "suspect_contained": [
+            "The suspect is now in custody; the line goes dead."
+          ]
+        }
+      },
+      "ASK_BACKGROUND_SOUNDS": {
+        "score_delta": 40,
+        "transitions": {
+          "threat_identified": "location_triangulated"
+        },
+        "responses": {
+          "initial": [
+            "You focus on the background: {ambient_audio}. It might be a basement."
+          ],
+          "threat_identified": [
+            "The sound of a shovel scraping concrete. {specific_details}."
+          ],
+          "location_triangulated": [
+            "The echoes suggest a large basement. Possibly {address_location}."
+          ],
+          "suspect_contained": [
+            "Sounds stopped; suspect is in custody at {address_location}."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police trace the call and storm the basement, rescuing the hostage."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Fire department arrives but it's a police matter; they stand by."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Medics stage nearby but entry is not safe without police."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Animal control is confused and leaves."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; hostage is never found."
+      }
+    },
+    "id": "scenario_101",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Drugged Driver",
+    "description": "A car crash victim's phone accidentally dials 911, with faint groans and car horn blaring.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "assessing_situation",
+      "vehicle_identified",
+      "help_arrives"
+    ],
+    "initial_variations": [
+      "You hear a repetitive sound like a car horn blaring, and {ambient_audio}. A faint groan: '...my head...'.",
+      "A hissing sound from a radiator, then a male voice mumbling: '...what happened...' The phone is likely on the floor of a vehicle.",
+      "The call is silent save for {ambient_audio} and a rhythmic beeping – maybe a seatbelt warning. No one responds to your hail.",
+      "You hear {ambient_audio} and a woman's voice crying softly, not speaking to you. The caller ID shows {caller_name}."
+    ],
+    "slots": {
+      "address_location": [
+        "mile marker 23 on Route 9",
+        "the intersection of Oak and 5th",
+        "Highway 101 near exit 42",
+        "a rural road off County Road 12"
+      ],
+      "caller_name": [
+        "David Miller",
+        "Sarah Nguyen",
+        "Unknown",
+        "Jake's Towing"
+      ],
+      "ambient_audio": [
+        "pouring rain",
+        "a car horn stuck on",
+        "distant traffic",
+        "radio static"
+      ],
+      "specific_details": [
+        "a silver sedan with severe front-end damage",
+        "two occupants, one moaning in the back seat",
+        "a flipped SUV with smoke coming from the engine",
+        "a car against a tree, airbags deployed"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 60,
+        "transitions": {
+          "initial": "assessing_situation"
+        },
+        "responses": {
+          "initial": [
+            "You hear a GPS voice in the background giving directions near {address_location}, but no direct response."
+          ],
+          "assessing_situation": [
+            "The phone's GPS pings {address_location}. The horn continues to blare."
+          ],
+          "vehicle_identified": [
+            "The vehicle is located at {address_location}."
+          ],
+          "help_arrives": [
+            "Responders are at {address_location}. They're approaching the wreck."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "assessing_situation": "vehicle_identified"
+        },
+        "responses": {
+          "initial": [
+            "You pick up {specific_details}. The ambient audio includes {ambient_audio}."
+          ],
+          "assessing_situation": [
+            "You hear {specific_details}. There's also {ambient_audio}."
+          ],
+          "vehicle_identified": [
+            "It's {specific_details}. The caller ID suggests the owner is {caller_name}."
+          ],
+          "help_arrives": [
+            "The details confirm the location: {address_location}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "assessing_situation"
+        },
+        "responses": {
+          "initial": [
+            "You try to get the caller to respond, but only groans are heard."
+          ],
+          "assessing_situation": [
+            "The caller mumbles 'Help...' but seems disoriented."
+          ],
+          "vehicle_identified": [
+            "One of the victims is trying to move but is pinned."
+          ],
+          "help_arrives": [
+            "Medics are extracting the victims and treating them."
+          ]
+        }
+      },
+      "ASK_VEHICLE_DESC": {
+        "score_delta": 30,
+        "transitions": {
+          "assessing_situation": "vehicle_identified"
+        },
+        "responses": {
+          "initial": [
+            "You can't get a description, only {ambient_audio}."
+          ],
+          "assessing_situation": [
+            "You hear the creaking of metal; maybe {specific_details}."
+          ],
+          "vehicle_identified": [
+            "Passersby report {specific_details} at {address_location}."
+          ],
+          "help_arrives": [
+            "The vehicle is a total loss; victims are being transported."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police secure the scene and block traffic to allow rescue."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Firefighters use the jaws of life to free the trapped driver."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Medics stabilize a head injury and transport to hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control finds no animals involved."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; the victim succumbs to injuries before help arrives."
+      }
+    },
+    "id": "scenario_102",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Late-Night Argument",
+    "description": "A phone pockets dials during a violent domestic dispute, revealing screaming, threats, and a child crying.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "argument_escalates",
+      "location_identified",
+      "officers_at_scene"
+    ],
+    "initial_variations": [
+      "You hear a man shouting: '...don't you walk away from me!' and a child crying. {ambient_audio} fills the background.",
+      "A woman's voice pleads: 'Stop, the kids are watching!' A door slams. The caller ID shows {caller_name}.",
+      "The call is open; muffled crashes and a scream: '...I'll kill you!' {ambient_audio} can be heard.",
+      "You hear a child sobbing: 'Mommy, stop!' and a man's voice yelling. There's {ambient_audio} in the distance."
+    ],
+    "slots": {
+      "address_location": [
+        "Apartment 3B at 100 Pine Street",
+        "a house on 12 Elm Avenue",
+        "the trailer at 45 County Road",
+        "a suburban home at 78 Oak Lane"
+      ],
+      "caller_name": [
+        "Lisa Brown",
+        "Michael Green",
+        "Unknown",
+        "The Smith Residence"
+      ],
+      "ambient_audio": [
+        "glasses shattering",
+        "a TV blaring sports",
+        "heavy footsteps upstairs",
+        "a dog barking frantically"
+      ],
+      "specific_details": [
+        "a knife block clattering to the floor",
+        "a baseball bat being swung",
+        "a woman in a nightgown seen through a window",
+        "blood on the kitchen floor"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "argument_escalates"
+        },
+        "responses": {
+          "initial": [
+            "The phone's GPS indicates {address_location}, but no one responds to your prompt."
+          ],
+          "argument_escalates": [
+            "You hear a child mention '{address_location}' in the background, like they know the address."
+          ],
+          "location_identified": [
+            "Officers confirm the address is {address_location}."
+          ],
+          "officers_at_scene": [
+            "Police have arrived at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "argument_escalates": "location_identified"
+        },
+        "responses": {
+          "initial": [
+            "You pick up {specific_details}. The ambient audio includes {ambient_audio}."
+          ],
+          "argument_escalates": [
+            "Now you hear {specific_details}. The woman screams: 'Please don't!'"
+          ],
+          "location_identified": [
+            "The caller is {caller_name}, and the address is {address_location}."
+          ],
+          "officers_at_scene": [
+            "The scene is chaotic with {ambient_audio}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "argument_escalates"
+        },
+        "responses": {
+          "initial": [
+            "You try to hail the caller; a man yells: 'Who the hell are you talking to?' The call stays open."
+          ],
+          "argument_escalates": [
+            "The fight gets louder. A child cries: 'Daddy, stop hitting mommy!'"
+          ],
+          "location_identified": [
+            "The caller is likely the victim, hiding the phone."
+          ],
+          "officers_at_scene": [
+            "Officers separate the parties; the caller is safe."
+          ]
+        }
+      },
+      "ASK_CHILD_STATUS": {
+        "score_delta": 30,
+        "transitions": {
+          "argument_escalates": "location_identified"
+        },
+        "responses": {
+          "initial": [
+            "You ask about the child; a small voice says: 'Mommy is bleeding.'"
+          ],
+          "argument_escalates": [
+            "The child continues to cry; you hear 'Don't hurt my mommy!'"
+          ],
+          "location_identified": [
+            "The child is with the mother in a locked room at {address_location}."
+          ],
+          "officers_at_scene": [
+            "Child is taken to safety and is physically unharmed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police arrest the abuser and secure the scene."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Firefighters assist with a broken door but it's a police matter."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Medics treat the victim's injuries on scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control secures a scared dog but no other role."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; the abuse continues and escalates further."
+      }
+    },
+    "id": "scenario_103",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Apartment Break-In",
+    "description": "A homeowner hiding in a closet dials 911 in their pocket; the dispatcher hears a burglar ransacking the apartment.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "burglar_heard",
+      "location_locked",
+      "suspect_arrested"
+    ],
+    "initial_variations": [
+      "Whispered breathing: '...oh god, oh god...' and in the background, {ambient_audio}. It sounds like someone is moving inside a home.",
+      "A soft voice says: 'Please don't find me...' followed by {ambient_audio}. The caller ID shows {caller_name}.",
+      "The line is silent except for {ambient_audio}. Then a drawer opens and closes. A woman's gasp is faint.",
+      "You hear a creaking floorboard and a male whisper: '...she's in here.' {ambient_audio} is audible."
+    ],
+    "slots": {
+      "address_location": [
+        "Apt 7, 55 River Road",
+        "the third floor of 233 Main St",
+        "a studio at 89 Broadway",
+        "a basement unit at 12 Park Ave"
+      ],
+      "caller_name": [
+        "Julia Martinez",
+        "Brian Kennedy",
+        "Unknown",
+        "Smith Building"
+      ],
+      "ambient_audio": [
+        "footsteps on hardwood",
+        "rustling papers",
+        "a jewelry box clinking",
+        "a window shattering"
+      ],
+      "specific_details": [
+        "a masked man in a hoodie",
+        "a crowbar being used on a lock",
+        "two voices discussing valuables",
+        "the homeowner hiding in the bedroom closet"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "burglar_heard"
+        },
+        "responses": {
+          "initial": [
+            "The phone's GPS points to {address_location}, but no one can respond."
+          ],
+          "burglar_heard": [
+            "A burglar mutters: 'Nice place, too bad it's {address_location}.'"
+          ],
+          "location_locked": [
+            "Officers confirm the address is {address_location}."
+          ],
+          "suspect_arrested": [
+            "The suspect is in custody at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "burglar_heard": "location_locked"
+        },
+        "responses": {
+          "initial": [
+            "You hear {specific_details}. The ambient audio includes {ambient_audio}."
+          ],
+          "burglar_heard": [
+            "More details: {specific_details}. The homeowner is breathing rapidly."
+          ],
+          "location_locked": [
+            "The caller is {caller_name}, phone hidden in a closet at {address_location}."
+          ],
+          "suspect_arrested": [
+            "The burglar had {specific_details} on him."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "burglar_heard"
+        },
+        "responses": {
+          "initial": [
+            "You whisper: 'Police are on the way, stay quiet.' The caller stays silent."
+          ],
+          "burglar_heard": [
+            "The caller's breathing quickens as the burglar approaches the closet."
+          ],
+          "location_locked": [
+            "The caller is still hiding; you hear a key in the front door."
+          ],
+          "suspect_arrested": [
+            "The caller comes out of hiding, shaken but safe."
+          ]
+        }
+      },
+      "ASK_BURGLAR_MOVEMENT": {
+        "score_delta": 30,
+        "transitions": {
+          "burglar_heard": "location_locked"
+        },
+        "responses": {
+          "initial": [
+            "You ask about the burglar; you hear footsteps moving away."
+          ],
+          "burglar_heard": [
+            "The burglar is now in the living room, tossing cushions."
+          ],
+          "location_locked": [
+            "Police are entering {address_location}."
+          ],
+          "suspect_arrested": [
+            "The burglar is caught red-handed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police catch the burglar just as they find the closet."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -30,
+        "message": "Fire department secures a broken window but no emergency."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Medics check for shock but the caller is physically fine."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control is unnecessary."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; the homeowner is discovered and assaulted."
+      }
+    },
+    "id": "scenario_104",
+    "archetype": "Pocket Dial / Open Line"
+  },
+  {
+    "title": "The Fatal Miscalculation",
+    "description": "A factory worker's phone inadvertently dials 911 after a severe accident with heavy machinery.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "accident_confirmed",
+      "site_identified",
+      "rescue_underway"
+    ],
+    "initial_variations": [
+      "A loud crash, then a beeping alarm. {ambient_audio}. A faint voice: '...hello? Please... help...'.",
+      "The line is open: you hear {ambient_audio} and a man's voice rasping: '...my leg... I can't...'.",
+      "You hear a machine winding down, followed by a scream. {ambient_audio} fills the line. No one is speaking directly.",
+      "A distorted voice groans: '...the conveyor... stopped...' amid {ambient_audio}. The caller ID reads {caller_name}."
+    ],
+    "slots": {
+      "address_location": [
+        "Warehouse 3 at 901 Industrial Blvd",
+        "the old mill on River Road",
+        "Factory Floor B, 456 Production Drive",
+        "the steel plant on 12th Avenue"
+      ],
+      "caller_name": [
+        "Tom Reynolds",
+        "Industrial Co.",
+        "Work Cell 12",
+        "Unknown"
+      ],
+      "ambient_audio": [
+        "hydraulic presses hissing",
+        "a smoke alarm blaring",
+        "water spraying from a broken pipe",
+        "sparks crackling from damaged wires"
+      ],
+      "specific_details": [
+        "a worker pinned under a forklift",
+        "an arm caught in a conveyor belt",
+        "chemicals spilling onto the floor",
+        "a ladder tipped over near live wires"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "accident_confirmed"
+        },
+        "responses": {
+          "initial": [
+            "The phone's GPS shows {address_location}, but the caller can't confirm."
+          ],
+          "accident_confirmed": [
+            "A passerby yells: 'Call 911! We're at {address_location}!'"
+          ],
+          "site_identified": [
+            "Coordinates match {address_location}. Emergency crews are dispatched."
+          ],
+          "rescue_underway": [
+            "Rescuers are at {address_location}, extricating the victim."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "accident_confirmed": "site_identified"
+        },
+        "responses": {
+          "initial": [
+            "You pick up {specific_details}. The ambient audio includes {ambient_audio}."
+          ],
+          "accident_confirmed": [
+            "More details: {specific_details}. The victim groans in pain."
+          ],
+          "site_identified": [
+            "Caller ID shows {caller_name}; that matches the work cell at {address_location}."
+          ],
+          "rescue_underway": [
+            "The victim has {specific_details}, requiring careful extraction."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "accident_confirmed"
+        },
+        "responses": {
+          "initial": [
+            "You try to rouse the caller; a weak reply: '...can't move...'"
+          ],
+          "accident_confirmed": [
+            "The caller's breathing is shallow; he says his name is {caller_name}."
+          ],
+          "site_identified": [
+            "The caller is losing consciousness; rescuers are almost there."
+          ],
+          "rescue_underway": [
+            "The caller is being transported to the hospital."
+          ]
+        }
+      },
+      "ASK_HAZARDS": {
+        "score_delta": 30,
+        "transitions": {
+          "accident_confirmed": "site_identified"
+        },
+        "responses": {
+          "initial": [
+            "You ask about hazards; you hear {ambient_audio} but no clear answer."
+          ],
+          "accident_confirmed": [
+            "A co-worker shouts: 'Watch out for the {specific_details}!'"
+          ],
+          "site_identified": [
+            "Hazmat teams are alerted due to {specific_details} at {address_location}."
+          ],
+          "rescue_underway": [
+            "Hazards are mitigated; the area is safe."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police secure the area and assist with crowd control."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Firefighters perform a technical rescue to free the pinned worker."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Medics airlift the victim to a trauma center."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Animal control is not needed at an industrial site."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "Call dismissed; the worker dies from blood loss."
+      }
+    },
+    "id": "scenario_105",
+    "archetype": "Pocket Dial / Open Line"
+  }
+]

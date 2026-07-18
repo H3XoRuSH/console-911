@@ -1,0 +1,2697 @@
+[
+  {
+    "title": "The Walls Are Melting",
+    "description": "Caller experiencing visual hallucinations believes their walls are melting, fears they are being poisoned.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "describing_hallucinations",
+      "escalated_panic",
+      "calming_down"
+    ],
+    "initial_variations": [
+      "Please, you have to help! The walls, they're melting! I think someone's trying to kill {caller_name}! I can hear {ambient_audio}.",
+      "Something's wrong! {caller_name} is seeing things... the walls are dripping, it's not safe! I can't calm down! {ambient_audio}.",
+      "This is {caller_name}. I don't know what's happening, but the walls are melting around me. Is this poison? I hear {ambient_audio}.",
+      "Help me! My house is dissolving! {caller_name} is trapped! I can hear {ambient_audio}, it's getting worse!"
+    ],
+    "slots": {
+      "address_location": [
+        "742 Evergreen Terrace, Springfield",
+        "15 Dreamscape Lane, Nodnol",
+        "999 Illusion Boulevard, Mirage City"
+      ],
+      "caller_name": [
+        "Diana",
+        "Marcus",
+        "Lena"
+      ],
+      "specific_details": [
+        "The walls are green goo now",
+        "I see faces in the drips",
+        "It smells like almonds, I think it's gas",
+        "The ceiling is bulging"
+      ],
+      "ambient_audio": [
+        "a dripping sound",
+        "a faint hissing",
+        "my heart pounding"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The whole house is warping.",
+            "It's {address_location}. Please come quick, the walls are sliding down!"
+          ],
+          "describing_hallucinations": [
+            "Still at {address_location}. Now the floor is bubbling.",
+            "I'm in the living room at {address_location}. It's getting worse."
+          ],
+          "escalated_panic": [
+            "I'm at {address_location}! I can't take it, it's all liquid around me!",
+            "{address_location}! The house is caving in!"
+          ],
+          "calming_down": [
+            "I'm at {address_location}. It's starting to feel a little more solid now that you're here.",
+            "At {address_location}. The walls aren't dripping anymore, but I'm still scared."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "describing_hallucinations"
+        },
+        "responses": {
+          "initial": [
+            "It's the walls! They look like wax. {specific_details}. I keep hearing {ambient_audio}.",
+            "I don't know, it's everywhere! {specific_details}. What's happening to me?"
+          ],
+          "describing_hallucinations": [
+            "Yes, {specific_details}. And {ambient_audio} is getting louder.",
+            "It's even worse now, {specific_details}. The whole room is distorting."
+          ],
+          "escalated_panic": [
+            "I can't give details, it's all melting into a puddle!",
+            "The air is thick, {specific_details}. I can't breathe right."
+          ],
+          "calming_down": [
+            "It's mostly stopped melting. {ambient_audio} is fading.",
+            "I think it was a hallucination. {specific_details} isn't there anymore."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "describing_hallucinations": "escalated_panic"
+        },
+        "responses": {
+          "initial": [
+            "I'm terrified, I can't think. I just see the walls moving!",
+            "I'm not okay, I feel like I'm losing my mind. Please hurry."
+          ],
+          "describing_hallucinations": [
+            "I'm trying to stay calm, but it's so vivid. I feel sick.",
+            "I'm shaking, my heart is racing. I keep touching the walls."
+          ],
+          "escalated_panic": [
+            "I'm going to die! They're melting faster! I can't stay here!",
+            "I'm hyperventilating, someone help! It's all around me!"
+          ],
+          "calming_down": [
+            "I'm feeling a bit better now. The hallucinations are fading.",
+            "Still shaky, but the walls look solid again. I'm so embarrassed."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 30,
+        "transitions": {
+          "escalated_panic": "calming_down"
+        },
+        "responses": {
+          "initial": [
+            "I don't think it's real, but it looks so real! Could be a gas leak?",
+            "I touched it, and my hand went through. I'm not sure if I'm hurt."
+          ],
+          "describing_hallucinations": [
+            "I haven't been burned or anything. It's just like visual noise.",
+            "No real substance, but I'm afraid it'll become real."
+          ],
+          "escalated_panic": [
+            "I think I might faint! I can't feel my legs!",
+            "I'm not injured, but I might hurt myself trying to get out!"
+          ],
+          "calming_down": [
+            "I don't think anyone is in danger, it's all in my head. But I need help.",
+            "I'm safe now. It was just a panic attack or something."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive and calmly secure the scene, recognizing a mental health crisis."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Firefighters find no structural issue; they assist in calming the caller but acknowledge it's not a fire or hazmat."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics assess and transport the caller for psychiatric evaluation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Animal control arrives confused, no animals present."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed as a prank; caller suffers severe panic and injures themselves trying to escape the 'melting' house."
+      }
+    },
+    "id": "scenario_061",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "They've Replaced My Family",
+    "description": "Caller displays Capgras delusion, convinced their family has been replaced by identical impostors.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "explaining_evidence",
+      "confronting_family",
+      "accepting_help"
+    ],
+    "initial_variations": [
+      "Operator, I need help! My family isn't my family. They've been replaced by duplicates! {caller_name} knows, something's off. I can hear {ambient_audio} in the background.",
+      "They look the same, but they're not! {caller_name} is terrified. My {victim_relation} {victim_name}, they're impostors! Please, send someone. {ambient_audio}.",
+      "This is {caller_name}. I think my whole family has been swapped with clones. {ambient_audio} is making me paranoid. I don't know what to do.",
+      "You have to believe me! {caller_name} is in danger. My {victim_relation} {victim_name} is pretending to be my real {victim_relation}. I can hear {ambient_audio} and it's driving me crazy."
+    ],
+    "slots": {
+      "address_location": [
+        "321 Dupont Circle, Urbanville",
+        "88 Imposter Lane, Townsville",
+        "12 Verisimilitude Ave, Doubtborough"
+      ],
+      "caller_name": [
+        "Edward",
+        "Samantha",
+        "Riley"
+      ],
+      "specific_details": [
+        "My wife's voice is off by a fraction",
+        "My son doesn't blink at the same pace",
+        "They don't recognize our inside jokes",
+        "My daughter's eyes look copy-pasted"
+      ],
+      "ambient_audio": [
+        "footsteps from the other room",
+        "muffled whispers",
+        "my heartbeat thumping"
+      ],
+      "victim_relation": [
+        "wife",
+        "son",
+        "daughter",
+        "mother"
+      ],
+      "victim_name": [
+        "Claire",
+        "Ethan",
+        "Olivia",
+        "Margaret"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "We're at {address_location}. They're all here, acting normal.",
+            "At {address_location}. I'm locked in the bathroom, they don't know I called."
+          ],
+          "explaining_evidence": [
+            "Still at {address_location}. I can hear them talking.",
+            "{address_location}. I've barricaded myself in the study."
+          ],
+          "confronting_family": [
+            "We're outside now, at the front lawn of {address_location}. I can't go back in.",
+            "I ran to the street from {address_location}. They're following."
+          ],
+          "accepting_help": [
+            "I'm at {address_location}, sitting on the porch. The police lights are calming.",
+            "{address_location}. I'm talking to the officer now, things are making more sense."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "explaining_evidence"
+        },
+        "responses": {
+          "initial": [
+            "It's subtle, but I know. {specific_details}. It's been like this for a week. {ambient_audio}.",
+            "Yesterday, {specific_details}. And now {ambient_audio} makes me think they're planning something."
+          ],
+          "explaining_evidence": [
+            "Yes, {specific_details}. I tested them: they failed the memory test. {ambient_audio}.",
+            "The evidence? {specific_details}. They even mimic smells but it's all wrong."
+          ],
+          "confronting_family": [
+            "They keep saying I'm sick, but I'm not! {specific_details} proves it!",
+            "Now they're trying to reason with me, but the impostor of {victim_name} has that same flaw: {specific_details}."
+          ],
+          "accepting_help": [
+            "The officer says it might be a delusion. But I still think {specific_details} was real.",
+            "I suppose {specific_details} could be my imagination. I'm very tired."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "explaining_evidence": "confronting_family"
+        },
+        "responses": {
+          "initial": [
+            "I'm scared, but I'm holding it together for now.",
+            "I feel like I'm the only one who can see the truth. I'm panicking."
+          ],
+          "explaining_evidence": [
+            "I'm trying to document everything. I might be in danger.",
+            "I'm shaking, but I'm determined to expose them."
+          ],
+          "confronting_family": [
+            "They're banging on the door! They want to take me. Help!",
+            "I'm shouting at them to stay back. I'm not going without a fight."
+          ],
+          "accepting_help": [
+            "I'm tired. I don't know what's real anymore. I need someone to take me.",
+            "I feel embarrassed. I think I need to go to the hospital."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 30,
+        "transitions": {
+          "confronting_family": "accepting_help"
+        },
+        "responses": {
+          "initial": [
+            "I don't think they're violent yet, but who knows? They're not real family.",
+            "I haven't tried to attack them, just avoid them."
+          ],
+          "explaining_evidence": [
+            "They might do something if they know I called. I could be next.",
+            "I locked all the doors. They're pretending to be calm."
+          ],
+          "confronting_family": [
+            "They're offering to take me to a doctor. But what if it's a trap?",
+            "I might run out and scream for neighbors. I feel so alone."
+          ],
+          "accepting_help": [
+            "No one is hurt. I think I just need mental health support.",
+            "I'm safe. I'll cooperate with the police."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive, de-escalate the situation, and transport the caller for psychiatric evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -30,
+        "message": "Firefighters find no fire; they help talk to the caller until police arrive."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Mobile crisis team responds, calms the caller, and takes them to a mental health facility."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control is puzzled but offers to stand by for safety."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "message": "Call dismissed as a prank; later, the caller harms a family member believing they are an impostor."
+      }
+    },
+    "id": "scenario_062",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Voices in the Vents",
+    "description": "Caller hears commanding auditory hallucinations emanating from air vents, leading to paranoia.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "sharing_commands",
+      "reacting_to_voices",
+      "surrendering_control"
+    ],
+    "initial_variations": [
+      "They're telling me to do things! The voices in the vents are ordering {caller_name} to hurt people. I can't shut them off! {ambient_audio} is all I hear.",
+      "Help, the air conditioning is possessed! It's whispering threats to {caller_name}. I hear {ambient_audio} over the vents.",
+      "This is {caller_name}. There are voices coming from the vents, telling me {victim_name} is the enemy. I need to resist! {ambient_audio}.",
+      "I can't take it anymore! The vents are screaming at {caller_name} to do terrible things. {ambient_audio} is so loud. I'm scared I'll obey."
+    ],
+    "slots": {
+      "address_location": [
+        "404 Phantom Drive, Echo Park",
+        "7 Whisper Court, Silent Hill",
+        "2002 Resonance Road, Tremor Springs"
+      ],
+      "caller_name": [
+        "Harold",
+        "Nina",
+        "Archer"
+      ],
+      "specific_details": [
+        "They want me to set the house on fire",
+        "The voice says my neighbor is a demon",
+        "They keep chanting my name",
+        "It sounds like my dead mother"
+      ],
+      "ambient_audio": [
+        "a hissing static",
+        "a low buzz",
+        "the voice repeating my name"
+      ],
+      "victim_name": [
+        "Mrs. Patterson",
+        "the mailman",
+        "my reflection"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The vents are all over the house.",
+            "It's {address_location}. Every vent, they all speak at once."
+          ],
+          "sharing_commands": [
+            "Still at {address_location}. I've taped some vents up but I still hear it.",
+            "{address_location}. The bathroom vent is the loudest."
+          ],
+          "reacting_to_voices": [
+            "I'm pacing from room to room at {address_location}. Can't escape.",
+            "I tried going outside but I can still hear it from {address_location}."
+          ],
+          "surrendering_control": [
+            "I'm on the front steps of {address_location}. The voices are muffled outside.",
+            "At {address_location}. I've unplugged everything, it's quieter now."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "sharing_commands"
+        },
+        "responses": {
+          "initial": [
+            "It's like a radio signal only I can tune. {specific_details}. {ambient_audio} is constant.",
+            "The voice says {specific_details}. And I hear {ambient_audio} in the background."
+          ],
+          "sharing_commands": [
+            "Yes, {specific_details}. I wrote it all down. {ambient_audio} is driving me mad.",
+            "It changed: now {specific_details}. The pitch is higher {ambient_audio}."
+          ],
+          "reacting_to_voices": [
+            "It won't stop repeating {specific_details}. I covered my ears but {ambient_audio} is inside my head!",
+            "I tried shouting back, but it just laughs. {ambient_audio} is making the walls vibrate."
+          ],
+          "surrendering_control": [
+            "It's fading. {specific_details} seems like nonsense now. {ambient_audio} is almost gone.",
+            "I think it was never real. {ambient_audio} was just the air conditioner all along."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "sharing_commands": "reacting_to_voices"
+        },
+        "responses": {
+          "initial": [
+            "I'm holding it together, but I'm very scared of what it's saying.",
+            "I feel like I'm losing my mind. The voice is so persuasive."
+          ],
+          "sharing_commands": [
+            "I'm shaking, trying not to listen. I've been praying.",
+            "I feel a compulsion to obey. I'm scared I might."
+          ],
+          "reacting_to_voices": [
+            "I almost did what it said! I had the matches in my hand! Please hurry!",
+            "I'm breaking down! It's so loud! I can't control myself much longer!"
+          ],
+          "surrendering_control": [
+            "I'm exhausted. I just want it to stop. Please send someone.",
+            "I'm starting to realize it might be a mental health crisis. I'm not well."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 30,
+        "transitions": {
+          "reacting_to_voices": "surrendering_control"
+        },
+        "responses": {
+          "initial": [
+            "I haven't done anything yet. But the commands are violent.",
+            "I locked up all sharp objects. I'm trying to be safe."
+          ],
+          "sharing_commands": [
+            "It told me to hurt {victim_name}. I won't, but what if I snap?",
+            "I'm staying away from others. I don't want to cause harm."
+          ],
+          "reacting_to_voices": [
+            "I almost hurt myself to make the voices stop! I need help right now!",
+            "I threw the matches out the window. But it keeps telling me to get more."
+          ],
+          "surrendering_control": [
+            "I'm not a danger anymore. I'm too drained to act on anything.",
+            "I'm safe. I just need a quiet place and some medicine."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police secure the scene and arrange for a mental health crisis intervention team."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -20,
+        "message": "Firefighters check for carbon monoxide but find none; they convince the caller to accept medical help."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics administer a sedative and transport the caller to a psychiatric hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -5,
+        "message": "Animal control arrives, no animals found."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -350,
+        "message": "Call dismissed as a hoax; the caller later sets a fire as commanded by the auditory hallucination."
+      }
+    },
+    "id": "scenario_063",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Neighbors Are Broadcasting Thoughts",
+    "description": "Caller believes neighbors are using mind control technology to broadcast thoughts into their head.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "providing_evidence",
+      "acting_on_belief",
+      "seeking_resolution"
+    ],
+    "initial_variations": [
+      "My neighbors are targeting me! They've planted a device that broadcasts thoughts directly into {caller_name}'s brain. I hear {ambient_audio} whenever they're home.",
+      "I'm {caller_name}. I need a team to raid my neighbors' house. They're sending signals that make me think things. {ambient_audio} is the proof.",
+      "Please, you have to believe {caller_name}. I can hear their conversations in my head! It's not Bluetooth, it's neurological. {ambient_audio} is nonstop.",
+      "They're doing it again! The neighbors are beaming threats at {caller_name}. I can't sleep, I can't think! {ambient_audio} is blaring."
+    ],
+    "slots": {
+      "address_location": [
+        "101 Paranoia Place, Mindfield",
+        "27 Synaptic Street, Cortex City",
+        "8 Delusion Drive, Follywood"
+      ],
+      "caller_name": [
+        "Quentin",
+        "Agnes",
+        "Felix"
+      ],
+      "specific_details": [
+        "I recorded the signal on my tape deck—it's a low hum with words in it",
+        "I put up tinfoil, but it still gets through",
+        "They have a tall antenna on their roof that wasn't there before",
+        "I can hear them plotting my kidnapping"
+      ],
+      "ambient_audio": [
+        "a high-pitched frequency",
+        "a Morse-code-like beeping",
+        "whispering that has no source"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. It's coming from the duplex next door.",
+            "It's {address_location}. From the blue house, I'm sure."
+          ],
+          "providing_evidence": [
+            "Still at {address_location}. I can show you the antenna.",
+            "{address_location}. I tapped their electrical box, it's drawing extra power."
+          ],
+          "acting_on_belief": [
+            "I'm standing outside their house at {address_location}. I'm about to cut their power.",
+            "I confronted them at {address_location}. They denied it, but I know."
+          ],
+          "seeking_resolution": [
+            "I'm back home at {address_location}. Feeling a bit calmer with the police here.",
+            "At {address_location}. The officers are explaining things. Maybe I need a doctor."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "providing_evidence"
+        },
+        "responses": {
+          "initial": [
+            "It started last month. {specific_details}. {ambient_audio} is strongest near the window.",
+            "I noticed first when {specific_details}. I hear {ambient_audio} constantly when I try to sleep."
+          ],
+          "providing_evidence": [
+            "Yes, {specific_details}. I logged it all. {ambient_audio} spikes at odd hours.",
+            "The proof is {specific_details}. And {ambient_audio} correlates exactly."
+          ],
+          "acting_on_belief": [
+            "I'm not crazy! {specific_details} is right there! Can't you see it?",
+            "They're jamming my phone now! {specific_details} is interfering with my call!"
+          ],
+          "seeking_resolution": [
+            "I guess {specific_details} could be explained by a fan or something. {ambient_audio} is barely there now.",
+            "Maybe {specific_details} was just my tinnitus. {ambient_audio} doesn't seem so sinister."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "providing_evidence": "acting_on_belief"
+        },
+        "responses": {
+          "initial": [
+            "I'm on edge, constantly vigilant. I can't relax.",
+            "I feel violated and exposed. They're monitoring my every thought."
+          ],
+          "providing_evidence": [
+            "I've been tracking it for days. I'm sleep-deprived but determined.",
+            "I'm angry they think they can get away with this."
+          ],
+          "acting_on_belief": [
+            "I'm taking matters into my own hands! I'll shut it off myself!",
+            "I feel like I'm under attack! I might have to defend myself!"
+          ],
+          "seeking_resolution": [
+            "I'm calming down. The voices (or whatever) are quieter now.",
+            "I feel a bit embarrassed. I think I haven't slept in days."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 30,
+        "transitions": {
+          "acting_on_belief": "seeking_resolution"
+        },
+        "responses": {
+          "initial": [
+            "I haven't confronted them yet, but I might. They're torturing me.",
+            "I've been documenting, not violent. But my patience is gone."
+          ],
+          "providing_evidence": [
+            "I think they know I'm onto them. They could retaliate.",
+            "They mentioned 'getting rid of me' in my head. I'm scared."
+          ],
+          "acting_on_belief": [
+            "I have a baseball bat. I'm going to bust their meter.",
+            "I might call a news crew. This is a human rights violation!"
+          ],
+          "seeking_resolution": [
+            "I put the bat away. The police are here, that's enough.",
+            "I'm not going to do anything. I'll just talk to the medical people."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and mediate, connecting the caller with mental health services."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Fire department finds no hazardous signal; they recommend a wellness check."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Crisis team transports the caller for psychiatric evaluation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control is unable to assist with electronic mind control."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissed as nonsense; caller later vandalizes the neighbors' property and faces charges."
+      }
+    },
+    "id": "scenario_064",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "I'm the Chosen One",
+    "description": "Caller experiences grandiose delusion, believing they are chosen for a special mission that may endanger them.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "describing_mission",
+      "risking_self",
+      "coming_down"
+    ],
+    "initial_variations": [
+      "The prophecy is unfolding! I've been chosen! {caller_name} has received the divine message. I need an escort to the sacred site. {ambient_audio} is the sign.",
+      "I am the chosen one! {caller_name} must complete the ritual before sunset. The world depends on it! {ambient_audio} confirms my destiny.",
+      "This is {caller_name}, the harbinger. The angels told me to climb the tower. I can hear {ambient_audio} urging me on.",
+      "I've been anointed! {caller_name} must lead the faithful. I can't do it alone—send representatives. I hear {ambient_audio} calling me."
+    ],
+    "slots": {
+      "address_location": [
+        "The top of Hillcrest Water Tower, Altura",
+        "The roof of 555 Highrise Avenue, Downtown",
+        "The shrine at Crystal Park, Mystic Falls"
+      ],
+      "caller_name": [
+        "Gabriel",
+        "Seraphina",
+        "Oracle"
+      ],
+      "specific_details": [
+        "I have a golden aura around me",
+        "The numbers align: it's the solstice",
+        "I was visited by a cosmic entity in my dream",
+        "My blood is the key to saving humanity"
+      ],
+      "ambient_audio": [
+        "angelic choirs",
+        "a low planetary hum",
+        "the wind whispering scriptures"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm near {address_location}. The energies are strongest here.",
+            "I'm at {address_location}. This is where the veil is thinnest."
+          ],
+          "describing_mission": [
+            "Still at {address_location}. I must mount the peak.",
+            "I'm moving toward the edge at {address_location}."
+          ],
+          "risking_self": [
+            "I'm standing at the precipice, {address_location}. I must jump to ascend!",
+            "I'm climbing the antenna at {address_location}. The message is clearer up here."
+          ],
+          "coming_down": [
+            "I'm sitting down at {address_location}. The glory is fading.",
+            "I've come back to the ground at {address_location}. I'm cold."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "describing_mission"
+        },
+        "responses": {
+          "initial": [
+            "It's the final revelation. {specific_details}. {ambient_audio} is my soundtrack.",
+            "I've been chosen because {specific_details}. I hear {ambient_audio} whenever I doubt."
+          ],
+          "describing_mission": [
+            "Yes, {specific_details} is the proof. And {ambient_audio} is the celestial choir.",
+            "The details are sacred: {specific_details}. Only the pure can hear {ambient_audio}."
+          ],
+          "risking_self": [
+            "It doesn't matter now! {specific_details} will be fulfilled in the next world!",
+            "I must free my soul. {specific_details} confirms it. {ambient_audio} is calling me home."
+          ],
+          "coming_down": [
+            "The mission... {specific_details} seems hazy now. {ambient_audio} is just wind.",
+            "I think {specific_details} was a delusion. I'm very tired and confused."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "describing_mission": "risking_self"
+        },
+        "responses": {
+          "initial": [
+            "I am ecstatic! My body is vibrating with power!",
+            "I am serene, ready to fulfill my purpose."
+          ],
+          "describing_mission": [
+            "I feel invincible! Nothing can stop me now.",
+            "I'm so close to transcendence. Just a few more steps."
+          ],
+          "risking_self": [
+            "I'm going to do it! Don't try to stop the chosen one!",
+            "I'm spreading my arms! The angels catch me!"
+          ],
+          "coming_down": [
+            "My head hurts. I don't feel so powerful.",
+            "I'm scared. I don't want to die. Please help me down."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 50,
+        "transitions": {
+          "risking_self": "coming_down"
+        },
+        "responses": {
+          "initial": [
+            "There's no danger for me. The protective light shields me.",
+            "I'm meant to be here. It's the naysayers who are in danger."
+          ],
+          "describing_mission": [
+            "I might need to jump to prove my faith. No one can control me.",
+            "I have a flashlight, but I'll discard it—the light within is enough."
+          ],
+          "risking_self": [
+            "I'm ready to leap! Tell the world their savior has ascended!",
+            "There's no return! Only forward! Watch me fly!"
+          ],
+          "coming_down": [
+            "I realize I could fall. I don't want to die. I'm too high up!",
+            "I need a ladder or someone to talk me down. I'm not a bird."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police negotiate and safely bring the caller down from the high structure."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 220,
+        "message": "Firefighters deploy a rescue team and safely extract the caller, who is then taken for evaluation."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Ambulance crew provides immediate sedation and transports to a mental health facility."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -10,
+        "message": "Animal control cannot assist with a person on a tower."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -400,
+        "message": "Dismissed as a prank; caller jumps, resulting in severe injury or death."
+      }
+    },
+    "id": "scenario_065",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Impostor Neighbors",
+    "description": "A caller believes their neighbors have been replaced by identical impostors and fears they are next.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "agitated",
+      "calming",
+      "help_arrived"
+    ],
+    "initial_variations": [
+      "{caller_name} here, please help! The people in apartment 3B aren't who they say they are! They've been replaced! I can hear them outside my door!",
+      "I'm {caller_name}. You have to send someone. My neighbors are impostors. They look exactly like the real people but they're not. I'm scared they'll come for me next.",
+      "This is an emergency! My neighbors have been swapped with clones or something. I've locked myself in. {ambient_audio}. Please don't transfer me, just send help!",
+      "They're not human anymore! The Johnsons next door, they're... wrong. I'm {caller_name}, I need the police. I'm trapped."
+    ],
+    "slots": {
+      "address_location": [
+        "789 Elm Street, Apartment 2A",
+        "456 Oak Avenue, Unit 3B"
+      ],
+      "caller_name": [
+        "Karen",
+        "Tom",
+        "Jenny",
+        "David"
+      ],
+      "ambient_audio": [
+        "banging on walls",
+        "disembodied voices",
+        "my own terrified breathing"
+      ],
+      "specific_details": [
+        "they have dead eyes",
+        "they speak in perfect unison",
+        "they never blink"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, apartment 2A. Please hurry!"
+          ],
+          "agitated": [
+            "I told you, {address_location}! They're right outside!"
+          ],
+          "calming": [
+            "Yes, {address_location}. I'm still here."
+          ],
+          "help_arrived": [
+            "They're here. I'm at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They look exactly like the real neighbors but they smile wrong. {specific_details}. {ambient_audio}."
+          ],
+          "agitated": [
+            "Their eyes are hollow! They mimic the real ones but they slipped up. I saw it!"
+          ],
+          "calming": [
+            "They're still out there. I can hear them whispering. {ambient_audio}."
+          ],
+          "help_arrived": [
+            "I hear sirens. The impostors might run."
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "calming",
+          "agitated": "calming"
+        },
+        "responses": {
+          "initial": [
+            "Okay, just breathe with me. Help is on the way. Can you lock yourself in a safe room?"
+          ],
+          "agitated": [
+            "I understand you're scared. Stay quiet and hide. Officers are almost there."
+          ],
+          "calming": [
+            "That's good. Keep taking deep breaths. I'm staying on the line."
+          ],
+          "help_arrived": [
+            "Officers are here now. Please stay calm and follow their instructions."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "agitated",
+          "agitated": "agitated"
+        },
+        "responses": {
+          "initial": [
+            "I'm terrified! They've been watching me. I don't know how long I can last."
+          ],
+          "agitated": [
+            "I'm not crazy! You have to believe me! They're going to replace me too!"
+          ],
+          "calming": [
+            "I'm trying to stay quiet. I'm in the bathroom with the door locked."
+          ],
+          "help_arrived": [
+            "I hear them outside my door. I think it's the police."
+          ]
+        }
+      },
+      "ADVISE_SAFETY": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Lock your doors and stay away from windows."
+          ],
+          "agitated": [
+            "Hide in a room without windows. Barricade the door."
+          ],
+          "calming": [
+            "Stay hidden until the officers announce themselves."
+          ],
+          "help_arrived": [
+            "The officers will identify themselves. Please comply."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and perform a welfare check. They take the caller to a mental health facility for evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive but are not equipped for a mental health crisis. They wait for police."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics and a crisis intervention team arrive. They calmly talk to the caller and transport them to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is baffled. The caller becomes more agitated, thinking the impostors have sent animals."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The dispatcher dismisses the call as a prank. The caller's paranoia escalates, leading to a potentially dangerous confrontation."
+      }
+    },
+    "id": "scenario_066",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Microwave Mind Control",
+    "description": "A caller believes government agents are using a microwave weapon to control their thoughts and implores the dispatcher to make it stop.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "describing_delusion",
+      "agitated",
+      "calmer",
+      "help_arrived"
+    ],
+    "initial_variations": [
+      "They're in my head! I'm {caller_name}. The government has turned my microwave into a mind control device. Please send someone to disconnect it!",
+      "Help! They're broadcasting thoughts into my brain. I can hear them! I've unplugged everything but it's still happening! My name is {caller_name}.",
+      "{caller_name} reporting a mind control attack. The authorities are using microwave auditory effect. It's real! {ambient_audio}. I need extraction!",
+      "Please, you have to stop the signal! I can't think straight. This is {caller_name}. They're torturing me with thoughts. Make it stop!"
+    ],
+    "slots": {
+      "address_location": [
+        "321 Pine Road, Apartment 5G",
+        "654 Cedar Lane, Unit 12"
+      ],
+      "caller_name": [
+        "Mark",
+        "Linda",
+        "Alex",
+        "Jamie"
+      ],
+      "ambient_audio": [
+        "buzzing noise",
+        "static interference",
+        "high-pitched whine"
+      ],
+      "specific_details": [
+        "they're telling me I'm a threat to national security",
+        "they're projecting voices of my dead relatives",
+        "they're reading my thoughts aloud"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, apartment 5G. Can you send someone to stop the broadcast?"
+          ],
+          "describing_delusion": [
+            "Still at {address_location}. The signal is strong here."
+          ],
+          "agitated": [
+            "Why aren't you tracking the signal? I'm at {address_location}! They know where I am!"
+          ],
+          "calmer": [
+            "Okay, okay. {address_location}. I've moved to the hallway."
+          ],
+          "help_arrived": [
+            "I see the officers. {address_location}. Tell them to disable the microwave tower first!"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's the microwave. They've weaponized it. {specific_details}. {ambient_audio}."
+          ],
+          "describing_delusion": [
+            "I can hear them clear as day. They're saying 'Subject 7 is non-compliant'. That's me!"
+          ],
+          "agitated": [
+            "They're getting louder! They're telling me to hurt myself! I won't do it!"
+          ],
+          "calmer": [
+            "The voices are still there but fainter now that I'm in the hallway. {ambient_audio}."
+          ],
+          "help_arrived": [
+            "They're here. I hope they can jam the signal."
+          ]
+        }
+      },
+      "CALM_CALLER": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "calmer",
+          "describing_delusion": "calmer",
+          "agitated": "calmer"
+        },
+        "responses": {
+          "initial": [
+            "Sir, take a deep breath. We're sending someone right now. Can you put the microwave outside your door?"
+          ],
+          "describing_delusion": [
+            "I understand it's distressing. Help is on the way. Try to move away from the kitchen."
+          ],
+          "agitated": [
+            "It's okay. You're not alone. The officers are close. Just focus on my voice."
+          ],
+          "calmer": [
+            "You're doing great. Keep away from electronics."
+          ],
+          "help_arrived": [
+            "The officers are here to help you. They'll make sure you're safe."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "describing_delusion",
+          "describing_delusion": "agitated",
+          "agitated": "agitated"
+        },
+        "responses": {
+          "initial": [
+            "I'm panicking. They've been doing this for weeks. I can't sleep. I'm exhausted."
+          ],
+          "describing_delusion": [
+            "I've wrapped my head in tinfoil but it doesn't help. I'm scared they'll make me do something terrible."
+          ],
+          "agitated": [
+            "I can't take it anymore! I need them to stop NOW!"
+          ],
+          "calmer": [
+            "I'm a little better. Just waiting."
+          ],
+          "help_arrived": [
+            "I'm ready to let them in."
+          ]
+        }
+      },
+      "ADVISE_WAIT": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Stay on the line. I'm dispatching officers. Do not approach the microwave."
+          ],
+          "describing_delusion": [
+            "Please remain calm. Lock yourself in a room without electronics if possible."
+          ],
+          "agitated": [
+            "I need you to breathe. The officers are two minutes away."
+          ],
+          "calmer": [
+            "They're almost there. You'll hear a knock."
+          ],
+          "help_arrived": [
+            "They're at your door now. Please open it slowly."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and find the caller in severe distress. They arrange for a psychiatric evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive but cannot handle the mental health crisis. They await police."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics and a mobile crisis unit arrive. The caller is sedated and taken to the ER for psychiatric care."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is completely irrelevant. The caller becomes hostile, thinking they're government agents in disguise."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a hoax. The caller's condition worsens, leading to a self-harm attempt."
+      }
+    },
+    "id": "scenario_067",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "Shadow People in the Closet",
+    "description": "A caller whispers from a closet, claiming shadow people have invaded their home and are searching for them.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "whispering_in_hiding",
+      "describing_intruders",
+      "more_frightened",
+      "police_entering"
+    ],
+    "initial_variations": [
+      "{caller_name} here. I'm hiding in my closet. There are shadow people in my house. They're moving things. Please send help quietly!",
+      "Please don't say my name out loud. This is {caller_name}. They can hear. Shadow figures are in my living room. {ambient_audio}. I need someone.",
+      "I'm {caller_name}. I can't talk loud. There are shadow people in my home. They're tall and silent. Please send police but tell them to be quiet.",
+      "Emergency! Shadow creatures are in my house. I'm in the bedroom closet. This is {caller_name}. I can hear them {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "456 Shadow Lane",
+        "789 Dusk Avenue"
+      ],
+      "caller_name": [
+        "Elena",
+        "Jason",
+        "Mike",
+        "Sarah"
+      ],
+      "ambient_audio": [
+        "creaking floorboards",
+        "soft footsteps",
+        "whispers that aren't mine"
+      ],
+      "specific_details": [
+        "they have no faces",
+        "they absorb light",
+        "they're standing by my bed"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. The closet in the master bedroom."
+          ],
+          "whispering_in_hiding": [
+            "Still here, at {address_location}. I can't move."
+          ],
+          "describing_intruders": [
+            "Oh god, they're in the hallway. {address_location}, please hurry."
+          ],
+          "more_frightened": [
+            "They're trying the doorknob! {address_location}! Send someone NOW!"
+          ],
+          "police_entering": [
+            "I hear them downstairs. Yes, {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They're like shadows but solid. {specific_details}. {ambient_audio}."
+          ],
+          "whispering_in_hiding": [
+            "There's three of them. They don't speak, just move silently."
+          ],
+          "describing_intruders": [
+            "They're going through my drawers. They're not taking anything, just... searching."
+          ],
+          "more_frightened": [
+            "One of them is right outside the closet! It's breathing! {ambient_audio}."
+          ],
+          "police_entering": [
+            "The officers are calling out. The shadows are fading!"
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "whispering_in_hiding",
+          "whispering_in_hiding": "describing_intruders",
+          "describing_intruders": "more_frightened"
+        },
+        "responses": {
+          "initial": [
+            "I'm terrified. I grabbed my phone and ran when I saw them."
+          ],
+          "whispering_in_hiding": [
+            "I'm shaking. I've been here for ten minutes. They don't know I'm here."
+          ],
+          "describing_intruders": [
+            "I'm peeking through the slats. Oh no, one just looked toward the closet."
+          ],
+          "more_frightened": [
+            "I'm not breathing. It's right outside. Oh god, it knows."
+          ],
+          "police_entering": [
+            "They're here! I'm safe."
+          ]
+        }
+      },
+      "CALM_AND_ADVISE": {
+        "score_delta": 40,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Stay as quiet as possible. Do not make any noise. Police are on their way."
+          ],
+          "whispering_in_hiding": [
+            "Good job staying hidden. Put your phone on mute unless you need to speak."
+          ],
+          "describing_intruders": [
+            "Keep watching but don't react. Help is close."
+          ],
+          "more_frightened": [
+            "Don't move. Stay completely still. They can't get in if the door is shut."
+          ],
+          "police_entering": [
+            "The police are inside now. Let them clear the house before you come out."
+          ]
+        }
+      },
+      "ASSESS_DANGER": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No weapons. They just appeared out of nowhere."
+          ],
+          "whispering_in_hiding": [
+            "They haven't said anything. I don't think they're armed."
+          ],
+          "describing_intruders": [
+            "They're just moving slowly. It's like they're looking for me."
+          ],
+          "more_frightened": [
+            "It's trying to open the door! I think it has claws!"
+          ],
+          "police_entering": [
+            "I think the officers scared them off."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police perform a sweep of the house finding no intruders. They locate the caller in the closet and provide crisis referral."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive and conduct a search, but are ill-equipped to handle the psychological situation."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics arrive with police. The caller is treated for extreme anxiety and taken for psychiatric evaluation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control's arrival confuses the caller, who thinks animal control are the shadow people materializing."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed. The caller remains hiding for hours and develops severe trauma."
+      }
+    },
+    "id": "scenario_068",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Bugged Apartment Bugout",
+    "description": "A paranoid caller claims their apartment is bugged by a secret organization and urgently requests extraction before they are kidnapped.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "explaining_surveillance",
+      "frantic_packing",
+      "hidden_and_waiting",
+      "rescue_team_arrived"
+    ],
+    "initial_variations": [
+      "{caller_name} calling. My apartment is compromised. They've bugged everything. I need extraction now. I can't talk long, they're listening.",
+      "This is {caller_name}. I've uncovered a conspiracy. My apartment is surveilled 24/7. I need a team to get me out. {ambient_audio}.",
+      "Code Red! This is {caller_name}. The Order has planted listening devices in my walls. I'm packing a bugout bag. Send police but make sure they aren't compromised.",
+      "They're watching me. I'm {caller_name}. I need a safe house. My apartment is full of cameras and mics. Please send someone trustworthy. {ambient_audio}."
+    ],
+    "slots": {
+      "address_location": [
+        "1010 Conspiracy Court, Top Floor",
+        "2020 Paranoia Place, Apt 3"
+      ],
+      "caller_name": [
+        "Sam",
+        "Jordan",
+        "Casey",
+        "Riley"
+      ],
+      "ambient_audio": [
+        "static from bugs",
+        "whispering from the vents",
+        "clicking sounds"
+      ],
+      "specific_details": [
+        "they know my every move",
+        "they've been following me for weeks",
+        "I have evidence on a USB"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, top floor. But they might be tracking this call."
+          ],
+          "explaining_surveillance": [
+            "Still at {address_location}. I'm in the bathroom where the signal is weakest."
+          ],
+          "frantic_packing": [
+            "I'm not safe here! {address_location}. Please, they could raid any minute!"
+          ],
+          "hidden_and_waiting": [
+            "I'm hidden in the stairwell now. {address_location}. Send the extraction team."
+          ],
+          "rescue_team_arrived": [
+            "I see them! {address_location}. Tell them not to use the main entrance."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's the Illuminati, or maybe a rogue agency. {specific_details}. {ambient_audio}."
+          ],
+          "explaining_surveillance": [
+            "Their bugs are in the light fixtures, behind the mirrors. They listen to everything."
+          ],
+          "frantic_packing": [
+            "They know I'm onto them. That's why they're coming. I can hear their chatter in my teeth fillings."
+          ],
+          "hidden_and_waiting": [
+            "I'm in the emergency exit. I think I lost their trail. {ambient_audio}."
+          ],
+          "rescue_team_arrived": [
+            "The officers are here. I hope they're clean."
+          ]
+        }
+      },
+      "ASK_EVIDENCE": {
+        "score_delta": 35,
+        "transitions": {
+          "initial": "explaining_surveillance",
+          "explaining_surveillance": "frantic_packing",
+          "frantic_packing": "hidden_and_waiting"
+        },
+        "responses": {
+          "initial": [
+            "I have recordings! I can play them for you. They're saying my name, {caller_name}, over and over."
+          ],
+          "explaining_surveillance": [
+            "I took photos of the bugs. They're small, like dots. I'll show you when you arrive."
+          ],
+          "frantic_packing": [
+            "The evidence is in my bag. I can't lose it. They'll kill me for it."
+          ],
+          "hidden_and_waiting": [
+            "I still have the USB. It's in my pocket."
+          ],
+          "rescue_team_arrived": [
+            "I'll give it to the officers if they're real."
+          ]
+        }
+      },
+      "CALM_AND_PLAN": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "explaining_surveillance",
+          "explaining_surveillance": "frantic_packing",
+          "frantic_packing": "hidden_and_waiting"
+        },
+        "responses": {
+          "initial": [
+            "Okay, stay calm. Let's plan a safe way out. Can you exit through a back door?"
+          ],
+          "explaining_surveillance": [
+            "I need you to pack a bag quietly. No sudden movements. Then hide."
+          ],
+          "frantic_packing": [
+            "Good, you're packed. Now get out of the apartment. Use the stairs."
+          ],
+          "hidden_and_waiting": [
+            "Stay hidden. The team is almost there. Don't come out until they identify themselves."
+          ],
+          "rescue_team_arrived": [
+            "The officers are going to secure the building. Stay where you are."
+          ]
+        }
+      },
+      "ASSESS_THREAT": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They're outside my door! I can hear them talking in code."
+          ],
+          "explaining_surveillance": [
+            "They have guns, maybe. They've been tracking me for months."
+          ],
+          "frantic_packing": [
+            "They're about to break in! I have to go now!"
+          ],
+          "hidden_and_waiting": [
+            "I don't hear them anymore. Maybe I lost them."
+          ],
+          "rescue_team_arrived": [
+            "I see red dots on my chest! No, it's just the officers' lasers."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and find no surveillance devices. The caller is taken to a hospital for psychiatric evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive but cannot address the caller's psychological distress. They wait for police."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "A crisis team and paramedics arrive. The caller is safely transported to a mental health facility."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is completely out of place. The caller thinks they are agents sent to silence them."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The dispatcher dismisses the call. The caller, feeling abandoned, attempts to flee and gets injured."
+      }
+    },
+    "id": "scenario_069",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "Voices Telling Me to End It",
+    "description": "A caller hears auditory hallucinations commanding them to commit suicide and frantically asks for help to resist.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "expressing_urges",
+      "resisting",
+      "calmer_with_support",
+      "professionals_on_scene"
+    ],
+    "initial_variations": [
+      "I need help! I'm {caller_name}. The voices are telling me to kill myself. I don't want to do it but they're so loud! Please send someone.",
+      "{caller_name} calling. They're screaming in my head, saying I should jump. I'm on my balcony, but I don't want to die. Help me.",
+      "This is an emergency! The voices won't stop. They're telling me to end it all. I'm {caller_name}. I'm so tired of fighting them. {ambient_audio}.",
+      "Please, you have to talk to me. The voices are winning. I'm {caller_name}. I have pills, but I called instead. I need to be stopped."
+    ],
+    "slots": {
+      "address_location": [
+        "1313 Hopeless Lane, Apt 12B",
+        "911 Despair Drive"
+      ],
+      "caller_name": [
+        "Chris",
+        "Pat",
+        "Taylor",
+        "Morgan"
+      ],
+      "ambient_audio": [
+        "loud arguing voices",
+        "distorted whispers",
+        "my own crying"
+      ],
+      "specific_details": [
+        "they say I'm worthless",
+        "they're counting down from ten",
+        "they want me to use a knife"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, apartment 12B. I'm on the balcony."
+          ],
+          "expressing_urges": [
+            "I'm still here, at {address_location}. I haven't jumped yet."
+          ],
+          "resisting": [
+            "I moved inside. I'm at {address_location}, in the living room."
+          ],
+          "calmer_with_support": [
+            "I'm sitting on the floor. {address_location}. I'm trying to block them out."
+          ],
+          "professionals_on_scene": [
+            "They're at the door. {address_location}. I'll let them in."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "{specific_details}. {ambient_audio}. It's like they're real people yelling at me."
+          ],
+          "expressing_urges": [
+            "They're saying 'do it, do it' over and over. It's unbearable."
+          ],
+          "resisting": [
+            "I put the pills down. But they're still there, telling me I'm weak."
+          ],
+          "calmer_with_support": [
+            "They're fading a little. Your voice helps. {ambient_audio}."
+          ],
+          "professionals_on_scene": [
+            "They're here. The voices are scared. They're quiet now."
+          ]
+        }
+      },
+      "TALK_DOWN": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "resisting",
+          "expressing_urges": "resisting",
+          "resisting": "calmer_with_support"
+        },
+        "responses": {
+          "initial": [
+            "Hey, listen to my voice. You called because you want to live. Focus on that. Breathe with me."
+          ],
+          "expressing_urges": [
+            "You're incredibly strong for reaching out. The voices aren't you. You don't have to obey them."
+          ],
+          "resisting": [
+            "Good job putting the pills away. Keep talking to me. What's your favorite memory?"
+          ],
+          "calmer_with_support": [
+            "You're doing great. Help is almost there. You're not alone."
+          ],
+          "professionals_on_scene": [
+            "The paramedics are here to help you. They understand what you're going through."
+          ]
+        }
+      },
+      "ASSESS_SUICIDE_RISK": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "expressing_urges",
+          "expressing_urges": "expressing_urges",
+          "resisting": "calmer_with_support"
+        },
+        "responses": {
+          "initial": [
+            "I have a knife in the kitchen. They want me to use it. I'm trying to stay away."
+          ],
+          "expressing_urges": [
+            "I took three steps toward the railing before I dialed. I'm scared I'll do it."
+          ],
+          "resisting": [
+            "I threw the knife out the window. But I feel like I'm losing."
+          ],
+          "calmer_with_support": [
+            "I don't feel like doing it right now. But the voices are still there."
+          ],
+          "professionals_on_scene": [
+            "I'm safe now. The paramedics are taking me."
+          ]
+        }
+      },
+      "PROVIDE_SUPPORT": {
+        "score_delta": 35,
+        "transitions": {
+          "initial": "expressing_urges",
+          "expressing_urges": "resisting",
+          "resisting": "calmer_with_support"
+        },
+        "responses": {
+          "initial": [
+            "You did the right thing calling. We're going to get you help. I'm staying on the line."
+          ],
+          "expressing_urges": [
+            "Please keep talking to me. I care about what happens to you. You matter."
+          ],
+          "resisting": [
+            "You are not your thoughts. Those voices are lying to you. You have a future."
+          ],
+          "calmer_with_support": [
+            "I'm proud of you for holding on. The ambulance is two minutes out."
+          ],
+          "professionals_on_scene": [
+            "You're safe now. Let them take care of you."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and use crisis intervention training to de-escalate. The caller is taken for involuntary psychiatric hold."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive but lack psychiatric training. They secure the scene until medical arrives."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics arrive swiftly. The caller is immediately assessed and transported to a psychiatric emergency room."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Animal control's arrival triggers the caller, who believes the voices have sent monsters. The situation escalates."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -500,
+        "message": "The call is dismissed as attention-seeking. The caller, feeling abandoned, attempts suicide minutes later."
+      }
+    },
+    "id": "scenario_070",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Shadow Stalker",
+    "description": "Caller reports a shadowy entity that has been stalking them for weeks and is now attempting to break into their home, causing extreme terror.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "heightened_terror",
+      "police_contact",
+      "safe"
+    ],
+    "initial_variations": [
+      "Hello? I'm {caller_name}, I need help! There's something outside my door! It's been following me for weeks... a shadow person. It's trying to get in!",
+      "This is {caller_name}. It's here again! The shadow thing... I can hear {ambient_audio} outside. Please send someone!",
+      "Oh God, oh God, it's at my window! I'm {caller_name}, I'm hiding in the closet. It's going to kill me!",
+      "I'm {caller_name} and there's a creature... it's not human... it's a shadow that moves on its own. It's been stalking me, and now it's scratching at my front door!"
+    ],
+    "slots": {
+      "caller_name": [
+        "Alice",
+        "Marcus",
+        "Elena"
+      ],
+      "address_location": [
+        "742 Evergreen Terrace",
+        "88 Winding Path Road",
+        "133 Shadow Lane"
+      ],
+      "specific_details": [
+        "its eyes are like glowing red coals",
+        "it whispers my name over and over",
+        "I saw it phase through the wall last week"
+      ],
+      "ambient_audio": [
+        "heavy breathing",
+        "faint, rhythmic scratching",
+        "a low guttural growl"
+      ],
+      "hiding_place": [
+        "upstairs bedroom closet",
+        "bathroom behind the shower curtain",
+        "under the basement stairs"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. It's right outside, I can hear {ambient_audio}.",
+            "My address is {address_location}. Hurry, please!"
+          ],
+          "heightened_terror": [
+            "Still at {address_location}! It's trying the back door now!",
+            "{address_location} — I'm in the {hiding_place} and it's inside the house!"
+          ],
+          "police_contact": [
+            "I see the police lights! They're outside {address_location}.",
+            "They're at {address_location}! Tell them to be careful, the shadow might attack them!"
+          ],
+          "safe": [
+            "We're at {address_location}. They got me out. I'm with the police now.",
+            "I'm safe at {address_location}. Thank you."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a shadow, but solid somehow. {specific_details}. I've been seeing it for weeks.",
+            "It started two weeks ago, just following me home. Now it wants to get in. {specific_details}."
+          ],
+          "heightened_terror": [
+            "I can't see it clearly, but it's tall and moves like smoke. {specific_details}. I'm so scared!",
+            "It's in the hallway! I saw {specific_details}. It's not human!"
+          ],
+          "police_contact": [
+            "The police are here. They're shining lights but the shadow is gone. It vanished when they arrived.",
+            "They're checking the house. I don't see it anymore. Maybe the light drove it away."
+          ],
+          "safe": [
+            "I told the officers everything. They said I'm safe now. They think I was just imagining it, but I know what I saw.",
+            "They're going to search the neighborhood. I'm okay now, but I'm still shaking."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 25,
+        "transitions": {
+          "initial": "heightened_terror"
+        },
+        "responses": {
+          "initial": [
+            "I'm terrified. My heart is pounding. I don't know if I can hold on.",
+            "I'm hiding in the {hiding_place}. I'm shaking, please don't let it get me."
+          ],
+          "heightened_terror": [
+            "It's getting louder! I think it knows I'm on the phone! Oh God, it's trying the door handle!",
+            "I'm hyperventilating. I can't breathe. Please, please hurry!"
+          ],
+          "police_contact": [
+            "I see the police! Oh thank God. I'm still in the {hiding_place}, waiting for them.",
+            "They're outside. I'm going to stay hidden until they call me."
+          ],
+          "safe": [
+            "I'm okay now. The police are with me. I'm just really shaken up.",
+            "I'm safe. They're talking to me. I think I need a doctor."
+          ]
+        }
+      },
+      "PROVIDE_REASSURANCE": {
+        "score_delta": 40,
+        "transitions": {
+          "heightened_terror": "police_contact",
+          "police_contact": "safe"
+        },
+        "responses": {
+          "initial": [
+            "You believe me? Thank you! Just stay on the line, please.",
+            "Okay, I'm trying to stay calm. I hear sirens in the distance."
+          ],
+          "heightened_terror": [
+            "I'm trying to breathe slowly. I think I hear sirens. Are they coming?",
+            "Okay, okay. I'll hide and not make a sound. Please hurry."
+          ],
+          "police_contact": [
+            "I see the police! They're at the front door. I'm going to let them in.",
+            "They're here. I'm safe. Thank you for staying on the line."
+          ],
+          "safe": [
+            "Thank you so much. I'm with the officers now. They're helpful.",
+            "You saved me. I don't know what would have happened."
+          ]
+        }
+      },
+      "ASK_IF_ARMED": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No, I don't have any weapons. I'm just trying to hide.",
+            "I have a baseball bat, but I don't think it'll help against a shadow."
+          ],
+          "heightened_terror": [
+            "I grabbed a kitchen knife, but I don't want to use it! I'm scared it might get me.",
+            "Just my phone. Please don't make me confront it!"
+          ],
+          "police_contact": [
+            "I won't arm myself. The police are here, they can handle it.",
+            "No, I'm safe now. The officers will protect me."
+          ],
+          "safe": [
+            "I'm not armed. The police took my knife just in case.",
+            "I'm calm now. No weapons."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and conduct a thorough search, finding no intruder but the caller is visibly distressed. They provide a police escort to the hospital for evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Firefighters respond and check the premises for structural anomalies but find nothing. They hand over to police for a welfare check."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics and a crisis intervention team arrive. They gently coax the caller out of hiding and transport them for psychiatric evaluation."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -100,
+        "message": "Animal control arrives expecting an animal complaint. The caller becomes more agitated, and valuable time is lost before proper units are dispatched."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "The call is dismissed as a prank. The caller, left without help, suffers a severe panic attack and later requires emergency intervention."
+      }
+    },
+    "id": "scenario_071",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Mind Readers",
+    "description": "Caller is paranoid that neighbors are using advanced technology to read their thoughts and broadcast them publicly, leading to extreme anxiety and potential breakdown.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "paranoid_accusation",
+      "distrustful_of_dispatcher",
+      "resolution"
+    ],
+    "initial_variations": [
+      "Help! I'm {caller_name} and my neighbors are reading my mind! They have a machine and they're broadcasting my thoughts to everyone!",
+      "This is {caller_name}, you have to help me. They're listening to my brainwaves and I can't make it stop! It's {neighbor_description}.",
+      "They're in my head! I can hear static {ambient_audio} whenever they tune in. I'm {caller_name}, please, send someone!",
+      "I'm {caller_name}. I've been tormented for months. Every thought I have, they know it and they spread it. They're ruining my life!"
+    ],
+    "slots": {
+      "caller_name": [
+        "David",
+        "Joan",
+        "Raj"
+      ],
+      "address_location": [
+        "4500 Maplewood Court, Apt 3B",
+        "12 Thornberry Lane",
+        "900 Park Avenue, Unit 501"
+      ],
+      "specific_details": [
+        "they use a modified satellite dish pointed at my bedroom",
+        "I can hear my own voice on the radio reading my thoughts",
+        "they post my thoughts on the internet in real time"
+      ],
+      "ambient_audio": [
+        "static noise",
+        "distant whispering",
+        "a high-pitched whine"
+      ],
+      "neighbor_description": [
+        "the man in the apartment above me",
+        "the elderly couple next door",
+        "the new tenants who moved in last month"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. They're right next to me, so they can hear me now.",
+            "{address_location}. They're monitoring me from their apartment."
+          ],
+          "paranoid_accusation": [
+            "At {address_location}, where else! They're probably listening to this call!",
+            "I told you, {address_location}. Send someone fast before they realize I called."
+          ],
+          "distrustful_of_dispatcher": [
+            "Why do you keep asking? Are you one of them? {address_location}, but don't send them a warning!",
+            "{address_location}. If you're setting me up, I'll know."
+          ],
+          "resolution": [
+            "I'm at {address_location}. The police are here. They're talking to the neighbors.",
+            "I'm okay now, at {address_location}. They're taking me to talk to someone."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It's a device, I've seen it. {specific_details}. I can't even think privately anymore.",
+            "They've been doing it for three months. {specific_details}. It's driving me insane."
+          ],
+          "paranoid_accusation": [
+            "They're getting bolder. Now they even comment on my thoughts out loud. {specific_details}.",
+            "I have proof! {specific_details}. I recorded it, but they deleted the file!"
+          ],
+          "distrustful_of_dispatcher": [
+            "Why do you need details? So you can give them to the mind readers? Fine. {specific_details}. There, now they know I told you.",
+            "It's a conspiracy. {specific_details}. I bet you already knew that."
+          ],
+          "resolution": [
+            "The police checked the apartment. They didn't find anything, but I know they hid it. At least they're looking into it.",
+            "The officers say there's no device, but they're taking me to get help. I'm still not sure."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 25,
+        "transitions": {
+          "initial": "paranoid_accusation"
+        },
+        "responses": {
+          "initial": [
+            "I'm on edge. Every sound makes me jump. I can barely function.",
+            "I haven't slept in days. They won't let me. They keep broadcasting at night."
+          ],
+          "paranoid_accusation": [
+            "I'm ready to confront them myself if you won't help! I have nothing left to lose!",
+            "I'm armed with a baseball bat. If they try anything, I'll defend myself."
+          ],
+          "distrustful_of_dispatcher": [
+            "How do I know you're actually sending help? This could be a trap.",
+            "I'm not answering that. It's for your mind-reading bosses."
+          ],
+          "resolution": [
+            "I'm calming down now that the police are here. I just want this to stop.",
+            "I feel a bit better, but I'm still scared. They said they'll check on me."
+          ]
+        }
+      },
+      "PROVIDE_REASSURANCE": {
+        "score_delta": 40,
+        "transitions": {
+          "paranoid_accusation": "resolution",
+          "distrustful_of_dispatcher": "resolution"
+        },
+        "responses": {
+          "initial": [
+            "You believe me? Thank you. Most people don't. Please just make them stop.",
+            "Okay, I'll try to stay calm. I hear sirens... are those for me?"
+          ],
+          "paranoid_accusation": [
+            "You really think help is coming? I want to believe you. I'll wait a few more minutes.",
+            "Alright, I'll put the bat down. But if they come to my door, I'm not responsible."
+          ],
+          "distrustful_of_dispatcher": [
+            "You sound sincere. Maybe I misjudged you. I'll wait for the officers.",
+            "Fine, I'll trust you. Just don't betray me."
+          ],
+          "resolution": [
+            "Thank you for listening. The police are here. They're not arresting me, just talking.",
+            "You stayed on the line. That means a lot. I'm safe now."
+          ]
+        }
+      },
+      "ASK_IF_ARMED": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No, but I'm thinking about it. I feel so defenseless.",
+            "I have a kitchen knife nearby, just in case they try to break in."
+          ],
+          "paranoid_accusation": [
+            "I have a bat, and I'm not afraid to use it if they come for me!",
+            "I'm not a threat unless they make me one. I just want privacy."
+          ],
+          "distrustful_of_dispatcher": [
+            "Why, so you can tell them I'm armed? No comment.",
+            "I'll handle my own protection, thank you."
+          ],
+          "resolution": [
+            "I put the bat away. The police are here, I don't need it.",
+            "I'm not armed now. They're taking me to a hospital, I think."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and de-escalate the situation. They perform a welfare check and facilitate a voluntary psychiatric evaluation for the caller."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 20,
+        "message": "Firefighters respond but have no jurisdiction over the mental health crisis. They stand by until police transfer the caller for medical care."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "A Crisis Intervention Team (CIT) officer and paramedics arrive, build rapport, and convince the caller to accept transport to a mental health facility for stabilization."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -120,
+        "message": "Animal control is sent, causing the caller to believe the dispatcher is part of the conspiracy. The caller barricades themselves inside and refuses further help."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -250,
+        "message": "The call is laughed off as crazy. Hours later, the caller attempts to confront the neighbors with a weapon, resulting in a tense police standoff."
+      }
+    },
+    "id": "scenario_072",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Doppelgänger",
+    "description": "Caller is convinced that their family members have been replaced by exact duplicates and is holding a knife to defend themselves, creating a dangerous hostage-like situation.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "standoff",
+      "police_intervention",
+      "safe"
+    ],
+    "initial_variations": [
+      "Help, they're not my family! I'm {caller_name}, and my {victim_relation} has been replaced by a clone! I'm holding a knife to keep myself safe.",
+      "I'm {caller_name}. You have to listen to me. The people in my house are impostors. They look like my family but they're not. I have a weapon.",
+      "This is {caller_name}. I've locked myself in the bedroom with a knife. The thing pretending to be my {victim_relation} is outside the door. Please send police!",
+      "My family is gone! They took them and put these... these copies in their place. I'm {caller_name}. I don't know what they want. I'm scared."
+    ],
+    "slots": {
+      "caller_name": [
+        "Mark",
+        "Samantha",
+        "Eli"
+      ],
+      "address_location": [
+        "220 Baker Street",
+        "55 Oakwood Drive",
+        "12 Primrose Place"
+      ],
+      "specific_details": [
+        "their eyes are the wrong color, and they don't blink",
+        "they mimic my family's voices but the tone is off",
+        "I saw one of them's skin ripple like it's made of latex"
+      ],
+      "victim_relation": [
+        "wife",
+        "husband",
+        "son",
+        "daughter"
+      ],
+      "ambient_audio": [
+        "pounding on the door",
+        "pleading voices saying 'let us in'",
+        "door creaking under pressure"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "At {address_location}. I'm in the back bedroom. They're in the living room.",
+            "{address_location}. I locked myself in the bathroom. They're trying to talk to me through the door."
+          ],
+          "standoff": [
+            "Still at {address_location}! They're trying to get in! I warned them!",
+            "I'm not coming out until the police arrive at {address_location}!"
+          ],
+          "police_intervention": [
+            "I hear sirens outside {address_location}. Tell them to be careful, the duplicates might attack.",
+            "The police are at {address_location}. I can see them through the window."
+          ],
+          "safe": [
+            "I'm at {address_location}. The police got me out safely. They're dealing with the impostors.",
+            "I'm safe at {address_location}. They're taking me somewhere to talk."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "They look exactly like my {victim_relation}, but {specific_details}. I knew something was wrong instantly.",
+            "It started yesterday when I noticed {specific_details}. They've been acting strange ever since."
+          ],
+          "standoff": [
+            "Listen to them! {ambient_audio}. They're trying to trick me. But I can see {specific_details}!",
+            "They keep saying they love me, but I know the truth. {specific_details}. They're not human!"
+          ],
+          "police_intervention": [
+            "I can see the officers. The duplicates are backing away. They know they've been caught.",
+            "Police are telling me to drop the knife, but what about the impostors?"
+          ],
+          "safe": [
+            "The police separated us. They're questioning the... people. I still don't trust them.",
+            "They said my family is real, but I need help. I'm so confused."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 25,
+        "transitions": {
+          "initial": "standoff"
+        },
+        "responses": {
+          "initial": [
+            "I'm terrified, but I'm protecting myself. I won't let them take me.",
+            "I'm holding a kitchen knife. I'm not letting anyone near me."
+          ],
+          "standoff": [
+            "They're getting closer! I'm warning you, I'll defend myself if they break in!",
+            "I'm sweating, my hands are shaking. I might have to... I don't know."
+          ],
+          "police_intervention": [
+            "I see the police. I'll wait for them to come in. I'm not dropping the knife until they're in control.",
+            "Officers are outside. I think I can trust them."
+          ],
+          "safe": [
+            "I surrendered the knife. I'm with the officers. I'm still shaken.",
+            "I'm okay now. They're getting me some water."
+          ]
+        }
+      },
+      "PROVIDE_REASSURANCE": {
+        "score_delta": 40,
+        "transitions": {
+          "standoff": "police_intervention",
+          "police_intervention": "safe"
+        },
+        "responses": {
+          "initial": [
+            "Thank you for believing me. I'll wait for the police.",
+            "Okay, I'm trying to stay calm. I hear sirens."
+          ],
+          "standoff": [
+            "Really? They're almost here? I'll hold off. But if they try anything...",
+            "You promise they'll help? I'll give them a chance."
+          ],
+          "police_intervention": [
+            "I see them! I'm going to unlock the door and come out slowly.",
+            "Okay, I'm putting my hands up. They're at the window."
+          ],
+          "safe": [
+            "You stayed with me. Thank you. I think I need a doctor.",
+            "I'm safe. It's over."
+          ]
+        }
+      },
+      "ASK_IF_HOSTAGE": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No, I'm alone in here. The impostors are outside. They haven't gotten in yet.",
+            "I'm the only one in this room. No one else."
+          ],
+          "standoff": [
+            "They're trying to get in, but I'm by myself. I won't let them take me hostage.",
+            "No hostages, just me. But they're out there."
+          ],
+          "police_intervention": [
+            "The police are here, so there's no danger of hostages now.",
+            "No, I'm the only one in here. I'm coming out."
+          ],
+          "safe": [
+            "No, everyone's safe. I'm with the police now.",
+            "Nobody was hurt."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 180,
+        "message": "A tactical unit and negotiator arrive. They establish communication, convince the caller to put down the knife, and safely resolve the situation. The caller is taken for evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 20,
+        "message": "Firefighters respond but are not equipped for a potential hostage situation. They stage nearby until police secure the scene, causing a slight delay."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "A mobile crisis team and paramedics coordinate with police to safely disarm the caller and provide immediate psychiatric care, avoiding use of force."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -150,
+        "message": "Animal control arrives to a domestic dispute, startling the caller who then barricades themselves further, escalating the situation."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing the call leads to a violent confrontation when the caller, feeling abandoned, attacks a family member they believe is an impostor, resulting in serious injury."
+      }
+    },
+    "id": "scenario_073",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The End of the World",
+    "description": "Caller is experiencing apocalyptic delusions in a public park, claiming to see demons and the end of days, causing public alarm and potential self-harm risk.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "public_disturbance",
+      "police_approach",
+      "calmed"
+    ],
+    "initial_variations": [
+      "It's happening! I'm {caller_name}, and the end is here! Demons are crawling out of the ground! The sky is turning red! Everyone needs to hide!",
+      "This is {caller_name}. I'm in the park and I see them! {ambient_audio} — can you hear the screams? Send everyone!",
+      "Help! I'm {caller_name}, and I'm not crazy! The apocalypse is starting! I'm at the park, and there are creatures everywhere!",
+      "Please, you have to warn the city. I'm {caller_name}, and I'm witnessing the end of the world. Demons, fire, it's all happening!"
+    ],
+    "slots": {
+      "caller_name": [
+        "Jeremy",
+        "Lydia",
+        "Father Thomas"
+      ],
+      "address_location": [
+        "Central Park near the Bethesda Fountain",
+        "Riverside Park by the boat basin",
+        "Prospect Park at the bandshell"
+      ],
+      "specific_details": [
+        "the sky is blood red and there are cracks in the air",
+        "I see winged creatures with horns swooping down",
+        "the ground is opening up and hands are reaching out"
+      ],
+      "ambient_audio": [
+        "distant screaming",
+        "a low rumble like an earthquake",
+        "chanting in an unknown language"
+      ],
+      "public_location_detail": [
+        "by the fountain",
+        "near the playground",
+        "under the giant oak tree"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}, {public_location_detail}. You have to see this!",
+            "It's {address_location}. I'm standing right where the portal is opening."
+          ],
+          "public_disturbance": [
+            "Still here! There are more of them now! {address_location} is ground zero!",
+            "I'm not moving! Someone has to witness this! {address_location}!"
+          ],
+          "police_approach": [
+            "I see a police car approaching {address_location}. Tell them to be careful!",
+            "They're coming into the park at {address_location}. I'll wave them over."
+          ],
+          "calmed": [
+            "I'm at {address_location}. The officers are here. They're trying to calm me down.",
+            "We're leaving the park at {address_location}. They're taking me to get checked out."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "You have to believe me! {specific_details}. It's the apocalypse!",
+            "I was sitting on a bench and then {specific_details}. Everyone is running, but they can't see it like I can."
+          ],
+          "public_disturbance": [
+            "People think I'm crazy, but I see {specific_details}. The demons are targeting the non-believers!",
+            "Listen! {ambient_audio}. That's the sound of the end! I'm trying to warn people but they won't listen."
+          ],
+          "police_approach": [
+            "The police are here. They're looking around. The demons are fading, but I know they're still there.",
+            "The officers are telling me to get down. I'm trying to show them the cracks in the sky."
+          ],
+          "calmed": [
+            "They say there's nothing there, but I know what I saw. Maybe it was a vision.",
+            "I'm sorry for causing a scene. I really thought... I need help."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 25,
+        "transitions": {
+          "initial": "public_disturbance"
+        },
+        "responses": {
+          "initial": [
+            "I'm in awe and terror. I've never felt so alive and so scared.",
+            "My heart is racing. I'm standing, pointing at the sky. People are staring."
+          ],
+          "public_disturbance": [
+            "I'm shouting warnings! They don't see the danger! I might have to run, the demons are getting closer!",
+            "I can't leave people to die without a warning. I'm staying right here, no matter what."
+          ],
+          "police_approach": [
+            "I'm cooperating. I'm trying to stay calm, but the sky is still red.",
+            "I'm a little tired from shouting. I'll sit down."
+          ],
+          "calmed": [
+            "I'm better now. The officers are talking to me. It's starting to feel less real.",
+            "I'm embarrassed. I think I had a breakdown."
+          ]
+        }
+      },
+      "PROVIDE_REASSURANCE": {
+        "score_delta": 40,
+        "transitions": {
+          "public_disturbance": "police_approach",
+          "police_approach": "calmed"
+        },
+        "responses": {
+          "initial": [
+            "You believe me? Thank you. Most people don't. I'll stay calm until help arrives.",
+            "Okay, I'll try to keep it together. I see a police car in the distance."
+          ],
+          "public_disturbance": [
+            "They're really coming? I thought they'd ignore me. I'll point them to where the portal is.",
+            "Alright, I'll stop shouting. I'll wait for the officers."
+          ],
+          "police_approach": [
+            "They're coming towards me. I'll raise my hands and show I'm not a threat.",
+            "The police are here. I feel safer now."
+          ],
+          "calmed": [
+            "Thank you for listening. I don't know what came over me.",
+            "You helped me through this. I'm going to get help."
+          ]
+        }
+      },
+      "ASK_IF_INJURED": {
+        "score_delta": 15,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "No, I'm fine. They haven't touched me yet.",
+            "I'm not injured, just scared."
+          ],
+          "public_disturbance": [
+            "My throat is sore from shouting, but otherwise I'm okay.",
+            "I tripped earlier, but I'm not hurt."
+          ],
+          "police_approach": [
+            "Maybe a bit dehydrated, but I'm fine.",
+            "No injuries."
+          ],
+          "calmed": [
+            "I'm okay, just emotionally exhausted.",
+            "No physical injuries."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 160,
+        "message": "Police arrive and calmly de-escalate the situation. They take the caller into protective custody and transport them to a hospital for evaluation."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Firefighters respond and assist with crowd control. They provide water to the agitated caller but hand over to police for the mental health intervention."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "A mobile crisis unit arrives, quickly builds a rapport, and convinces the caller to voluntarily accept transport to a psychiatric facility for stabilization."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -100,
+        "message": "Animal control arrives, frightening the caller who thinks they are demons. The caller runs into traffic, nearly getting hit."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "The call is dismissed as a prank. The caller continues to disturb the public until they are arrested for disorderly conduct after a physical struggle."
+      }
+    },
+    "id": "scenario_074",
+    "archetype": "Psychological / Delusional Call"
+  },
+  {
+    "title": "The Poisoned Food",
+    "description": "Caller is emaciated and weak, having not eaten for days due to the delusion that all food is contaminated. They need medical intervention and psychiatric help.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "weakened",
+      "trusting",
+      "help_arrived"
+    ],
+    "initial_variations": [
+      "I need an ambulance. I'm {caller_name}, and I can't eat anything. They've poisoned all my food. I haven't had a meal in days.",
+      "Help me, please. I'm {caller_name}. I'm so weak. Every time I try to eat, I feel like I'm being watched. The food tastes wrong. I can't do it anymore.",
+      "This is {caller_name}. I'm starving, but I can't trust any food. I think I'm dying. Please send someone.",
+      "I'm {caller_name}. I've been surviving on tap water for {last_meal} because I know they've tampered with everything else. I need help."
+    ],
+    "slots": {
+      "caller_name": [
+        "Clara",
+        "Vincent",
+        "Rosa"
+      ],
+      "address_location": [
+        "300 Willow Way",
+        "18 Harbor View Apartments",
+        "7 Cherry Blossom Court"
+      ],
+      "specific_details": [
+        "I saw a man in a hazmat suit outside my apartment the day this started",
+        "the food sparkles like it has metal shavings in it",
+        "every time I open a can, there's a strange chemical smell"
+      ],
+      "ambient_audio": [
+        "weak, labored breathing",
+        "stomach audibly growling",
+        "faint dizziness-induced groans"
+      ],
+      "last_meal": [
+        "three days",
+        "almost a week",
+        "over five days"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I'm at {address_location}. Please hurry, I feel like I might pass out.",
+            "{address_location}. I'm in my kitchen, but there's nothing I can eat."
+          ],
+          "weakened": [
+            "Still here... {address_location}. I can't even get up now.",
+            "{address_location}. I'm lying on the floor."
+          ],
+          "trusting": [
+            "I hear sirens. They're coming to {address_location}, right?",
+            "Thank you. I'll unlock the door at {address_location}."
+          ],
+          "help_arrived": [
+            "They're here at {address_location}. Paramedics are checking me.",
+            "I'm at {address_location}. They're giving me fluids."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "It started last week. {specific_details}. Since then, I can't bring myself to eat. I'm terrified of being poisoned.",
+            "I know it sounds crazy, but {specific_details}. Every time I try to eat, {ambient_audio}."
+          ],
+          "weakened": [
+            "I'm so tired... can't think straight. But I know {specific_details}. Please believe me.",
+            "I see things... shadows by the fridge. They're the ones doing it. {specific_details}."
+          ],
+          "trusting": [
+            "I'll try to explain when they get here. {specific_details}. It's all connected.",
+            "Maybe they can test my food. {specific_details}. Then you'll see."
+          ],
+          "help_arrived": [
+            "The paramedics are looking around. I'm telling them {specific_details}.",
+            "They're not judging me. They say it's okay. I still see {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 25,
+        "transitions": {
+          "initial": "weakened"
+        },
+        "responses": {
+          "initial": [
+            "I'm dizzy and weak. I haven't eaten in {last_meal}. I can barely stand.",
+            "My hands are shaking. I think my blood sugar is low."
+          ],
+          "weakened": [
+            "I'm lying down now. I can't get up. It's getting harder to breathe.",
+            "I might pass out. Please, I need help now."
+          ],
+          "trusting": [
+            "I'm trying to stay awake. I can hear sirens. I'm holding on.",
+            "I'm a little better now that I know help is coming. Still weak."
+          ],
+          "help_arrived": [
+            "They're checking my vitals. I'm so relieved they're here.",
+            "I'm still weak, but they're giving me glucose."
+          ]
+        }
+      },
+      "PROVIDE_REASSURANCE": {
+        "score_delta": 40,
+        "transitions": {
+          "weakened": "trusting",
+          "trusting": "help_arrived"
+        },
+        "responses": {
+          "initial": [
+            "Thank you. I've been so alone. I'll try to stay calm.",
+            "You sound kind. Please don't let me die."
+          ],
+          "weakened": [
+            "Okay, I'm trying to breathe slowly. I trust you.",
+            "I'll hold on a little longer. The sirens are getting louder."
+          ],
+          "trusting": [
+            "They're at the door. I'm going to let them in.",
+            "Thank you for staying with me. I was so scared."
+          ],
+          "help_arrived": [
+            "You saved me. They're taking me to the hospital.",
+            "I'm going to be okay. Thank you."
+          ]
+        }
+      },
+      "ASK_LAST_MEAL": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I had a small piece of bread {last_meal} ago, but I forced myself to vomit it up because I was sure it was tainted.",
+            "Just water for {last_meal}. I can't risk eating anything solid."
+          ],
+          "weakened": [
+            "Nothing... it's been {last_meal} since I ate anything significant.",
+            "I tried to eat an apple yesterday, but I panicked after one bite."
+          ],
+          "trusting": [
+            "I can't remember exactly. It feels like weeks.",
+            "I lost count. I've been so focused on not eating."
+          ],
+          "help_arrived": [
+            "The paramedics are asking me that. They're concerned about refeeding syndrome.",
+            "I don't know. They're giving me an IV now."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 120,
+        "message": "Police arrive and force entry, finding the caller unconscious. They administer first aid until paramedics arrive and transport to the hospital."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Firefighters respond and break down the door. They provide initial medical care but need to wait for paramedics for advanced support."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics arrive, stabilize the caller with IV fluids and transport them to the ER. A psychiatric consult is called for the delusions."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -130,
+        "message": "Animal control arrives, does not have the equipment or training to handle a medical emergency, and wastes precious time before medical help is summoned."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -250,
+        "message": "The call is dismissed as a hypochondriac. Hours later, the caller is found by a neighbor in a state of severe malnutrition and dehydration, requiring ICU admission."
+      }
+    },
+    "id": "scenario_075",
+    "archetype": "Psychological / Delusional Call"
+  }
+]

@@ -1,0 +1,2209 @@
+[
+  {
+    "title": "The Garbled Plea",
+    "description": "A stroke patient calls 911 with severely slurred speech, struggling to communicate more than single words. The dispatcher must use yes/no questions to identify the emergency and location.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "establishing_yes_no",
+      "identifying_emergency",
+      "location_confirming",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "H...help. Me... {caller_name}. Can't... talk...",
+      "*labored breathing* Ple... please... {caller_name}... hel...",
+      "Nine... one... one... {caller_name}... need... help... *garbled*"
+    ],
+    "slots": {
+      "caller_name": [
+        "Margaret",
+        "Harold",
+        "Eleanor",
+        "Walter"
+      ],
+      "address_location": [
+        "472 Willow Lane",
+        "88 Sycamore Court",
+        "155 Birch Street",
+        "230 Cedar Avenue"
+      ],
+      "specific_details": [
+        "left arm won't move",
+        "right side of face is drooping",
+        "sudden severe headache",
+        "slurred speech and confusion"
+      ],
+      "ambient_audio": [
+        "heavy, irregular breathing",
+        "faint television noise",
+        "a dog barking in the distance"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Can you tell me where you are? I hear {ambient_audio}."
+          ],
+          "establishing_yes_no": [
+            "Do you live at {address_location}? Tap once for yes."
+          ],
+          "identifying_emergency": [
+            "We'll find you. Stay calm. Is your address {address_location}?"
+          ],
+          "location_confirming": [
+            "You're at {address_location}, correct?"
+          ],
+          "help_dispatched": [
+            "Help is coming to {address_location}. Stay on the line."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I can't understand you well. What's happening? Is it an emergency?"
+          ],
+          "establishing_yes_no": [
+            "Are you hurt? Tap once if yes."
+          ],
+          "identifying_emergency": [
+            "Is it a stroke? Do you have {specific_details}?"
+          ],
+          "location_confirming": [
+            "We need details. {specific_details}?"
+          ],
+          "help_dispatched": [
+            "The medics need to know: {specific_details}."
+          ]
+        }
+      },
+      "ASK_IF_CAN_SPEAK": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "establishing_yes_no"
+        },
+        "responses": {
+          "initial": [
+            "Can you speak more clearly? Just try to say yes or no."
+          ],
+          "establishing_yes_no": [
+            "Good. We'll stick to yes and no. Are you in danger right now?"
+          ],
+          "identifying_emergency": [
+            "Can you tell me what's wrong? Just answer yes or no."
+          ],
+          "location_confirming": [
+            "You're doing great. Still able to answer yes or no?"
+          ],
+          "help_dispatched": [
+            "Help is on the way. Keep answering if you can."
+          ]
+        }
+      },
+      "ASK_IF_EMERGENCY": {
+        "score_delta": 40,
+        "transitions": {
+          "establishing_yes_no": "identifying_emergency"
+        },
+        "responses": {
+          "initial": [
+            "Are you bleeding? Can you say what happened?"
+          ],
+          "establishing_yes_no": [
+            "Is it a medical problem? Yes or no."
+          ],
+          "identifying_emergency": [
+            "Could it be a stroke? Do you have {specific_details}?"
+          ],
+          "location_confirming": [
+            "We know it's a medical emergency. Help will be there soon."
+          ],
+          "help_dispatched": [
+            "The ambulance knows it's a possible stroke."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 50,
+        "message": "Police arrive but are not equipped for a medical emergency; they call for medics."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighter-paramedics respond quickly, find the patient, and begin stroke assessment."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics arrive swiftly, recognize the stroke symptoms, and transport the patient to a stroke center."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is baffled and wastes critical time; the stroke worsens."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a prank; the patient suffers permanent brain damage."
+      }
+    },
+    "id": "scenario_076",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Tapping Code",
+    "description": "A caller trapped under fallen debris in a basement, unable to speak, communicates via tapping—one tap for yes, two for no. The dispatcher must decipher this code to locate and rescue them.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "realizing_tap_code",
+      "questioning",
+      "location_found",
+      "rescue_dispatched"
+    ],
+    "initial_variations": [
+      "*faint tapping on the receiver*... *cough*...",
+      "*labored breathing* Tap... tap... {caller_name}... *two taps*",
+      "This is {caller_name}... trapped... can't speak... tap..."
+    ],
+    "slots": {
+      "caller_name": [
+        "Frank",
+        "Dolores",
+        "Samir",
+        "Lena"
+      ],
+      "address_location": [
+        "331 Oakdale Avenue",
+        "7 Pine Hollow Lane",
+        "1290 Crescent Drive",
+        "45 Hilltop Road"
+      ],
+      "specific_details": [
+        "a heavy bookcase fell over",
+        "the ceiling partially collapsed",
+        "trapped under the stairs",
+        "a large shelf pinned them down"
+      ],
+      "ambient_audio": [
+        "dusty coughing",
+        "shifting rubble",
+        "a faint dripping sound"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I can hear tapping. Am I talking with someone? Is this an emergency?"
+          ],
+          "realizing_tap_code": [
+            "Are you at {address_location}? One tap yes, two no."
+          ],
+          "questioning": [
+            "Let's confirm your address. {address_location} — yes or no?"
+          ],
+          "location_found": [
+            "You're at {address_location}. Help is coming."
+          ],
+          "rescue_dispatched": [
+            "Rescuers are heading to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What happened? Can you tap to tell me?"
+          ],
+          "realizing_tap_code": [
+            "Are you injured? Can you move?"
+          ],
+          "questioning": [
+            "Is {specific_details}? Tap yes or no."
+          ],
+          "location_found": [
+            "We need to know: {specific_details}. Are you still conscious?"
+          ],
+          "rescue_dispatched": [
+            "Rescuers know about {specific_details}."
+          ]
+        }
+      },
+      "ESTABLISH_TAP_CODE": {
+        "score_delta": 60,
+        "transitions": {
+          "initial": "realizing_tap_code"
+        },
+        "responses": {
+          "initial": [
+            "If you can hear me, tap the phone once for yes, two for no. Can you do that?"
+          ],
+          "realizing_tap_code": [
+            "Good, I understand the taps. Let's work together."
+          ],
+          "questioning": [
+            "Keep using taps. Is anyone else with you?"
+          ],
+          "location_found": [
+            "Stay calm, keep tapping if you hear me."
+          ],
+          "rescue_dispatched": [
+            "You're doing great. Rescuers are on their way."
+          ]
+        }
+      },
+      "ASK_IF_TRAPPED": {
+        "score_delta": 40,
+        "transitions": {
+          "realizing_tap_code": "questioning"
+        },
+        "responses": {
+          "initial": [
+            "Are you trapped? Use the taps."
+          ],
+          "realizing_tap_code": [
+            "One tap if you're pinned. Are you unable to get out?"
+          ],
+          "questioning": [
+            "You are trapped. We'll get you out."
+          ],
+          "location_found": [
+            "We know you're trapped at {address_location}."
+          ],
+          "rescue_dispatched": [
+            "The fire department will free you."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 10,
+        "message": "Police arrive but lack extraction tools; they wait for fire rescue."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Firefighters use hydraulic tools to lift the debris and free the victim."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics treat the victim on scene for crush injuries and transport to hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control has no means to assist a trapped person; precious time is lost."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissed as a pocket dial; the trapped victim succumbs to injuries."
+      }
+    },
+    "id": "scenario_077",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Language Divide",
+    "description": "A Spanish-speaking caller reports a fire with children entrapped, speaking no English. The dispatcher uses basic phrases or an interpreter to understand the emergency.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "language_identified",
+      "using_interpreter",
+      "details_confirmed",
+      "fire_dispatched"
+    ],
+    "initial_variations": [
+      "¡Auxilio! ¡Fuego en la casa de {caller_name}!",
+      "Ayuda, ayuda, mis hijos... *llanto* Soy {caller_name}.",
+      "{caller_name} aquí. Necesito bomberos, ¡hay fuego en la cocina!"
+    ],
+    "slots": {
+      "caller_name": [
+        "María",
+        "Juan",
+        "Sofía",
+        "Carlos"
+      ],
+      "address_location": [
+        "1920 Calle Real",
+        "45 Avenida del Sol",
+        "700 Camino Verde",
+        "333 Plaza Mayor"
+      ],
+      "specific_details": [
+        "llamas en el segundo piso",
+        "niños atrapados en el dormitorio",
+        "humo denso saliendo de las ventanas",
+        "explosión en la cocina"
+      ],
+      "ambient_audio": [
+        "gritos y llantos de niños",
+        "crepitar de llamas",
+        "sirenas lejanas"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "¿Dónde está usted? Necesito la dirección."
+          ],
+          "language_identified": [
+            "Repita la dirección, por favor. ¿{address_location}?"
+          ],
+          "using_interpreter": [
+            "The interpreter asks: 'What is your street name?'"
+          ],
+          "details_confirmed": [
+            "You are at {address_location}, correct?"
+          ],
+          "fire_dispatched": [
+            "Fire trucks are coming to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "¿Qué tipo de emergencia? ¿Fuego, médico, policía?"
+          ],
+          "language_identified": [
+            "¿Hay personas atrapadas? ¿Niños?"
+          ],
+          "using_interpreter": [
+            "Interpreter: 'Are there people inside? How many?'"
+          ],
+          "details_confirmed": [
+            "So {specific_details}? Stay on the line."
+          ],
+          "fire_dispatched": [
+            "We've relayed {specific_details} to firefighters."
+          ]
+        }
+      },
+      "IDENTIFY_LANGUAGE": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "language_identified"
+        },
+        "responses": {
+          "initial": [
+            "¿Habla inglés? ¿Español? Un momento, por favor."
+          ],
+          "language_identified": [
+            "Español. Voy a conectar un intérprete."
+          ],
+          "using_interpreter": [
+            "Estamos usando un intérprete ahora."
+          ],
+          "details_confirmed": [
+            "La comunicación es buena. Entendemos la emergencia."
+          ],
+          "fire_dispatched": [
+            "El intérprete está ayudando a dar instrucciones."
+          ]
+        }
+      },
+      "ASK_IF_FIRE": {
+        "score_delta": 40,
+        "transitions": {
+          "language_identified": "using_interpreter"
+        },
+        "responses": {
+          "initial": [
+            "I hear panic. Fire? ¿Fuego?"
+          ],
+          "language_identified": [
+            "¿Es un fuego en su casa? ¿Sí o no?"
+          ],
+          "using_interpreter": [
+            "Interpreter confirms: a house fire with possible entrapment."
+          ],
+          "details_confirmed": [
+            "Yes, it's a confirmed fire. Help is coming."
+          ],
+          "fire_dispatched": [
+            "Fire rescue is on scene."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive quickly, secure the area, and assist with evacuation."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Firefighters arrive, suppress the blaze, and rescue two children from the second floor."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics treat smoke inhalation and minor burns."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control cannot respond to a fire; the building is engulfed."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed due to language misunderstanding; the house burns with children inside."
+      }
+    },
+    "id": "scenario_078",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Silent Scream",
+    "description": "A young child calls 911, too frightened to speak, only whimpering. The dispatcher coaxes yes/no answers to discover the child's mother has collapsed.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "coaxing_child",
+      "understanding_emergency",
+      "location_obtained",
+      "help_sent"
+    ],
+    "initial_variations": [
+      "*whimpering*... *soft crying*...",
+      "This... {caller_name}... mommy... *sobs*",
+      "*heavy breathing* Help... I'm {caller_name}... mommy won't wake up..."
+    ],
+    "slots": {
+      "caller_name": [
+        "Emma",
+        "Jacob",
+        "Olivia",
+        "Noah"
+      ],
+      "victim_name": [
+        "Mommy",
+        "Mom",
+        "Mama"
+      ],
+      "address_location": [
+        "22 Daisy Lane",
+        "104 Sunflower Court",
+        "89 Rosewood Avenue",
+        "17 Tulip Street"
+      ],
+      "specific_details": [
+        "mommy fell in the kitchen",
+        "mommy is on the floor and not moving",
+        "mommy's medicine spilled",
+        "mommy hit her head"
+      ],
+      "ambient_audio": [
+        "child whimpering",
+        "a television playing in the background",
+        "a persistent beeping sound"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Sweetheart, can you tell me where you live?"
+          ],
+          "coaxing_child": [
+            "If we're at {address_location}, can you cough once for me?"
+          ],
+          "understanding_emergency": [
+            "Is your home at {address_location}? Nod or make a sound."
+          ],
+          "location_obtained": [
+            "Okay, I know you're at {address_location}."
+          ],
+          "help_sent": [
+            "The ambulance is on its way to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What happened? Is your mommy okay?"
+          ],
+          "coaxing_child": [
+            "Did mommy fall? Can you tap the phone?"
+          ],
+          "understanding_emergency": [
+            "Is {specific_details}? Make a sound if that's right."
+          ],
+          "location_obtained": [
+            "We need to know: {specific_details}. Stay with me."
+          ],
+          "help_sent": [
+            "You told us {specific_details}. Help is almost there."
+          ]
+        }
+      },
+      "COAX_RESPONSE": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "coaxing_child"
+        },
+        "responses": {
+          "initial": [
+            "It's okay, you're safe. Can you make a sound if you can hear me?"
+          ],
+          "coaxing_child": [
+            "I hear you. That was very brave. Is someone hurt?"
+          ],
+          "understanding_emergency": [
+            "You're doing great. Keep making sounds for yes."
+          ],
+          "location_obtained": [
+            "Good job, {caller_name}. Help is coming."
+          ],
+          "help_sent": [
+            "{caller_name}, stay on the line. They're almost there."
+          ]
+        }
+      },
+      "ASK_IF_MOMMY_OKAY": {
+        "score_delta": 40,
+        "transitions": {
+          "coaxing_child": "understanding_emergency"
+        },
+        "responses": {
+          "initial": [
+            "Is mommy awake? Can you answer?"
+          ],
+          "coaxing_child": [
+            "Is {victim_name} sleeping? Tap once for yes."
+          ],
+          "understanding_emergency": [
+            "So mommy isn't waking up. We'll help her."
+          ],
+          "location_obtained": [
+            "We're sending help for {victim_name}."
+          ],
+          "help_sent": [
+            "{victim_name} will get help now. You're a hero."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 50,
+        "message": "Police arrive but are not medical; they secure the scene and call paramedics."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighter-paramedics revive the mother on the scene and transport her."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics quickly arrive, find the mother unconscious, and provide life-saving care."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control cannot treat a human emergency; the mother's condition worsens."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissed as a kid playing; the mother dies from an untreated diabetic emergency."
+      }
+    },
+    "id": "scenario_079",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Digital Voice",
+    "description": "A person with ALS uses a text-to-speech device to call 911 via relay service, reporting a critical breathing problem. The dispatcher must navigate the slow relay to dispatch help.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "relay_identified",
+      "info_exchange",
+      "emergency_confirmed",
+      "medics_dispatched"
+    ],
+    "initial_variations": [
+      "This is a relay call. {caller_name} needs help. Go ahead.",
+      "GA this is {caller_name}. I cannot breathe. Need help.",
+      "{caller_name} calling via TTY. Emergency. Respirator. Go ahead."
+    ],
+    "slots": {
+      "caller_name": [
+        "Stephen",
+        "Alice",
+        "Roger",
+        "Helen"
+      ],
+      "address_location": [
+        "903 Skyline Drive, Apt 4B",
+        "12 Horizon Circle",
+        "78 Cloudview Terrace",
+        "500 Summit Avenue, Unit 2"
+      ],
+      "specific_details": [
+        "ventilator alarm sounding",
+        "tracheostomy tube dislodged",
+        "oxygen level dropping",
+        "respiratory machine malfunction"
+      ],
+      "ambient_audio": [
+        "mechanical hissing",
+        "rhythmic beeping",
+        "labored breathing over a speaker"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "I need your location. Relay, please ask."
+          ],
+          "relay_identified": [
+            "{caller_name} says they are at {address_location}."
+          ],
+          "info_exchange": [
+            "Confirm your address: {address_location}."
+          ],
+          "emergency_confirmed": [
+            "We have location: {address_location}. Stay on TTY."
+          ],
+          "medics_dispatched": [
+            "Paramedics are en route to {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 25,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "What is the nature of the emergency?"
+          ],
+          "relay_identified": [
+            "Relay operator: {caller_name} types 'can't breathe'."
+          ],
+          "info_exchange": [
+            "Is it {specific_details}? Ask them."
+          ],
+          "emergency_confirmed": [
+            "Understood: {specific_details}. Help is coming."
+          ],
+          "medics_dispatched": [
+            "Medics are informed of {specific_details}."
+          ]
+        }
+      },
+      "IDENTIFY_RELAY": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "relay_identified"
+        },
+        "responses": {
+          "initial": [
+            "Is this a TTY or relay call? I'll wait for the message."
+          ],
+          "relay_identified": [
+            "I understand this is a relay. Go ahead with the translation."
+          ],
+          "info_exchange": [
+            "Keep the relay open. We're exchanging information."
+          ],
+          "emergency_confirmed": [
+            "The relay is working well. We have the emergency."
+          ],
+          "medics_dispatched": [
+            "Relay still connected. Medics dispatched."
+          ]
+        }
+      },
+      "ASK_IF_BREATHING_COMPROMISED": {
+        "score_delta": 40,
+        "transitions": {
+          "relay_identified": "info_exchange"
+        },
+        "responses": {
+          "initial": [
+            "Are they having trouble breathing?"
+          ],
+          "relay_identified": [
+            "Relay: {caller_name} says 'yes, severe'."
+          ],
+          "info_exchange": [
+            "We're sending help for breathing distress."
+          ],
+          "emergency_confirmed": [
+            "It's a respiratory emergency, confirmed."
+          ],
+          "medics_dispatched": [
+            "Rescue breathing team will handle this."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 30,
+        "message": "Police arrive and find the patient in distress; they call for an ambulance."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Firefighter-paramedics arrive, reattach the trach tube, and stabilize breathing."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "ALS paramedics respond quickly, manage the ventilator issue, and transport to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is of no use; the patient's breathing worsens."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Call dismissed as a faulty device; the patient suffers severe oxygen deprivation."
+      }
+    },
+    "id": "scenario_080",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Keypad Code",
+    "description": "A stroke victim calls 911 but can only produce garbled moans. The dispatcher teaches them to use the phone keypad to answer questions.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "establishing_contact",
+      "keypad_communication",
+      "location_obtained",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "(garbled moaning, then a thud) Uhnnn... uhhh... {ambient_audio}",
+      "{caller_name}... can't... talk... (heavy, labored breathing)",
+      "Nine... one... one... (slurred) he... lp... ple... ase... {ambient_audio}",
+      "(repetitive tapping noise)... {ambient_audio}... (frustrated groan)"
+    ],
+    "slots": {
+      "caller_name": [
+        "John",
+        "Margaret",
+        "David",
+        "Evelyn"
+      ],
+      "address_location": [
+        "123 Elm Street, Apt 4B",
+        "Maplewood Senior Living, Room 104",
+        "456 Oak Drive",
+        "789 Pine Avenue"
+      ],
+      "specific_details": [
+        "Front door is unlocked",
+        "Stroke history, medical alert bracelet",
+        "Wife is with him but she is disabled",
+        "Phone is on the floor on speaker"
+      ],
+      "ambient_audio": [
+        "a loud television",
+        "a smoke alarm beeping",
+        "dog barking in background",
+        "silence except for breathing"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": "(frustrated moaning)... uhn un uhn...",
+          "establishing_contact": "The caller makes a questioning grunt, then taps the phone.",
+          "keypad_communication": "The caller presses a series of keys, and the dispatcher hears what sounds like {address_location} spelled out via touch tones.",
+          "location_obtained": "A single beep confirms: {address_location}.",
+          "help_dispatched": "(muffled, relieved sigh) ... (beep)"
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": "(incoherent slurring) ... fl... oor...",
+          "establishing_contact": "One short beep. The dispatcher asks, 'Is the front door unlocked?' Another beep: {specific_details}.",
+          "keypad_communication": "The caller communicates via keypad: {specific_details}. {ambient_audio}.",
+          "location_obtained": "Keypad response indicates: {specific_details}.",
+          "help_dispatched": "(quiet tapping) ... (the caller seems calmer)"
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "establishing_contact",
+          "establishing_contact": "keypad_communication",
+          "keypad_communication": "location_obtained"
+        },
+        "responses": {
+          "initial": "(labored breathing) ... hrrr ... ugg ...",
+          "establishing_contact": "The phone emits two hesitant beeps, then a long pause.",
+          "keypad_communication": "The caller slowly taps: 1... 1... 1... (repeatedly, meaning 'I need help').",
+          "location_obtained": "A rapid double-beep confirms the caller understands help is coming.",
+          "help_dispatched": "(sounds of a door opening in the background) ... ahh ... (relief)"
+        }
+      },
+      "INSTRUCT_STAY_ON_LINE": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": "(unintelligible) ... nnng ...",
+          "establishing_contact": "A single beep acknowledges the instruction.",
+          "keypad_communication": "The caller presses and holds a key to maintain the line.",
+          "location_obtained": "Two confirmatory beeps; the caller is waiting.",
+          "help_dispatched": "The line stays open; faint sirens are heard in the background."
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Police arrive and force entry, finding the stroke victim and starting first aid until medics arrive."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Firefighters use a key under the mat to enter, providing immediate medical assistance."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics quickly locate the victim, administer clot-busting drugs, and transport to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Animal control arrives confused but alerts dispatch to the actual emergency."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a prank, delaying life-saving treatment."
+      }
+    },
+    "id": "scenario_081",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Foreign Distress Call",
+    "description": "A non-English speaking caller frantically reports a medical emergency. The dispatcher must use a language line or basic words to identify the situation and location.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "language_identified",
+      "using_translator",
+      "emergency_identified",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "(rapid, panicked Spanish) ¡Ayuda! ¡Mi {victim_relation} no respira! ¡Deprisa! {ambient_audio}",
+      "(crying in Mandarin) Wǒ de háizi... bù dòng le... (shouting, a child screaming in background)",
+      "{caller_name}... français... besoin d'aide... (heavy breathing) dans... la rue... (garbled address attempt)",
+      "(fearful Somali) Caawimaad! Guri dab kacay! {ambient_audio}"
+    ],
+    "slots": {
+      "caller_name": [
+        "Maria",
+        "Ahmed",
+        "Yuki",
+        "Olga"
+      ],
+      "victim_relation": [
+        "hermano",
+        "mama",
+        "child",
+        "babushka"
+      ],
+      "address_location": [
+        "1500 Oak Avenue, near the red mailbox",
+        "corner of 5th and Main, by the fountain",
+        "blue house at the end of Harbor Lane",
+        "the building with the blue door on 42nd Street"
+      ],
+      "specific_details": [
+        "man having seizure",
+        "child not breathing",
+        "kitchen fire spreading",
+        "elderly woman fell down stairs, bleeding"
+      ],
+      "ambient_audio": [
+        "fire alarm sounding",
+        "gasping breaths",
+        "crying child",
+        "loud crash"
+      ],
+      "language_detected": [
+        "Spanish",
+        "Mandarin",
+        "French",
+        "Somali"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": "(frustrated) No English... por favor... (repeats request for help in native language)",
+          "language_identified": "(in broken English) I... at... {address_location}... (repeats street number slowly)",
+          "using_translator": "Translator relays: 'The address is {address_location}. The caller is outside the location.'",
+          "emergency_identified": "I stay at {address_location}.",
+          "help_dispatched": "Gracias... sirenas... I hear them."
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": "(fast foreign speech) ... {victim_relation} ... !",
+          "language_identified": "(struggling) Mi {victim_relation} ... no breathe ... (gesticulates, describing {specific_details})",
+          "using_translator": "Through translator: 'It is {specific_details}. The {victim_relation} needs help now.'",
+          "emergency_identified": "The caller confirms: {specific_details}.",
+          "help_dispatched": "(breathing heavily) ... tell them ... hurry ..."
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "language_identified",
+          "language_identified": "using_translator",
+          "using_translator": "emergency_identified"
+        },
+        "responses": {
+          "initial": "(panicked) I... fine... but... (points to victim)",
+          "language_identified": "Estoy bien, pero mi {victim_relation} ... mal.",
+          "using_translator": "Translator says: 'Caller is safe but very worried. The {victim_relation} is {specific_details}.'",
+          "emergency_identified": "Caller is staying calm and following instructions.",
+          "help_dispatched": "I'm okay... I wave to the ambulance..."
+        }
+      },
+      "CONFIRM_EMERGENCY": {
+        "score_delta": 10,
+        "transitions": {
+          "emergency_identified": "help_dispatched"
+        },
+        "responses": {
+          "initial": "(unintelligible) ... sí ... fire ...",
+          "language_identified": "Sí, emergencia médica!",
+          "using_translator": "Translator: 'Yes, this is a medical emergency.'",
+          "emergency_identified": "Yes, yes, please dispatch now.",
+          "help_dispatched": "They are here. I see lights."
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive first and provide crowd control, allowing medics to work."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Firefighters respond to the reported fire and extinguish it quickly."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics arrive, treat the seizure, and transport the victim to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Animal control is dispatched instead of medics, wasting critical time."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a prank, leaving the victim without help."
+      }
+    },
+    "id": "scenario_082",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Silent Text",
+    "description": "A deaf individual uses a TTY system to report a home invasion. The dispatcher must communicate via text to keep them safe and gather details silently.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "establishing_text",
+      "gathering_info",
+      "silent_confirmation",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "HELP. MAN IN HOUSE. CANNOT SPEAK. DEAF. PLS SND POLICE. {ambient_audio}",
+      "{caller_name} here. Someone broke in. I'm hiding. Can't talk. Text only.",
+      "911? My house is being robbed. I'm deaf, typing on TTY. Please hurry.",
+      "INTRUDER HERE. {ambient_audio}. I'm in closet. PLS QUICK."
+    ],
+    "slots": {
+      "caller_name": [
+        "Alice",
+        "Frank",
+        "Nadia",
+        "George"
+      ],
+      "address_location": [
+        "555 Birch Lane",
+        "Apartment 3C, 1200 Park View",
+        "789 River Road, trailer 12",
+        "66 High Street, above the bakery"
+      ],
+      "specific_details": [
+        "intruder has a knife",
+        "broke through back window",
+        "wearing a ski mask",
+        "heard gunshots downstairs"
+      ],
+      "ambient_audio": [
+        "glass shattering",
+        "footsteps upstairs",
+        "voices arguing",
+        "dog barking frantically"
+      ],
+      "victim_status": [
+        "hiding in a locked bathroom",
+        "in a closet under the stairs",
+        "behind a couch in the living room",
+        "in the basement, behind boxes"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": "Can't say address loud. Typing: {address_location}.",
+          "establishing_text": "My location: {address_location}. Please come now.",
+          "gathering_info": "Yes, that's right. {address_location}.",
+          "silent_confirmation": "Still here at {address_location}. Intruder still inside.",
+          "help_dispatched": "I see police lights. I'm at {address_location}."
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": "ONE MAN. {specific_details}.",
+          "establishing_text": "He has {specific_details}. I'm {victim_status}.",
+          "gathering_info": "Yes, {specific_details}. He's in the living room.",
+          "silent_confirmation": "Still same. He's going through drawers.",
+          "help_dispatched": "He doesn't know I called. He's still here."
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "establishing_text",
+          "establishing_text": "gathering_info",
+          "gathering_info": "silent_confirmation"
+        },
+        "responses": {
+          "initial": "I'm scared. Can't talk. Text please.",
+          "establishing_text": "I'm hiding in {victim_status}. He hasn't seen me.",
+          "gathering_info": "I'm okay for now, but please hurry.",
+          "silent_confirmation": "Still safe. But I hear him coming closer.",
+          "help_dispatched": "I'm safe. Police are here. Thank you."
+        }
+      },
+      "INSTRUCT_STAY_SILENT": {
+        "score_delta": 10,
+        "transitions": {},
+        "responses": {
+          "initial": "OK. I'll be quiet.",
+          "establishing_text": "I understand. I won't make a sound.",
+          "gathering_info": "Breathing slowly. No noise.",
+          "silent_confirmation": "... (no reply; caller is staying quiet)",
+          "help_dispatched": "I'm silent. Waiting for officers."
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police arrive quietly and apprehend the intruder before anyone is hurt."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive with sirens blaring, causing the intruder to flee but possibly harming the caller."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "An ambulance with flashing lights alerts the intruder, who flees the scene but the caller remains traumatized."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is dispatched to a break-in, allowing the intruder to escape with valuables."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a silent line, and the intruder is never caught, leaving the caller in danger."
+      }
+    },
+    "id": "scenario_083",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Hidden Cry",
+    "description": "A domestic abuse victim calls 911 but can only whisper for fear of being overheard. The dispatcher must ask yes/no questions and use background noises to locate them.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "whispered_responses",
+      "addressing_questions",
+      "location_narrowed",
+      "officers_dispatched"
+    ],
+    "initial_variations": [
+      "(very quiet) Please... he's here... I can't talk. {ambient_audio}... (sobbing)",
+      "{caller_name}... help... he's in the next room... (faint footsteps)",
+      "(barely audible) My husband... he has a gun. I'm hiding... (whimper) {ambient_audio}",
+      "(whispered) 911? I need police. I can't speak up. He'll hear me. (soft crying)"
+    ],
+    "slots": {
+      "caller_name": [
+        "Lisa",
+        "Sarah",
+        "Amanda",
+        "Rachel"
+      ],
+      "address_location": [
+        "1345 Meadow Lane",
+        "88 Oakwood Drive, 2-story white house",
+        "Apartment 4B, Greenfield Apartments",
+        "10 Rose Avenue, yellow house with fence"
+      ],
+      "specific_details": [
+        "husband is drunk and violent",
+        "abuser has a knife",
+        "locked herself in bathroom",
+        "children are in the next room"
+      ],
+      "ambient_audio": [
+        "a man yelling in the background",
+        "glass breaking",
+        "door slamming",
+        "baby crying"
+      ],
+      "victim_condition": [
+        "arm is broken",
+        "has a black eye",
+        "bleeding from head",
+        "bruised ribs"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": "(whisper) I'm at {address_location}. Please don't let him see the police.",
+          "whispered_responses": "Yes, {address_location}. The white house with red door.",
+          "addressing_questions": "Apartment 4B, Greenfield. At the back.",
+          "location_narrowed": "I'll open the side door when I hear the siren.",
+          "officers_dispatched": "I see them. Lighting a lamp in the window."
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": "(shaky) He has {specific_details}.",
+          "whispered_responses": "{specific_details}. He already hurt me. I'm {victim_condition}.",
+          "addressing_questions": "Yes, he's still in the living room. I'm in the bathroom.",
+          "location_narrowed": "He's quiet now. Listening to TV. I think he's calmed down.",
+          "officers_dispatched": "They are here. He didn't notice."
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "whispered_responses",
+          "whispered_responses": "addressing_questions",
+          "addressing_questions": "location_narrowed"
+        },
+        "responses": {
+          "initial": "(softly) I'm hurt... my {victim_condition}. But I can still talk.",
+          "whispered_responses": "I'm scared but I'm hiding. He doesn't know.",
+          "addressing_questions": "I'm okay for now. Please hurry.",
+          "location_narrowed": "I'm staying quiet. I won't hang up.",
+          "officers_dispatched": "I'm safe! They got him."
+        }
+      },
+      "CONFIRM_OFFICER_APPROACH": {
+        "score_delta": 10,
+        "transitions": {
+          "location_narrowed": "officers_dispatched"
+        },
+        "responses": {
+          "initial": "(whisper) Tell them to come to the side door...",
+          "whispered_responses": "Side door is open. Please, guns away, there are kids.",
+          "addressing_questions": "Yes, officers at the side. Thank you.",
+          "location_narrowed": "They are coming in quietly. He is yelling now.",
+          "officers_dispatched": "Arrested! He's in cuffs."
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Police enter silently through the side door and arrest the abuser without incident."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Firefighters arrive with sirens, alerting the abuser who barricades himself, prolonging the danger."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -100,
+        "message": "An ambulance arrives, startling the abuser and leading to a brief standoff before police are called."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is mistakenly sent, and the abuser escalates the violence upon seeing them."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The dispatcher dismisses the whisper as a prank, and the victim suffers further harm."
+      }
+    },
+    "id": "scenario_084",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Silent Pendant",
+    "description": "An automated medical alert system activates and calls 911, but the subscriber cannot respond. The dispatcher must use the system's two-way voice feature or rely on the alert data to dispatch.",
+    "difficulty": "Easy",
+    "states": [
+      "initial",
+      "automated_message",
+      "attempting_two_way",
+      "voice_contact",
+      "help_dispatched"
+    ],
+    "initial_variations": [
+      "Medical Alert: This is an automated call from {caller_name}'s pendant. Press 1 to connect. (beep)",
+      "Alert: Fall detected at subscriber {caller_name}. No voice response. (silence) {ambient_audio}",
+      "Automated call from Lifeline. Subscriber may need help. Press 1 for live voice. (wait)",
+      "Alert: Medical emergency. {caller_name} has not responded. Please dispatch. {ambient_audio}"
+    ],
+    "slots": {
+      "caller_name": [
+        "Mrs. Johnson",
+        "Mr. Thompson",
+        "Mrs. Lee",
+        "Mr. Garcia"
+      ],
+      "address_location": [
+        "Safety Alert Inc., 200 Hillcrest Drive",
+        "Lifeline at 555 Granite Road",
+        "HomeSafe account 4040, 789 Willow Way",
+        "MedicalGuard 101, 1234 Oak Park"
+      ],
+      "specific_details": [
+        "fall detected in living room",
+        "panic button pressed",
+        "no movement for 12 hours",
+        "carbon monoxide detected"
+      ],
+      "ambient_audio": [
+        "a television playing loudly",
+        "a dog whimpering",
+        "silence",
+        "a smoke alarm chirping"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": "The system states the address: {address_location}.",
+          "automated_message": "The automated system repeats: {address_location}. Do you need to confirm?",
+          "attempting_two_way": "Two-way audio: 'This is Lifeline, location is {address_location}.'",
+          "voice_contact": "The caller groans, '...{address_location}...'",
+          "help_dispatched": "The address is confirmed: {address_location}."
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": "The alert type is: {specific_details}.",
+          "automated_message": "{specific_details}. Additional info: {ambient_audio}.",
+          "attempting_two_way": "The speaker crackles: '{specific_details} reported.'",
+          "voice_contact": "(weak voice) I... I fell. {specific_details}.",
+          "help_dispatched": "Caller confirms: {specific_details}."
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "automated_message",
+          "automated_message": "attempting_two_way",
+          "attempting_two_way": "voice_contact"
+        },
+        "responses": {
+          "initial": "The pendant reports: 'Subscriber unresponsive.'",
+          "automated_message": "No verbal response after repeated prompts.",
+          "attempting_two_way": "We're connecting to the two-way speaker now.",
+          "voice_contact": "(faint) Help... I can't move... I hear you.",
+          "help_dispatched": "Caller is now talking to responders."
+        }
+      },
+      "ACTIVATE_TWO_WAY": {
+        "score_delta": 40,
+        "transitions": {
+          "attempting_two_way": "voice_contact"
+        },
+        "responses": {
+          "initial": "(beep) Two-way voice feature not yet active.",
+          "automated_message": "Press 1 to activate two-way voice... (system waits).",
+          "attempting_two_way": "Two-way active. 'Is anyone there?'",
+          "voice_contact": "(clearer voice) Yes, I'm here. I can hear you.",
+          "help_dispatched": "Two-way remains open for updates."
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 100,
+        "message": "Police arrive and find the subscriber on the floor, administering first aid until medics arrive."
+      },
+      "SEND_FIRE": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Firefighters use the lockbox code to enter and assist the fallen subscriber."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Paramedics quickly arrive and treat the fall victim, transporting to the hospital."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "MINOR_ERROR",
+        "score_delta": -50,
+        "message": "Animal control is mistakenly sent, but redirects to the correct service after seeing the alert."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The alert is dismissed as a false alarm, leaving the subscriber unaided for hours."
+      }
+    },
+    "id": "scenario_085",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Gagged Informant",
+    "description": "A home invasion victim is bound and gagged but manages to dial 911, producing only muffled noises.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "confirming_emergency",
+      "gathering_location",
+      "police_dispatched"
+    ],
+    "initial_variations": [
+      "Mmph... mmph! (muffled screams and banging sounds)",
+      "{caller_name} tries to speak but only gagged grunts come through.",
+      "Heavy breathing and muffled cries from {caller_name}.",
+      "Struggling sounds, then a faint '911, help...' cut off by gagging."
+    ],
+    "slots": {
+      "address_location": [
+        "123 Elm Street, Apartment 4B",
+        "789 Oak Avenue",
+        "455 Pine Road, Greenfield"
+      ],
+      "caller_name": [
+        "John",
+        "Maria",
+        "Alex"
+      ],
+      "specific_details": [
+        "tied to a chair in the bedroom",
+        "duct tape over mouth",
+        "intruders are still inside",
+        "left on the floor in the closet"
+      ],
+      "ambient_audio": [
+        "muffled shouts",
+        "footsteps in the background",
+        "a door slamming"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "confirming_emergency",
+          "confirming_emergency": "gathering_location"
+        },
+        "responses": {
+          "initial": [
+            "Mmph... (tapping sounds, as if pointing to something) {address_location}... Muffled attempt to say the address."
+          ],
+          "confirming_emergency": [
+            "Uh-huh... trying to spell {address_location} by tapping numbers or objects.",
+            "Desperate grunts and a muffled '{address_location}'."
+          ],
+          "gathering_location": [
+            "Firm grunt of confirmation when {address_location} is repeated back.",
+            "Sounds of movement toward a window to show {address_location}."
+          ],
+          "police_dispatched": [
+            "Quiet sobbing of relief. Police can confirm {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Muffled description: {specific_details}. {ambient_audio} in background."
+          ],
+          "confirming_emergency": [
+            "Grunt for yes, {specific_details}. {ambient_audio}.",
+            "Straining against restraints: {specific_details}."
+          ],
+          "gathering_location": [
+            "Still bound, {specific_details}. {ambient_audio} continues.",
+            "Whimpering: {specific_details}."
+          ],
+          "police_dispatched": [
+            "Sounds of sirens approaching. {ambient_audio} fading."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "confirming_emergency"
+        },
+        "responses": {
+          "initial": [
+            "Labored breathing and gagged sounds; clearly in distress."
+          ],
+          "confirming_emergency": [
+            "Trying to communicate they are injured but alive: {specific_details}."
+          ],
+          "gathering_location": [
+            "Indicates they are still tied up: {specific_details}."
+          ],
+          "police_dispatched": [
+            "Relieved, but still restrained until officers arrive."
+          ]
+        }
+      },
+      "ASK_EMERGENCY_TYPE": {
+        "score_delta": 40,
+        "transitions": {
+          "confirming_emergency": "gathering_location"
+        },
+        "responses": {
+          "initial": [
+            "Muffled screaming and sounds of a struggle."
+          ],
+          "confirming_emergency": [
+            "Grunts and attempts to say 'intruder' or 'help' through the gag."
+          ],
+          "gathering_location": [
+            "Confirms it's a home invasion: {specific_details}."
+          ],
+          "police_dispatched": [
+            "No further information needed; emergency is confirmed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 200,
+        "message": "Police arrive and apprehend the intruders, freeing the victim."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Firefighters arrive but are not equipped for a home invasion."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Paramedics treat the victim for minor injuries after police secure the scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -150,
+        "message": "Animal control is unable to assist with a home invasion."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "The call is dismissed as a prank; the victim remains in danger."
+      }
+    },
+    "id": "scenario_086",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Interpreter Call",
+    "description": "A non-English speaker frantically calls about a medical emergency but cannot communicate the problem.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "language_identified",
+      "interpreter_connected",
+      "medical_dispatch"
+    ],
+    "initial_variations": [
+      "{caller_name} shouts in a foreign language, then switches to broken English: 'Help! He not breathe!'",
+      "Fast, panicked speech in an unfamiliar language, with the word 'Hospital' repeated.",
+      "A woman cries in {caller_name}'s native tongue, the only recognizable word is 'heart'.",
+      "{caller_name} says 'Ambulanza! Per favore!' repeatedly, sobbing."
+    ],
+    "slots": {
+      "address_location": [
+        "10 Via Roma, Little Italy",
+        "200 Hauptstraße, German District",
+        "5 Rue de la Paix, French Quarter"
+      ],
+      "caller_name": [
+        "Giovanni",
+        "Klaus",
+        "Marie",
+        "Hiroshi"
+      ],
+      "specific_details": [
+        "chest pain and sweating",
+        "unconscious and not breathing",
+        "severe allergic reaction",
+        "fall from a ladder"
+      ],
+      "victim_relation": [
+        "my father",
+        "my husband",
+        "my child",
+        "my coworker"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Repeats '{address_location}' with heavy accent and stress."
+          ],
+          "language_identified": [
+            "Slowly spells out street name in {address_location}.",
+            "Says '{address_location}' more clearly after realizing the need."
+          ],
+          "interpreter_connected": [
+            "Gives {address_location} fluently through interpreter."
+          ],
+          "medical_dispatch": [
+            "Confirms {address_location} and waits outside for ambulance."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Mix of native language and English: '{specific_details}.' Points to {victim_relation}."
+          ],
+          "language_identified": [
+            "Uses hand gestures and broken words: '{specific_details}.'"
+          ],
+          "interpreter_connected": [
+            "Explains clearly: {specific_details} happening to {victim_relation}."
+          ],
+          "medical_dispatch": [
+            "Repeats {specific_details} to ensure medics are prepared."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "In panic, repeats 'Aiuto! I am scared, I cannot help him.'"
+          ],
+          "language_identified": [
+            "Shaky voice: 'I try to help {victim_relation} but I don't know how.'"
+          ],
+          "interpreter_connected": [
+            "Relieved but still anxious: 'Please hurry, {victim_relation} is {specific_details}.'"
+          ],
+          "medical_dispatch": [
+            "Crying with relief: 'Thank you, they are coming.'"
+          ]
+        }
+      },
+      "ASK_LANGUAGE": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "language_identified",
+          "language_identified": "interpreter_connected"
+        },
+        "responses": {
+          "initial": [
+            "Silence, then repeated words in foreign language: 'Non capisco... Italiano.'"
+          ],
+          "language_identified": [
+            "Nodding or saying 'Si' when correct language is guessed."
+          ],
+          "interpreter_connected": [
+            "Immediately starts speaking in native tongue to the interpreter."
+          ],
+          "medical_dispatch": [
+            "No longer a barrier; interpreter facilitates final instructions."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Police arrive but are not medical professionals."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Firefighters can provide first aid but not definitive care."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 250,
+        "message": "Paramedics arrive and treat the patient after using their own translation resources."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is useless for a medical emergency."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing the call leaves a person in life-threatening condition."
+      }
+    },
+    "id": "scenario_087",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Silent Breath",
+    "description": "A caller suffering a severe asthma attack can only breathe heavily into the phone, unable to speak.",
+    "difficulty": "Hard",
+    "states": [
+      "initial",
+      "breathing_assessment",
+      "location_trace",
+      "ambulance_dispatched"
+    ],
+    "initial_variations": [
+      "Heavy, labored breathing with occasional wheezing. A faint whisper: 'Help...'",
+      "{caller_name} gasps for air, the sound of an inhaler being used without relief.",
+      "Rapid, shallow breaths and desperate coughs from {caller_name}.",
+      "The sound of someone struggling to breathe, a thud as they drop the phone."
+    ],
+    "slots": {
+      "address_location": [
+        "15 Breath Street, Aspen",
+        "42 Windy Lane, Breezetown",
+        "88 Lung Avenue, Smog City"
+      ],
+      "caller_name": [
+        "Elena",
+        "David",
+        "Sam"
+      ],
+      "specific_details": [
+        "asthma attack, inhaler empty",
+        "allergic reaction causing airway swelling",
+        "panic attack impairing speech",
+        "COPD flare-up"
+      ],
+      "ambient_audio": [
+        "wheezing",
+        "coughing",
+        "the sound of an empty inhaler",
+        "a dog barking nearby"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {
+          "initial": "breathing_assessment",
+          "breathing_assessment": "location_trace"
+        },
+        "responses": {
+          "initial": [
+            "Gasping attempts to say '{address_location}' between breaths."
+          ],
+          "breathing_assessment": [
+            "Weakly taps the phone or tries to spell out street: {address_location}."
+          ],
+          "location_trace": [
+            "Exhales heavily when {address_location} is correctly repeated."
+          ],
+          "ambulance_dispatched": [
+            "Exhausted whisper: 'Yes... {address_location}.'"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Wheezes and {ambient_audio}. Gestures toward inhaler but cannot explain."
+          ],
+          "breathing_assessment": [
+            "Points to specific_details: {specific_details}.",
+            "Coughs and indicates {specific_details}."
+          ],
+          "location_trace": [
+            "Still struggling, {specific_details}. {ambient_audio} continues."
+          ],
+          "ambulance_dispatched": [
+            "Whispering that they have {specific_details} and {ambient_audio}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {
+          "initial": "breathing_assessment"
+        },
+        "responses": {
+          "initial": [
+            "Can only manage a few words: 'Can't... breathe...'."
+          ],
+          "breathing_assessment": [
+            "Shakes head or gasps 'worse' when asked if it's improving."
+          ],
+          "location_trace": [
+            "Clearly in respiratory distress, {specific_details}."
+          ],
+          "ambulance_dispatched": [
+            "Slightly calmer but still struggling: 'thank you...'."
+          ]
+        }
+      },
+      "ASK_MEDICAL_HISTORY": {
+        "score_delta": 40,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Tries to say 'asthma' or 'allergy' but mostly wheezing."
+          ],
+          "breathing_assessment": [
+            "Holds up empty inhaler or points to medical bracelet."
+          ],
+          "location_trace": [
+            "Nods when asked about {specific_details}."
+          ],
+          "ambulance_dispatched": [
+            "Whispers key medical info: {specific_details}."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Police arrive but are not equipped to treat respiratory emergencies."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 50,
+        "message": "Firefighters provide oxygen and basic airway management until paramedics arrive."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Paramedics administer bronchodilators and oxygen, stabilizing the caller."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control cannot handle a medical emergency."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing as a prank leaves the caller without help."
+      }
+    },
+    "id": "scenario_088",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Floral Code",
+    "description": "A domestic abuse victim calls a flower shop number but is actually a coded distress call to 911.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "order_placement",
+      "code_detected",
+      "police_informed"
+    ],
+    "initial_variations": [
+      "Hi, I'd like to order a dozen roses. But I need the special arrangement... the one my husband doesn't know about.",
+      "{caller_name} says: 'Can I get a bouquet for my anniversary? The recipient is my wife, but she's not feeling well, so be discreet.'",
+      "This is {caller_name}. I'd like to order the 'emergency lily' arrangement. Do you have that?",
+      "I want the 'safety' bouquet. Please deliver to the usual place, but hurry."
+    ],
+    "slots": {
+      "address_location": [
+        "10 Victim Lane, Safehaven",
+        "34 Haven Street, Retreat",
+        "78 Shelter Avenue, Hideaway"
+      ],
+      "caller_name": [
+        "Claire",
+        "Maya",
+        "Sophia"
+      ],
+      "victim_name": [
+        "my child",
+        "my mother",
+        "myself"
+      ],
+      "specific_details": [
+        "roses with a 'help me' note",
+        "lilies for an emergency",
+        "daisies signaling a code red",
+        "the 'safe escape' arrangement"
+      ],
+      "abuser_present": [
+        "my husband is in the next room",
+        "he's holding me here",
+        "I can't speak freely"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Whispers {address_location}, pretending it's the delivery address."
+          ],
+          "order_placement": [
+            "Repeats {address_location} as if confirming flower delivery."
+          ],
+          "code_detected": [
+            "Quietly confirms {address_location} is where help is needed."
+          ],
+          "police_informed": [
+            "Exhales: 'They know {address_location}. Please hurry.'"
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {
+          "initial": "order_placement",
+          "order_placement": "code_detected"
+        },
+        "responses": {
+          "initial": [
+            "Hesitates, then says: 'I want {specific_details}.'"
+          ],
+          "order_placement": [
+            "Lowers voice: 'Make sure it's {specific_details}, okay? And {abuser_present}.'"
+          ],
+          "code_detected": [
+            "Admits it's a distress code: {specific_details} means danger."
+          ],
+          "police_informed": [
+            "Details already given: {specific_details} and {abuser_present}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Tense: 'I'm fine, just need those flowers.'"
+          ],
+          "order_placement": [
+            "Strained: 'I can't talk long, {abuser_present}.'"
+          ],
+          "code_detected": [
+            "Whispering: 'He'll hurt {victim_name} if he knows I called.'"
+          ],
+          "police_informed": [
+            "Relieved but scared: 'They're on the way? I'll stay on.'"
+          ]
+        }
+      },
+      "ASK_ORDER_TYPE": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "order_placement"
+        },
+        "responses": {
+          "initial": [
+            "Carefully: 'The special {specific_details}. The one for emergencies.'"
+          ],
+          "order_placement": [
+            "Insisting: 'It has to be the {specific_details} arrangement.'"
+          ],
+          "code_detected": [
+            "Explains it's a prearranged signal: '{specific_details} means send police.'"
+          ],
+          "police_informed": [
+            "No further order needed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police recognize the code and respond, arresting the abuser."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Firefighters arrive but are not needed for a domestic disturbance."
+      },
+      "SEND_MEDICAL": {
+        "status": "MINOR_ERROR",
+        "score_delta": 50,
+        "message": "Paramedics assist if injuries are present, but police are primary."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is out of place."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing as a misdial leaves the victim in danger."
+      }
+    },
+    "id": "scenario_089",
+    "archetype": "Communication Barrier"
+  },
+  {
+    "title": "The Mute Witness",
+    "description": "A witness to a violent crime is unable to speak due to a medical condition and uses a text relay service to call 911.",
+    "difficulty": "Medium",
+    "states": [
+      "initial",
+      "relay_explanation",
+      "message_received",
+      "police_en_route"
+    ],
+    "initial_variations": [
+      "This is the relay service. I have {caller_name} on the line. They are typing: 'I witnessed a crime at'...",
+      "Hello? This is a TTY call. {caller_name} is deaf and typing: 'Emergency! Stabbing outside my window.'",
+      "Relay operator speaking for {caller_name}: 'Help, someone is being attacked. I am...'",
+      "{caller_name} is using a text-to-911 service: 'Shooting nearby. Send police.'"
+    ],
+    "slots": {
+      "address_location": [
+        "2 Witness Way, Downtown",
+        "99 Crime Scene Ave, Urbanville",
+        "45 Alley Street, Backlot"
+      ],
+      "caller_name": [
+        "Alice",
+        "Bob",
+        "Charlie"
+      ],
+      "specific_details": [
+        "a man with a knife",
+        "a carjacking in progress",
+        "a group fight with weapons",
+        "a hit and run"
+      ],
+      "ambient_audio": [
+        "shouting in the background",
+        "glass breaking",
+        "gunshots",
+        "a car speeding away"
+      ]
+    },
+    "intents": {
+      "ASK_LOCATION": {
+        "score_delta": 50,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Relay types: 'The caller says they are at {address_location}.'"
+          ],
+          "relay_explanation": [
+            "Relay confirms: 'Address is {address_location}. Do you need cross streets?'"
+          ],
+          "message_received": [
+            "Already given: {address_location}."
+          ],
+          "police_en_route": [
+            "Caller is watching from window at {address_location}."
+          ]
+        }
+      },
+      "ASK_DETAILS": {
+        "score_delta": 30,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Relay reads: '{specific_details}. I can hear {ambient_audio}.'"
+          ],
+          "relay_explanation": [
+            "Types more: 'Yes, {specific_details}. Also, {ambient_audio}.'"
+          ],
+          "message_received": [
+            "Details confirmed: {specific_details} with {ambient_audio}."
+          ],
+          "police_en_route": [
+            "Situation unchanged: {specific_details}."
+          ]
+        }
+      },
+      "ASK_CALLER_STATUS": {
+        "score_delta": 20,
+        "transitions": {},
+        "responses": {
+          "initial": [
+            "Relay: 'Caller is safe but scared. They are hiding.'"
+          ],
+          "relay_explanation": [
+            "Caller indicates they are in a secure location."
+          ],
+          "message_received": [
+            "Still hiding, but anxious."
+          ],
+          "police_en_route": [
+            "Relieved that help is coming."
+          ]
+        }
+      },
+      "ASK_CRIME_TYPE": {
+        "score_delta": 40,
+        "transitions": {
+          "initial": "message_received"
+        },
+        "responses": {
+          "initial": [
+            "Relay: 'The caller says it's {specific_details}.'"
+          ],
+          "relay_explanation": [
+            "Adds: 'It looks like {specific_details}.'"
+          ],
+          "message_received": [
+            "Crime type confirmed: {specific_details}."
+          ],
+          "police_en_route": [
+            "No further details needed."
+          ]
+        }
+      }
+    },
+    "dispatch_outcomes": {
+      "SEND_POLICE": {
+        "status": "SUCCESS",
+        "score_delta": 300,
+        "message": "Police respond quickly based on relay details and catch the perpetrator."
+      },
+      "SEND_FIRE": {
+        "status": "MINOR_ERROR",
+        "score_delta": 0,
+        "message": "Firefighters are not needed for a crime in progress unless there's fire."
+      },
+      "SEND_MEDICAL": {
+        "status": "SUCCESS",
+        "score_delta": 150,
+        "message": "Paramedics treat any injured victims at the scene."
+      },
+      "ANIMAL_CONTROL": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -200,
+        "message": "Animal control is irrelevant."
+      },
+      "DISMISS": {
+        "status": "CRITICAL_FAILURE",
+        "score_delta": -300,
+        "message": "Dismissing as a prank call leads to a failure to intervene in a violent crime."
+      }
+    },
+    "id": "scenario_090",
+    "archetype": "Communication Barrier"
+  }
+]

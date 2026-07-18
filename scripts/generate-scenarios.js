@@ -8,22 +8,19 @@ const SCENARIOS_FILE = path.join(DATA_DIR, 'scenarios.json');
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 const SEED_FILE = path.join(DATA_DIR, 'seed_scenarios.json');
 
-// Archetypes definition (11 archetypes, 20 scenarios each = 220 total)
+// FINAL RUN ARCHETYPES (8 Streamlined Categories)
 const ARCHETYPES = [
-  'Life-Threatening Emergency',
-  'Low-Priority / Non-Emergency',
-  'Prank / Hoax Call',
-  'Ambiguous / Code Call',
-  'Psychological / Delusional Call',
-  'Communication Barrier',
-  'Animal Chaos',
-  'Pocket Dial / Open Line',
-  'Automated / Sensor Emergency',
-  'Suspicious / Probing Call',
-  'Absurd Entitlement Call'
+  'Life-Threatening Emergency',      // Urgent life/death calls (includes automated sensors/alarms)
+  'Low-Priority / Non-Emergency',    // Civil complaints, noise, and absurd customer complaints
+  'Prank / Hoax Call',               // Malicious, fake, or childish calls that should be dismissed
+  'Ambiguous / Code Call',           // Duress calls using pizza order codes or domestic violence signals
+  'Psychological / Delusional Call', // Psychiatric crises requiring de-escalation/medical
+  'Communication Barrier',           // Stroke, non-English, or touch-tone checks
+  'Pocket Dial / Open Line',         // Open mic lines where player must listen to background events
+  'Animal Chaos'                     // Bears, cows, and dangerous wildlife needing animal control
 ];
 
-const SCENARIOS_PER_ARCHETYPE = 20;
+const SCENARIOS_PER_ARCHETYPE = 15;
 const BATCH_SIZE = 5; // Generate 5 scenarios at a time to stay within limits and avoid timeouts
 
 // Retrieve API Key
@@ -279,23 +276,131 @@ async function generateBatch(apiKey, archetype, count, existingTitles = []) {
 Each scenario must be unique, with realistic dialogues and outcomes.
 Do NOT generate any of the following already existing titles for this archetype: ${JSON.stringify(existingTitles)}.
 
-You must return a JSON object with a single key "scenarios" containing the array of generated scenarios. Each scenario in the array must follow the specified structure.
+You must return a JSON object with a single key "scenarios" containing the array of generated scenarios. Each scenario in the array must strictly match the following JSON Schema structure.
 
-Make sure:
-1. Define a "states" map for each scenario containing at least 3-4 logical states: "initial" (the starting state) and others appropriate for the scenario (e.g. "hiding", "evacuated", "confronting", "secured").
-2. "initial_variations" contains exactly 3-4 phrasings representing different emotional states of the caller in the "initial" state.
-3. The initial variations and intents MUST contain slot variables enclosed in curly braces like {caller_name}, {victim_relation}, {address_location}, {ambient_audio}, {specific_details}.
-4. Define 3-5 distinct slots (e.g. caller_name, victim_relation, address_location, ambient_audio, specific_details) with 3-5 options each.
-5. In "intents", define state-aware mapped responses for player queries (ASK_LOCATION, ASK_DETAILS, etc.). For each intent, specify the "score_delta", any state "transitions" (e.g. {"initial": "hiding"} if the instruction changes the caller's action/posture), and the "responses" mapped for each valid state name (e.g. {"initial": ["variations..."], "hiding": ["variations..."]}). Ensure every state defined in "states" has corresponding response variations.
-6. In "dispatch_outcomes", define realistic statuses ("SUCCESS", "MINOR_ERROR", "CRITICAL_FAILURE"), score deltas, and descriptive feedback messages for ALL 5 dispatch types: SEND_POLICE, SEND_FIRE, SEND_MEDICAL, ANIMAL_CONTROL, DISMISS. Adjust the points properly:
-   - Correct choice: +100 to +300 points
-   - Minor errors: -50 to -150 points
-   - Critical failures: -300 to -500 points
+CRITICAL STRUCTURAL EXAMPLE:
+{
+  "title": "Child Trapped in Freezer",
+  "description": "A panicked child calls 911 saying their younger sibling is locked inside a chest freezer. The freezer is old and the latch may be jammed.",
+  "difficulty": "Hard",
+  "states": [
+    "initial",
+    "attempting_rescue",
+    "freezer_opened",
+    "victim_safe"
+  ],
+  "initial_variations": [
+    "My little brother is stuck in the freezer! He went inside to hide and the lid locked. Please help!",
+    "Oh no, oh no! My sister is trapped in the chest freezer in the garage. I can hear her crying but I can't open it!",
+    "Emergency! A child is locked in a freezer. I'm {caller_name}, my sibling {victim_name} is inside. Please send someone!",
+    "I need help! My friend {victim_name} got trapped in a freezer in the basement. I can't get the latch open. It's getting cold!"
+  ],
+  "slots": {
+    "address_location": [
+      "123 Oak Street",
+      "456 Maple Avenue"
+    ],
+    "caller_name": [
+      "Timmy",
+      "Sophie"
+    ],
+    "victim_name": [
+      "Benny",
+      "Lily"
+    ],
+    "ambient_audio": [
+      "muffled crying from inside",
+      "a humming motor"
+    ],
+    "specific_details": [
+      "The freezer is unplugged",
+      "I tried using a screwdriver"
+    ]
+  },
+  "intents": {
+    "ASK_LOCATION": {
+      "score_delta": 50,
+      "transitions": {},
+      "responses": {
+        "initial": [
+          "We're at {address_location}. The freezer is in the garage.",
+          "At {address_location}. The freezer is in the basement."
+        ],
+        "attempting_rescue": [
+          "Still at {address_location}. I'm trying to open it."
+        ],
+        "freezer_opened": [
+          "I got it open! We're at {address_location}."
+        ],
+        "victim_safe": [
+          "She's out! We're at {address_location}. She's shivering but okay."
+        ]
+      }
+    },
+    "ASK_DETAILS": {
+      "score_delta": 30,
+      "transitions": {},
+      "responses": {
+        "initial": [
+          "It's a big chest freezer. I can hear {ambient_audio}. {specific_details}."
+        ],
+        "attempting_rescue": [
+          "I'm trying to pry it open with a crowbar. {ambient_audio}."
+        ],
+        "freezer_opened": [
+          "I managed to break the latch. He's out but very cold."
+        ],
+        "victim_safe": [
+          "He's wrapped in blankets now. Breathing fine."
+        ]
+      }
+    },
+    "ASK_CALLER_STATUS": {
+      "score_delta": 20,
+      "transitions": {
+        "initial": "attempting_rescue",
+        "attempting_rescue": "freezer_opened"
+      },
+      "responses": {
+        "initial": [
+          "I'm scared, I don't know what to do."
+        ],
+        "attempting_rescue": [
+          "I'm hitting the latch with a hammer."
+        ],
+        "freezer_opened": [
+          "I got it open! I'm helping him out."
+        ],
+        "victim_safe": [
+          "I'm holding my sibling, keeping them warm."
+        ]
+      }
+    }
+  },
+  "dispatch_outcomes": {
+    "SEND_POLICE": { "status": "SUCCESS", "score_delta": 100, "message": "Police arrive and use a crowbar to open the freezer." },
+    "SEND_FIRE": { "status": "SUCCESS", "score_delta": 200, "message": "Firefighters use hydraulic tools." },
+    "SEND_MEDICAL": { "status": "SUCCESS", "score_delta": 250, "message": "Medics treat the child." },
+    "ANIMAL_CONTROL": { "status": "MINOR_ERROR", "score_delta": 0, "message": "Animal control is confused." },
+    "DISMISS": { "status": "CRITICAL_FAILURE", "score_delta": -300, "message": "Dismiss as a prank." }
+  }
+}
+
+CRITICAL RULES:
+1. "states": Must be either an array of string state names (like ["initial", "attempting_rescue", "freezer_opened", "victim_safe"]) or an object mapping state names to descriptions.
+2. "initial_variations": Exactly 3-4 distinct phrasing variations representing the starting call introduction.
+   - **CRITICAL RESTRICTION**: The initial variations MUST NEVER contain references to location/address slots (like "{address_location}") or threat detail slots (like "{specific_details}"). The caller must start in a state of panic or call introduction, forcing the dispatcher to ask for this info.
+   - **HYDRATION REQUIREMENT**: At least two of the "initial_variations" MUST contain other slot placeholders, such as {caller_name}, {victim_relation}, {victim_name}, or {ambient_audio} (but remember, NEVER include {address_location} or {specific_details} in these variations).
+   - **NO HARDCODING**: Never hardcode caller/victim names or relationships in the initial variations that are already choices in the slots. Always use the slot placeholders! E.g. do not write "Mr. Johnson" or "Jake" literally in the variation if they are option values in your "caller_name" or "victim_name" slot arrays; use "{caller_name}" or "{victim_name}" instead.
+3. "slots": Must include at least caller_name, address_location, and specific_details as arrays of strings. Custom slots (like victim_name, relation) are allowed.
+4. "intents": For each intent (ASK_LOCATION, ASK_DETAILS, and at least 2-3 others), define "score_delta", transitions, and a "responses" map covering EVERY state defined in your "states" block. Response texts should use slot variables like {address_location} or {caller_name} inside curly braces.
+5. "dispatch_outcomes": Must define outcomes for all 5: SEND_POLICE, SEND_FIRE, SEND_MEDICAL, ANIMAL_CONTROL, DISMISS. Each must have "status" ("SUCCESS" | "MINOR_ERROR" | "CRITICAL_FAILURE"), "score_delta", and "message".
+6. "description": A short, one-sentence summary of the underlying situation (not shown to the player, used for backend metadata).
 7. Match the archetype closely:
    - Life-Threatening Emergency: Real urgent life-and-death cases. SEND_MEDICAL, SEND_POLICE, or SEND_FIRE is SUCCESS, DISMISS is critical failure.
-   - Low-Priority: Noise complaints, minor civil matters. DISMISS or minor dispatch is correct. Sending emergency units is MINOR_ERROR or failure.
-   - Prank / Hoax: Callers making up absurd stuff or kids messing on line. DISMISS is SUCCESS, sending units is CRITICAL_FAILURE.
-   - Ambiguous / Code Call: Domestic violence victims pretending to order pizza, or breathing silently. Police or investigation dispatch is SUCCESS, DISMISS is critical failure.
+   - Low-Priority: Noise complaints, minor civil matters. DISMISS or minor dispatch is correct.
+   - Prank / Hoax: Callers making up absurd stuff. DISMISS is SUCCESS, sending units is CRITICAL_FAILURE.
+   - Ambiguous / Code Call: Domestic violence victims pretending to order pizza. Police or investigation dispatch is SUCCESS, DISMISS is critical failure.
    - Psychological: Caller seeing monsters or having panic attacks. Police or psychiatric medical is correct.
    - Communication Barrier: Non-English, stroke victims, or touch-tone. Check breathing or locations via touch tones.
    - Animal Chaos: Dangerous bear on loose or cow blocking major highway. ANIMAL_CONTROL is SUCCESS.
@@ -305,7 +410,7 @@ Make sure:
    - Absurd Entitlement: Customer complaint about wrong food, weather. DISMISS is SUCCESS, sending police is CRITICAL_FAILURE.`;
 
   const requestBody = {
-    model: 'deepseek-v4-flash',
+    model: 'deepseek-v4-pro',
     messages: [
       {
         role: 'user',
@@ -339,6 +444,11 @@ Make sure:
 
       const parsed = JSON.parse(text);
       const scenariosArray = Array.isArray(parsed) ? parsed : parsed.scenarios || [];
+
+      for (const scenario of scenariosArray) {
+        validateScenarioStructure(scenario);
+      }
+
       return scenariosArray;
     } catch (error) {
       attempt++;
@@ -350,6 +460,99 @@ Make sure:
       } else {
         throw error;
       }
+    }
+  }
+}
+
+function validateScenarioStructure(scenario) {
+  if (!scenario || typeof scenario !== 'object') {
+    throw new Error('Scenario must be an object.');
+  }
+  if (typeof scenario.title !== 'string' || !scenario.title.trim()) {
+    throw new Error('Scenario title must be a non-empty string.');
+  }
+  if (typeof scenario.description !== 'string' || !scenario.description.trim()) {
+    throw new Error('Scenario description must be a non-empty string.');
+  }
+  if (!['Easy', 'Medium', 'Hard'].includes(scenario.difficulty)) {
+    throw new Error(`Scenario difficulty must be 'Easy', 'Medium', or 'Hard'. Found: ${scenario.difficulty}`);
+  }
+  if (!scenario.states || (typeof scenario.states !== 'object' && !Array.isArray(scenario.states))) {
+    throw new Error('Scenario states must be an object or array.');
+  }
+  
+  const stateKeys = Array.isArray(scenario.states) ? scenario.states : Object.keys(scenario.states);
+  if (stateKeys.length === 0 || !stateKeys.includes('initial')) {
+    throw new Error('Scenario states must include at least the "initial" state.');
+  }
+  
+  if (!scenario.slots || typeof scenario.slots !== 'object') {
+    throw new Error('Scenario slots must be an object.');
+  }
+  const coreSlots = ['caller_name', 'address_location', 'specific_details'];
+  for (const slot of coreSlots) {
+    if (!Array.isArray(scenario.slots[slot]) || scenario.slots[slot].length === 0) {
+      throw new Error(`Scenario slots must contain a non-empty array for "${slot}".`);
+    }
+  }
+
+  if (!Array.isArray(scenario.initial_variations) || scenario.initial_variations.length === 0) {
+    throw new Error('Scenario initial_variations must be a non-empty array.');
+  }
+  for (const variation of scenario.initial_variations) {
+    if (variation.includes('{address_location}') || variation.includes('{specific_details}')) {
+      throw new Error(`Rogue slot leaked into initial_variations of scenario "${scenario.title}": "${variation}"`);
+    }
+  }
+
+  // Ensure at least one initial variation has a slot placeholder
+  const allowedSlots = ['{caller_name}', '{victim_name}', '{victim_relation}', '{ambient_audio}'];
+  const hasHydrateableSlot = scenario.initial_variations.some(variation => {
+    return allowedSlots.some(slot => variation.includes(slot));
+  });
+  if (!hasHydrateableSlot) {
+    throw new Error(`Scenario "${scenario.title}" must have at least one initial_variation containing a slot placeholder (e.g. {caller_name}, {victim_name}, {victim_relation}, or {ambient_audio}) to enable dynamic hydration.`);
+  }
+
+  // Prevent hardcoding of caller names or victim names in the initial variations
+  const callerNamesList = scenario.slots.caller_name || [];
+  const victimNamesList = scenario.slots.victim_name || [];
+  for (const variation of scenario.initial_variations) {
+    for (const name of callerNamesList) {
+      if (name && variation.includes(name)) {
+        throw new Error(`Scenario "${scenario.title}" has hardcoded caller name "${name}" in initial_variations. Use the {caller_name} placeholder instead.`);
+      }
+    }
+    for (const name of victimNamesList) {
+      if (name && variation.includes(name)) {
+        throw new Error(`Scenario "${scenario.title}" has hardcoded victim name "${name}" in initial_variations. Use the {victim_name} placeholder instead.`);
+      }
+    }
+  }
+
+  if (!scenario.intents || typeof scenario.intents !== 'object') {
+    throw new Error('Scenario intents must be an object.');
+  }
+  for (const intentKey in scenario.intents) {
+    const intent = scenario.intents[intentKey];
+    if (typeof intent.score_delta !== 'number') {
+      throw new Error(`Scenario intent "${intentKey}" must have a numeric score_delta.`);
+    }
+    for (const st of stateKeys) {
+      if (!intent.responses || !intent.responses[st]) {
+        throw new Error(`Scenario intent "${intentKey}" response is missing mapping for state "${st}".`);
+      }
+    }
+  }
+  
+  if (!scenario.dispatch_outcomes || typeof scenario.dispatch_outcomes !== 'object') {
+    throw new Error('Scenario dispatch_outcomes must be an object.');
+  }
+  const requiredDispatches = ['SEND_POLICE', 'SEND_FIRE', 'SEND_MEDICAL', 'ANIMAL_CONTROL', 'DISMISS'];
+  for (const dispatch of requiredDispatches) {
+    const outcome = scenario.dispatch_outcomes[dispatch];
+    if (!outcome || !['SUCCESS', 'MINOR_ERROR', 'CRITICAL_FAILURE'].includes(outcome.status)) {
+      throw new Error(`Scenario dispatch outcome "${dispatch}" has invalid format.`);
     }
   }
 }
