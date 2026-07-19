@@ -17,6 +17,8 @@ interface PlayingScreenProps {
   ) => void;
   turnCount?: number;
   onCallerMessageRevealed?: () => void;
+  typewriterSpeed?: 'off' | 'low' | 'normal' | 'fast';
+  soundVolume?: number;
 }
 
 const getRevealSpeed = (difficulty: string, archetype: string): number => {
@@ -47,7 +49,9 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   onSendMessage,
   onDispatchAction,
   turnCount = 1,
-  onCallerMessageRevealed
+  onCallerMessageRevealed,
+  typewriterSpeed = 'normal',
+  soundVolume = 100
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -71,10 +75,27 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
     }
   }, [isCallerTyping, activeTab]);
 
+  // If typewriter is off, and the last message is from caller, and caller is still typing,
+  // immediately reveal the message and stop the typing indicator.
+  useEffect(() => {
+    const lastMsg = transcript[transcript.length - 1];
+    if (typewriterSpeed === 'off' && isCallerTyping && lastMsg && lastMsg.sender === 'caller') {
+      if (onCallerMessageRevealed) {
+        onCallerMessageRevealed();
+      }
+    }
+  }, [typewriterSpeed, isCallerTyping, transcript, onCallerMessageRevealed]);
+
   const activeCall = calls[currentCallIndex];
   if (!activeCall) return null;
 
-  const revealSpeed = getRevealSpeed(activeCall.difficulty, activeCall.archetype);
+  const baseSpeed = getRevealSpeed(activeCall.difficulty, activeCall.archetype);
+  const getSpeedMultiplier = (setting: 'off' | 'low' | 'normal' | 'fast'): number => {
+    if (setting === 'low') return 2.0;
+    if (setting === 'fast') return 0.4;
+    return 1.0;
+  };
+  const revealSpeed = typewriterSpeed === 'off' ? baseSpeed : baseSpeed * getSpeedMultiplier(typewriterSpeed);
   const lastMessage = transcript[transcript.length - 1];
 
   return (
@@ -135,7 +156,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
             }
             const isDispatcher = msg.sender === 'dispatcher';
             const isLastMessage = idx === transcript.length - 1;
-            const useTypewriter = !isDispatcher && msg.sender === 'caller' && isLastMessage;
+            const useTypewriter = !isDispatcher && msg.sender === 'caller' && isLastMessage && typewriterSpeed !== 'off';
 
             return (
               <div
@@ -158,6 +179,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
                       speed={revealSpeed}
                       onComplete={onCallerMessageRevealed}
                       onCharAdded={scrollToBottom}
+                      soundVolume={soundVolume}
                     />
                   ) : (
                     msg.text

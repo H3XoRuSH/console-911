@@ -5,14 +5,16 @@ interface TypewriterTextProps {
   speed: number;
   onComplete?: () => void;
   onCharAdded?: () => void;
+  soundVolume?: number;
 }
 
 let audioCtx: AudioContext | null = null;
-function playTypingClick() {
+function playTypingClick(volumePercent: number = 100) {
   if (typeof window === 'undefined') return;
+  if (volumePercent <= 0) return;
   try {
     if (!audioCtx) {
-      const AudioCtxClass = window.AudioContext || (window as any).webkitAudioContext;
+      const AudioCtxClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtxClass) {
         audioCtx = new AudioCtxClass();
       }
@@ -25,7 +27,8 @@ function playTypingClick() {
       const gainNode = audioCtx.createGain();
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(600 + Math.random() * 150, audioCtx.currentTime);
-      gainNode.gain.setValueAtTime(0.015, audioCtx.currentTime);
+      const targetGain = 0.015 * (volumePercent / 100);
+      gainNode.gain.setValueAtTime(targetGain, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.03);
       osc.connect(gainNode);
       gainNode.connect(audioCtx.destination);
@@ -41,7 +44,8 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
   text,
   speed,
   onComplete,
-  onCharAdded
+  onCharAdded,
+  soundVolume = 100
 }) => {
   const [displayedText, setDisplayedText] = useState('');
   const textRef = useRef(text);
@@ -49,15 +53,18 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
   const onCompleteRef = useRef(onComplete);
   const onCharAddedRef = useRef(onCharAdded);
   const speedRef = useRef(speed);
+  const soundVolumeRef = useRef(soundVolume);
 
   useEffect(() => {
     textRef.current = text;
     onCompleteRef.current = onComplete;
     onCharAddedRef.current = onCharAdded;
     speedRef.current = speed;
-  }, [text, onComplete, onCharAdded, speed]);
+    soundVolumeRef.current = soundVolume;
+  }, [text, onComplete, onCharAdded, speed, soundVolume]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayedText('');
     indexRef.current = 0;
 
@@ -71,7 +78,7 @@ export const TypewriterText: React.FC<TypewriterTextProps> = ({
         indexRef.current = index + 1;
 
         if (nextChar !== ' ') {
-          playTypingClick();
+          playTypingClick(soundVolumeRef.current);
         }
 
         if (onCharAddedRef.current) {
