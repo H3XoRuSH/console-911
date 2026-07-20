@@ -44,13 +44,13 @@ export interface Scenario {
 
 export interface HydratedCallSession {
   scenarioId: string;
-  title: string;
-  archetype: string;
+  title?: string;
+  archetype?: string;
   difficulty: string;
   selectedSlots: Record<string, string>;
   initialMessage: string;
-  states: Record<string, string>;
-  intents: Record<
+  states?: Record<string, string>;
+  intents?: Record<
     string,
     {
       score_delta: number;
@@ -58,7 +58,7 @@ export interface HydratedCallSession {
       responses: Record<string, string>; // maps state name to hydrated response text
     }
   >;
-  dispatchOutcomes: Record<
+  dispatchOutcomes?: Record<
     string,
     {
       status: 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE';
@@ -66,6 +66,7 @@ export interface HydratedCallSession {
       message: string;
     }
   >;
+  revealSpeed?: number;
 }
 
 /**
@@ -190,6 +191,24 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
     statesObj.initial = 'Line connected.';
   }
 
+  const calculateRevealSpeed = (diff: string, archName: string): number => {
+    const arch = archName.toLowerCase();
+    if (arch.includes('life-threatening') || arch.includes('emergency') || diff === 'Hard') {
+      return 15;
+    }
+    if (
+      arch.includes('delusional') ||
+      arch.includes('pocket') ||
+      arch.includes('open line') ||
+      arch.includes('barrier') ||
+      diff === 'Easy'
+    ) {
+      return 75;
+    }
+    return 35;
+  };
+  const revealSpeed = calculateRevealSpeed(scenario.difficulty || 'Medium', scenario.archetype || '');
+
   return {
     scenarioId: scenario.id,
     title:
@@ -202,6 +221,7 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
     initialMessage,
     states: statesObj,
     intents,
-    dispatchOutcomes
+    dispatchOutcomes,
+    revealSpeed
   };
 }

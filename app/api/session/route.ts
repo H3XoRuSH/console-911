@@ -31,7 +31,14 @@ export async function GET(req: Request) {
         ? selectSessionScenariosWithSelection(selectedIdsParam.split(',').filter(Boolean), 5, dataset)
         : selectSessionScenarios(5, dataset);
 
-    return NextResponse.json({ calls: sessionCalls, previewMode });
+    // Sanitize scenarios before sending them to the client to avoid leaking the scoring details
+    const sanitizedCalls = sessionCalls.map((call) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { states, intents, dispatchOutcomes, title, archetype, ...sanitized } = call;
+      return sanitized;
+    });
+
+    return NextResponse.json({ calls: sanitizedCalls, previewMode });
   } catch (error: unknown) {
     console.error('Session GET error:', error);
     const message = error instanceof Error ? error.message : 'Failed to initialize game session.';
