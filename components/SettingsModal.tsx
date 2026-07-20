@@ -16,6 +16,10 @@ interface SettingsModalProps {
   setShowScenarioId?: (show: boolean) => void;
   scenarioDataset: 'original' | 'experimental';
   setScenarioDataset: (dataset: 'original' | 'experimental') => void;
+  typewriterSpeed: 'off' | 'low' | 'normal' | 'fast';
+  setTypewriterSpeed: (speed: 'off' | 'low' | 'normal' | 'fast') => void;
+  soundVolume: number;
+  setSoundVolume: (volume: number) => void;
 }
 
 export const SettingsModal: React.FC<SettingsModalProps> = ({
@@ -33,7 +37,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   showScenarioId = false,
   setShowScenarioId = () => {},
   scenarioDataset,
-  setScenarioDataset
+  setScenarioDataset,
+  typewriterSpeed,
+  setTypewriterSpeed,
+  soundVolume,
+  setSoundVolume
 }) => {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -229,6 +237,56 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
         )}
+
+        {/* Accessibility Settings */}
+        <div className="space-y-4 border-t border-emerald-950/40 pt-4">
+          <label className="text-xs font-bold uppercase tracking-widest text-emerald-500/70 block">
+            Accessibility Config
+          </label>
+          
+          <div className="space-y-2">
+            <span className="text-xs font-bold text-emerald-400 block">TYPEWRITER SPEED</span>
+            <div className="grid grid-cols-4 gap-1.5">
+              {(
+                [
+                  { id: 'off', label: 'OFF' },
+                  { id: 'low', label: 'LOW' },
+                  { id: 'normal', label: 'NORMAL' },
+                  { id: 'fast', label: 'FAST' }
+                ] as const
+              ).map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => setTypewriterSpeed(s.id)}
+                  className={`border py-1.5 rounded text-center text-xs font-bold cursor-pointer transition-all hover:bg-emerald-950/30 ${
+                    typewriterSpeed === s.id
+                      ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20 shadow-[0_0_8px_rgba(16,185,129,0.1)]'
+                      : 'border-emerald-950/60 text-emerald-500/60 bg-transparent'
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-bold text-emerald-400">SOUND EFFECTS VOLUME</span>
+              <span className="text-xs font-mono font-bold text-emerald-400">{soundVolume}%</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={soundVolume}
+                onChange={(e) => setSoundVolume(Number(e.target.value))}
+                className="w-full accent-emerald-500 h-1 bg-emerald-950 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+          </div>
+        </div>
 
         {/* Save/Close Button */}
         <div className="pt-2">

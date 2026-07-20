@@ -166,12 +166,14 @@ export async function POST(req: Request) {
     const body: ChatRequestBody = await req.json();
     const {
       scenarioId,
-      dispatcherMessage,
+      dispatcherMessage: rawDispatcherMessage,
       history,
       selectedSlots,
       currentState = 'initial',
       dataset = 'original'
     } = body;
+
+    const dispatcherMessage = (rawDispatcherMessage || '').slice(0, 120);
 
     if (!scenarioId || !dispatcherMessage || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });

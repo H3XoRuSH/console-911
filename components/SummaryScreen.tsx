@@ -141,13 +141,15 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     }
     const colors = getThemeColors(currentTheme);
 
-    const getStatusColor = (status: 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE' | 'PENDING') => {
+    const getStatusColor = (status: 'SUCCESS' | 'MINOR_ERROR' | 'CRITICAL_FAILURE' | 'PENDING', score: number = 0) => {
       const isLight = currentTheme === 'paper' || currentTheme === 'lab';
       switch (status) {
         case 'SUCCESS':
           return isLight ? '#0f766e' : '#10b981';
         case 'MINOR_ERROR':
-          return isLight ? '#b45309' : '#f59e0b';
+          return score >= 0
+            ? (isLight ? '#0f766e' : '#10b981')
+            : (isLight ? '#b91c1c' : '#ef4444');
         case 'CRITICAL_FAILURE':
           return isLight ? '#b91c1c' : '#ef4444';
         case 'PENDING':
@@ -224,7 +226,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       
       linesToDraw.push({
         type: 'custom',
-        color: getStatusColor(statusType),
+        color: getStatusColor(statusType, feedback ? feedback.totalCallScore : 0),
         content: rowText
       });
     });
@@ -397,19 +399,16 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           </h2>
 
           {/* RANK ASSESSMENT & CUMULATIVE SCORE */}
-          <div className="text-center p-4 border border-emerald-950 bg-black/60 rounded flex flex-col items-center gap-2">
-            <span className="text-[10px] text-emerald-500/60 uppercase tracking-widest font-bold">
+          <div className={`text-center p-5 border rounded flex flex-col items-center justify-center gap-3 bg-black/70 ${rank.style}`}>
+            <span className="text-[10px] uppercase tracking-widest font-bold opacity-60">
               Operator Performance Profile
             </span>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
-              <span
-                className={`text-xs sm:text-sm font-black tracking-widest uppercase border px-4 py-2 rounded-md ${rank.style}`}
-              >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 w-full">
+              <span className="text-xs sm:text-sm font-black tracking-widest uppercase">
                 RANK: {rank.title}
               </span>
-              <span
-                className={`text-xs sm:text-sm font-black tracking-widest uppercase border px-4 py-2 rounded-md ${rank.style}`}
-              >
+              <span className="hidden sm:inline opacity-30">|</span>
+              <span className="text-xs sm:text-sm font-black tracking-widest uppercase">
                 SCORE: {totalScore} PTS
               </span>
             </div>
@@ -417,9 +416,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
           {/* SHIFT REPORT EXPORT BOARD */}
           <div className="border border-emerald-900 bg-zinc-950/40 p-4 rounded text-xs space-y-3">
-            <h3 className="font-bold text-emerald-400 uppercase tracking-widest border-b border-emerald-950/60 pb-1 flex items-center justify-between">
+            <h3 className="text-sm font-bold text-emerald-400 crt-glow-green uppercase tracking-widest border-b border-emerald-950/60 pb-1.5 flex items-center justify-between">
               <span>💾 Shift Record Archivist</span>
-              <span className="text-[9px] text-emerald-500/55 font-mono">EXPORT_v1.0</span>
+              <span className="text-[10px] text-emerald-500/55 font-mono">EXPORT_v1.0</span>
             </h3>
             <p className="text-[10px] text-emerald-500/60 uppercase leading-relaxed text-left">
               Archive this shift&apos;s performance logs and dialogues to local formats.
@@ -444,7 +443,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
           {/* GAME SCRIPT SUMMARY TABLE */}
           <div className="space-y-2 text-xs">
-            <h3 className="font-bold text-emerald-500/70 uppercase tracking-widest border-b border-emerald-950/60 pb-1">
+            <h3 className="text-sm font-bold text-emerald-400 crt-glow-green uppercase tracking-widest border-b border-emerald-950/60 pb-1.5">
               Call Logs Audit (CLICK TO AUDIT)
             </h3>
             <div className="border border-emerald-950 bg-black/40 rounded overflow-hidden">
@@ -482,7 +481,9 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                           scoreText = `+${feedback.totalCallScore} PTS`;
                         } else if (feedback.status === 'MINOR_ERROR') {
                           statusText = 'MINOR ERROR';
-                          statusClass = 'text-amber-500 font-bold crt-glow-amber';
+                          statusClass = feedback.totalCallScore >= 0
+                            ? 'text-emerald-400 font-bold crt-glow-green'
+                            : 'text-red-500 font-bold crt-glow-red';
                           scoreClass = feedback.totalCallScore >= 0 ? 'text-emerald-400 font-bold' : 'text-red-500 font-bold';
                           scoreText = `${feedback.totalCallScore >= 0 ? '+' : ''}${feedback.totalCallScore} PTS`;
                         } else {
@@ -550,11 +551,11 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           {!scoreSubmitted ? (
             <form
               onSubmit={onSubmitLeaderboard}
-              className="border-t border-emerald-950 pt-4 flex flex-col items-center gap-3"
+              className="border-t border-emerald-950 pt-4 flex flex-col items-center gap-3 w-full"
             >
-              <span className="text-xs text-emerald-500/80 font-bold uppercase tracking-wider text-center">
-                Submit Callsign to Global Leaderboard:
-              </span>
+              <h3 className="text-xs sm:text-sm font-bold text-emerald-400 crt-glow-green uppercase tracking-wider text-center border-b border-emerald-950/60 pb-1.5 w-full">
+                Submit Callsign to Global Leaderboard
+              </h3>
               <div className="flex gap-2 w-full max-w-md">
                 <input
                   type="text"
@@ -673,15 +674,15 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                   return (
                     <div
                       key={idx}
-                      className={`flex flex-col max-w-[85%] ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
+                      className={`flex flex-col max-w-[85%] min-w-0 ${isDispatcher ? 'ml-auto items-end' : 'mr-auto items-start'}`}
                     >
                       <span className="text-[10px] opacity-75 text-emerald-500/40 mb-1 select-none">
                         [{msg.timestamp}] {isDispatcher ? 'DISPATCHER' : 'CALLER'}
                       </span>
                       <div
-                        className={`rounded px-3 py-2 text-xs leading-relaxed border ${
+                        className={`rounded px-3 py-2 text-xs leading-relaxed border break-all ${
                           isDispatcher
-                            ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold'
+                            ? 'bg-amber-950/20 border-amber-800 text-amber-400 font-bold text-right'
                             : 'bg-emerald-950/20 border-emerald-900 text-emerald-300'
                         }`}
                       >

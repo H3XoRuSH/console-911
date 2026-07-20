@@ -21,6 +21,8 @@ export default function Console911Game() {
   const [theme, setTheme] = useState<ThemeType>('green');
   const [textSize, setTextSize] = useState<TextSizeType>('medium');
   const [crtEnabled, setCrtEnabled] = useState(true);
+  const [typewriterSpeed, setTypewriterSpeed] = useState<'off' | 'low' | 'normal' | 'fast'>('normal');
+  const [soundVolume, setSoundVolume] = useState<number>(100);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [showDebugPanel, setShowDebugPanel] = useState(false);
   const [showScenarioId, setShowScenarioId] = useState(false);
@@ -30,6 +32,8 @@ export default function Console911Game() {
     const savedTheme = localStorage.getItem('console911-theme');
     const savedTextSize = localStorage.getItem('console911-text-size');
     const savedCrt = localStorage.getItem('console911-crt-enabled');
+    const savedTypewriterSpeed = localStorage.getItem('console911-typewriter-speed');
+    const savedSoundVolume = localStorage.getItem('console911-sound-volume');
 
     if (savedTheme && (VALID_THEMES as readonly string[]).includes(savedTheme)) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -40,6 +44,15 @@ export default function Console911Game() {
     }
     if (savedCrt !== null) {
       setCrtEnabled(savedCrt === 'true');
+    }
+    if (savedTypewriterSpeed && ['off', 'low', 'normal', 'fast'].includes(savedTypewriterSpeed)) {
+      setTypewriterSpeed(savedTypewriterSpeed as 'off' | 'low' | 'normal' | 'fast');
+    }
+    if (savedSoundVolume !== null) {
+      const vol = Number(savedSoundVolume);
+      if (!isNaN(vol) && vol >= 0 && vol <= 100) {
+        setSoundVolume(vol);
+      }
     }
   }, []);
 
@@ -60,6 +73,7 @@ export default function Console911Game() {
     inputText,
     setInputText,
     isCallerTyping,
+    setIsCallerTyping,
     feedbackInfo,
     leaderboard,
     scoreSubmitted,
@@ -224,6 +238,9 @@ export default function Console911Game() {
             onSendMessage={handleSendMessage}
             onDispatchAction={handleDispatchAction}
             turnCount={turnCount}
+            onCallerMessageRevealed={() => setIsCallerTyping(false)}
+            typewriterSpeed={typewriterSpeed}
+            soundVolume={soundVolume}
           />
         )}
 
@@ -282,6 +299,16 @@ export default function Console911Game() {
         setShowScenarioId={setShowScenarioId}
         scenarioDataset={scenarioDataset}
         setScenarioDataset={changeScenarioDataset}
+        typewriterSpeed={typewriterSpeed}
+        setTypewriterSpeed={(s) => {
+          setTypewriterSpeed(s);
+          localStorage.setItem('console911-typewriter-speed', s);
+        }}
+        soundVolume={soundVolume}
+        setSoundVolume={(v) => {
+          setSoundVolume(v);
+          localStorage.setItem('console911-sound-volume', String(v));
+        }}
       />
       <ToastContainer />
     </div>

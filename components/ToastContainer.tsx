@@ -40,14 +40,14 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onRemove }) => {
   const getStyleClass = (type: ToastType) => {
     switch (type) {
       case 'success':
-        return 'border-emerald-500 text-emerald-400 bg-black/95 crt-glow-green shadow-[0_0_15px_rgba(16,185,129,0.3)]';
+        return 'bg-emerald-500 text-black border-emerald-400 font-bold crt-glow-green shadow-[0_0_15px_rgba(16,185,129,0.4)]';
       case 'error':
-        return 'border-red-500 text-red-500 bg-black/95 crt-glow-red shadow-[0_0_15px_rgba(239,68,68,0.3)]';
+        return 'bg-red-500 text-black border-red-400 font-bold crt-glow-red shadow-[0_0_15px_rgba(239,68,68,0.4)]';
       case 'warning':
-        return 'border-amber-500 text-amber-400 bg-black/95 crt-glow-amber shadow-[0_0_15px_rgba(245,158,11,0.3)]';
+        return 'bg-amber-500 text-black border-amber-400 font-bold crt-glow-amber shadow-[0_0_15px_rgba(245,158,11,0.4)]';
       case 'info':
       default:
-        return 'border-cyan-500 text-cyan-400 bg-black/95 shadow-[0_0_15px_rgba(6,182,212,0.3)]';
+        return 'bg-cyan-500 text-black border-cyan-400 font-bold shadow-[0_0_15px_rgba(6,182,212,0.4)]';
     }
   };
 
@@ -76,7 +76,7 @@ const ToastItem: React.FC<ToastItemProps> = ({ toast, onRemove }) => {
       <span className="font-bold opacity-80 shrink-0">{getPrefix(toast.type)}</span>
       <span className="uppercase tracking-wider pb-1">{toast.message}</span>
       <div
-        className="absolute bottom-0 left-0 h-1 bg-current opacity-80"
+        className="absolute bottom-0 left-0 h-1 bg-black/60"
         style={{ animation: `shrink-width ${toast.duration || 3000}ms linear forwards` }}
       />
     </div>

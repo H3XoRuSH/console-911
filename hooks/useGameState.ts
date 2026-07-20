@@ -192,6 +192,7 @@ export function useGameState() {
     setFeedbackInfo(null);
     setCurrentState('initial');
     setGameState('playing');
+    setIsCallerTyping(true);
 
     const addressVal = call.selectedSlots?.['address_location'];
     const detailsVal = call.selectedSlots?.['specific_details'];
@@ -280,7 +281,6 @@ export function useGameState() {
       const data = await res.json();
 
       setTimeout(() => {
-        setIsCallerTyping(false);
         setCallScore((prev) => prev + (data.scoreDelta || 0));
         setCurrentState(data.newState || currentState);
 
@@ -317,7 +317,6 @@ export function useGameState() {
     } catch (err) {
       console.error(err);
       setTimeout(() => {
-        setIsCallerTyping(false);
         setCallScore((prev) => prev - 10);
         setTranscript((prev) => [
           ...prev,
@@ -523,6 +522,7 @@ export function useGameState() {
     inputText,
     setInputText,
     isCallerTyping,
+    setIsCallerTyping,
     feedbackInfo,
     leaderboard,
     scoreSubmitted,
