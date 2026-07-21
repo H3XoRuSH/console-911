@@ -331,111 +331,132 @@ export function useGameState() {
   };
 
   // Perform dispatch action selection
-  const handleDispatchAction = (
+  const handleDispatchAction = async (
     actionType: 'SEND_POLICE' | 'SEND_FIRE' | 'SEND_MEDICAL' | 'ANIMAL_CONTROL' | 'DISMISS'
   ) => {
     if (isCallerTyping || gameState !== 'playing') return;
 
     const activeCall = calls[currentCallIndex];
-    const outcome = activeCall.dispatchOutcomes[actionType];
 
-    if (!outcome) {
-      showToast('Invalid dispatch protocol.', 'error');
-      return;
+    try {
+      const res = await fetch('/api/dispatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          scenarioId: activeCall.scenarioId,
+          actionType,
+          locationConfirmed,
+          detailsConfirmed,
+          currentState,
+          dialogueScore: callScore,
+          selectedSlots: activeCall.selectedSlots,
+          dataset: scenarioDataset
+        })
+      });
+
+      if (!res.ok) throw new Error('Dispatch API error');
+      const data = await res.json();
+
+      setTotalScore((prev) => prev + data.totalCallScore);
+
+      const feedback: FeedbackInfo = {
+        status: data.status,
+        message: data.message,
+        dispatchType: actionType.replace('_', ' '),
+        dialogueScore: callScore,
+        dispatchScore: data.dispatchScore,
+        totalCallScore: data.totalCallScore
+      };
+      setFeedbackInfo(feedback);
+      setCompletedFeedbacks((prev) => {
+        const updated = [...prev];
+        updated[currentCallIndex] = feedback;
+        return updated;
+      });
+
+      setCompletedTranscripts((prev) => {
+        const updated = [...prev];
+        updated[currentCallIndex] = transcript;
+        return updated;
+      });
+
+      setCalls((prevCalls) => {
+        const newCalls = [...prevCalls];
+        newCalls[currentCallIndex] = {
+          ...newCalls[currentCallIndex],
+          title: data.title,
+          archetype: data.archetype
+        };
+        return newCalls;
+      });
+
+      setGameState('feedback');
+    } catch (err) {
+      console.error(err);
+      showToast('Dispatch operation failed.', 'error');
     }
-
-
-    let finalStatus = outcome.status;
-    let penaltyMessage = '';
-    let dispatchScoreModifier = 0;
-
-    if (actionType !== 'DISMISS') {
-      if (!locationConfirmed) {
-        finalStatus = 'CRITICAL_FAILURE';
-        dispatchScoreModifier -= 150;
-        penaltyMessage += `🚨 BLIND DISPATCH FAILURE: You dispatched responders without confirming the caller's address! Responders spent critical time searching the area and arrived too late.\n\n`;
-      } else if (!detailsConfirmed) {
-        if (finalStatus === 'SUCCESS') {
-          finalStatus = 'MINOR_ERROR';
-        }
-        dispatchScoreModifier -= 75;
-        penaltyMessage += `⚠️ INCOMPLETE INTEL PENALTY: Responders were dispatched without details on the threat. Units arrived unprepared for the specific circumstances, causing confusion and delay.\n\n`;
-      }
-    }
-
-    if (!(actionType === 'DISMISS' && finalStatus === 'SUCCESS')) {
-      const lowerState = currentState.toLowerCase();
-      const stateKeys = Object.keys(activeCall.states || {});
-      const hasSafetyState = stateKeys.some(s => ['hiding', 'secured', 'safe', 'escaped', 'evacuated'].includes(s.toLowerCase()));
-
-      if (lowerState.includes('confront') || lowerState.includes('escalat') || lowerState.includes('danger') || lowerState.includes('threat')) {
-        dispatchScoreModifier -= 50;
-        penaltyMessage += `⚠️ LATE DISPATCH / CALLER CONFRONTED: The caller was in active confrontation or the threat escalated before responders were dispatched, causing avoidable harm/stress.\n\n`;
-      } else if (currentState === 'initial' && hasSafetyState) {
-        dispatchScoreModifier -= 30;
-        penaltyMessage += `⚠️ LACK OF SAFETY GUIDANCE: You dispatched immediately without advising the caller on how to protect themselves (e.g. hiding or staying put). The caller panicked, increasing risk.\n\n`;
-      } else if (lowerState.includes('secured') || lowerState.includes('safe') || lowerState.includes('escape') || lowerState.includes('evacuate')) {
-        dispatchScoreModifier += 30;
-        penaltyMessage += `✨ EXCELLENT DISPATCHER GUIDANCE: You successfully guided the caller to a secure/safe state before dispatching. Responders arrived to a controlled situation.\n\n`;
-      }
-    }
-
-    const finalDispatchScore = outcome.score_delta + dispatchScoreModifier;
-    const finalScore = callScore + finalDispatchScore;
-    setTotalScore((prev) => prev + finalScore);
-
-    const feedback: FeedbackInfo = {
-      status: finalStatus,
-      message: penaltyMessage + outcome.message,
-      dispatchType: actionType.replace('_', ' '),
-      dialogueScore: callScore,
-      dispatchScore: finalDispatchScore,
-      totalCallScore: finalScore
-    };
-    setFeedbackInfo(feedback);
-    setCompletedFeedbacks((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = feedback;
-      return updated;
-    });
-
-    setCompletedTranscripts((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = transcript;
-      return updated;
-    });
-
-    setGameState('feedback');
   };
 
-  const handleTimeout = () => {
-    const penalty = -150 - Math.floor(Math.random() * 150);
-    const finalScore = callScore + penalty;
-    setTotalScore((prev) => prev + finalScore);
+  const handleTimeout = async () => {
+    const activeCall = calls[currentCallIndex];
 
-    const feedback: FeedbackInfo = {
-      status: 'CRITICAL_FAILURE',
-      message:
-        '⚠️ CALL CUTOFF: You failed to make a dispatch decision within the strict 10-turn limit. The line went silent. Emergency dispatch failed to route resources in time, resulting in a critical failure.',
-      dispatchType: 'NONE (TIMEOUT CUTOFF)',
-      dialogueScore: callScore,
-      dispatchScore: penalty,
-      totalCallScore: finalScore
-    };
-    setFeedbackInfo(feedback);
-    setCompletedFeedbacks((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = feedback;
-      return updated;
-    });
+    try {
+      const res = await fetch('/api/dispatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          scenarioId: activeCall.scenarioId,
+          actionType: 'TIMEOUT',
+          locationConfirmed,
+          detailsConfirmed,
+          currentState,
+          dialogueScore: callScore,
+          selectedSlots: activeCall.selectedSlots,
+          dataset: scenarioDataset
+        })
+      });
 
-    setCompletedTranscripts((prev) => {
-      const updated = [...prev];
-      updated[currentCallIndex] = transcript;
-      return updated;
-    });
+      if (!res.ok) throw new Error('Dispatch API error');
+      const data = await res.json();
 
-    setGameState('feedback');
+      setTotalScore((prev) => prev + data.totalCallScore);
+
+      const feedback: FeedbackInfo = {
+        status: data.status,
+        message: data.message,
+        dispatchType: 'NONE (TIMEOUT CUTOFF)',
+        dialogueScore: callScore,
+        dispatchScore: data.dispatchScore,
+        totalCallScore: data.totalCallScore
+      };
+      setFeedbackInfo(feedback);
+      setCompletedFeedbacks((prev) => {
+        const updated = [...prev];
+        updated[currentCallIndex] = feedback;
+        return updated;
+      });
+
+      setCompletedTranscripts((prev) => {
+        const updated = [...prev];
+        updated[currentCallIndex] = transcript;
+        return updated;
+      });
+
+      setCalls((prevCalls) => {
+        const newCalls = [...prevCalls];
+        newCalls[currentCallIndex] = {
+          ...newCalls[currentCallIndex],
+          title: data.title,
+          archetype: data.archetype
+        };
+        return newCalls;
+      });
+
+      setGameState('feedback');
+    } catch (err) {
+      console.error(err);
+      showToast('Timeout processing failed.', 'error');
+    }
   };
 
   const advanceCall = () => {

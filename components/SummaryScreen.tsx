@@ -110,7 +110,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       const feedback = completedFeedbacks[idx];
       const scoreVal = feedback?.totalCallScore !== undefined ? feedback.totalCallScore : 0;
       const scoreStr = `${scoreVal >= 0 ? '+' : ''}${scoreVal} PTS`;
-      md += `- ${call.title} (${call.difficulty.toUpperCase()}): ${scoreStr}\n`;
+      md += `- ${call.title || 'UNKNOWN CALL'} (${call.difficulty.toUpperCase()}): ${scoreStr}\n`;
     });
     return md;
   };
@@ -168,23 +168,31 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     };
 
     // List of lines to render on canvas
-    const linesToDraw: Array<{ type: 'text' | 'dim' | 'accent' | 'separator' | 'custom'; content: string; color?: string }> = [];
+    const linesToDraw: Array<{
+      type: 'text' | 'dim' | 'accent' | 'separator' | 'custom' | 'heading-main' | 'heading-section';
+      content: string;
+      color?: string;
+      lineHeight?: number;
+    }> = [];
 
     // Header Banners
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
-    linesToDraw.push({ type: 'accent', content: `           CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT` });
+    linesToDraw.push({
+      type: 'heading-main',
+      content: `CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT`,
+      lineHeight: 26
+    });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'text', content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
-    linesToDraw.push({ 
-      type: 'custom', 
-      color: getRankColor(), 
-      content: `RANK ASSESSMENT:   ${rankObj.title}` 
-    });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'separator', content: `` });
 
     // Shift Overview
-    linesToDraw.push({ type: 'accent', content: `## SHIFT OVERVIEW` });
+    linesToDraw.push({
+      type: 'heading-section',
+      content: `SHIFT OVERVIEW`,
+      lineHeight: 24
+    });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
     linesToDraw.push({ type: 'dim', content: `LN  INCIDENT                      DIFF    STATUS               SCORE` });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
@@ -212,7 +220,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       }
 
       const colLine = (idx + 1).toString().padStart(2, '0') + '  ';
-      let colTitle = call.title.toUpperCase();
+      let colTitle = (call.title || 'UNKNOWN CALL').toUpperCase();
       if (colTitle.length > 28) {
         colTitle = colTitle.substring(0, 25) + '...  ';
       } else {
@@ -235,15 +243,24 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     linesToDraw.push({ 
       type: 'custom', 
       color: getRankColor(), 
-      content: `TOTAL SCORE: ${totalScore} PTS` 
+      content: `TOTAL SCORE:     ${totalScore} PTS` 
+    });
+    linesToDraw.push({ 
+      type: 'custom', 
+      color: getRankColor(), 
+      content: `RANK ASSESSMENT: ${rankObj.title}` 
     });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'dim', content: `                     // END OF TRANSMISSION //` });
 
-    const lineHeight = 20;
+    const defaultLineHeight = 20;
     const padding = 35;
     const width = 580; // Narrower canvas since lines are shorter!
-    const height = linesToDraw.length * lineHeight + padding * 2;
+
+    let height = padding * 2;
+    linesToDraw.forEach((line) => {
+      height += line.lineHeight || defaultLineHeight;
+    });
 
     const canvas = document.createElement('canvas');
     const scale = 2; // high definition scale factor
@@ -278,7 +295,13 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     let currentY = padding;
 
     linesToDraw.forEach((line) => {
-      if (line.type === 'accent') {
+      if (line.type === 'heading-main') {
+        ctx.font = `bold 15px "Courier New", Courier, monospace`;
+        ctx.fillStyle = colors.accent;
+      } else if (line.type === 'heading-section') {
+        ctx.font = `bold 13px "Courier New", Courier, monospace`;
+        ctx.fillStyle = colors.accent;
+      } else if (line.type === 'accent') {
         ctx.font = `bold 12px "Courier New", Courier, monospace`;
         ctx.fillStyle = colors.accent;
       } else if (line.type === 'dim') {
@@ -292,8 +315,17 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
         ctx.fillStyle = colors.text;
       }
 
-      ctx.fillText(line.content, padding + 10, currentY);
-      currentY += lineHeight;
+      const currentLineHeight = line.lineHeight || defaultLineHeight;
+
+      if (line.type === 'heading-main') {
+        ctx.textAlign = 'center';
+        ctx.fillText(line.content, width / 2, currentY);
+        ctx.textAlign = 'left'; // Restore default text alignment
+      } else {
+        ctx.fillText(line.content, padding + 10, currentY);
+      }
+
+      currentY += currentLineHeight;
     });
 
     return canvas;
@@ -516,7 +548,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                             {(idx + 1).toString().padStart(2, '0')}
                           </td>
                           <td className="px-3 py-2.5 font-bold uppercase truncate max-w-[120px] sm:max-w-none">
-                            {call.title}
+                            {call.title || 'UNKNOWN CALL'}
                           </td>
                           <td className={`px-3 py-2.5 hidden sm:table-cell font-semibold uppercase whitespace-nowrap ${diffClass}`}>
                             {call.difficulty}
