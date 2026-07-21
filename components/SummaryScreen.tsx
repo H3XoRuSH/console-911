@@ -190,7 +190,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     // Shift Overview
     linesToDraw.push({
       type: 'heading-section',
-      content: `SHIFT OVERVIEW`,
+      content: `## SHIFT OVERVIEW`,
       lineHeight: 24
     });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
@@ -299,7 +299,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
         ctx.font = `bold 15px "Courier New", Courier, monospace`;
         ctx.fillStyle = colors.accent;
       } else if (line.type === 'heading-section') {
-        ctx.font = `bold 13px "Courier New", Courier, monospace`;
+        ctx.font = `bold 14px "Courier New", Courier, monospace`;
         ctx.fillStyle = colors.accent;
       } else if (line.type === 'accent') {
         ctx.font = `bold 12px "Courier New", Courier, monospace`;
