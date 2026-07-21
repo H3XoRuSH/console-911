@@ -190,7 +190,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     // Shift Overview
     linesToDraw.push({
       type: 'heading-section',
-      content: `## SHIFT OVERVIEW`,
+      content: `SHIFT OVERVIEW`,
       lineHeight: 24
     });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
