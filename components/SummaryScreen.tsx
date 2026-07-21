@@ -367,7 +367,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           {/* GAME SCRIPT SUMMARY TABLE */}
           <div className="space-y-2 text-xs">
             <h3 className="font-bold text-emerald-500/70 uppercase tracking-widest border-b border-emerald-950/60 pb-1">
-              Call Logs Audit (CLICK TO AUDIT)
+              Call Logs Audit
             </h3>
             <div className="space-y-1">
               {calls.map((call, idx) => {
@@ -393,11 +393,6 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                       <span className="font-bold text-emerald-400">
                         DIFF: {call.difficulty.toUpperCase()}
                       </span>
-                      {hasTranscript && (
-                        <span className="text-[10px] text-emerald-500/60 font-semibold uppercase tracking-wider animate-pulse">
-                          [AUDIT]
-                        </span>
-                      )}
                     </div>
                   </button>
                 );
