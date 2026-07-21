@@ -89,7 +89,7 @@ export const PlayingScreen: React.FC<PlayingScreenProps> = ({
   const activeCall = calls[currentCallIndex];
   if (!activeCall) return null;
 
-  const baseSpeed = getRevealSpeed(activeCall.difficulty, activeCall.archetype);
+  const baseSpeed = activeCall.revealSpeed || getRevealSpeed(activeCall.difficulty, activeCall.archetype || '');
   const getSpeedMultiplier = (setting: 'off' | 'low' | 'normal' | 'fast'): number => {
     if (setting === 'low') return 2.0;
     if (setting === 'fast') return 0.4;
