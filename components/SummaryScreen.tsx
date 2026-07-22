@@ -183,7 +183,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       lineHeight: 26
     });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
-    linesToDraw.push({ type: 'text', content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
+    linesToDraw.push({ type: 'custom', color: colors.text, content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'separator', content: `` });
 
@@ -194,7 +194,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       lineHeight: 24
     });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
-    linesToDraw.push({ type: 'dim', content: `LN  INCIDENT                      DIFF    STATUS               SCORE` });
+    linesToDraw.push({ type: 'custom', color: colors.text, content: `LN  INCIDENT                      DIFF    STATUS               SCORE` });
     linesToDraw.push({ type: 'dim', content: `--------------------------------------------------------------------` });
 
     calls.forEach((call, idx) => {
@@ -251,7 +251,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       content: `RANK ASSESSMENT: ${rankObj.title}` 
     });
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
-    linesToDraw.push({ type: 'dim', content: `                     // END OF TRANSMISSION //` });
+    linesToDraw.push({ type: 'custom', color: colors.text, content: `                     // END OF TRANSMISSION //` });
 
     const defaultLineHeight = 20;
     const padding = 35;
