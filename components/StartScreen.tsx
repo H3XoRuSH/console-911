@@ -136,6 +136,8 @@ const TitleLogo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 );
 
 import React, { useState, useRef } from 'react';
+import { showToast } from '@/lib/toast';
+
 
 interface StartScreenProps {
   dispatcherName: string;
@@ -285,9 +287,10 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                             setSelectedScenarios(selectedScenarios.filter((id) => id !== s.id));
                           } else {
                             if (selectedScenarios.length >= 5) {
-                              alert('Shift playlist is capped at 5 scenarios.');
+                              showToast('Shift playlist is capped at 5 scenarios.', 'warning');
                               return;
                             }
+
                             setSelectedScenarios([...selectedScenarios, s.id]);
                           }
                         }}
