@@ -35,7 +35,9 @@ export const FeedbackScreen: React.FC<FeedbackScreenProps> = ({
               feedbackInfo.status === 'SUCCESS'
                 ? 'text-emerald-400 bg-emerald-950/30 border-emerald-500 crt-glow-green'
                 : feedbackInfo.status === 'MINOR_ERROR'
-                  ? 'text-amber-500 bg-amber-950/30 border-amber-500 crt-glow-amber'
+                  ? feedbackInfo.totalCallScore >= 0
+                    ? 'text-emerald-400 bg-emerald-950/30 border-emerald-500 crt-glow-green'
+                    : 'text-red-500 bg-red-950/30 border-red-500 crt-glow-red animate-pulse'
                   : 'text-red-500 bg-red-950/30 border-red-500 crt-glow-red animate-pulse'
             }`}
           >
