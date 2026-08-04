@@ -476,7 +476,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
           {/* GAME SCRIPT SUMMARY TABLE */}
           <div className="space-y-2 text-xs">
             <h3 className="text-sm font-bold text-emerald-400 crt-glow-green uppercase tracking-widest border-b border-emerald-950/60 pb-1.5">
-              Call Logs Audit (CLICK TO AUDIT)
+              Call Logs Audit
             </h3>
             <div className="border border-emerald-950 bg-black/40 rounded overflow-hidden">
               <div className="overflow-x-auto w-full terminal-scroll">
@@ -488,7 +488,6 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                       <th className="px-3 py-2 w-28 hidden sm:table-cell whitespace-nowrap">DIFFICULTY</th>
                       <th className="px-3 py-2 w-40 whitespace-nowrap">STATUS</th>
                       <th className="px-3 py-2 w-28 text-right whitespace-nowrap">SCORE</th>
-                      <th className="px-3 py-2 w-20 text-center whitespace-nowrap">AUDIT</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -558,17 +557,6 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                           </td>
                           <td className={`px-3 py-2.5 text-right font-bold whitespace-nowrap ${scoreClass}`}>
                             {scoreText}
-                          </td>
-                          <td className="px-3 py-2.5 text-center">
-                            {hasTranscript ? (
-                              <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider animate-pulse hover:text-emerald-300 transition-colors">
-                                [AUDIT]
-                              </span>
-                            ) : (
-                              <span className="text-[10px] text-emerald-950 font-semibold uppercase tracking-wider">
-                                [N/A]
-                              </span>
-                            )}
                           </td>
                         </tr>
                       );
