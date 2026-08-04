@@ -14,6 +14,7 @@ interface SettingsModalProps {
   setShowDebugPanel?: (show: boolean) => void;
   showScenarioId?: boolean;
   setShowScenarioId?: (show: boolean) => void;
+  showScenarioDataset?: boolean;
   scenarioDataset: 'original' | 'experimental';
   setScenarioDataset: (dataset: 'original' | 'experimental') => void;
   typewriterSpeed: 'off' | 'low' | 'normal' | 'fast';
@@ -36,6 +37,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   setShowDebugPanel = () => {},
   showScenarioId = false,
   setShowScenarioId = () => {},
+  showScenarioDataset = false,
   scenarioDataset,
   setScenarioDataset,
   typewriterSpeed,
@@ -160,33 +162,35 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
         </div>
 
-        {/* Scenario Dataset Selection */}
-        <div className="space-y-2">
-          <label className="text-xs font-bold uppercase tracking-widest text-emerald-500/70 block">
-            Scenario Database Pool
-          </label>
-          <div className="flex gap-2">
-            {(
-              [
-                { id: 'original', label: 'ORIGINAL', desc: '11 categories (20 each)' },
-                { id: 'experimental', label: 'EXPERIMENTAL', desc: '8 categories (15 each)' }
-              ] as const
-            ).map((d) => (
-              <button
-                key={d.id}
-                onClick={() => setScenarioDataset(d.id)}
-                className={`flex-1 flex flex-col items-center justify-center border py-2.5 rounded text-center cursor-pointer transition-all hover:bg-emerald-950/30 ${
-                  scenarioDataset === d.id
-                    ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
-                    : 'border-emerald-950/60 text-emerald-500/60 bg-transparent'
-                }`}
-              >
-                <span className="text-xs font-bold uppercase">{d.label}</span>
-                <span className="text-[8px] text-emerald-500/40 uppercase mt-0.5">{d.desc}</span>
-              </button>
-            ))}
+        {showScenarioDataset && (
+          /* Scenario Dataset Selection */
+          <div className="space-y-2">
+            <label className="text-xs font-bold uppercase tracking-widest text-emerald-500/70 block">
+              Scenario Database Pool
+            </label>
+            <div className="flex gap-2">
+              {(
+                [
+                  { id: 'original', label: 'ORIGINAL', desc: '11 categories (20 each)' },
+                  { id: 'experimental', label: 'EXPERIMENTAL', desc: '8 categories (15 each)' }
+                ] as const
+              ).map((d) => (
+                <button
+                  key={d.id}
+                  onClick={() => setScenarioDataset(d.id)}
+                  className={`flex-1 flex flex-col items-center justify-center border py-2.5 rounded text-center cursor-pointer transition-all hover:bg-emerald-950/30 ${
+                    scenarioDataset === d.id
+                      ? 'border-emerald-500 text-emerald-400 bg-emerald-950/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                      : 'border-emerald-950/60 text-emerald-500/60 bg-transparent'
+                  }`}
+                >
+                  <span className="text-xs font-bold uppercase">{d.label}</span>
+                  <span className="text-[8px] text-emerald-500/40 uppercase mt-0.5">{d.desc}</span>
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Preview Debug Panel Toggle */}
         {previewMode && (

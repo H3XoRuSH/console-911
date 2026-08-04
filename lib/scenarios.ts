@@ -1,6 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { Scenario, HydratedCallSession, hydrateScenario } from './hydration';
+import { createSeededRandom } from './random';
+import type { RandomSource } from './random';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
 const SCENARIOS_DIR = path.join(DATA_DIR, 'scenarios');
@@ -17,7 +19,7 @@ export function loadAllScenarios(dataset: string = 'original'): Scenario[] {
 
   if (fs.existsSync(targetDir)) {
     try {
-      const files = fs.readdirSync(targetDir);
+      const files = fs.readdirSync(targetDir).sort();
       const scenarios: Scenario[] = [];
       for (const file of files) {
         if (file.endsWith('.json')) {
@@ -56,20 +58,32 @@ export function loadAllScenarios(dataset: string = 'original'): Scenario[] {
  * Selects exactly N scenarios for a game session.
  * Allows scenarios with the same archetype to appear in the same shift.
  */
-export function selectSessionScenarios(count: number = 5, dataset: string = 'original'): HydratedCallSession[] {
+function shuffle<T>(items: T[], random: RandomSource): T[] {
+  for (let index = items.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [items[index], items[swapIndex]] = [items[swapIndex], items[index]];
+  }
+  return items;
+}
+
+export function selectSessionScenarios(
+  count: number = 5,
+  dataset: string = 'original',
+  seed?: string
+): HydratedCallSession[] {
   const allScenarios = loadAllScenarios(dataset);
   if (allScenarios.length === 0) {
     return [];
   }
 
-  // Shuffle scenarios
-  const shuffled = [...allScenarios].sort(() => Math.random() - 0.5);
+  const random = seed ? createSeededRandom(seed) : Math.random;
+  const shuffled = shuffle([...allScenarios], random);
 
   // Select the first count scenarios from the shuffled list
   const selectedScenarios = shuffled.slice(0, count);
 
   // Hydrate each selected scenario for the session
-  return selectedScenarios.map((s) => hydrateScenario(s));
+  return selectedScenarios.map((s) => hydrateScenario(s, random));
 }
 
 /**
@@ -79,13 +93,15 @@ export function selectSessionScenarios(count: number = 5, dataset: string = 'ori
 export function selectSessionScenariosWithSelection(
   selectedIds: string[],
   count: number = 5,
-  dataset: string = 'original'
+  dataset: string = 'original',
+  seed?: string
 ): HydratedCallSession[] {
   const allScenarios = loadAllScenarios(dataset);
   if (allScenarios.length === 0) {
     return [];
   }
 
+  const random = seed ? createSeededRandom(seed) : Math.random;
   const selectedScenarios: Scenario[] = [];
   selectedIds.slice(0, count).forEach((id) => {
     const found = allScenarios.find((s) => s.id === id);
@@ -97,9 +113,9 @@ export function selectSessionScenariosWithSelection(
   if (selectedScenarios.length < count) {
     const selectedSet = new Set(selectedScenarios.map((s) => s.id));
     const remaining = allScenarios.filter((s) => !selectedSet.has(s.id));
-    const shuffledRemaining = [...remaining].sort(() => Math.random() - 0.5);
+    const shuffledRemaining = shuffle([...remaining], random);
     selectedScenarios.push(...shuffledRemaining.slice(0, count - selectedScenarios.length));
   }
 
-  return selectedScenarios.map((s) => hydrateScenario(s));
+  return selectedScenarios.map((s) => hydrateScenario(s, random));
 }

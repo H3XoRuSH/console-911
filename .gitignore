@@ -44,3 +44,6 @@ next-env.d.ts
 # local cache & backups
 /data/local_cache.json
 *.bak
+
+# local OpenCode configuration
+opencode.json

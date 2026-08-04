@@ -4,6 +4,7 @@ import {
   selectSessionScenariosWithSelection,
   loadAllScenarios
 } from '@/lib/scenarios';
+import { normalizeSeed } from '@/lib/random';
 
 export async function GET(req: Request) {
   try {
@@ -26,10 +27,16 @@ export async function GET(req: Request) {
     }
 
     const selectedIdsParam = searchParams.get('scenarios');
+    const seed = normalizeSeed(searchParams.get('seed'));
     const sessionCalls =
       selectedIdsParam && previewMode
-        ? selectSessionScenariosWithSelection(selectedIdsParam.split(',').filter(Boolean), 5, dataset)
-        : selectSessionScenarios(5, dataset);
+        ? selectSessionScenariosWithSelection(
+            selectedIdsParam.split(',').filter(Boolean),
+            5,
+            dataset,
+            seed
+          )
+        : selectSessionScenarios(5, dataset, seed);
 
     // Sanitize scenarios before sending them to the client to avoid leaking the scoring details
     const sanitizedCalls = sessionCalls.map((call) => {
@@ -38,7 +45,7 @@ export async function GET(req: Request) {
       return sanitized;
     });
 
-    return NextResponse.json({ calls: sanitizedCalls, previewMode });
+    return NextResponse.json({ calls: sanitizedCalls, previewMode, seed });
   } catch (error: unknown) {
     console.error('Session GET error:', error);
     const message = error instanceof Error ? error.message : 'Failed to initialize game session.';

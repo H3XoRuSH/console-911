@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { loadAllScenarios } from '@/lib/scenarios';
+import { createSeededRandom } from '@/lib/random';
 
 interface DispatchRequestBody {
   scenarioId: string;
@@ -10,6 +11,7 @@ interface DispatchRequestBody {
   dialogueScore: number;
   selectedSlots: Record<string, string>;
   dataset?: string;
+  seed?: string;
 }
 
 function hydrateText(template: string, slots: Record<string, string>): string {
@@ -36,7 +38,9 @@ export async function POST(req: Request) {
       dialogueScore,
       selectedSlots,
       dataset = 'original',
+      seed,
     } = body;
+    const gameSeed = seed?.trim().slice(0, 64) || undefined;
 
     if (!scenarioId || !actionType || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
@@ -53,7 +57,10 @@ export async function POST(req: Request) {
     const archetype = scenario.archetype || 'Unknown Archetype';
 
     if (actionType === 'TIMEOUT') {
-      const penalty = -150 - Math.floor(Math.random() * 150);
+      const random = gameSeed
+        ? createSeededRandom(`timeout:${gameSeed}:${scenarioId}`)
+        : Math.random;
+      const penalty = -150 - Math.floor(random() * 150);
       const finalScore = dialogueScore + penalty;
       return NextResponse.json({
         status: 'CRITICAL_FAILURE',

@@ -9,6 +9,7 @@ An interactive, retro, text-based emergency dispatch simulator built with **Next
 Operating a retro CRT command dispatch console, your goal is to manage incoming emergency lines:
 
 - **The Shift:** Exactly 5 randomized calls selected from an archetype dataset (ensuring no two calls share the same archetype).
+- **Shareable Seeds:** Every shift receives a seed. Entering the same seed recreates the same calls, caller details, and scripted dialogue variations.
 - **The 10-Turn Cap:** You have up to 10 dialogue turns to query callers and make a routing decision.
 - **Line Timeout Warnings:** Flashing alerts (`⚠️ LINE TIMEOUT IMMINENT`) appear on Turn 8 and 9. At Turn 10, the call forcibly terminates with a heavy Timeout Penalty (-150 to -300 pts).
 - **Routing Board:** Dispatch correct units (`[SEND POLICE]`, `[SEND FIRE]`, `[SEND MEDICAL]`, `[ANIMAL CONTROL]`) or clear the line (`[DISMISS / PRANK]`) to secure points.

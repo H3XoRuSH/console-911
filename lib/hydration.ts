@@ -1,3 +1,5 @@
+import type { RandomSource } from './random';
+
 export interface ScenarioSlot {
   caller_name: string[];
   victim_relation: string[];
@@ -74,7 +76,10 @@ export interface HydratedCallSession {
  * This guarantees consistent randomized values (e.g. same caller name and location)
  * throughout the entire dialogue of the specific call.
  */
-export function hydrateScenario(scenario: Scenario): HydratedCallSession {
+export function hydrateScenario(
+  scenario: Scenario,
+  random: RandomSource = Math.random
+): HydratedCallSession {
   // 1. Choose a random value for each slot variable
   const selectedSlots: Record<string, string> = {};
 
@@ -90,7 +95,7 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
         }
       }
       if (Array.isArray(options) && options.length > 0) {
-        const randomIndex = Math.floor(Math.random() * options.length);
+        const randomIndex = Math.floor(random() * options.length);
         selectedSlots[slotKey] = options[randomIndex];
       } else {
         selectedSlots[slotKey] = '';
@@ -119,7 +124,7 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
   const initialVariations = scenario.initial_variations || [];
   const initialMessage =
     initialVariations.length > 0
-      ? hydrateString(initialVariations[Math.floor(Math.random() * initialVariations.length)])
+      ? hydrateString(initialVariations[Math.floor(random() * initialVariations.length)])
       : '911. What is your emergency?';
 
   // 3. For each intent, select a random response variation for each state and hydrate it
@@ -140,7 +145,7 @@ export function hydrateScenario(scenario: Scenario): HydratedCallSession {
           for (const stateName in intentData.responses) {
             const variations = intentData.responses[stateName];
             if (Array.isArray(variations) && variations.length > 0) {
-              const randomIndex = Math.floor(Math.random() * variations.length);
+              const randomIndex = Math.floor(random() * variations.length);
               responses[stateName] = hydrateString(variations[randomIndex]);
             } else {
               responses[stateName] = '';

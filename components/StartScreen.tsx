@@ -142,6 +142,8 @@ import { showToast } from '@/lib/toast';
 interface StartScreenProps {
   dispatcherName: string;
   setDispatcherName: (val: string) => void;
+  gameSeed: string;
+  setGameSeed: (val: string) => void;
   onStart: () => void;
   previewMode?: boolean;
   availableScenarios?: Array<{ id: string; title: string; archetype: string }>;
@@ -152,6 +154,8 @@ interface StartScreenProps {
 export const StartScreen: React.FC<StartScreenProps> = ({
   dispatcherName,
   setDispatcherName,
+  gameSeed,
+  setGameSeed,
   onStart,
   previewMode = false,
   availableScenarios = [],
@@ -353,6 +357,27 @@ export const StartScreen: React.FC<StartScreenProps> = ({
                   : 'border-emerald-800 text-emerald-400 placeholder:text-emerald-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-800'
               }`}
             />
+          </div>
+
+          <div className="flex flex-col items-center gap-2">
+            <label
+              htmlFor="game-seed"
+              className="text-xs font-bold uppercase tracking-widest text-emerald-400"
+            >
+              Game Seed (Optional):
+            </label>
+            <input
+              id="game-seed"
+              type="text"
+              maxLength={64}
+              value={gameSeed}
+              onChange={(e) => setGameSeed(e.target.value.slice(0, 64))}
+              placeholder="AUTO-GENERATE"
+              className="bg-black border border-emerald-800 text-center text-sm py-2 px-4 rounded w-64 focus:outline-none tracking-widest uppercase font-bold text-emerald-400 placeholder:text-emerald-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-800"
+            />
+            <span className="text-[10px] text-emerald-500/60 uppercase">
+              Use the same seed to replay this shift.
+            </span>
           </div>
 
           <button
