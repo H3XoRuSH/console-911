@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
 import { LeaderboardEntry, TranscriptMessage, FeedbackInfo } from '@/types/game';
 import { showToast } from '@/lib/toast';
@@ -55,12 +55,12 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'results' | 'leaderboard'>('results');
 
-  const handleClosePreview = () => {
+  const handleClosePreview = useCallback(() => {
     if (previewImageUrl) {
       URL.revokeObjectURL(previewImageUrl);
       setPreviewImageUrl(null);
     }
-  };
+  }, [previewImageUrl]);
 
   const handleDownloadPreviewImage = () => {
     if (!previewImageUrl) return;
@@ -389,7 +389,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedCallIndex, previewImageUrl]);
+  }, [selectedCallIndex, previewImageUrl, handleClosePreview]);
 
   useEffect(() => {
     if (scoreSubmitted) {
@@ -789,6 +789,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
             {/* Scrollable image container */}
             <div className="flex-1 overflow-y-auto p-2 border border-emerald-950 bg-black/60 rounded flex items-center justify-center terminal-scroll min-h-[300px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewImageUrl}
                 alt="Shift Performance Report Preview"
