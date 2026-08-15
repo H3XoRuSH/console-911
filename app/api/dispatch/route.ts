@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { loadAllScenarios } from '@/lib/scenarios';
-import { createSeededRandom } from '@/lib/random';
+import { createSeededRandom, normalizeSeed } from '@/lib/random';
 
 interface DispatchRequestBody {
   scenarioId: string;
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       dataset = 'original',
       seed,
     } = body;
-    const gameSeed = seed?.trim().slice(0, 64) || undefined;
+    const gameSeed = seed?.trim() ? normalizeSeed(seed) : undefined;
 
     if (!scenarioId || !actionType || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });

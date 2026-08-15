@@ -3,7 +3,7 @@ import { loadAllScenarios } from '@/lib/scenarios';
 import { normalizeIntent } from '@/lib/intent';
 import { redis } from '@/lib/redis';
 import { removeStopwords } from 'stopword';
-import { createSeededRandom } from '@/lib/random';
+import { createSeededRandom, normalizeSeed } from '@/lib/random';
 
 interface ChatHistoryItem {
   role: 'dispatcher' | 'caller';
@@ -177,7 +177,7 @@ export async function POST(req: Request) {
     } = body;
 
     const dispatcherMessage = (rawDispatcherMessage || '').slice(0, 120);
-    const gameSeed = seed?.trim().slice(0, 64) || undefined;
+    const gameSeed = seed?.trim() ? normalizeSeed(seed) : undefined;
 
     if (!scenarioId || !dispatcherMessage || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
@@ -289,7 +289,7 @@ export async function POST(req: Request) {
 
     // === TIER 2: Global Upstash Redis Cache Match ===
     const cacheSeedSuffix = gameSeed ? `:seed:${encodeURIComponent(gameSeed)}` : '';
-    const cacheKey = `cache:${scenarioId}:${currentState}:${normalizedIntent}${cacheSeedSuffix}`;
+    const cacheKey = `cache:${dataset}:${scenarioId}:${currentState}:${normalizedIntent}${cacheSeedSuffix}`;
     if (redis) {
       try {
         const cached = await redis.get<string>(cacheKey);

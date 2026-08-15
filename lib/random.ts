@@ -59,6 +59,6 @@ export function generateSeed(): string {
 }
 
 export function normalizeSeed(seed?: string | null): string {
-  const normalized = seed?.trim().slice(0, 64);
+  const normalized = seed?.trim().slice(0, 64).toUpperCase();
   return normalized || generateSeed();
 }

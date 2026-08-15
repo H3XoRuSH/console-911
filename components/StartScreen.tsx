@@ -371,7 +371,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({
               type="text"
               maxLength={64}
               value={gameSeed}
-              onChange={(e) => setGameSeed(e.target.value.slice(0, 64))}
+              onChange={(e) => setGameSeed(e.target.value.slice(0, 64).toUpperCase())}
               placeholder="AUTO-GENERATE"
               className="bg-black border border-emerald-800 text-center text-sm py-2 px-4 rounded w-64 focus:outline-none tracking-widest uppercase font-bold text-emerald-400 placeholder:text-emerald-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-800"
             />
