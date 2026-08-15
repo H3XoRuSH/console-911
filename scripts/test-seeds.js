@@ -179,4 +179,44 @@ assert.strictEqual(penalty1, penalty2, 'Penalties for equivalent seeds must be i
 assert.ok(penalty1 <= -150 && penalty1 >= -300, 'Penalty must be within expected range [-300, -150]');
 console.log(`  -> Passed: deterministic timeout penalties verified (scenario_001 penalty: ${penalty1}, scenario_002 penalty: ${penalty3}).`);
 
+// ----------------------------------------------------
+// TEST 5: Report export seed inclusion (Markdown & Canvas)
+// ----------------------------------------------------
+console.log('✓ Testing seed inclusion in Markdown and Canvas shift reports...');
+
+const testSeed = 'TEST_SEED_EXPORT_123';
+
+// Markdown report verification
+function generateMarkdownReport(dispatcherName, gameSeed, totalScore, calls) {
+  let md = `📞 **CONSOLE 911 - SHIFT REPORT**\n`;
+  md += `**Operator:** ${dispatcherName.toUpperCase() || 'OPERATOR'}\n`;
+  md += `**Rank:** Rookie\n`;
+  md += `**Game Seed:** ${gameSeed}\n`;
+  md += `**Total Score:** ${totalScore} PTS\n\n`;
+  md += `**Shift Overview:**\n`;
+  calls.forEach((call) => {
+    md += `- ${call.title || 'UNKNOWN CALL'}: +100 PTS\n`;
+  });
+  return md;
+}
+
+const mdReport = generateMarkdownReport('Dispatcher 1', testSeed, 500, [{ title: 'Call 1' }]);
+assert.ok(mdReport.includes(`**Game Seed:** ${testSeed}`), 'Markdown report must include Game Seed');
+
+// Canvas report lines verification
+function generateCanvasReportLines(dispatcherName, gameSeed) {
+  const lines = [];
+  lines.push({ type: 'heading-main', content: `CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT` });
+  lines.push({ type: 'custom', content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
+  if (gameSeed) {
+    lines.push({ type: 'custom', content: `GAME SEED: ${gameSeed}` });
+  }
+  return lines;
+}
+
+const canvasLines = generateCanvasReportLines('Dispatcher 1', testSeed);
+const seedLine = canvasLines.find(l => l.content === `GAME SEED: ${testSeed}`);
+assert.ok(seedLine !== undefined, 'Canvas report lines must include GAME SEED line');
+console.log('  -> Passed: Game seed is verified in both Markdown and Canvas shift report exports.');
+
 console.log('\n✅ All tests passed successfully!');

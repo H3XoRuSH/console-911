@@ -198,8 +198,10 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       content: `CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT`,
       lineHeight: 26
     });
-    linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'custom', color: colors.text, content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
+    if (gameSeed) {
+      linesToDraw.push({ type: 'custom', color: colors.text, content: `GAME SEED: ${gameSeed}` });
+    }
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'separator', content: `` });
 
