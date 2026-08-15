@@ -9,6 +9,7 @@
     "lint": "eslint",
     "format": "eslint --fix .",
     "typecheck": "tsc --noEmit",
+    "test": "node scripts/test-seeds.js",
     "generate": "node scripts/generate-scenarios.js"
   },
   "dependencies": {

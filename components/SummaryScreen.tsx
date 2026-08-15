@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { HydratedCallSession } from '@/lib/hydration';
 import { LeaderboardEntry, TranscriptMessage, FeedbackInfo } from '@/types/game';
 import { showToast } from '@/lib/toast';
@@ -26,6 +26,7 @@ interface SummaryScreenProps {
   completedTranscripts: TranscriptMessage[][];
   completedFeedbacks: FeedbackInfo[];
   totalScore: number;
+  gameSeed: string;
   dispatcherName: string;
   leaderboard: LeaderboardEntry[];
   scoreSubmitted: boolean;
@@ -39,6 +40,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
   completedTranscripts,
   completedFeedbacks,
   totalScore,
+  gameSeed,
   dispatcherName,
   leaderboard,
   scoreSubmitted,
@@ -48,16 +50,17 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 }) => {
   const [selectedCallIndex, setSelectedCallIndex] = useState<number | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [copySeedSuccess, setCopySeedSuccess] = useState(false);
   const [copyImageSuccess, setCopyImageSuccess] = useState(false);
   const [previewImageUrl, setPreviewImageUrl] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'results' | 'leaderboard'>('results');
 
-  const handleClosePreview = () => {
+  const handleClosePreview = useCallback(() => {
     if (previewImageUrl) {
       URL.revokeObjectURL(previewImageUrl);
       setPreviewImageUrl(null);
     }
-  };
+  }, [previewImageUrl]);
 
   const handleDownloadPreviewImage = () => {
     if (!previewImageUrl) return;
@@ -103,6 +106,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     let md = `📞 **CONSOLE 911 - SHIFT REPORT**\n`;
     md += `**Operator:** ${dispatcherName.toUpperCase() || 'OPERATOR'}\n`;
     md += `**Rank:** ${rankObj.title}\n`;
+    md += `**Game Seed:** ${gameSeed}\n`;
     md += `**Total Score:** ${totalScore} PTS\n\n`;
     
     md += `**Shift Overview:**\n`;
@@ -113,6 +117,18 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       md += `- ${call.title || 'UNKNOWN CALL'} (${call.difficulty.toUpperCase()}): ${scoreStr}\n`;
     });
     return md;
+  };
+
+  const handleCopySeed = async () => {
+    try {
+      await navigator.clipboard.writeText(gameSeed);
+      setCopySeedSuccess(true);
+      setTimeout(() => setCopySeedSuccess(false), 3000);
+      showToast('Game seed copied to clipboard', 'success');
+    } catch (err) {
+      console.error('Failed to copy game seed: ', err);
+      showToast('Could not copy game seed to clipboard.', 'error');
+    }
   };
 
   const handleCopyToClipboard = async () => {
@@ -182,8 +198,10 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
       content: `CONSOLE 911 // EMERGENCY DISPATCH SHIFT REPORT`,
       lineHeight: 26
     });
-    linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'custom', color: colors.text, content: `OPERATOR CALLSIGN: ${dispatcherName.toUpperCase() || 'OPERATOR'}` });
+    if (gameSeed) {
+      linesToDraw.push({ type: 'custom', color: colors.text, content: `GAME SEED: ${gameSeed}` });
+    }
     linesToDraw.push({ type: 'accent', content: `====================================================================` });
     linesToDraw.push({ type: 'separator', content: `` });
 
@@ -373,7 +391,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedCallIndex, previewImageUrl]);
+  }, [selectedCallIndex, previewImageUrl, handleClosePreview]);
 
   useEffect(() => {
     if (scoreSubmitted) {
@@ -444,6 +462,25 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
                 SCORE: {totalScore} PTS
               </span>
             </div>
+          </div>
+
+          <div className="border border-emerald-900 bg-zinc-950/40 p-4 rounded text-xs space-y-2">
+            <div className="flex items-center justify-between gap-3">
+              <span className="font-bold uppercase tracking-widest text-emerald-400">Game Seed</span>
+              <button
+                type="button"
+                onClick={handleCopySeed}
+                className="border border-emerald-800 bg-emerald-950/15 hover:bg-emerald-950/40 text-emerald-400 hover:text-emerald-300 font-bold py-1 px-2 rounded text-[10px] uppercase cursor-pointer"
+              >
+                {copySeedSuccess ? 'Copied!' : 'Copy Seed'}
+              </button>
+            </div>
+            <code className="block text-emerald-300 font-bold tracking-widest break-all select-text">
+              {gameSeed}
+            </code>
+            <p className="text-[10px] text-emerald-500/60 uppercase">
+              Share this seed to let others play the same shift.
+            </p>
           </div>
 
           {/* SHIFT REPORT EXPORT BOARD */}
@@ -754,6 +791,7 @@ export const SummaryScreen: React.FC<SummaryScreenProps> = ({
 
             {/* Scrollable image container */}
             <div className="flex-1 overflow-y-auto p-2 border border-emerald-950 bg-black/60 rounded flex items-center justify-center terminal-scroll min-h-[300px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={previewImageUrl}
                 alt="Shift Performance Report Preview"

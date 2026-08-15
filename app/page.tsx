@@ -62,6 +62,8 @@ export default function Console911Game() {
     setGameState,
     dispatcherName,
     setDispatcherName,
+    gameSeed,
+    setGameSeed,
     calls,
     setCalls,
     currentCallIndex,
@@ -151,6 +153,10 @@ export default function Console911Game() {
                 SCORE: <strong className="text-emerald-400">{totalScore} PTS</strong>
               </span>
               <span className="text-emerald-950">|</span>
+              <span className="hidden sm:inline select-text">
+                SEED: <strong className="text-emerald-400">{gameSeed}</strong>
+              </span>
+              <span className="hidden sm:inline text-emerald-950">|</span>
               <button
                 onClick={handleAbortSession}
                 className={`w-[80px] text-center font-bold uppercase tracking-widest cursor-pointer transition-all border py-0.5 rounded text-[9px] ${
@@ -192,6 +198,8 @@ export default function Console911Game() {
           <StartScreen
             dispatcherName={dispatcherName}
             setDispatcherName={setDispatcherName}
+            gameSeed={gameSeed}
+            setGameSeed={setGameSeed}
             onStart={startSession}
             previewMode={previewMode && showDebugPanel}
             availableScenarios={availableScenarios}
@@ -259,6 +267,7 @@ export default function Console911Game() {
             completedTranscripts={completedTranscripts}
             completedFeedbacks={completedFeedbacks}
             totalScore={totalScore}
+            gameSeed={gameSeed}
             dispatcherName={dispatcherName}
             leaderboard={leaderboard}
             scoreSubmitted={scoreSubmitted}
@@ -267,6 +276,7 @@ export default function Console911Game() {
             onReboot={() => {
               setGameState('start');
               setCalls([]);
+              setGameSeed('');
               setCompletedTranscripts([]);
               setCompletedFeedbacks([]);
             }}
@@ -297,6 +307,7 @@ export default function Console911Game() {
         setShowDebugPanel={setShowDebugPanel}
         showScenarioId={showScenarioId}
         setShowScenarioId={setShowScenarioId}
+        showScenarioDataset={gameState === 'start'}
         scenarioDataset={scenarioDataset}
         setScenarioDataset={changeScenarioDataset}
         typewriterSpeed={typewriterSpeed}

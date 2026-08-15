@@ -13,6 +13,7 @@ export function useGameState() {
 
   // Game session states
   const [dispatcherName, setDispatcherName] = useState('');
+  const [gameSeed, setGameSeed] = useState('');
   const [calls, setCalls] = useState<HydratedCallSession[]>([]);
   const [currentCallIndex, setCurrentCallIndex] = useState(0);
   const [turnCount, setTurnCount] = useState(1);
@@ -165,9 +166,13 @@ export function useGameState() {
       if (previewMode && selectedScenarios.length > 0) {
         url += `&scenarios=${encodeURIComponent(selectedScenarios.join(','))}`;
       }
+      if (gameSeed.trim()) {
+        url += `&seed=${encodeURIComponent(gameSeed.trim())}`;
+      }
       const res = await fetch(url);
       if (!res.ok) throw new Error('Failed to initialize session');
       const data = await res.json();
+      setGameSeed(data.seed || gameSeed.trim());
       setCalls(data.calls || []);
 
       if (data.calls && data.calls.length > 0) {
@@ -273,7 +278,8 @@ export function useGameState() {
           history,
           selectedSlots: activeCall.selectedSlots,
           currentState,
-          dataset: scenarioDataset
+          dataset: scenarioDataset,
+          seed: gameSeed
         })
       });
 
@@ -350,7 +356,8 @@ export function useGameState() {
           currentState,
           dialogueScore: callScore,
           selectedSlots: activeCall.selectedSlots,
-          dataset: scenarioDataset
+          dataset: scenarioDataset,
+          seed: gameSeed
         })
       });
 
@@ -412,7 +419,8 @@ export function useGameState() {
           currentState,
           dialogueScore: callScore,
           selectedSlots: activeCall.selectedSlots,
-          dataset: scenarioDataset
+          dataset: scenarioDataset,
+          seed: gameSeed
         })
       });
 
@@ -511,6 +519,7 @@ export function useGameState() {
     setAbortConfirm(false);
     setGameState('start');
     setCalls([]);
+    setGameSeed('');
     setCurrentCallIndex(0);
     setTurnCount(1);
     setTotalScore(0);
@@ -531,6 +540,8 @@ export function useGameState() {
     setGameState,
     dispatcherName,
     setDispatcherName,
+    gameSeed,
+    setGameSeed,
     calls,
     setCalls,
     currentCallIndex,

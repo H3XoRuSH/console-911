@@ -3,6 +3,7 @@ import { loadAllScenarios } from '@/lib/scenarios';
 import { normalizeIntent } from '@/lib/intent';
 import { redis } from '@/lib/redis';
 import { removeStopwords } from 'stopword';
+import { createSeededRandom, normalizeSeed } from '@/lib/random';
 
 interface ChatHistoryItem {
   role: 'dispatcher' | 'caller';
@@ -16,6 +17,7 @@ interface ChatRequestBody {
   selectedSlots: Record<string, string>;
   currentState?: string;
   dataset?: string;
+  seed?: string;
 }
 
 /**
@@ -170,10 +172,12 @@ export async function POST(req: Request) {
       history,
       selectedSlots,
       currentState = 'initial',
-      dataset = 'original'
+      dataset = 'original',
+      seed
     } = body;
 
     const dispatcherMessage = (rawDispatcherMessage || '').slice(0, 120);
+    const gameSeed = seed?.trim() ? normalizeSeed(seed) : undefined;
 
     if (!scenarioId || !dispatcherMessage || !selectedSlots) {
       return NextResponse.json({ error: 'Missing required fields.' }, { status: 400 });
@@ -258,8 +262,13 @@ export async function POST(req: Request) {
       const stateResponses =
         preScriptedIntent.responses[currentState] || preScriptedIntent.responses['initial'] || [];
       if (stateResponses.length > 0) {
-        // Pick a random variation
-        const randomIndex = Math.floor(Math.random() * stateResponses.length);
+        // Derive the choice from the game seed and turn so request timing cannot change it.
+        const random = gameSeed
+          ? createSeededRandom(
+              `chat:${gameSeed}:${scenarioId}:${currentState}:${normalizedIntent}:${history.length}`
+            )
+          : Math.random;
+        const randomIndex = Math.floor(random() * stateResponses.length);
         const template = stateResponses[randomIndex];
         const hydratedResponse = hydrateText(template, selectedSlots);
 
@@ -279,7 +288,8 @@ export async function POST(req: Request) {
     }
 
     // === TIER 2: Global Upstash Redis Cache Match ===
-    const cacheKey = `cache:${scenarioId}:${currentState}:${normalizedIntent}`;
+    const cacheSeedSuffix = gameSeed ? `:seed:${encodeURIComponent(gameSeed)}` : '';
+    const cacheKey = `cache:${dataset}:${scenarioId}:${currentState}:${normalizedIntent}${cacheSeedSuffix}`;
     if (redis) {
       try {
         const cached = await redis.get<string>(cacheKey);
